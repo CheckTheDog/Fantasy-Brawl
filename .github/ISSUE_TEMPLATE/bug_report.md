@@ -6,25 +6,35 @@ labels: good first issue
 assignees: roles in charge
 
 ---
+**Bug Type**
+- [ ] Fatal :collision:
+- [ ] Unintended action :bug:
+- [ ] Aesthetic:art:
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Priority**
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+- [ ] ASAP:heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:
+- [ ] High:heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:
+- [ ] Medium:heavy_exclamation_mark::heavy_exclamation_mark:
+- [ ] Low:heavy_exclamation_mark:
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Frequency**
+- [ ] Everytime:space_invader:
+- [ ] High:arrows_clockwise:
+- [ ] Regular:watch:
+- [ ] Low:hourglass:
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Description**
+- (Desribe the bug here)
 
-**Desktop (please complete the following information):**
- - Game Version [e.g. 22]
+**Reproduction**
+- (Steps to reproduce here)
 
-**Additional context**
-Add any other context about the problem here.
+**Expected behavior**:
+- (Behavior expected here)
+
+**Game version**
+- (Version of the game here)
+
+**Additional context** 
+- (Screenshots, others here)  
