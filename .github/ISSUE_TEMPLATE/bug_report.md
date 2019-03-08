@@ -1,11 +1,3 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: BUG
-labels: good first issue
-assignees: roles in charge
-
----
 **Bug Type**
 - [ ] Fatal :collision:
 - [ ] Unintended action :bug:
@@ -38,3 +30,6 @@ assignees: roles in charge
 
 **Additional context** 
 - (Screenshots, others here)  
+
+**Suggested Assignees**
+- (Assignees names here)
