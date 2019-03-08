@@ -1,19 +1,19 @@
 **Bug Type:**
-- [ ] Fatal 
-- [ ] Unintended action 
-- [ ] Aesthetic
+- Fatal ()
+-  Unintended action()
+-  Aesthetic()
 
 **Priority:**
 
-- [ ] ASAP
-- [ ] High
-- [ ] Medium:
-- [ ] Low
+-  ASAP()
+-  High()
+-  Medium()
+-  Low()
 
 **Frequency:**
-- [ ] Everytime
-- [ ] Regular
-- [ ] Low
+-  Everytime()
+-  Regular()
+-  Low()
 
 **Description:**
 - (Desribe the bug here)
