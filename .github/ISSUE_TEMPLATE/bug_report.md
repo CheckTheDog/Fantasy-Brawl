@@ -1,35 +1,34 @@
-**Bug Type**
-- [ ] Fatal :collision:
-- [ ] Unintended action :bug:
-- [ ] Aesthetic:art:
+**Bug Type:**
+- [ ] Fatal 
+- [ ] Unintended action 
+- [ ] Aesthetic
 
-**Priority**
+**Priority:**
 
-- [ ] ASAP:heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:
-- [ ] High:heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:
-- [ ] Medium:heavy_exclamation_mark::heavy_exclamation_mark:
-- [ ] Low:heavy_exclamation_mark:
+- [ ] ASAP
+- [ ] High
+- [ ] Medium:
+- [ ] Low
 
-**Frequency**
-- [ ] Everytime:space_invader:
-- [ ] High:arrows_clockwise:
-- [ ] Regular:watch:
-- [ ] Low:hourglass:
+**Frequency:**
+- [ ] Everytime
+- [ ] Regular
+- [ ] Low
 
-**Description**
+**Description:**
 - (Desribe the bug here)
 
-**Reproduction**
+**Reproduction:**
 - (Steps to reproduce here)
 
-**Expected behavior**:
+**Expected behavior:**
 - (Behavior expected here)
 
-**Game version**
+**Game version:**
 - (Version of the game here)
 
-**Additional context** 
+**Additional context:** 
 - (Screenshots, others here)  
 
-**Suggested Assignees**
+**Suggested Assignees:**
 - (Assignees names here)
