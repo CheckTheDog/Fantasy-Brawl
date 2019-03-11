@@ -6,6 +6,7 @@
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
+#define NUM_GAMEPAD_BUTTONS 15
 
 struct SDL_Rect;
 
@@ -23,6 +24,14 @@ enum j1KeyState
 	KEY_DOWN,
 	KEY_REPEAT,
 	KEY_UP
+};
+
+enum GP_BUTTON_STATE
+{
+	BUTTON_IDLE = 0,
+	BUTTON_DOWN,
+	BUTTON_REPEAT,
+	BUTTON_UP
 };
 
 class j1Input : public j1Module

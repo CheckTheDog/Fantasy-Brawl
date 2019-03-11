@@ -4,6 +4,8 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
+#include "SDL/include/SDL_gamecontroller.h"
+
 
 #define MAX_KEYS 300
 
@@ -28,10 +30,19 @@ bool j1Input::Awake(pugi::xml_node& config)
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
+	SDL_Init(SDL_INIT_GAMECONTROLLER);
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+
+	SDL_GameControllerEventState(SDL_ENABLE);
+
+	if (SDL_GameControllerEventState(SDL_QUERY) != 1)
+	{
+		LOG("SDL_GAME_CONTROLLER_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -128,6 +139,17 @@ bool j1Input::PreUpdate()
 		}
 	}
 
+
+	int nGameControllers = 0;
+	int nJoysticks = SDL_NumJoysticks();
+
+	for (int i = 0; i < nJoysticks; i++)
+	{
+		if (SDL_IsGameController(i)) 
+		{
+			nGameControllers++;
+		}
+	}
 	return true;
 }
 
