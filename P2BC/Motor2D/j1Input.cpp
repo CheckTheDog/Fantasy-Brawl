@@ -8,6 +8,7 @@
 
 
 #define MAX_KEYS 300
+#define MAX_GAMEPADS 4
 
 j1Input::j1Input() : j1Module()
 {
@@ -16,12 +17,16 @@ j1Input::j1Input() : j1Module()
 	keyboard = new j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+
+	gamepad = new GP_BUTTON_STATE[SDL_CONTROLLER_BUTTON_MAX];
+	memset(gamepad, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * SDL_CONTROLLER_BUTTON_MAX);
 }
 
 // Destructor
 j1Input::~j1Input()
 {
 	delete[] keyboard;
+	delete gamepad;
 }
 
 // Called before render is available
@@ -139,15 +144,44 @@ bool j1Input::PreUpdate()
 		}
 	}
 
-
+	//Checking Gamepad input
 	int nGameControllers = 0;
 	int nJoysticks = SDL_NumJoysticks();
 
+	SDL_GameController* g[MAX_GAMEPADS] = { nullptr };
+
+	//Check number of joysticks
 	for (int i = 0; i < nJoysticks; i++)
 	{
 		if (SDL_IsGameController(i)) 
 		{
 			nGameControllers++;
+			g[nGameControllers - 1] = SDL_GameControllerOpen(nGameControllers - 1); // If game controller, open it
+
+			if (SDL_GameControllerGetAttached(g[nGameControllers - 1]) == SDL_TRUE) // If it is opened correctly
+			{
+				//Check all button states
+				for (int j = 0; j < SDL_CONTROLLER_BUTTON_MAX; ++j) 
+				{
+					if (SDL_GameControllerGetButton(g[nGameControllers - 1], (SDL_GameControllerButton)j) == 1)
+					{
+						//Right now what happens here is: the last gamepad connecetd is giving input data to the 
+						//gamepad var (only 1 gamepad can play for now)
+						//This must be changed to work with 4 gamepads in the future
+						if (gamepad[j] == BUTTON_IDLE)
+							gamepad[j] = BUTTON_DOWN;
+						else
+							gamepad[j] = BUTTON_REPEAT;
+					}
+					else
+					{
+						if (gamepad[j] == BUTTON_REPEAT || gamepad[j] == BUTTON_DOWN)
+								gamepad[j] = BUTTON_UP;
+						else
+								gamepad[j] = BUTTON_IDLE;
+					}
+				}
+			}
 		}
 	}
 	return true;

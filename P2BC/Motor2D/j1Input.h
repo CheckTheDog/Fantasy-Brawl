@@ -70,6 +70,12 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
+	//Check gamepad button states
+	GP_BUTTON_STATE GetGamepadButton(int id) const
+	{
+		return gamepad[id];
+	}
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -85,6 +91,8 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+
+	GP_BUTTON_STATE* gamepad;
 };
 
 #endif // __j1INPUT_H__

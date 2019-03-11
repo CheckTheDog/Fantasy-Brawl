@@ -135,6 +135,18 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= ceil(150.0*dt);
 
+	//Gamepad Test
+	if (App->input->GetGamepadButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT)
+		App->render->camera.y += ceil(150.0*dt);
+
+	if (App->input->GetGamepadButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT)
+		App->render->camera.y -= ceil(150.0*dt);
+
+	if (App->input->GetGamepadButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
+		App->render->camera.x += ceil(150.0*dt);
+
+	if (App->input->GetGamepadButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
+		App->render->camera.x -= ceil(150.0*dt);
 	App->map->Draw();
 
 	int x, y;
