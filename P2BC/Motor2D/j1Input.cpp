@@ -17,16 +17,13 @@ j1Input::j1Input() : j1Module()
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
 
-	gamepad = new GP_BUTTON_STATE[SDL_CONTROLLER_BUTTON_MAX];
-	memset(gamepad, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * SDL_CONTROLLER_BUTTON_MAX);
-
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
 		controllers[i].buttons = new GP_BUTTON_STATE[SDL_CONTROLLER_BUTTON_MAX];
 		memset(controllers[i].buttons, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * SDL_CONTROLLER_BUTTON_MAX);
 
-		controllers[i].axes = new int[SDL_CONTROLLER_AXIS_MAX];
-		memset(controllers[i].axes, 0, sizeof(int) * SDL_CONTROLLER_AXIS_MAX);
+		controllers[i].axis = new int[SDL_CONTROLLER_AXIS_MAX];
+		memset(controllers[i].axis, 0, sizeof(int) * SDL_CONTROLLER_AXIS_MAX);
 	}
 }
 
@@ -34,12 +31,11 @@ j1Input::j1Input() : j1Module()
 j1Input::~j1Input()
 {
 	delete[] keyboard;
-	delete[] gamepad; //Testing
 
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
 		delete[] controllers[i].buttons;
-		delete[] controllers[i].axes;
+		delete[] controllers[i].axis;
 	}
 }
 
@@ -160,6 +156,7 @@ bool j1Input::PreUpdate()
 
 	//Checking Gamepad input
 	int nGameControllers = 0;
+	int g_index = -1;
 	int nJoysticks = SDL_NumJoysticks();
 
 	SDL_GameController* g[MAX_GAMEPADS] = { nullptr };
@@ -170,40 +167,39 @@ bool j1Input::PreUpdate()
 		if (SDL_IsGameController(i)) 
 		{
 			nGameControllers++;
-			g[nGameControllers - 1] = SDL_GameControllerOpen(nGameControllers - 1); // If game controller, open it
+			g_index++;
+			g[g_index] = SDL_GameControllerOpen(g_index); // If game controller, open it
 
-			if (SDL_GameControllerGetAttached(g[nGameControllers - 1]) == SDL_TRUE) // If it is opened correctly
+			if (SDL_GameControllerGetAttached(g[g_index]) == SDL_TRUE) // If it is opened correctly
 			{
 				//Check all button states
 				for (int j = 0; j < SDL_CONTROLLER_BUTTON_MAX; ++j) 
 				{
-					if (SDL_GameControllerGetButton(g[nGameControllers - 1], (SDL_GameControllerButton)j) == 1)
+					if (SDL_GameControllerGetButton(g[g_index], (SDL_GameControllerButton)j) == 1)
 					{
-						//Right now what happens here is: the last gamepad connecetd is giving input data to the 
-						//gamepad var (only 1 gamepad can play for now)
-						//This must be changed to work with 4 gamepads in the future
-						if (gamepad[j] == BUTTON_IDLE)
-							gamepad[j] = BUTTON_DOWN;
+						if (controllers[g_index].buttons[j] == BUTTON_IDLE)
+							controllers[g_index].buttons[j] = BUTTON_DOWN;
 						else
-							gamepad[j] = BUTTON_REPEAT;
+							controllers[g_index].buttons[j] = BUTTON_REPEAT;
 					}
 					else
 					{
-						if (gamepad[j] == BUTTON_REPEAT || gamepad[j] == BUTTON_DOWN)
-								gamepad[j] = BUTTON_UP;
+						if (controllers[g_index].buttons[j] == BUTTON_REPEAT || controllers[g_index].buttons[j] == BUTTON_DOWN)
+							controllers[g_index].buttons[j] = BUTTON_UP;
 						else
-								gamepad[j] = BUTTON_IDLE;
+							controllers[g_index].buttons[j] = BUTTON_IDLE;
 					}
 				}
 
 				// Check all Axis & Triggers
 				for (int j = 0; j < SDL_CONTROLLER_AXIS_MAX; ++j)
 				{
-					controllers[nGameControllers - 1].axes[j] = SDL_GameControllerGetAxis(g[nGameControllers - 1], (SDL_GameControllerAxis)j);
+					controllers[g_index].axis[j] = SDL_GameControllerGetAxis(g[g_index], (SDL_GameControllerAxis)j);
 				}
 			}
 		}
 	}
+
 	return true;
 }
 

@@ -141,6 +141,12 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > 10000)
 		App->render->camera.y -= ceil(150.0*dt);
+
+	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
+		App->render->camera.x += ceil(150.0*dt);
+
+	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
+		App->render->camera.x -= ceil(150.0*dt);
 	
 
 	/*if (App->input->GetGamepadButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT)

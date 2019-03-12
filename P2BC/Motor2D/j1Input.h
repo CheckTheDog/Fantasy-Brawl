@@ -43,10 +43,12 @@ enum class PLAYER
 	P3,
 	P4
 };
+
+// Gamepad custom struct 
 struct gpad
 {
 	GP_BUTTON_STATE* buttons = nullptr;
-	int* axes = nullptr;
+	int* axis = nullptr;
 };
 
 class j1Input : public j1Module
@@ -85,20 +87,16 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
-	//Check gamepad button states
-	GP_BUTTON_STATE GetGamepadButton(int id) const
-	{
-		return gamepad[id];
-	}
-
+	// Check gamepad button states
 	GP_BUTTON_STATE GetButton(PLAYER p,int id) const
 	{
 		return controllers[(int)p].buttons[id];
 	}
 
+	// Check gamepad axis & triggers
 	int GetAxis(PLAYER p, int id) const
 	{
-		return controllers[(int)p].axes[id];
+		return controllers[(int)p].axis[id];
 	}
 
 
@@ -119,7 +117,6 @@ private:
 	int			mouse_x;
 	int			mouse_y;
 
-	GP_BUTTON_STATE* gamepad;
 	gpad controllers[MAX_GAMEPADS] = {nullptr};
 };
 
