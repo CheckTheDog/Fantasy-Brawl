@@ -8,6 +8,8 @@
 //#define LAST_KEYS_PRESSED_BUFFER 50
 #define NUM_GAMEPAD_BUTTONS 15
 
+#define MAX_GAMEPADS 4
+
 struct SDL_Rect;
 
 enum j1EventWindow
@@ -32,6 +34,19 @@ enum GP_BUTTON_STATE
 	BUTTON_DOWN,
 	BUTTON_REPEAT,
 	BUTTON_UP
+};
+
+enum class PLAYER
+{
+	P1 = 0,
+	P2,
+	P3,
+	P4
+};
+struct gpad
+{
+	GP_BUTTON_STATE* buttons = nullptr;
+	int* axes = nullptr;
 };
 
 class j1Input : public j1Module
@@ -76,6 +91,18 @@ public:
 		return gamepad[id];
 	}
 
+	GP_BUTTON_STATE GetButton(PLAYER p,int id) const
+	{
+		return controllers[(int)p].buttons[id];
+	}
+
+	int GetAxis(PLAYER p, int id) const
+	{
+		return controllers[(int)p].axes[id];
+	}
+
+
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -93,6 +120,7 @@ private:
 	int			mouse_y;
 
 	GP_BUTTON_STATE* gamepad;
+	gpad controllers[MAX_GAMEPADS] = {nullptr};
 };
 
 #endif // __j1INPUT_H__

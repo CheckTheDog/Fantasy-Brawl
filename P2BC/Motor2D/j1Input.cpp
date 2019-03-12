@@ -8,7 +8,6 @@
 
 
 #define MAX_KEYS 300
-#define MAX_GAMEPADS 4
 
 j1Input::j1Input() : j1Module()
 {
@@ -20,13 +19,28 @@ j1Input::j1Input() : j1Module()
 
 	gamepad = new GP_BUTTON_STATE[SDL_CONTROLLER_BUTTON_MAX];
 	memset(gamepad, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * SDL_CONTROLLER_BUTTON_MAX);
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		controllers[i].buttons = new GP_BUTTON_STATE[SDL_CONTROLLER_BUTTON_MAX];
+		memset(controllers[i].buttons, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * SDL_CONTROLLER_BUTTON_MAX);
+
+		controllers[i].axes = new int[SDL_CONTROLLER_AXIS_MAX];
+		memset(controllers[i].axes, 0, sizeof(int) * SDL_CONTROLLER_AXIS_MAX);
+	}
 }
 
 // Destructor
 j1Input::~j1Input()
 {
 	delete[] keyboard;
-	delete gamepad;
+	delete[] gamepad; //Testing
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		delete[] controllers[i].buttons;
+		delete[] controllers[i].axes;
+	}
 }
 
 // Called before render is available
@@ -180,6 +194,12 @@ bool j1Input::PreUpdate()
 						else
 								gamepad[j] = BUTTON_IDLE;
 					}
+				}
+
+				// Check all Axis & Triggers
+				for (int j = 0; j < SDL_CONTROLLER_AXIS_MAX; ++j)
+				{
+					controllers[nGameControllers - 1].axes[j] = SDL_GameControllerGetAxis(g[nGameControllers - 1], (SDL_GameControllerAxis)j);
 				}
 			}
 		}
