@@ -1,34 +1,43 @@
-**Bug Type:**
-- Fatal ()
--  Unintended action ()
--  Aesthetic ()
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
 
-**Priority:**
+---
 
--  ASAP ()
--  High ()
--  Medium ()
--  Low ()
+Bug Type:
 
-**Frequency:**
--  Everytime ()
--  Regular ()
--  Low ()
+Fatal ()
+Unintended action ()
+Aesthetic ()
+Priority:
 
-**Description:**
-- (Desribe the bug here)
+ASAP ()
+High ()
+Medium ()
+Low ()
+Frequency:
 
-**Reproduction:**
-- (Steps to reproduce here)
+Everytime ()
+Regular ()
+Low ()
+Description:
 
-**Expected behavior:**
-- (Behavior expected here)
+(Desribe the bug here)
+Reproduction:
 
-**Game version:**
-- (Version of the game here)
+(Steps to reproduce here)
+Expected behavior:
 
-**Additional context:** 
-- (Screenshots, others here)  
+(Behavior expected here)
+Game version:
 
-**Suggested Assignees:**
-- (Assignees names here)
+(Version of the game here)
+Additional context:
+
+(Screenshots, others here)
+Suggested Assignees:
+
+(Assignees names here)
