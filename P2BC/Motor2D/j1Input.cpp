@@ -116,22 +116,59 @@ bool j1Input::PreUpdate()
 	{
 		switch(event.type)
 		{
-			/*case SDL_CONTROLLERDEVICEADDED:
-				total_controllers++;
-				if (total_controllers > 4)
+			case SDL_CONTROLLERDEVICEADDED:
+			{
+				int n_joys = SDL_NumJoysticks();
+
+				if (SDL_IsGameController(n_joys - 1))
 				{
-					total_controllers = 4;
+					for (int i = 0; i < n_joys; ++i)
+					{
+						if (controllers[i].id_ptr == nullptr)
+						{
+							if (controllers[i].index == -1)
+							{
+								controllers[i].id_ptr = SDL_GameControllerOpen(index_addition_controllers);
+								controllers[i].index = index_addition_controllers;
+							}
+							else
+								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
+							
+							if (index_addition_controllers < MAX_GAMEPADS - 1)
+							index_addition_controllers++;
+						}
+
+
+
+						/*if (controllers[i].index == -1 && controllers[i].id_ptr == nullptr)
+						{
+							controllers[i].id_ptr = SDL_GameControllerOpen(n_joys - 1);
+							controllers[i].index = n_joys - 1;
+							break;
+						}
+						else if (controllers[i].index != -1 && controllers[i].id_ptr == nullptr)
+						{
+							controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
+							break;
+						}*/
+					}
 				}
-
-				if (SDL_IsGameController(curr_controllers))
-				{
-					controllers[index_Addition_controllers].id_ptr = SDL_GameControllerOpen(index_Addition_controllers);
-					curr_controllers++;
-					index_Addition_controllers++;
-				}*/
-
-
+			}
 			break;
+
+			//case SDL_CONTROLLERDEVICEREMOVED:
+			//	for (int i = 0; i < MAX_GAMEPADS; ++i)
+			//	{
+			//		bool lol = SDL_GameControllerGetAttached(controllers[i].id_ptr);
+			//		if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == 0);
+			//		{
+			//			SDL_GameControllerClose(controllers[i].id_ptr);
+			//			controllers[i].id_ptr = nullptr;
+			//			//break;
+			//		}
+			//	}
+			//break;
+
 
 			case SDL_QUIT:
 				windowEvents[WE_QUIT] = true;
@@ -181,48 +218,50 @@ bool j1Input::PreUpdate()
 
 	//Checking Gamepad input
 	int nGameControllers = 0;
-	int g_index = -1;
+	int g_index = 0;
 	int nJoysticks = SDL_NumJoysticks();
 
 	SDL_GameController* g[MAX_GAMEPADS] = { nullptr };
 
 	//Check number of joysticks
-	for (int i = 0; i < nJoysticks; i++)
+	for (int i = 0; i < MAX_GAMEPADS; i++)
 	{
-		if (SDL_IsGameController(i)) 
-		{
 			nGameControllers++;
 			g_index++;
-			g[g_index] = SDL_GameControllerOpen(g_index); // If game controller, open it
+			//g[g_index] = SDL_GameControllerOpen(g_index); // If game controller, open it
 
-			if (SDL_GameControllerGetAttached(g[g_index]) == SDL_TRUE) // If it is opened correctly
+			if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == SDL_TRUE) // If it is opened correctly
 			{
 				//Check all button states
 				for (int j = 0; j < SDL_CONTROLLER_BUTTON_MAX; ++j) 
 				{
-					if (SDL_GameControllerGetButton(g[g_index], (SDL_GameControllerButton)j) == 1)
+					if (SDL_GameControllerGetButton(controllers[i].id_ptr, (SDL_GameControllerButton)j) == 1)
 					{
-						if (controllers[g_index].buttons[j] == BUTTON_IDLE)
-							controllers[g_index].buttons[j] = BUTTON_DOWN;
+						if (controllers[i].buttons[j] == BUTTON_IDLE)
+							controllers[i].buttons[j] = BUTTON_DOWN;
 						else
-							controllers[g_index].buttons[j] = BUTTON_REPEAT;
+							controllers[i].buttons[j] = BUTTON_REPEAT;
 					}
 					else
 					{
-						if (controllers[g_index].buttons[j] == BUTTON_REPEAT || controllers[g_index].buttons[j] == BUTTON_DOWN)
-							controllers[g_index].buttons[j] = BUTTON_UP;
+						if (controllers[i].buttons[j] == BUTTON_REPEAT || controllers[i].buttons[j] == BUTTON_DOWN)
+							controllers[i].buttons[j] = BUTTON_UP;
 						else
-							controllers[g_index].buttons[j] = BUTTON_IDLE;
+							controllers[i].buttons[j] = BUTTON_IDLE;
 					}
 				}
 
 				// Check all Axis & Triggers
 				for (int j = 0; j < SDL_CONTROLLER_AXIS_MAX; ++j)
 				{
-					controllers[g_index].axis[j] = SDL_GameControllerGetAxis(g[g_index], (SDL_GameControllerAxis)j);
+					controllers[i].axis[j] = SDL_GameControllerGetAxis(controllers[i].id_ptr, (SDL_GameControllerAxis)j);
 				}
 			}
-		}
+			else if (controllers[i].id_ptr != nullptr) // Controller disattached, close (and set to nullptr)
+			{
+				SDL_GameControllerClose(controllers[i].id_ptr);
+			    controllers[i].id_ptr = nullptr;
+			}
 	}
 
 	/*SDL_Event event2;

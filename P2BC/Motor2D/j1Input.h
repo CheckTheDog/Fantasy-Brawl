@@ -2,6 +2,7 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
+#include "SDL/include/SDL_gamecontroller.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
@@ -49,14 +50,15 @@ enum class PLAYER
 };
 
 // Gamepad custom struct 
-struct gpad
+struct Gamepad
 {
 	// Id's
-	_SDL_GameController* id_ptr = nullptr;
+	SDL_GameController* id_ptr = nullptr;
 
 	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
 	int* axis = nullptr;
+	int index = -1;
 };
 
 class j1Input : public j1Module
@@ -125,8 +127,8 @@ private:
 	int			mouse_x;
 	int			mouse_y;
 
-	gpad controllers[MAX_GAMEPADS] = {nullptr};
-	uint total_controllers, curr_controllers, index_Addition_controllers = 0;
+	Gamepad controllers[MAX_GAMEPADS] = {nullptr};
+	uint total_controllers, curr_controllers, index_addition_controllers = 0;
 
 };
 
