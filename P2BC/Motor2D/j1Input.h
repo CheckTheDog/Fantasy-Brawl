@@ -11,6 +11,8 @@
 #define MAX_GAMEPADS 4
 
 struct SDL_Rect;
+struct _SDL_GameController;
+struct _SDL_Haptic;
 
 enum j1EventWindow
 {
@@ -20,6 +22,7 @@ enum j1EventWindow
 	WE_COUNT
 };
 
+// Keyboard input states 
 enum j1KeyState
 {
 	KEY_IDLE = 0,
@@ -28,6 +31,7 @@ enum j1KeyState
 	KEY_UP
 };
 
+// Gamepad input state (just for better legibility)
 enum GP_BUTTON_STATE
 {
 	BUTTON_IDLE = 0,
@@ -47,6 +51,10 @@ enum class PLAYER
 // Gamepad custom struct 
 struct gpad
 {
+	// Id's
+	_SDL_GameController* id_ptr = nullptr;
+
+	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
 	int* axis = nullptr;
 };
@@ -118,6 +126,8 @@ private:
 	int			mouse_y;
 
 	gpad controllers[MAX_GAMEPADS] = {nullptr};
+	uint total_controllers, curr_controllers, index_Addition_controllers = 0;
+
 };
 
 #endif // __j1INPUT_H__

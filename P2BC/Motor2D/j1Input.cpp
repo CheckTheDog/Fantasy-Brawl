@@ -5,6 +5,7 @@
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
 #include "SDL/include/SDL_gamecontroller.h"
+#include "SDL/include/SDL_haptic.h"
 
 
 #define MAX_KEYS 300
@@ -45,7 +46,13 @@ bool j1Input::Awake(pugi::xml_node& config)
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
-	SDL_Init(SDL_INIT_GAMECONTROLLER);
+	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
+	
+	/*if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
+	{
+		LOG("SDL_HAPTICS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}*/
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -109,6 +116,23 @@ bool j1Input::PreUpdate()
 	{
 		switch(event.type)
 		{
+			/*case SDL_CONTROLLERDEVICEADDED:
+				total_controllers++;
+				if (total_controllers > 4)
+				{
+					total_controllers = 4;
+				}
+
+				if (SDL_IsGameController(curr_controllers))
+				{
+					controllers[index_Addition_controllers].id_ptr = SDL_GameControllerOpen(index_Addition_controllers);
+					curr_controllers++;
+					index_Addition_controllers++;
+				}*/
+
+
+			break;
+
 			case SDL_QUIT:
 				windowEvents[WE_QUIT] = true;
 			break;
@@ -151,6 +175,7 @@ bool j1Input::PreUpdate()
 				mouse_y = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
+
 		}
 	}
 
@@ -199,6 +224,18 @@ bool j1Input::PreUpdate()
 			}
 		}
 	}
+
+	/*SDL_Event event2;
+	while (SDL_PollEvent(&event2) != 0)
+	{
+		switch (event2.type)
+		{
+		case SDL_CONTROLLERDEVICEADDED:
+			int i = 0;
+			break;
+		}
+	}*/
+
 
 	return true;
 }
