@@ -2,13 +2,12 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
-#include "SDL/include/SDL_gamecontroller.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
 #define NUM_GAMEPAD_BUTTONS 15
-
+// This macro controls how many gamepads at max will be processed 
 #define MAX_GAMEPADS 4
 
 struct SDL_Rect;
@@ -53,7 +52,7 @@ enum class PLAYER
 struct Gamepad
 {
 	// Id's
-	SDL_GameController* id_ptr = nullptr;
+	_SDL_GameController* id_ptr = nullptr; //SDL_GameController of the Gamepad
 
 	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
@@ -97,16 +96,22 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
-	// Check gamepad button states
+	// Check gamepad button states. Works jut like GetKey
 	GP_BUTTON_STATE GetButton(PLAYER p,int id) const
 	{
-		return controllers[(int)p].buttons[id];
+		if (controllers[(int)p].id_ptr != nullptr)
+			return controllers[(int)p].buttons[id];
+		else
+			return BUTTON_IDLE;
 	}
 
-	// Check gamepad axis & triggers
+	// Check gamepad axis & triggers. returns the integer value of the trigger or axis
 	int GetAxis(PLAYER p, int id) const
 	{
-		return controllers[(int)p].axis[id];
+		if (controllers[(int)p].id_ptr != nullptr)
+			return controllers[(int)p].axis[id];
+		else
+			return 0;
 	}
 
 
@@ -128,7 +133,7 @@ private:
 	int			mouse_y;
 
 	Gamepad controllers[MAX_GAMEPADS] = {nullptr};
-	uint total_controllers, curr_controllers, index_addition_controllers = 0;
+	uint index_addition_controllers = 0;
 
 };
 

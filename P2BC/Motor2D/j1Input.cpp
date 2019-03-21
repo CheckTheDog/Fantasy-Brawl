@@ -31,10 +31,18 @@ j1Input::j1Input() : j1Module()
 // Destructor
 j1Input::~j1Input()
 {
+	//Keyboard
 	delete[] keyboard;
 
+
+	//Gamepads
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
+		if (controllers[i].id_ptr != nullptr)
+		{
+			SDL_GameControllerClose(controllers[i].id_ptr);
+			controllers[i].id_ptr = nullptr;
+		}
 		delete[] controllers[i].buttons;
 		delete[] controllers[i].axis;
 	}
@@ -116,59 +124,6 @@ bool j1Input::PreUpdate()
 	{
 		switch(event.type)
 		{
-			case SDL_CONTROLLERDEVICEADDED:
-			{
-				int n_joys = SDL_NumJoysticks();
-
-				if (SDL_IsGameController(n_joys - 1))
-				{
-					for (int i = 0; i < n_joys; ++i)
-					{
-						if (controllers[i].id_ptr == nullptr)
-						{
-							if (controllers[i].index == -1)
-							{
-								controllers[i].id_ptr = SDL_GameControllerOpen(index_addition_controllers);
-								controllers[i].index = index_addition_controllers;
-							}
-							else
-								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
-							
-							if (index_addition_controllers < MAX_GAMEPADS - 1)
-							index_addition_controllers++;
-						}
-
-
-
-						/*if (controllers[i].index == -1 && controllers[i].id_ptr == nullptr)
-						{
-							controllers[i].id_ptr = SDL_GameControllerOpen(n_joys - 1);
-							controllers[i].index = n_joys - 1;
-							break;
-						}
-						else if (controllers[i].index != -1 && controllers[i].id_ptr == nullptr)
-						{
-							controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
-							break;
-						}*/
-					}
-				}
-			}
-			break;
-
-			//case SDL_CONTROLLERDEVICEREMOVED:
-			//	for (int i = 0; i < MAX_GAMEPADS; ++i)
-			//	{
-			//		bool lol = SDL_GameControllerGetAttached(controllers[i].id_ptr);
-			//		if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == 0);
-			//		{
-			//			SDL_GameControllerClose(controllers[i].id_ptr);
-			//			controllers[i].id_ptr = nullptr;
-			//			//break;
-			//		}
-			//	}
-			//break;
-
 
 			case SDL_QUIT:
 				windowEvents[WE_QUIT] = true;
@@ -205,34 +160,56 @@ bool j1Input::PreUpdate()
 			break;
 
 			case SDL_MOUSEMOTION:
+			{
 				int scale = App->win->GetScale();
 				mouse_motion_x = event.motion.xrel / scale;
 				mouse_motion_y = event.motion.yrel / scale;
 				mouse_x = event.motion.x / scale;
 				mouse_y = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
+			}
+			break;
+
+			//When a controller is plugged in
+			case SDL_CONTROLLERDEVICEADDED:
+			{
+				int n_joys = SDL_NumJoysticks();
+
+				if (SDL_IsGameController(n_joys - 1))
+				{
+					for (int i = 0; i < n_joys; ++i)
+					{
+						if (controllers[i].id_ptr == nullptr) // If there isn't a gamepad connected  already
+						{
+							if (controllers[i].index == -1) //First time a gamepad has been connected
+							{
+								controllers[i].id_ptr = SDL_GameControllerOpen(index_addition_controllers);
+								controllers[i].index = index_addition_controllers;
+							}
+							else    //The gamepad was disconnected at some point and is now being reconnected
+								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
+
+							// This index will assign the proper index for a gamapd that has been connected once
+							// in case it is disconnected and connected again it will use the value of the var 
+							// at the moment of opening the gamepad
+							if (index_addition_controllers < MAX_GAMEPADS - 1) 
+								index_addition_controllers++;
+						}
+					}
+				}
+			}
 			break;
 
 		}
 	}
 
-	//Checking Gamepad input
-	int nGameControllers = 0;
-	int g_index = 0;
-	int nJoysticks = SDL_NumJoysticks();
 
-	SDL_GameController* g[MAX_GAMEPADS] = { nullptr };
-
-	//Check number of joysticks
+	//Check Gamepads
 	for (int i = 0; i < MAX_GAMEPADS; i++)
 	{
-			nGameControllers++;
-			g_index++;
-			//g[g_index] = SDL_GameControllerOpen(g_index); // If game controller, open it
-
 			if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == SDL_TRUE) // If it is opened correctly
 			{
-				//Check all button states
+				//Check all button states basically, ame process as keyboard but with gamepads
 				for (int j = 0; j < SDL_CONTROLLER_BUTTON_MAX; ++j) 
 				{
 					if (SDL_GameControllerGetButton(controllers[i].id_ptr, (SDL_GameControllerButton)j) == 1)
@@ -264,18 +241,6 @@ bool j1Input::PreUpdate()
 			}
 	}
 
-	/*SDL_Event event2;
-	while (SDL_PollEvent(&event2) != 0)
-	{
-		switch (event2.type)
-		{
-		case SDL_CONTROLLERDEVICEADDED:
-			int i = 0;
-			break;
-		}
-	}*/
-
-
 	return true;
 }
 
@@ -284,6 +249,8 @@ bool j1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+
 	return true;
 }
 
