@@ -4,6 +4,9 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
+#include "SDL/include/SDL_gamecontroller.h"
+#include "SDL/include/SDL_haptic.h"
+
 
 #define MAX_KEYS 300
 
@@ -14,12 +17,35 @@ j1Input::j1Input() : j1Module()
 	keyboard = new j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		controllers[i].buttons = new GP_BUTTON_STATE[SDL_CONTROLLER_BUTTON_MAX];
+		memset(controllers[i].buttons, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * SDL_CONTROLLER_BUTTON_MAX);
+
+		controllers[i].axis = new int[SDL_CONTROLLER_AXIS_MAX];
+		memset(controllers[i].axis, 0, sizeof(int) * SDL_CONTROLLER_AXIS_MAX);
+	}
 }
 
 // Destructor
 j1Input::~j1Input()
 {
+	//Keyboard
 	delete[] keyboard;
+
+
+	//Gamepads
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		if (controllers[i].id_ptr != nullptr)
+		{
+			SDL_GameControllerClose(controllers[i].id_ptr);
+			controllers[i].id_ptr = nullptr;
+		}
+		delete[] controllers[i].buttons;
+		delete[] controllers[i].axis;
+	}
 }
 
 // Called before render is available
@@ -28,10 +54,25 @@ bool j1Input::Awake(pugi::xml_node& config)
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
+	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
+	
+	/*if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
+	{
+		LOG("SDL_HAPTICS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}*/
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+
+	SDL_GameControllerEventState(SDL_ENABLE);
+
+	if (SDL_GameControllerEventState(SDL_QUERY) != 1)
+	{
+		LOG("SDL_GAME_CONTROLLER_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -83,6 +124,7 @@ bool j1Input::PreUpdate()
 	{
 		switch(event.type)
 		{
+
 			case SDL_QUIT:
 				windowEvents[WE_QUIT] = true;
 			break;
@@ -118,14 +160,85 @@ bool j1Input::PreUpdate()
 			break;
 
 			case SDL_MOUSEMOTION:
+			{
 				int scale = App->win->GetScale();
 				mouse_motion_x = event.motion.xrel / scale;
 				mouse_motion_y = event.motion.yrel / scale;
 				mouse_x = event.motion.x / scale;
 				mouse_y = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
+			}
 			break;
+
+			//When a controller is plugged in
+			case SDL_CONTROLLERDEVICEADDED:
+			{
+				int n_joys = SDL_NumJoysticks();
+
+				if (SDL_IsGameController(n_joys - 1))
+				{
+					for (int i = 0; i < n_joys; ++i)
+					{
+						if (controllers[i].id_ptr == nullptr) // If there isn't a gamepad connected  already
+						{
+							if (controllers[i].index == -1) //First time a gamepad has been connected
+							{
+								controllers[i].id_ptr = SDL_GameControllerOpen(index_addition_controllers);
+								controllers[i].index = index_addition_controllers;
+							}
+							else    //The gamepad was disconnected at some point and is now being reconnected
+								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
+
+							// This index will assign the proper index for a gamapd that has been connected once
+							// in case it is disconnected and connected again it will use the value of the var 
+							// at the moment of opening the gamepad
+							if (index_addition_controllers < MAX_GAMEPADS - 1) 
+								index_addition_controllers++;
+						}
+					}
+				}
+			}
+			break;
+
 		}
+	}
+
+
+	//Check Gamepads
+	for (int i = 0; i < MAX_GAMEPADS; i++)
+	{
+			if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == SDL_TRUE) // If it is opened correctly
+			{
+				//Check all button states basically, ame process as keyboard but with gamepads
+				for (int j = 0; j < SDL_CONTROLLER_BUTTON_MAX; ++j) 
+				{
+					if (SDL_GameControllerGetButton(controllers[i].id_ptr, (SDL_GameControllerButton)j) == 1)
+					{
+						if (controllers[i].buttons[j] == BUTTON_IDLE)
+							controllers[i].buttons[j] = BUTTON_DOWN;
+						else
+							controllers[i].buttons[j] = BUTTON_REPEAT;
+					}
+					else
+					{
+						if (controllers[i].buttons[j] == BUTTON_REPEAT || controllers[i].buttons[j] == BUTTON_DOWN)
+							controllers[i].buttons[j] = BUTTON_UP;
+						else
+							controllers[i].buttons[j] = BUTTON_IDLE;
+					}
+				}
+
+				// Check all Axis & Triggers
+				for (int j = 0; j < SDL_CONTROLLER_AXIS_MAX; ++j)
+				{
+					controllers[i].axis[j] = SDL_GameControllerGetAxis(controllers[i].id_ptr, (SDL_GameControllerAxis)j);
+				}
+			}
+			else if (controllers[i].id_ptr != nullptr) // Controller disattached, close (and set to nullptr)
+			{
+				SDL_GameControllerClose(controllers[i].id_ptr);
+			    controllers[i].id_ptr = nullptr;
+			}
 	}
 
 	return true;
@@ -136,6 +249,8 @@ bool j1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+
 	return true;
 }
 
