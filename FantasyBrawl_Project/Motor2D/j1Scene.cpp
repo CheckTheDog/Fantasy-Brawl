@@ -135,7 +135,7 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= ceil(150.0*dt);
 
-	//Gamepad Test
+	//Gamepad Test. Demonstration on how to use the functions for the gamepads
 	if (IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), -40000,-10000))
 		App->render->camera.y += ceil(150.0*dt);
 
