@@ -6,8 +6,13 @@
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
+#define NUM_GAMEPAD_BUTTONS 15
+// This macro controls how many gamepads at max will be processed 
+#define MAX_GAMEPADS 4
 
 struct SDL_Rect;
+struct _SDL_GameController;
+struct _SDL_Haptic;
 
 enum j1EventWindow
 {
@@ -17,12 +22,42 @@ enum j1EventWindow
 	WE_COUNT
 };
 
+// Keyboard input states 
 enum j1KeyState
 {
 	KEY_IDLE = 0,
 	KEY_DOWN,
 	KEY_REPEAT,
 	KEY_UP
+};
+
+// Gamepad input state (just for better legibility)
+enum GP_BUTTON_STATE
+{
+	BUTTON_IDLE = 0,
+	BUTTON_DOWN,
+	BUTTON_REPEAT,
+	BUTTON_UP
+};
+
+enum class PLAYER
+{
+	P1 = 0,
+	P2,
+	P3,
+	P4
+};
+
+// Gamepad custom struct 
+struct Gamepad
+{
+	// Id's
+	_SDL_GameController* id_ptr = nullptr; //SDL_GameController of the Gamepad
+
+	// Data
+	GP_BUTTON_STATE* buttons = nullptr;
+	int* axis = nullptr;
+	int index = -1;
 };
 
 class j1Input : public j1Module
@@ -61,6 +96,26 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
+	// Check gamepad button states. Works jut like GetKey
+	GP_BUTTON_STATE GetButton(PLAYER p,int id) const
+	{
+		if (controllers[(int)p].id_ptr != nullptr)
+			return controllers[(int)p].buttons[id];
+		else
+			return BUTTON_IDLE;
+	}
+
+	// Check gamepad axis & triggers. returns the integer value of the trigger or axis
+	int GetAxis(PLAYER p, int id) const
+	{
+		if (controllers[(int)p].id_ptr != nullptr)
+			return controllers[(int)p].axis[id];
+		else
+			return 0;
+	}
+
+
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -76,6 +131,10 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+
+	Gamepad controllers[MAX_GAMEPADS] = {nullptr};
+	uint index_addition_controllers = 0;
+
 };
 
 #endif // __j1INPUT_H__
