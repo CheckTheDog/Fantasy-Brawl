@@ -38,11 +38,11 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	//playerinfo.idleLeft = LoadAnimation(playerinfo.folder.GetString(), "idle left");
 	//playerinfo.runRight = LoadAnimation(playerinfo.folder.GetString(), "run right");
 	//playerinfo.runLeft = LoadAnimation(playerinfo.folder.GetString(), "run left");
-	//int x = playernode.child("collider").attribute("x").as_int();
-	//int y = playernode.child("collider").attribute("y").as_int();
-	//int w = playernode.child("collider").attribute("width").as_int();
-	//int h = playernode.child("collider").attribute("height").as_int();
-	//playerinfo.playerrect = { x,y,w,h };
+	int x = playernode.child("collider").attribute("x").as_int();
+	int y = playernode.child("collider").attribute("y").as_int();
+	int w = playernode.child("collider").attribute("width").as_int();
+	int h = playernode.child("collider").attribute("height").as_int();
+	playerinfo.playerrect = { x,y,w,h };
 
 	// --- Player 1 main variables ---
 
@@ -71,7 +71,6 @@ bool j1EntityManager::PreUpdate()
 {
 	BROFILER_CATEGORY("EntityManager_Pre_Update", Profiler::Color::Chartreuse);
 
-	//do_logic = false;
 	return true;
 }
 

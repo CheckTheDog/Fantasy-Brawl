@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<entities>
+		<Player>
+			<Playerx value="396.383606" />
+			<Playery value="183.378357" />
+		</Player>
+	</entities>
+	<collision />
+	<map />
+	<scene />
+	<pathfinding />
+	<renderer>
+		<camera x="0" y="0" />
+	</renderer>
+</game_state>

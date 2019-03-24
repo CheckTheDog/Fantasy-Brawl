@@ -10,6 +10,7 @@
 #include "j1PathFinding.h"
 #include "j1Scene.h"
 #include "j1Collision.h"
+#include "j1EntityManager.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -76,6 +77,12 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/path2.png");
 	App->map->ColliderDrawer();
+
+	// --- Creating entities ---
+
+	entity_info player1_info;
+
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player1_info, &App->entities->playerinfo);
 
 	return true;
 }

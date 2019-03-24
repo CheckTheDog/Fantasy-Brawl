@@ -57,7 +57,7 @@ void j1Player::UpdateEntityMovement(float dt)
 	switch (EntityMovement)
 	{
 	case MOVEMENT::RIGHTWARDS:
-		Accumulative_pos_Right += Entityinfo.Speed*dt;
+		Accumulative_pos_Right += Entityinfo.Speed*dt*0.8f;
 
 		if (Accumulative_pos_Right > 1.0)
 		{
@@ -78,7 +78,7 @@ void j1Player::UpdateEntityMovement(float dt)
 
 	case MOVEMENT::UPWARDS:
 
-		Accumulative_pos_Up += Entityinfo.Speed*dt;
+		Accumulative_pos_Up += Entityinfo.Speed*dt*1.7f;
 
 		if (Accumulative_pos_Up > 1.0)
 		{
@@ -89,7 +89,7 @@ void j1Player::UpdateEntityMovement(float dt)
 
 	case MOVEMENT::DOWNWARDS:
 
-		Accumulative_pos_Down += Entityinfo.Speed*dt;
+		Accumulative_pos_Down += Entityinfo.Speed*dt*3.0f;
 
 		if (Accumulative_pos_Down > 1.0)
 		{
@@ -114,7 +114,6 @@ void j1Player::HandleAnimations()
 
 
 	//--------------    ---------------
-
 }
 
 bool j1Player::Update(float dt)
@@ -177,7 +176,7 @@ bool j1Player::PostUpdate(float dt)
 
 	// --- Blitting player ---
 
-	App->render->Blit(spritesheet, Future_position.x, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
+	App->render->Blit(spritesheet, Future_position.x, Future_position.y/*, &CurrentAnimation->GetCurrentFrame(dt)*/);
 
 	// ---------------------- //
 
