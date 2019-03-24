@@ -37,12 +37,9 @@ public:
 	bool CleanUp();
 
 	// --- Entities management ---
-	j1Entity * const CreateEntity(entity_type entitytype, entity_info entityinfo);
+	j1Entity * const CreateEntity(entity_type entitytype, entity_info entityinfo, Playerdata * player_info);
 	void OnCollision(Collider* c1, Collider* c2);
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
-
-	// --- Get Entities data ---
-	Playerdata& GetPlayerData() { return playerinfo; }
 
 	// --- Save & Load ---
 	bool Load(pugi::xml_node&);
@@ -53,10 +50,9 @@ public:
 
 	std::list<j1Entity*>	entities;
 	float				update_ms_cycle = 0;
-
-private:
 	// --- Player ---
 	Playerdata playerinfo;
+	// add playerinfo2 ...
 };
 
 #endif // __J1ENTITYMANAGER_H__

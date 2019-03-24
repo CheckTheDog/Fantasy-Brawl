@@ -33,7 +33,7 @@ enum class MOVEMENT
 	RIGHTWARDS,
 	LEFTWARDS,
 	UPWARDS,
-	FREEFALL,
+	DOWNWARDS,
 
 	STATIC
 };
@@ -43,7 +43,7 @@ class j1Player :public j1Entity
 {
 public:
 
-	j1Player(entity_info entityinfo);
+	j1Player(entity_info entityinfo, Playerdata * player_info);
 	~j1Player();
 
 	bool Start();
@@ -59,8 +59,7 @@ public:
 
 	void UpdateEntityMovement(float dt);
 
-	void Handle_Ground_Animations();
-	void Handle_Aerial_Animations();
+	void HandleAnimations();
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -82,7 +81,7 @@ public:
 	Playerdata playerinfo;
 	SDL_Rect Intersection = { 0,0,0,0 };
 
-	// --- NEW APPROACH VARIABLES ---
+	// --- MOVEMENT VARIABLES ---
 
 	float Accumulative_pos_Right = 0;
 	float Accumulative_pos_Left = 0;
@@ -91,8 +90,6 @@ public:
 	fPoint Future_position = { 0,0 };
 	iPoint camera_pos_backup = { 0,0 };
 
-	bool on_air = false;
-	bool god_mode = false;
 	bool coll_up = false;
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 };

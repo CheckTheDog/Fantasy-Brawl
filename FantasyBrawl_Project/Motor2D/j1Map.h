@@ -122,6 +122,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+	bool ColliderDrawer();
 
 private:
 
@@ -142,6 +143,7 @@ private:
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
+	int					redCollision = NULL;
 };
 
 #endif // __j1MAP_H__

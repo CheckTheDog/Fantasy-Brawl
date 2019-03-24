@@ -8,6 +8,7 @@
 
 class j1EntityManager;
 struct Collider;
+struct SDL_Texture;
 
 enum class entity_type
 {
@@ -83,6 +84,9 @@ public:
 
 	//--- Active or inactive ----
 	bool active = false;
+
+	// --- Spritesheet ---
+	SDL_Texture* spritesheet = nullptr;
 
 	// --- Animation ---
 	Animation* CurrentAnimation = nullptr;

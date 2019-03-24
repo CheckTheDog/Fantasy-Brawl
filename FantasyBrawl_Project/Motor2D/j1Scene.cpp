@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1PathFinding.h"
 #include "j1Scene.h"
+#include "j1Collision.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -52,6 +53,8 @@ bool j1Scene::SetWalkabilityMap()
 bool j1Scene::ChangeMap(int destination_map_id)
 {
 	App->map->CleanUp();
+	App->coll->CleanUp();
+	App->map->ColliderDrawer();
 
 	if(App->map->Load(StageList.at(destination_map_id)->data()))
 	{
@@ -72,6 +75,7 @@ bool j1Scene::Start()
 	}
 
 	debug_tex = App->tex->Load("maps/path2.png");
+	App->map->ColliderDrawer();
 
 	return true;
 }

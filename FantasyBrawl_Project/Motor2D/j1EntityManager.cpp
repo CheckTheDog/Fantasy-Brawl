@@ -30,7 +30,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	pugi::xml_node playernode = config.child("player");
 
-	// --- Player Awake ---
+	// --- Player 1 Awake ---
 	playerinfo.folder.assign(playernode.child("folder").child_value());
 	playerinfo.Texture.assign(playernode.child("texture").child_value());
 
@@ -38,44 +38,22 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	//playerinfo.idleLeft = LoadAnimation(playerinfo.folder.GetString(), "idle left");
 	//playerinfo.runRight = LoadAnimation(playerinfo.folder.GetString(), "run right");
 	//playerinfo.runLeft = LoadAnimation(playerinfo.folder.GetString(), "run left");
-	//playerinfo.jumpingRight = LoadAnimation(playerinfo.folder.GetString(), "jump right");
-	//playerinfo.jumpingLeft = LoadAnimation(playerinfo.folder.GetString(), "jump left");
-	//playerinfo.fallingRight = LoadAnimation(playerinfo.folder.GetString(), "air right");
-	//playerinfo.fallingLeft = LoadAnimation(playerinfo.folder.GetString(), "air left");
-	//playerinfo.deathRight = LoadAnimation(playerinfo.folder.GetString(), "dead right");
-	//playerinfo.deathLeft = LoadAnimation(playerinfo.folder.GetString(), "dead left");
-	//playerinfo.airRight = LoadAnimation(playerinfo.folder.GetString(), "air right");
-	//playerinfo.airLeft = LoadAnimation(playerinfo.folder.GetString(), "air left");
 	//int x = playernode.child("collider").attribute("x").as_int();
 	//int y = playernode.child("collider").attribute("y").as_int();
 	//int w = playernode.child("collider").attribute("width").as_int();
 	//int h = playernode.child("collider").attribute("height").as_int();
 	//playerinfo.playerrect = { x,y,w,h };
 
-	// --- Player main variables ---
-
-	//playerinfo.Velocity.x = playernode.child("Velocity").attribute("x").as_float();
-	//playerinfo.Velocity.y = playernode.child("Velocity").attribute("y").as_float();
-	//playerinfo.gravity = playernode.child("gravity").attribute("value").as_float();
-	//playerinfo.jump_force = playernode.child("Velocity").attribute("jump_force").as_float();
+	// --- Player 1 main variables ---
 
 	//playerinfo.idleRight->speed = 10.0f;
 	//playerinfo.idleLeft->speed = 10.0f;
 	//playerinfo.runRight->speed = 10.0f;
 	//playerinfo.runLeft->speed = 10.0f;
-	//playerinfo.jumpingRight->speed = 10.0f;
-	//playerinfo.jumpingLeft->speed = 10.0f;
-	//playerinfo.fallingRight->speed = 10.0f;
-	//playerinfo.fallingLeft->speed = 10.0f;
-	//playerinfo.deathRight->speed = 10.0f;
-	//playerinfo.deathLeft->speed = 10.0f;
-	//playerinfo.airRight->speed = 10.0f;
-	//playerinfo.airLeft->speed = 10.0f;
 
-	//playerinfo.deathRight->loop = false;
-	//playerinfo.deathLeft->loop = false;
+	// --------------------
 
-	// ---------------------
+	// --- Player 2,3,4 Awake... ---
 
 	return ret;
 }
@@ -182,14 +160,14 @@ bool j1EntityManager::Save(pugi::xml_node &file) const
 }
 
 // Create a new empty entity
-j1Entity* const j1EntityManager::CreateEntity(entity_type entitytype, entity_info entityinfo)
+j1Entity* const j1EntityManager::CreateEntity(entity_type entitytype, entity_info entityinfo, Playerdata * player_info)
 {
 	j1Entity* entity = nullptr;
 
 	switch (entitytype)
 	{
 	case entity_type::PLAYER:
-		entity = (j1Entity*) new j1Player(entityinfo);
+		entity = (j1Entity*) new j1Player(entityinfo,player_info);
 		break;
 	}
 

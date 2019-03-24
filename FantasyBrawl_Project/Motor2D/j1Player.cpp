@@ -12,7 +12,7 @@
 #include "j1Audio.h"
 
 
-j1Player::j1Player(entity_info entityinfo) : j1Entity(entity_type::PLAYER, entityinfo)
+j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
 }
 
@@ -24,9 +24,6 @@ j1Player::~j1Player()
 bool j1Player::Start()
 {
 	LOG("--- Loading player ---");
-
-	// --- Get every data loaded by Entity Manager ---
-	playerinfo = manager->GetPlayerData();
 
 	// --- Player's bounding box ---
 	Entityinfo.entitycollrect = playerinfo.playerrect;
@@ -45,8 +42,8 @@ bool j1Player::Start()
 	CurrentAnimation = playerinfo.idleRight;
 
 	// --- Entity Spritesheet ---
-	//if (spritesheet == nullptr)
-	//	spritesheet = App->tex->Load(playerinfo.Texture.GetString());
+	if (spritesheet == nullptr)
+	spritesheet = App->tex->Load(playerinfo.Texture.data());
 
 	//-- active ----
 	active = true;
@@ -57,226 +54,117 @@ bool j1Player::Start()
 void j1Player::UpdateEntityMovement(float dt)
 {
 
-	/*switch (EntityMovement)
+	switch (EntityMovement)
 	{
 	case MOVEMENT::RIGHTWARDS:
-		Accumulative_pos_Right += Velocity.x*dt;
+		Accumulative_pos_Right += Entityinfo.Speed*dt;
 
-		if (Accumulative_pos_Right > 1.1)
+		if (Accumulative_pos_Right > 1.0)
 		{
 			Future_position.x += Accumulative_pos_Right;
 			Accumulative_pos_Right -= Accumulative_pos_Right;
 		}
 		break;
-	case MOVEMENT::LEFTWARDS:
-		Accumulative_pos_Left += Velocity.x*dt;
 
-		if (on_air)
-		{
+	case MOVEMENT::LEFTWARDS:
+		Accumulative_pos_Left += Entityinfo.Speed*dt;
+
 			if (Accumulative_pos_Left > 1.0)
 			{
 				Future_position.x -= Accumulative_pos_Left;
-				Future_position.x -= Accumulative_pos_Left;
-
 				Accumulative_pos_Left -= Accumulative_pos_Left;
 			}
-		}
-		else
-		{
-			if (Accumulative_pos_Left > 1.5)
-			{
-				Future_position.x -= Accumulative_pos_Left;
-				Accumulative_pos_Left -= Accumulative_pos_Left;
-			}
-		}
 		break;
+
 	case MOVEMENT::UPWARDS:
 
-		Accumulative_pos_Up += Velocity.y*dt;
+		Accumulative_pos_Up += Entityinfo.Speed*dt;
 
-		if (Accumulative_pos_Up > 0.75)
+		if (Accumulative_pos_Up > 1.0)
 		{
 			Future_position.y -= Accumulative_pos_Up;
 			Accumulative_pos_Up -= Accumulative_pos_Up;
 		}
 		break;
-	case MOVEMENT::FREEFALL:
 
-		Accumulative_pos_Down += playerinfo.gravity* dt;
+	case MOVEMENT::DOWNWARDS:
 
-		if (on_air)
-			Accumulative_pos_Down += playerinfo.gravity * dt;
+		Accumulative_pos_Down += Entityinfo.Speed*dt;
 
 		if (Accumulative_pos_Down > 1.0)
 		{
-			Velocity.y -= Accumulative_pos_Down;
 			Future_position.y += Accumulative_pos_Down;
 			Accumulative_pos_Down -= Accumulative_pos_Down;
 		}
-
 		break;
+
 	}
 
-	entitycoll->SetPos(Future_position.x, Future_position.y);
+	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
 
-	App->coll->QueryCollisions(*entitycoll);*/
+	App->coll->QueryCollisions(*Entityinfo.entitycoll);
 
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 }
 
 
-void j1Player::Handle_Ground_Animations()
+void j1Player::HandleAnimations()
 {
 	// --- Handling Ground Animations ---
 
-	//--- TO RUN ---
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		if (CurrentAnimation == playerinfo.runRight)
-			CurrentAnimation = playerinfo.idleRight;
-		else if (CurrentAnimation == playerinfo.runLeft)
-			CurrentAnimation = playerinfo.idleLeft;
-	}
-	else
-	{
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
-			CurrentAnimation != playerinfo.jumpingRight      &&
-			CurrentAnimation != playerinfo.fallingRight)
-		{
-			CurrentAnimation = playerinfo.runRight;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT &&
-			CurrentAnimation != playerinfo.jumpingLeft       &&
-			CurrentAnimation != playerinfo.fallingLeft)
-		{
-			CurrentAnimation = playerinfo.runLeft;
-		}
-	}
-
-	//--- TO IDLE ---
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP && CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.jumpingRight)
-		CurrentAnimation = playerinfo.idleRight;
-
-	if (CurrentAnimation == playerinfo.fallingRight)
-		CurrentAnimation = playerinfo.idleRight;
-
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.jumpingLeft)
-		CurrentAnimation = playerinfo.idleLeft;
-
-	if (CurrentAnimation == playerinfo.fallingLeft)
-		CurrentAnimation = playerinfo.idleLeft;
 
 	//--------------    ---------------
 
-}
-
-
-void j1Player::Handle_Aerial_Animations()
-{
-	// --- Handling Aerial Animations ---
-
-
-	////--- TO JUMP ---
-
-	//if (Velocity.y > playerinfo.jump_force / 2)
-	//{
-	//	if (CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
-	//		CurrentAnimation = playerinfo.jumpingRight;
-
-	//	else if (CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft)
-	//		CurrentAnimation = playerinfo.jumpingLeft;
-	//}
-
-	////--- TO FALL ---
-
-	//else if (Velocity.y < playerinfo.jump_force / 2)
-	//{
-	//	if (CurrentAnimation == playerinfo.jumpingRight || CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
-	//		CurrentAnimation = playerinfo.fallingRight;
-	//	else if (CurrentAnimation == playerinfo.jumpingLeft || CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft)
-	//		CurrentAnimation = playerinfo.fallingLeft;
-	//}
-
-
-	//------------ --------------
 }
 
 bool j1Player::Update(float dt)
 {
 	// --- LOGIC --------------------
 
-		//// --- RIGHT --
-		//if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
-		//	App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)
-		//{
-		//	EntityMovement = MOVEMENT::RIGHTWARDS;
-		//}
+		// --- RIGHTWARDS --
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
+			App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)
+		{
+			EntityMovement = MOVEMENT::RIGHTWARDS;
+		}
 
-		//if (EntityMovement != MOVEMENT::STATIC)
-		//	UpdateEntityMovement(dt);
+		if (EntityMovement != MOVEMENT::STATIC)
+			UpdateEntityMovement(dt);
 
-		//// --- LEFT ---
-		//if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT &&
-		//	App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
-		//{
-		//	EntityMovement = MOVEMENT::LEFTWARDS;
-		//}
+		// --- LEFTWARDS ---
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT &&
+			App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
+		{
+			EntityMovement = MOVEMENT::LEFTWARDS;
+		}
 
-		//if (EntityMovement != MOVEMENT::STATIC)
-		//	UpdateEntityMovement(dt);
+		if (EntityMovement != MOVEMENT::STATIC)
+			UpdateEntityMovement(dt);
 
-		//// --- IMPULSE ---
-		//if (!on_air && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		//{
-		//	App->audio->PlayFx(App->audio->jumpfx);
-		//	Apply_Vertical_Impulse(dt);
-		//	on_air = true;
-		//}
-
-		//else if (on_air && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && double_jump == false)
-		//{
-		//	App->audio->PlayFx(App->audio->doublejumpfx);
-		//	double_jump = true;
-		//	Velocity.y = 0.0f;
-		//	Apply_Vertical_Impulse(dt);
-		//}
-
-		//// --- UP ---
-		//if (on_air && Velocity.y > 0.0f)
-		//{
-		//	EntityMovement = MOVEMENT::UPWARDS;
-		//}
-
-		//if (EntityMovement != MOVEMENT::STATIC)
-		//	UpdateEntityMovement(dt);
+		// --- UPWARDS ---
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			EntityMovement = MOVEMENT::UPWARDS;
+		}
+	
+		if (EntityMovement != MOVEMENT::STATIC)
+			UpdateEntityMovement(dt);
 
 
-		//// --- FREE FALL --- 
+		// --- DOWNWARDS --- 
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			EntityMovement = MOVEMENT::DOWNWARDS;
+		}
 
-
-		//for (unsigned short i = 0; i < 4; ++i)
-		//{
-		//	EntityMovement = MOVEMENT::FREEFALL;
-		//	UpdateEntityMovement(dt);
-
-		//	if (coll_up)
-		//		break;
-
-		//}
+		if (EntityMovement != MOVEMENT::STATIC)
+			UpdateEntityMovement(dt);
 
 	//-------------------------------
 
 	// --- Handling animations ---
 
-	//if (Velocity.y == 0.0f)
-	//	Handle_Ground_Animations();
-	//else
-	//	Handle_Aerial_Animations();
-
+	HandleAnimations();
 
 	return true;
 }
@@ -289,16 +177,7 @@ bool j1Player::PostUpdate(float dt)
 
 	// --- Blitting player ---
 
-
-	//if (CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight || CurrentAnimation == playerinfo.fallingRight || CurrentAnimation == playerinfo.jumpingRight)
-	//	App->render->Blit(spritesheet, Future_position.x - 3, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
-
-	//else if (CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft || CurrentAnimation == playerinfo.fallingLeft || CurrentAnimation == playerinfo.jumpingLeft)
-	//	App->render->Blit(spritesheet, Future_position.x - 6, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
-
-	//else
-	//	App->render->Blit(spritesheet, Future_position.x - 3, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
-
+	App->render->Blit(spritesheet, Future_position.x, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
 
 	// ---------------------- //
 
@@ -307,8 +186,7 @@ bool j1Player::PostUpdate(float dt)
 
 void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 {
-	if (!god_mode)
-	{
+	
 		switch (EntityMovement)
 		{
 		case MOVEMENT::RIGHTWARDS:
@@ -320,14 +198,15 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		case MOVEMENT::UPWARDS:
 			Up_Collision(entitycollider, to_check);
 			break;
-		case MOVEMENT::FREEFALL:
+		case MOVEMENT::DOWNWARDS:
 			Down_Collision(entitycollider, to_check);
 			break;
 		}
 
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
-	}
+	
+
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)
@@ -368,8 +247,6 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 		entitycollider->rect.y += Intersection.h;
 		break;
 	}
-
-	/*Velocity.y = 0.0f;*/
 }
 
 void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_check)
@@ -384,8 +261,6 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	}
 
 	coll_up = false;
-	/*Velocity.y = 0.0f;*/
-	on_air = false;
 }
 
 bool j1Player::Load(pugi::xml_node &config)
