@@ -143,7 +143,6 @@ private:
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
-	int					redCollision = NULL;
 };
 
 #endif // __j1MAP_H__

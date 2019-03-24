@@ -24,7 +24,6 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.assign(config.child("folder").child_value());
-	redCollision = config.child("collision1").attribute("red").as_int();
 
 	return ret;
 }
@@ -537,8 +536,7 @@ bool j1Map::ColliderDrawer()
 
 							iPoint pos = MapToWorld(x, y);
 
-							if (tile_id == redCollision)
-								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+							App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
 
 						}
 					}
