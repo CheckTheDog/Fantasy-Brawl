@@ -76,7 +76,7 @@ bool j1Scene::Start()
 	}
 
 	debug_tex = App->tex->Load("maps/path2.png");
-	App->map->ColliderDrawer();
+	//App->map->ColliderDrawer();
 
 	// --- Creating entities ---
 
@@ -147,11 +147,11 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= ceil(150.0*dt);
 
 	//Gamepad Test. Demonstration on how to use the functions for the gamepads
-	if (IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), -40000,-10000))
-		App->render->camera.y += ceil(150.0*dt);
+	//if (IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), -40000,-10000))
+	//	App->render->camera.y += ceil(150.0*dt);
 
-	if (App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > 10000)
-		App->render->camera.y -= ceil(150.0*dt);
+	//if (App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > 10000)
+	//	App->render->camera.y -= ceil(150.0*dt);
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 		App->render->camera.x += ceil(150.0*dt);

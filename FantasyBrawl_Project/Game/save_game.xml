@@ -7,7 +7,7 @@
 	<entities>
 		<Player>
 			<Playerx value="0" />
-			<Playery value="96" />
+			<Playery value="47.2999992" />
 		</Player>
 	</entities>
 	<collision />

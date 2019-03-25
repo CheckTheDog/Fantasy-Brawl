@@ -14,6 +14,7 @@
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
+
 }
 
 j1Player::~j1Player()
@@ -48,6 +49,9 @@ bool j1Player::Start()
 	//-- active ----
 	active = true;
 
+	Axis_range = AXISMAX - AXISRANGESTART;
+
+
 	return true;
 }
 
@@ -57,7 +61,7 @@ void j1Player::UpdateEntityMovement(float dt)
 	switch (EntityMovement)
 	{
 	case MOVEMENT::RIGHTWARDS:
-		Accumulative_pos_Right += Entityinfo.Speed*dt*0.8f;
+		Accumulative_pos_Right += Entityinfo.Speed*dt*0.8f*abs(multiplier_x);
 
 		if (Accumulative_pos_Right > 1.0)
 		{
@@ -67,18 +71,18 @@ void j1Player::UpdateEntityMovement(float dt)
 		break;
 
 	case MOVEMENT::LEFTWARDS:
-		Accumulative_pos_Left += Entityinfo.Speed*dt;
+		Accumulative_pos_Left += Entityinfo.Speed*dt*abs(multiplier_x);
 
-			if (Accumulative_pos_Left > 1.0)
-			{
-				Future_position.x -= Accumulative_pos_Left;
-				Accumulative_pos_Left -= Accumulative_pos_Left;
-			}
+		if (Accumulative_pos_Left > 1.0)
+		{
+			Future_position.x -= Accumulative_pos_Left;
+			Accumulative_pos_Left -= Accumulative_pos_Left;
+		}
 		break;
 
 	case MOVEMENT::UPWARDS:
 
-		Accumulative_pos_Up += Entityinfo.Speed*dt*1.7f;
+		Accumulative_pos_Up += Entityinfo.Speed*dt*1.7f*abs(multiplier_y);
 
 		if (Accumulative_pos_Up > 1.0)
 		{
@@ -89,7 +93,7 @@ void j1Player::UpdateEntityMovement(float dt)
 
 	case MOVEMENT::DOWNWARDS:
 
-		Accumulative_pos_Down += Entityinfo.Speed*dt*3.0f;
+		Accumulative_pos_Down += Entityinfo.Speed*dt*3.0f*abs(multiplier_y);
 
 		if (Accumulative_pos_Down > 1.0)
 		{
@@ -120,9 +124,25 @@ bool j1Player::Update(float dt)
 {
 	// --- LOGIC --------------------
 
+	Axisx_value = App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX);
+	Axisy_value = App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY);
+
+	if (Axisx_value > 0)
+	multiplier_x = (Axisx_value - AXISRANGESTART) / Axis_range;
+	else
+	multiplier_x = (Axisx_value + AXISRANGESTART) / Axis_range;
+
+	if (Axisy_value > 0)
+	multiplier_y = (Axisy_value - AXISRANGESTART) / Axis_range;
+	else
+	multiplier_y = (Axisy_value + AXISRANGESTART) / Axis_range;
+	
+	LOG("multiplierx: %f", multiplier_x);
+	LOG("multipliery: %f", multiplier_y);
+
+
 		// --- RIGHTWARDS --
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
-			App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT)
+		if (multiplier_x > 0 /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX)> AXISRANGESTART*/)
 		{
 			EntityMovement = MOVEMENT::RIGHTWARDS;
 		}
@@ -131,8 +151,7 @@ bool j1Player::Update(float dt)
 			UpdateEntityMovement(dt);
 
 		// --- LEFTWARDS ---
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT &&
-			App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
+		if (multiplier_x < 0 /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX), AXISMIN, -AXISRANGESTART)*/)
 		{
 			EntityMovement = MOVEMENT::LEFTWARDS;
 		}
@@ -141,9 +160,10 @@ bool j1Player::Update(float dt)
 			UpdateEntityMovement(dt);
 
 		// --- UPWARDS ---
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		if (multiplier_y < -multipliermin /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), AXISMIN, -AXISRANGESTART)*/)
 		{
 			EntityMovement = MOVEMENT::UPWARDS;
+			//LOG("upp");
 		}
 	
 		if (EntityMovement != MOVEMENT::STATIC)
@@ -151,7 +171,7 @@ bool j1Player::Update(float dt)
 
 
 		// --- DOWNWARDS --- 
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		if (multiplier_y > multipliermin /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > AXISRANGESTART*/)
 		{
 			EntityMovement = MOVEMENT::DOWNWARDS;
 		}

@@ -7,6 +7,8 @@
 struct SDL_Texture;
 struct Collider;
 
+#define AXISRANGESTART 0
+
 struct Playerdata {
 
 	Animation* idleRight = nullptr;
@@ -92,6 +94,16 @@ public:
 
 	bool coll_up = false;
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
+
+	// --- Gamepad ---
+	float Axisx_value = 0.0f;
+	float Axisy_value = 0.0f;
+
+	float Axis_range = 0.0f;
+	float multipliermin = 0.1f;
+
+	float multiplier_x = 0.0f;
+	float multiplier_y = 0.0f;
 };
 
 #endif // __j1Player_H__
