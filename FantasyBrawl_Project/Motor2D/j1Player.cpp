@@ -140,44 +140,63 @@ bool j1Player::Update(float dt)
 	LOG("multiplierx: %f", multiplier_x);
 	LOG("multipliery: %f", multiplier_y);
 
+	// --- RIGHTWARDS --
+	if (multiplier_x > 0 && multiplier_y > 0 /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX)> AXISRANGESTART*/)
+	{
+		EntityMovement = MOVEMENT::RIGHTWARDS;
+	}
 
-		// --- RIGHTWARDS --
-		if (multiplier_x > 0 /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX)> AXISRANGESTART*/)
-		{
-			EntityMovement = MOVEMENT::RIGHTWARDS;
-		}
+	if (EntityMovement != MOVEMENT::STATIC)
+		UpdateEntityMovement(dt);
 
-		if (EntityMovement != MOVEMENT::STATIC)
-			UpdateEntityMovement(dt);
+	// --- LEFTWARDS ---
+	if (multiplier_x < 0 && multiplier_y > 0 /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX), AXISMIN, -AXISRANGESTART)*/)
+	{
+		EntityMovement = MOVEMENT::LEFTWARDS;
+	}
 
-		// --- LEFTWARDS ---
-		if (multiplier_x < 0 /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX), AXISMIN, -AXISRANGESTART)*/)
-		{
-			EntityMovement = MOVEMENT::LEFTWARDS;
-		}
+	if (EntityMovement != MOVEMENT::STATIC)
+		UpdateEntityMovement(dt);
 
-		if (EntityMovement != MOVEMENT::STATIC)
-			UpdateEntityMovement(dt);
+	// --- UPWARDS ---
+	if (multiplier_y < 0  /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), AXISMIN, -AXISRANGESTART)*/)
+	{
+		EntityMovement = MOVEMENT::UPWARDS;
+		LOG("down");
+	}
 
-		// --- UPWARDS ---
-		if (multiplier_y < -multipliermin /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), AXISMIN, -AXISRANGESTART)*/)
-		{
-			EntityMovement = MOVEMENT::UPWARDS;
-			//LOG("upp");
-		}
-	
-		if (EntityMovement != MOVEMENT::STATIC)
-			UpdateEntityMovement(dt);
+	if (EntityMovement != MOVEMENT::STATIC)
+		UpdateEntityMovement(dt);
+
+	// --- RIGHTWARDS --
+	if (multiplier_x > 0 && multiplier_y < 0 /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX)> AXISRANGESTART*/)
+	{
+		EntityMovement = MOVEMENT::RIGHTWARDS;
+	}
+
+	if (EntityMovement != MOVEMENT::STATIC)
+		UpdateEntityMovement(dt);
+
+	// --- LEFTWARDS ---
+	if (multiplier_x < 0 && multiplier_y < 0 /*IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTX), AXISMIN, -AXISRANGESTART)*/)
+	{
+		EntityMovement = MOVEMENT::LEFTWARDS;
+	}
+
+	if (EntityMovement != MOVEMENT::STATIC)
+		UpdateEntityMovement(dt);
 
 
-		// --- DOWNWARDS --- 
-		if (multiplier_y > multipliermin /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > AXISRANGESTART*/)
-		{
-			EntityMovement = MOVEMENT::DOWNWARDS;
-		}
+	// --- DOWNWARDS --- 
+	if (multiplier_y > 0 /*App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > AXISRANGESTART*/)
+	{
+		EntityMovement = MOVEMENT::DOWNWARDS;
+	}
 
-		if (EntityMovement != MOVEMENT::STATIC)
-			UpdateEntityMovement(dt);
+	if (EntityMovement != MOVEMENT::STATIC)
+		UpdateEntityMovement(dt);
+
+
 
 	//-------------------------------
 
