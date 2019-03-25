@@ -36,7 +36,7 @@ j1Input::~j1Input()
 
 
 	//Gamepads
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	/*for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
 		if (controllers[i].id_ptr != nullptr)
 		{
@@ -45,7 +45,7 @@ j1Input::~j1Input()
 		}
 		delete[] controllers[i].buttons;
 		delete[] controllers[i].axis;
-	}
+	}*/
 }
 
 // Called before render is available
@@ -56,11 +56,11 @@ bool j1Input::Awake(pugi::xml_node& config)
 	SDL_Init(0);
 	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 	
-	/*if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
+	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
 	{
 		LOG("SDL_HAPTICS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}*/
+	}
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -189,11 +189,17 @@ bool j1Input::PreUpdate()
 							else    //The gamepad was disconnected at some point and is now being reconnected
 								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
 
+							if (controllers[i].haptic_ptr == nullptr)
+							{
+								controllers[i].haptic_ptr = SDL_HapticOpen(controllers[i].index);
+							}
 							// This index will assign the proper index for a gamapd that has been connected once
 							// in case it is disconnected and connected again it will use the value of the var 
 							// at the moment of opening the gamepad
 							if (index_addition_controllers < MAX_GAMEPADS - 1) 
 								index_addition_controllers++;
+
+							break;
 						}
 					}
 				}
@@ -238,8 +244,22 @@ bool j1Input::PreUpdate()
 			{
 				SDL_GameControllerClose(controllers[i].id_ptr);
 			    controllers[i].id_ptr = nullptr;
+
+				SDL_HapticClose(controllers[i].haptic_ptr);
+				controllers[i].haptic_ptr = nullptr;
 			}
 	}
+
+	//SDL_Haptic* h;
+
+	//h = SDL_HapticOpen(0);
+
+	//if (SDL_HapticRumbleInit(h) != 0)
+	//	return -1;
+
+	//// Play effect at 50% strength for 2 seconds
+	//SDL_HapticRumblePlay(h, 1.0, 2000);
+
 
 	return true;
 }
@@ -248,8 +268,31 @@ bool j1Input::PreUpdate()
 bool j1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
+	
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		if (controllers[i].id_ptr != nullptr)
+		{
+			if (SDL_GameControllerGetAttached(controllers[i].id_ptr))
+			//SDL_GameControllerClose(controllers[i].id_ptr); //seems to have a very weird bug where it crashes the app
+
+			controllers[i].id_ptr = nullptr;
+		}
+
+		if (controllers[i].haptic_ptr != nullptr)
+		{
+			SDL_HapticClose(controllers[i].haptic_ptr);
+			controllers[i].haptic_ptr = nullptr;
+		}
+
+		delete[] controllers[i].buttons;
+		delete[] controllers[i].axis;
+	}
+
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 
 	return true;
 }

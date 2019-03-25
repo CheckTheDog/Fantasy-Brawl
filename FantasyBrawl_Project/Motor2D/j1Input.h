@@ -53,6 +53,7 @@ struct Gamepad
 {
 	// Id's
 	_SDL_GameController* id_ptr = nullptr; //SDL_GameController of the Gamepad
+	_SDL_Haptic* haptic_ptr = nullptr;
 
 	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
