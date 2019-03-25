@@ -14,6 +14,7 @@ struct SDL_Rect;
 struct _SDL_GameController;
 struct _SDL_Haptic;
 
+
 enum j1EventWindow
 {
 	WE_QUIT = 0,
@@ -115,7 +116,7 @@ public:
 			return 0;
 	}
 
-
+	void ShakeController(PLAYER p, float intensity, uint32 length);
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);

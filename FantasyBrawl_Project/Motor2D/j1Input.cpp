@@ -303,6 +303,15 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 	return windowEvents[ev];
 }
 
+
+void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
+{
+	if (SDL_HapticRumbleInit(controllers[(int)p].haptic_ptr) == 0)
+	{
+		SDL_HapticRumblePlay(controllers[(int)p].haptic_ptr, intensity, length);
+	}
+}
+
 void j1Input::GetMousePosition(int& x, int& y)
 {
 	x = mouse_x;

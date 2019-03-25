@@ -147,6 +147,12 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
 		App->render->camera.x -= ceil(150.0*dt);
+
+	//Testing Haptic features (Vibration)
+	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	{
+		App->input->ShakeController(PLAYER::P1,0.5,100);
+	}
 	
 
 	App->map->Draw();
