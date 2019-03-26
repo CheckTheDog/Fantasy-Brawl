@@ -6,6 +6,7 @@
 
 struct SDL_Texture;
 struct Collider;
+enum class PLAYER;
 
 struct Playerdata {
 
@@ -78,13 +79,12 @@ public:
 
 public:
 
+	PLAYER ID;
 	Playerdata playerinfo;
 	SDL_Rect Intersection = { 0,0,0,0 };
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };
-
-	bool coll_up = false;
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 
 	// --- Gamepad ---

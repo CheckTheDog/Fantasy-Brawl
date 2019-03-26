@@ -76,13 +76,14 @@ bool j1Scene::Start()
 	}
 
 	debug_tex = App->tex->Load("maps/path2.png");
-	//App->map->ColliderDrawer();
+	App->map->ColliderDrawer();
 
 	// --- Creating entities ---
 
-	entity_info player1_info;
+	entity_info player_info;
 
-	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player1_info, &App->entities->playerinfo);
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
 
 	return true;
 }

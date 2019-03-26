@@ -49,6 +49,7 @@ private:
 
 	// --- Player pointers ---
 	j1Player* player1 = nullptr;
+	j1Player* player2 = nullptr;
 };
 
 #endif // __j1SCENE_H__

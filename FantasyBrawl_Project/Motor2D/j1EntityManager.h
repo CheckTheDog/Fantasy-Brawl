@@ -50,6 +50,7 @@ public:
 
 	std::list<j1Entity*>	entities;
 	float				update_ms_cycle = 0;
+	uint playerid = 0;
 	// --- Player ---
 	Playerdata playerinfo;
 	// add playerinfo2 ...

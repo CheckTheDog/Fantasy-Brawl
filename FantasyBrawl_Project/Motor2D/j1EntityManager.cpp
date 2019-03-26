@@ -166,6 +166,7 @@ j1Entity* const j1EntityManager::CreateEntity(entity_type entitytype, entity_inf
 	switch (entitytype)
 	{
 	case entity_type::PLAYER:
+
 		entity = (j1Entity*) new j1Player(entityinfo,player_info);
 		break;
 	}
