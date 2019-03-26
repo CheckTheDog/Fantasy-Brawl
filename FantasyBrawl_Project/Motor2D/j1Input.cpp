@@ -192,6 +192,7 @@ bool j1Input::PreUpdate()
 							if (controllers[i].haptic_ptr == nullptr)
 							{
 								controllers[i].haptic_ptr = SDL_HapticOpen(controllers[i].index);
+								SDL_HapticRumbleInit(controllers[i].haptic_ptr);
 							}
 							// This index will assign the proper index for a gamapd that has been connected once
 							// in case it is disconnected and connected again it will use the value of the var 
@@ -306,10 +307,15 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 
 void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
 {
-	if (SDL_HapticRumbleInit(controllers[(int)p].haptic_ptr) == 0)
-	{
+	/*if (SDL_HapticRumbleInit(controllers[(int)p].haptic_ptr) == 0)
+	{*/
 		SDL_HapticRumblePlay(controllers[(int)p].haptic_ptr, intensity, length);
-	}
+	//}
+}
+
+void j1Input::StopControllerShake(PLAYER p)
+{
+	SDL_HapticRumbleStop(controllers[(int)p].haptic_ptr);
 }
 
 void j1Input::GetMousePosition(int& x, int& y)

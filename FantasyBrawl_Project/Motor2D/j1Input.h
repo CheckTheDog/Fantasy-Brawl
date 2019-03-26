@@ -116,7 +116,10 @@ public:
 			return 0;
 	}
 
+	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
 	void ShakeController(PLAYER p, float intensity, uint32 length);
+
+	void StopControllerShake(PLAYER p);
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
