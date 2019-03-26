@@ -96,6 +96,15 @@
     <ClInclude Include="j1Pathfinding.h">
       <Filter>Development  ========\Modules\Entities\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Utilities ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="p2List.h">
+      <Filter>Utilities ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="p2SString.h">
+      <Filter>Utilities ===========</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities ===========">
