@@ -7,8 +7,6 @@
 struct SDL_Texture;
 struct Collider;
 
-#define AXISRANGESTART 0
-
 struct Playerdata {
 
 	Animation* idleRight = nullptr;
@@ -84,13 +82,7 @@ public:
 	SDL_Rect Intersection = { 0,0,0,0 };
 
 	// --- MOVEMENT VARIABLES ---
-
-	float Accumulative_pos_Right = 0;
-	float Accumulative_pos_Left = 0;
-	float Accumulative_pos_Up = 0;
-	float Accumulative_pos_Down = 0;
 	fPoint Future_position = { 0,0 };
-	iPoint camera_pos_backup = { 0,0 };
 
 	bool coll_up = false;
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;

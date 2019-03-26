@@ -21,7 +21,7 @@ struct entity_info
 {
 	// --- Basic ---
 	fPoint			position = { 0,0 };
-	float          Speed = 100.0f;
+	float          Speed = 300.0f;
 
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;

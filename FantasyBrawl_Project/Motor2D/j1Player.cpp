@@ -49,8 +49,7 @@ bool j1Player::Start()
 	//-- active ----
 	active = true;
 
-	Axis_range = AXISMAX - AXISRANGESTART;
-
+	Axis_range = AXISMAX;
 
 	return true;
 }
@@ -61,45 +60,19 @@ void j1Player::UpdateEntityMovement(float dt)
 	switch (EntityMovement)
 	{
 	case MOVEMENT::RIGHTWARDS:
-		Accumulative_pos_Right += Entityinfo.Speed*dt*0.8f*abs(multiplier_x);
 
-		if (Accumulative_pos_Right > 1.0)
-		{
-			Future_position.x += Accumulative_pos_Right;
-			Accumulative_pos_Right -= Accumulative_pos_Right;
-		}
 		break;
 
 	case MOVEMENT::LEFTWARDS:
-		Accumulative_pos_Left += Entityinfo.Speed*dt*abs(multiplier_x);
 
-		if (Accumulative_pos_Left > 1.0)
-		{
-			Future_position.x -= Accumulative_pos_Left;
-			Accumulative_pos_Left -= Accumulative_pos_Left;
-		}
 		break;
 
 	case MOVEMENT::UPWARDS:
 
-		Accumulative_pos_Up += Entityinfo.Speed*dt*1.7f*abs(multiplier_y);
-
-		if (Accumulative_pos_Up > 1.0)
-		{
-			Future_position.y -= Accumulative_pos_Up;
-			Accumulative_pos_Up -= Accumulative_pos_Up;
-		}
 		break;
 
 	case MOVEMENT::DOWNWARDS:
 
-		Accumulative_pos_Down += Entityinfo.Speed*dt*3.0f*abs(multiplier_y);
-
-		if (Accumulative_pos_Down > 1.0)
-		{
-			Future_position.y += Accumulative_pos_Down;
-			Accumulative_pos_Down -= Accumulative_pos_Down;
-		}
 		break;
 
 	}
@@ -128,14 +101,14 @@ bool j1Player::Update(float dt)
 	Axisy_value = App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY);
 
 	if (Axisx_value > 0)
-	multiplier_x = (Axisx_value - AXISRANGESTART) / Axis_range;
+	multiplier_x = (Axisx_value) / Axis_range;
 	else
-	multiplier_x = (Axisx_value + AXISRANGESTART) / Axis_range;
+	multiplier_x = (Axisx_value) / Axis_range;
 
 	if (Axisy_value > 0)
-	multiplier_y = (Axisy_value - AXISRANGESTART) / Axis_range;
+	multiplier_y = (Axisy_value) / Axis_range;
 	else
-	multiplier_y = (Axisy_value + AXISRANGESTART) / Axis_range;
+	multiplier_y = (Axisy_value) / Axis_range;
 	
 	LOG("multiplierx: %f", multiplier_x);
 	LOG("multipliery: %f", multiplier_y);
@@ -196,13 +169,23 @@ bool j1Player::Update(float dt)
 	if (EntityMovement != MOVEMENT::STATIC)
 		UpdateEntityMovement(dt);
 
-
-
 	//-------------------------------
 
 	// --- Handling animations ---
 
 	HandleAnimations();
+
+	if (abs(multiplier_x) > multipliermin)
+	{
+		multiplier_x *= Entityinfo.Speed*dt;
+		Future_position.x += multiplier_x;
+	}
+
+	if (abs(multiplier_y) > multipliermin)
+	{
+		multiplier_y *= Entityinfo.Speed*dt;
+		Future_position.y += multiplier_y;
+	}
 
 	return true;
 }
@@ -255,7 +238,6 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
-		App->render->camera.x = camera_pos_backup.x;
 		break;
 	}
 }
@@ -268,7 +250,6 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
-		App->render->camera.x = camera_pos_backup.x;
 		break;
 	}
 }
@@ -338,9 +319,6 @@ void j1Player::FixedUpdate(float dt)
 void j1Player::LogicUpdate(float dt)
 {
 	// --- Update we may not do every frame ---
-
-	camera_pos_backup.x = App->render->camera.x;
-	camera_pos_backup.y = App->render->camera.y;
 
 	EntityMovement = MOVEMENT::STATIC;
 
