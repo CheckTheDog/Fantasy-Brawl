@@ -68,7 +68,6 @@ bool j1Player::Start()
 
 void j1Player::UpdateEntityMovement(float dt)
 {
-
 	switch (EntityMovement)
 	{
 	case MOVEMENT::RIGHTWARDS:
@@ -89,10 +88,6 @@ void j1Player::UpdateEntityMovement(float dt)
 
 	}
 
-	/*Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
-
-	App->coll->QueryCollisions(*Entityinfo.entitycoll);*/
-
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 }
 
@@ -105,32 +100,8 @@ void j1Player::HandleAnimations()
 	//--------------    ---------------
 }
 
-bool j1Player::Update(float dt)
+void j1Player::MoveX(float dt)
 {
-	// --- LOGIC --------------------
-
-	Axisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTX);
-	Axisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
-
-	if (Axisx_value > 0)
-	multiplier_x = (Axisx_value) / Axis_range;
-	else
-	multiplier_x = (Axisx_value) / Axis_range;
-
-	if (Axisy_value > 0)
-	multiplier_y = (Axisy_value) / Axis_range;
-	else
-	multiplier_y = (Axisy_value) / Axis_range;
-	
-	//LOG("multiplierx: %f", multiplier_x);
-	//LOG("multipliery: %f", multiplier_y);
-
-	//-------------------------------
-
-	// --- Handling animations ---
-
-	HandleAnimations();
-
 	// --- Performing Movement X ---
 
 	if (abs(multiplier_x) > multipliermin)
@@ -139,16 +110,13 @@ bool j1Player::Update(float dt)
 		Future_position.x += multiplier_x;
 	}
 
-	EntityMovement = MOVEMENT::RIGHTWARDS;
+	direction = AXISDIRECTION::AXIS_X;
 
-	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
+	CheckCollision();
+}
 
-	App->coll->QueryCollisions(*Entityinfo.entitycoll);
-
-	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
-
-	//-------------------------------
-
+void j1Player::MoveY(float dt)
+{
 	// --- Performing Movement Y ---
 
 	if (abs(multiplier_y) > multipliermin)
@@ -157,17 +125,45 @@ bool j1Player::Update(float dt)
 		Future_position.y += multiplier_y;
 	}
 
-	EntityMovement = MOVEMENT::DOWNWARDS;
+	direction = AXISDIRECTION::AXIS_Y;
 
-	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
+	CheckCollision();
+}
 
-	App->coll->QueryCollisions(*Entityinfo.entitycoll);
+void j1Player::HandleInput()
+{
+	// --- LOGIC ---
 
-	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
+	Axisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTX);
+	Axisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
 
-	//-------------------------------
+	if (Axisx_value > 0)
+		multiplier_x = (Axisx_value) / Axis_range;
+	else
+		multiplier_x = (Axisx_value) / Axis_range;
 
-	// --- Finally adjust the player's real position ---
+	if (Axisy_value > 0)
+		multiplier_y = (Axisy_value) / Axis_range;
+	else
+		multiplier_y = (Axisy_value) / Axis_range;
+
+	//LOG("multiplierx: %f", multiplier_x);
+	//LOG("multipliery: %f", multiplier_y);
+
+	//--------------
+}
+
+bool j1Player::Update(float dt)
+{
+	HandleInput();
+
+	HandleAnimations();
+
+	MoveX(dt);
+
+	MoveY(dt);
+
+	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
 
 	return true;
@@ -177,29 +173,41 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	// ---------------------- //
-
-	// --- Blitting player ---
-
 	App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y/*, &CurrentAnimation->GetCurrentFrame(dt)*/);
-
-	// ---------------------- //
 
 	return ret;
 }
 
+void j1Player::CheckCollision()
+{
+	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
+
+	App->coll->QueryCollisions(*Entityinfo.entitycoll);
+
+	Entityinfo.entitycoll->SetPos(Future_position.x, Future_position.y);
+}
+
 void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 {
+	switch (direction)
+	{
+	case AXISDIRECTION::AXIS_X:
 
-	if (EntityMovement == MOVEMENT::RIGHTWARDS && multiplier_x > 0.0f)
-		EntityMovement = MOVEMENT::RIGHTWARDS;
-	else if (EntityMovement == MOVEMENT::RIGHTWARDS && multiplier_x < 0.0f)
-		EntityMovement = MOVEMENT::LEFTWARDS;
+		if (multiplier_x > 0.0f)
+			EntityMovement = MOVEMENT::RIGHTWARDS;
+		else if (multiplier_x < 0.0f)
+			EntityMovement = MOVEMENT::LEFTWARDS;
+		break;
 
-	if(EntityMovement == MOVEMENT::DOWNWARDS && multiplier_y > 0.0f)
-		EntityMovement = MOVEMENT::DOWNWARDS;
-	else if(EntityMovement == MOVEMENT::DOWNWARDS && multiplier_y < 0.0f)
-		EntityMovement = MOVEMENT::UPWARDS;
+	case AXISDIRECTION::AXIS_Y:
+
+		if (multiplier_y > 0.0f)
+			EntityMovement = MOVEMENT::DOWNWARDS;
+		else if (multiplier_y < 0.0f)
+			EntityMovement = MOVEMENT::UPWARDS;
+		break;
+	}
+
 	
 		switch (EntityMovement)
 		{

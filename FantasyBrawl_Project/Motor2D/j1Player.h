@@ -39,6 +39,12 @@ enum class MOVEMENT
 	STATIC
 };
 
+enum class AXISDIRECTION
+{
+	AXIS_X,
+	AXIS_Y
+};
+
 
 class j1Player :public j1Entity
 {
@@ -54,20 +60,26 @@ public:
 
 	// Called each loop iteration
 	void FixedUpdate(float dt);
-
 	// Called each logic iteration
 	void LogicUpdate(float dt);
 
+	// --- Entity Movement ---
 	void UpdateEntityMovement(float dt);
-
 	void HandleAnimations();
+	void MoveX(float dt);
+	void MoveY(float dt);
+	void HandleInput();
 
+
+	// --- Save & Load ---
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
 	// --- Collisions Handling ---
 
 	void OnCollision(Collider* c1, Collider* c2);
+
+	void CheckCollision();
 
 	void Right_Collision(Collider* entitycollider, const Collider* to_check);
 
@@ -86,6 +98,7 @@ public:
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
+	AXISDIRECTION direction;
 
 	// --- Gamepad ---
 	float Axisx_value = 0.0f;
