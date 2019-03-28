@@ -43,6 +43,9 @@
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Development  ========\Modules\Entities\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="j1ParticleSystem.cpp">
+      <Filter>Development  ========\Modules\Entities\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -94,6 +97,9 @@
       <Filter>Development  ========\Modules\Core</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
+      <Filter>Development  ========\Modules\Entities\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ParticleSystem.h">
       <Filter>Development  ========\Modules\Entities\Tools</Filter>
     </ClInclude>
   </ItemGroup>
