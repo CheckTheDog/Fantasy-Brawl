@@ -82,8 +82,8 @@ bool j1Scene::Start()
 
 	entity_info player_info;
 
-	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
-	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
 
 	return true;
 }

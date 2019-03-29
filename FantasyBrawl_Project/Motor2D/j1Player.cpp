@@ -12,7 +12,7 @@
 #include "j1Audio.h"
 
 
-j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
+j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), player1info(*player_info)
 {
 
 }
@@ -26,30 +26,28 @@ bool j1Player::Start()
 {
 	LOG("--- Loading player ---");
 
-	// --- Player's bounding box ---
-	Entityinfo.entitycollrect = playerinfo.playerrect;
-	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
+	active = true;
+
+	// --- Entity Spritesheet ---
+	if (spritesheet == nullptr)
+		spritesheet = App->tex->Load(player1info.Texture.data());
+
+	// --- Currently playing Animation ---
+	CurrentAnimation = player1info.idleDown;
+
+	// --- Current Movement State (for collisions) ---
+	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 
 	// --- Current Player Position ---
 	Entityinfo.position.x = 100;
 	Entityinfo.position.y = 0;
-
-	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
-
 	Future_position.x = Entityinfo.position.x;
 	Future_position.y = Entityinfo.position.y;
 
-	// --- Currently playing Animation ---
-	CurrentAnimation = playerinfo.idleRight;
-
-	// --- Entity Spritesheet ---
-	if (spritesheet == nullptr)
-	spritesheet = App->tex->Load(playerinfo.Texture.data());
-
-	//-- active ----
-	active = true;
-
-	Axis_range = AXISMAX;
+	// --- Player's bounding box ---
+	Entityinfo.entitycollrect = player1info.playerrect;
+	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
+	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
 	// --- Check Player ID to assign gamepad ---
 	if (manager->playerid == 0)
@@ -66,38 +64,12 @@ bool j1Player::Start()
 	return true;
 }
 
-void j1Player::UpdateEntityMovement(float dt)
-{
-	switch (EntityMovement)
-	{
-	case MOVEMENT::RIGHTWARDS:
-
-		break;
-
-	case MOVEMENT::LEFTWARDS:
-
-		break;
-
-	case MOVEMENT::UPWARDS:
-
-		break;
-
-	case MOVEMENT::DOWNWARDS:
-
-		break;
-
-	}
-
-	MOVEMENT EntityMovement = MOVEMENT::STATIC;
-}
-
-
 void j1Player::HandleAnimations()
 {
-	// --- Handling Ground Animations ---
+	// --- Handling Animations ---
 
 
-	//--------------    ---------------
+	// ---------------------------
 }
 
 void j1Player::MoveX(float dt)
@@ -138,17 +110,14 @@ void j1Player::HandleInput()
 	Axisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
 
 	if (Axisx_value > 0)
-		multiplier_x = (Axisx_value) / Axis_range;
+		multiplier_x = (Axisx_value) / AXISMAX;
 	else
-		multiplier_x = (Axisx_value) / Axis_range;
+		multiplier_x = (Axisx_value) / AXISMAX;
 
 	if (Axisy_value > 0)
-		multiplier_y = (Axisy_value) / Axis_range;
+		multiplier_y = (Axisy_value) / AXISMAX;
 	else
-		multiplier_y = (Axisy_value) / Axis_range;
-
-	//LOG("multiplierx: %f", multiplier_x);
-	//LOG("multipliery: %f", multiplier_y);
+		multiplier_y = (Axisy_value) / AXISMAX;
 
 	//--------------
 }
@@ -173,7 +142,7 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y/*, &CurrentAnimation->GetCurrentFrame(dt)*/);
+	App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y, &CurrentAnimation->GetCurrentFrame(dt));
 
 	return ret;
 }
