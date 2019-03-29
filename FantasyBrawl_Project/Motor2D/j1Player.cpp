@@ -67,7 +67,68 @@ bool j1Player::Start()
 void j1Player::HandleAnimations()
 {
 	// --- Handling Animations ---
+	if (multiplier_x > multipliermin)
+	{
+		if (multiplier_y > multipliermin)
+		{
+			CurrentAnimation = player1info.moveDownright;
+		}
+		else if (multiplier_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.moveUpright;
+		}
+		else
+		{
+			CurrentAnimation = player1info.moveRight;
+		}
+	}
+	else if (multiplier_x < -multipliermin)
+	{
+		if (multiplier_y > multipliermin)
+		{
+			CurrentAnimation = player1info.moveDownleft;
+		}
+		else if (multiplier_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.moveUpleft;
+		}
+		else
+		{
+			CurrentAnimation = player1info.moveLeft;
+		}
+	}
+	else
+	{
+		if (multiplier_y > multipliermin)
+		{
+			CurrentAnimation = player1info.moveDown;
+		}
+		else if (multiplier_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.moveUp;
+		}
+		else
+		{
+			if (CurrentAnimation == player1info.moveRight)
+				CurrentAnimation = player1info.idleRight;
+			else if (CurrentAnimation == player1info.moveLeft)
+				CurrentAnimation = player1info.idleLeft;
 
+			else if (CurrentAnimation == player1info.moveDown)
+				CurrentAnimation = player1info.idleDown;
+			else if (CurrentAnimation == player1info.moveDownright)
+				CurrentAnimation = player1info.idleDownright;
+			else if (CurrentAnimation == player1info.moveDownleft)
+				CurrentAnimation = player1info.idleDownleft;
+
+			else if (CurrentAnimation == player1info.moveUp)
+				CurrentAnimation = player1info.idleUp;
+			else if (CurrentAnimation == player1info.moveUpright)
+				CurrentAnimation = player1info.idleUpright;
+			else if (CurrentAnimation == player1info.moveUpleft)
+				CurrentAnimation = player1info.idleUpleft;
+		}
+	}
 
 	// ---------------------------
 }
@@ -142,7 +203,7 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y, &CurrentAnimation->GetCurrentFrame(dt));
+	App->render->Blit(spritesheet, this->Entityinfo.position.x - 7, this->Entityinfo.position.y, &CurrentAnimation->GetCurrentFrame(dt));
 
 	return ret;
 }
