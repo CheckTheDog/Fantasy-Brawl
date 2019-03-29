@@ -119,6 +119,7 @@ public:
 	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
 	void ShakeController(PLAYER p, float intensity, uint32 length);
 
+	//Stop the vibration of a controller
 	void StopControllerShake(PLAYER p);
 
 	// Check if a certain window event happened
@@ -139,7 +140,6 @@ private:
 
 	Gamepad controllers[MAX_GAMEPADS] = {nullptr};
 	uint index_addition_controllers = 0;
-
 };
 
 #endif // __j1INPUT_H__
