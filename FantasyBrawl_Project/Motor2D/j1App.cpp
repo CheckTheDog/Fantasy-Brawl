@@ -11,7 +11,9 @@
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
@@ -28,6 +30,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
+	coll = new j1Collision();
+	entities = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
@@ -36,6 +40,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(entities);
+	AddModule(coll);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(pathfinding);
@@ -287,7 +293,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = (*item)->PostUpdate();
+		ret = (*item)->PostUpdate(dt);
 	}
 
 	return ret;

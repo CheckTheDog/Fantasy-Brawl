@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1PathFinding.h"
 #include "j1Scene.h"
+#include "j1Collision.h"
+#include "j1EntityManager.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -52,6 +54,8 @@ bool j1Scene::SetWalkabilityMap()
 bool j1Scene::ChangeMap(int destination_map_id)
 {
 	App->map->CleanUp();
+	App->coll->CleanUp();
+	App->map->ColliderDrawer();
 
 	if(App->map->Load(StageList.at(destination_map_id)->data()))
 	{
@@ -72,6 +76,14 @@ bool j1Scene::Start()
 	}
 
 	debug_tex = App->tex->Load("maps/path2.png");
+	App->map->ColliderDrawer();
+
+	// --- Creating entities ---
+
+	entity_info player_info;
+
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
 
 	return true;
 }
@@ -136,11 +148,11 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= ceil(150.0*dt);
 
 	//Gamepad Test. Demonstration on how to use the functions for the gamepads
-	if (IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), -40000,-10000))
-		App->render->camera.y += ceil(150.0*dt);
+	//if (IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), -40000,-10000))
+	//	App->render->camera.y += ceil(150.0*dt);
 
-	if (App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > 10000)
-		App->render->camera.y -= ceil(150.0*dt);
+	//if (App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > 10000)
+	//	App->render->camera.y -= ceil(150.0*dt);
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 		App->render->camera.x += ceil(150.0*dt);

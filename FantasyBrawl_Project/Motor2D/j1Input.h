@@ -9,6 +9,7 @@
 #define NUM_GAMEPAD_BUTTONS 15
 // This macro controls how many gamepads at max will be processed 
 #define MAX_GAMEPADS 4
+#define AXISMAX 32767
 
 struct SDL_Rect;
 struct _SDL_GameController;

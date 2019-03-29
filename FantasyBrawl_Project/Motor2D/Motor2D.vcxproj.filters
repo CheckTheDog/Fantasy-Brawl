@@ -41,7 +41,16 @@
       <Filter>Development  ========\Modules\Core</Filter>
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp">
-      <Filter>Development  ========\Modules\Entities\Tools</Filter>
+      <Filter>Development  ========\Entities\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Development  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Collision.cpp">
+      <Filter>Development  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +103,22 @@
       <Filter>Development  ========\Modules\Core</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
-      <Filter>Development  ========\Modules\Entities\Tools</Filter>
+      <Filter>Development  ========\Entities\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Entity.h">
+      <Filter>Development  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
+      <Filter>Development  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Collision.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Utilities ===========</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,10 +143,10 @@
     <Filter Include="Development  ========\Modules\Core">
       <UniqueIdentifier>{bcb41c38-6cfb-47c8-877b-09472f5b8a29}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Development  ========\Modules\Entities">
+    <Filter Include="Development  ========\Entities">
       <UniqueIdentifier>{22892218-f465-403a-be9b-e104b0a6be59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Development  ========\Modules\Entities\Tools">
+    <Filter Include="Development  ========\Entities\Tools">
       <UniqueIdentifier>{5bd7ebd8-39cd-4afc-b5e2-f75654684368}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
