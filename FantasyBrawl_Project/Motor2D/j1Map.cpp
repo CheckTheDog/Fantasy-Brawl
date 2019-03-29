@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include <math.h>
 #include "j1Window.h"
+#include "j1Collision.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -503,6 +504,45 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 		ret = true;
 
 		break;
+	}
+
+	return ret;
+}
+
+bool j1Map::ColliderDrawer()
+{
+	bool ret = true;
+
+	std::list<MapLayer*>::const_iterator layer = data.layers.begin();
+
+	for (; layer != data.layers.end(); ++layer)
+	{
+
+		if ((*layer)->properties.Get("Nodraw") == 1)
+		{
+
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tile_id = (*layer)->Get(x, y);
+
+					if (tile_id > 0)
+					{
+						TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+						if (tile_id > tileset->firstgid)
+						{
+
+							iPoint pos = MapToWorld(x, y);
+
+							App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+
+						}
+					}
+				}
+			}
+		}
 	}
 
 	return ret;

@@ -16,7 +16,8 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1PathFinding;
-class j1Player;
+class j1Collision;
+class j1EntityManager;
 
 class j1App
 {
@@ -88,11 +89,12 @@ public:
 	j1Scene*			scene = NULL;
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;
-	j1Player*           player = NULL;
+	j1EntityManager*    entities = nullptr;
+	j1Collision*        coll = nullptr;
 
+	int              framerate_cap;
 private:
 
-	/*p2List<j1Module*>	modules;*/
 	std::list <j1Module*> modules;
 
 	int					argc;
@@ -115,9 +117,8 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				dt = 0.0f;
 	int					capped_ms = -1;
-	int              framerate_cap;
 };
 
-extern j1App* App; // No student is asking me about that ... odd :-S
+extern j1App* App;
 
 #endif
