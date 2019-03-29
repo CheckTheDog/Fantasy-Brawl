@@ -15,6 +15,7 @@ struct SDL_Rect;
 struct _SDL_GameController;
 struct _SDL_Haptic;
 
+
 enum j1EventWindow
 {
 	WE_QUIT = 0,
@@ -54,6 +55,7 @@ struct Gamepad
 {
 	// Id's
 	_SDL_GameController* id_ptr = nullptr; //SDL_GameController of the Gamepad
+	_SDL_Haptic* haptic_ptr = nullptr;
 
 	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
@@ -115,7 +117,11 @@ public:
 			return 0;
 	}
 
+	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
+	void ShakeController(PLAYER p, float intensity, uint32 length);
 
+	//Stop the vibration of a controller
+	void StopControllerShake(PLAYER p);
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
@@ -135,7 +141,6 @@ private:
 
 	Gamepad controllers[MAX_GAMEPADS] = {nullptr};
 	uint index_addition_controllers = 0;
-
 };
 
 #endif // __j1INPUT_H__
