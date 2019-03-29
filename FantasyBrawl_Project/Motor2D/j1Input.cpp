@@ -34,18 +34,6 @@ j1Input::~j1Input()
 	//Keyboard
 	delete[] keyboard;
 
-
-	//Gamepads
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
-	{
-		if (controllers[i].id_ptr != nullptr)
-		{
-			SDL_GameControllerClose(controllers[i].id_ptr);
-			controllers[i].id_ptr = nullptr;
-		}
-		delete[] controllers[i].buttons;
-		delete[] controllers[i].axis;
-	}
 }
 
 // Called before render is available
@@ -56,11 +44,11 @@ bool j1Input::Awake(pugi::xml_node& config)
 	SDL_Init(0);
 	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 	
-	/*if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
+	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
 	{
 		LOG("SDL_HAPTICS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}*/
+	}
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -184,16 +172,25 @@ bool j1Input::PreUpdate()
 							if (controllers[i].index == -1) //First time a gamepad has been connected
 							{
 								controllers[i].id_ptr = SDL_GameControllerOpen(index_addition_controllers);
+
+								controllers[i].haptic_ptr = SDL_HapticOpen(index_addition_controllers);
+								SDL_HapticRumbleInit(controllers[i].haptic_ptr);
+
 								controllers[i].index = index_addition_controllers;
 							}
 							else    //The gamepad was disconnected at some point and is now being reconnected
+							{
 								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
+							}
 
+							
 							// This index will assign the proper index for a gamapd that has been connected once
 							// in case it is disconnected and connected again it will use the value of the var 
 							// at the moment of opening the gamepad
 							if (index_addition_controllers < MAX_GAMEPADS - 1) 
 								index_addition_controllers++;
+
+							break;
 						}
 					}
 				}
@@ -238,6 +235,9 @@ bool j1Input::PreUpdate()
 			{
 				SDL_GameControllerClose(controllers[i].id_ptr);
 			    controllers[i].id_ptr = nullptr;
+
+				/*SDL_HapticClose(controllers[i].haptic_ptr);
+				controllers[i].haptic_ptr = nullptr;*/
 			}
 	}
 
@@ -248,8 +248,31 @@ bool j1Input::PreUpdate()
 bool j1Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
+	
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		if (controllers[i].id_ptr != nullptr)
+		{
+			if (SDL_GameControllerGetAttached(controllers[i].id_ptr))
+			//SDL_GameControllerClose(controllers[i].id_ptr); //seems to have a very weird bug where it crashes the app
+
+			controllers[i].id_ptr = nullptr;
+		}
+
+		if (controllers[i].haptic_ptr != nullptr)
+		{
+			SDL_HapticClose(controllers[i].haptic_ptr);
+			controllers[i].haptic_ptr = nullptr;
+		}
+
+		delete[] controllers[i].buttons;
+		delete[] controllers[i].axis;
+	}
+
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 
 	return true;
 }
@@ -258,6 +281,19 @@ bool j1Input::CleanUp()
 bool j1Input::GetWindowEvent(j1EventWindow ev)
 {
 	return windowEvents[ev];
+}
+
+
+void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
+{
+	if (controllers[(int)p].id_ptr != nullptr)
+		SDL_HapticRumblePlay(controllers[(int)p].haptic_ptr, intensity, length);
+}
+
+void j1Input::StopControllerShake(PLAYER p)
+{
+	if (controllers[(int)p].id_ptr != nullptr)
+	SDL_HapticRumbleStop(controllers[(int)p].haptic_ptr);
 }
 
 void j1Input::GetMousePosition(int& x, int& y)
