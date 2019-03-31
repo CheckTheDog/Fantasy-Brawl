@@ -71,7 +71,7 @@ bool j1Render::PreUpdate()
 	return true;
 }
 
-bool j1Render::PostUpdate()
+bool j1Render::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Render_Post_Update", Profiler::Color::Aqua);
 

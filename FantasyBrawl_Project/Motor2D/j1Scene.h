@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include <vector>
+#include "j1Player.h"
 
 struct SDL_Texture;
 
@@ -45,6 +46,10 @@ private:
 	SDL_Texture* debug_tex;
 
 	std::vector <std::string*> StageList;
+
+	// --- Player pointers ---
+	j1Player* player1 = nullptr;
+	j1Player* player2 = nullptr;
 };
 
 #endif // __j1SCENE_H__

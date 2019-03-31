@@ -10,6 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
+struct Collider;
 
 class j1Module
 {
@@ -51,7 +52,7 @@ public:
 	}
 
 	// Called each loop iteration
-	virtual bool PostUpdate()
+	virtual bool PostUpdate(float dt)
 	{
 		return true;
 	}
@@ -70,6 +71,11 @@ public:
 	virtual bool Save(pugi::xml_node&) const
 	{
 		return true;
+	}
+
+	virtual void OnCollision(Collider* c1, Collider* c2)
+	{
+
 	}
 
 public:
