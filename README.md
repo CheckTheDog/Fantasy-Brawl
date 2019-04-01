@@ -5,17 +5,17 @@ Fantasy Brawl is a Battle Royale game developed by CheckTheDog that features int
 Moreover, each player is in control of a totally different hero each with its own characteristics and special ability! 
 Get ready warrior! A fierce battle against the strongest is about to begin!
 
-Fantasy Brawl's Wiki: https://github.com/CheckTheDog/Fantasy-Brawl/wiki
-Fantasy Brawl's Website: TBD
+- Fantasy Brawl's Wiki: [Wiki](https://github.com/CheckTheDog/Fantasy-Brawl/wiki)
+- Fantasy Brawl's Website: TBD
 
 ### CONTROLS
 
-Player Movement (Gamepad Exclusive):
+- Player Movement (Gamepad Exclusive):
 
-- Move around: Left joystick, movement in any direction
-- Aim: Right Joystick, aim at any direction (TBD)
+  - Move around: Left joystick, movement in any direction
+  - Aim: Right Joystick, aim at any direction (TBD)
 
-Player Attack (Gamepad Exclusive):
+- Player Attack (Gamepad Exclusive):
 
 TBD
 
@@ -38,13 +38,13 @@ and effectively towards our goal, making this game a reality! Know the team!
 **Management:** _Vladislav Bulantsev_
 * Github account: [vlaad96](https://github.com/vlaad96)
 
-**Art & Audio:** _Roger Sànchez_
+**Art & Audio:** _Roger SÃ nchez_
 * Github account: [RogerJimbo](https://github.com/RogerJimbo)
 
-**Design:** _Jacobo Galofré_
+**Design:** _Jacobo GalofrÃ©_
 * Github account: [sherzock](https://github.com/sherzock)
 
-**UI:** _Òscar Larios_
+**UI:** _Ã’scar Larios_
 * Github account: [Megaoski](https://github.com/Megaoski)
 
 **QA:** _Pol Bosch_
@@ -54,15 +54,15 @@ and effectively towards our goal, making this game a reality! Know the team!
 
 Caught your interest? Follow us on twitter! Weekly updates on the game's development are on their way!
 
-Our Twitter account: https://twitter.com/dog_check?lang=es
+Our Twitter account: [Our Twitter](https://twitter.com/dog_check?lang=es)
 
 ### TOOLS USED
 
-Microsoft Visual Studio 2017
-Tiled
-Adobe Photoshop
-Brofiler
-SDL, STL and pugi xml
+- Microsoft Visual Studio 2017
+- Tiled
+- Adobe Photoshop
+- Brofiler
+- SDL, STL and pugi xml
 
 ### DISCLAIMER
 
@@ -71,17 +71,14 @@ Copyright Disclaimer, allowance is made for "fair use" for purposes such as crit
 Non-profit, educational or personal use tips the balance in favor of fair use." All content is owned by its respective 
 creators, no copyright infringement is intended, its use is solely and strictly educational.
 
-We do not own any of the sprites, tilesets, music or sfx presented in this game. Authors credited below
-
-:
+We do not own any of the sprites, tilesets, music or sfx presented in this game. Authors credited below:
 
 - Player sprites, Tilesets & songs, SFX are property of  Square Enix, original from Final Fantasy Tactics for 
 Sony's Playstation
 
 ### LICENSE
 
-© 2019 CheckTheDog
-
+Â© 2019 CheckTheDog
 
 Licensed under the [MIT License](LICENSE.txt)
 
