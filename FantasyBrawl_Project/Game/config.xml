@@ -24,11 +24,12 @@
 
   <map>
     <folder>maps/</folder>
+    <colliders red="277" green="276" blue="275"/>
+
   </map>
 
   <scene>
-    <map_name path="iso_walk.tmx"/>
-    <map_name path="iso.tmx"/>
+    <map_name path="Map1.tmx"/>
   </scene>
 
   <entities>
