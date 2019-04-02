@@ -59,7 +59,7 @@ public:
 	bool CleanUp();
 
 	void LoadParticle(const char* filePath, const char* fileName);
-	void AddParticle();
+	void AddParticle(particleType type, fPoint pos);
 	void AddProjectile();
 
 private:
