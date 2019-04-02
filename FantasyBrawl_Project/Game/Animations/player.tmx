@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="400" height="870" tilewidth="1" tileheight="1" infinite="0" nextlayerid="18" nextobjectid="87">
+ <imagelayer id="1" name="spritesheet" locked="1">
+  <image source="../Textures/Wendolin Red Sprite.png" width="400" height="870"/>
+ </imagelayer>
+ <objectgroup id="2" name="idleDownright" locked="1">
+  <object id="6" x="217" y="2" width="50" height="70"/>
+  <object id="7" x="281" y="2" width="50" height="70"/>
+  <object id="8" x="345" y="2" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="3" name="idleLeft" locked="1">
+  <object id="9" x="14" y="74" width="50" height="70"/>
+  <object id="10" x="74" y="74" width="50" height="70"/>
+  <object id="11" x="138" y="74" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="4" name="idleRight" locked="1">
+  <object id="12" x="224" y="74" width="50" height="70"/>
+  <object id="13" x="286" y="74" width="50" height="70"/>
+  <object id="14" x="348" y="74" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="5" name="idleUpleft" locked="1">
+  <object id="15" x="10" y="146" width="50" height="70"/>
+  <object id="16" x="72" y="146" width="50" height="70"/>
+  <object id="17" x="134" y="146" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="6" name="idleUpright" locked="1">
+  <object id="18" x="224" y="146" width="50" height="70"/>
+  <object id="19" x="286" y="146" width="50" height="70"/>
+  <object id="20" x="348" y="146" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="7" name="idleDown" locked="1">
+  <object id="22" x="8" y="218" width="50" height="70"/>
+  <object id="23" x="68" y="218" width="50" height="70"/>
+  <object id="24" x="128" y="218" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="8" name="moveUpleft" locked="1">
+  <object id="61" x="8" y="584" width="50" height="70"/>
+  <object id="62" x="70" y="584" width="50" height="70"/>
+  <object id="63" x="132" y="584" width="50" height="70"/>
+  <object id="64" x="194" y="584" width="50" height="70"/>
+  <object id="65" x="256" y="584" width="50" height="70"/>
+  <object id="66" x="318" y="584" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="9" name="moveUpright" locked="1">
+  <object id="67" x="8" y="654" width="50" height="70"/>
+  <object id="68" x="70" y="654" width="50" height="70"/>
+  <object id="69" x="132" y="654" width="50" height="70"/>
+  <object id="70" x="194" y="654" width="50" height="70"/>
+  <object id="71" x="256" y="654" width="50" height="70"/>
+  <object id="72" x="318" y="654" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="10" name="moveDown" locked="1">
+  <object id="73" x="7" y="724" width="50" height="70"/>
+  <object id="74" x="67" y="724" width="50" height="70"/>
+  <object id="75" x="127" y="724" width="50" height="70"/>
+  <object id="76" x="187" y="724" width="50" height="70"/>
+  <object id="77" x="247" y="724" width="50" height="70"/>
+  <object id="78" x="307" y="724" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="11" name="moveUp">
+  <object id="81" x="5" y="798" width="50" height="70"/>
+  <object id="82" x="67" y="798" width="50" height="70"/>
+  <object id="83" x="129" y="798" width="50" height="70"/>
+  <object id="84" x="191" y="798" width="50" height="70"/>
+  <object id="85" x="253" y="798" width="50" height="70"/>
+  <object id="86" x="315" y="798" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="12" name="idleUp" locked="1">
+  <object id="26" x="223" y="218" width="50" height="70"/>
+  <object id="27" x="285" y="218" width="50" height="70"/>
+  <object id="28" x="347" y="218" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="13" name="moveDownleft" locked="1">
+  <object id="30" x="10" y="292" width="50" height="70"/>
+  <object id="36" x="74" y="292" width="50" height="70"/>
+  <object id="37" x="138" y="292" width="50" height="70"/>
+  <object id="38" x="202" y="292" width="50" height="70"/>
+  <object id="39" x="264" y="292" width="50" height="70"/>
+  <object id="40" x="328" y="292" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="14" name="moveDownright" locked="1">
+  <object id="42" x="10" y="366" width="50" height="70"/>
+  <object id="43" x="74" y="366" width="50" height="70"/>
+  <object id="44" x="138" y="366" width="50" height="70"/>
+  <object id="45" x="202" y="366" width="50" height="70"/>
+  <object id="46" x="266" y="366" width="50" height="70"/>
+  <object id="47" x="330" y="366" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="15" name="moveLeft" locked="1">
+  <object id="48" x="2" y="440" width="50" height="70"/>
+  <object id="49" x="64" y="440" width="50" height="70"/>
+  <object id="50" x="126" y="440" width="50" height="70"/>
+  <object id="51" x="188" y="440" width="50" height="70"/>
+  <object id="52" x="250" y="440" width="50" height="70"/>
+  <object id="53" x="312" y="440" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="16" name="moveRight" locked="1">
+  <object id="55" x="10" y="514" width="50" height="70"/>
+  <object id="56" x="72" y="514" width="50" height="70"/>
+  <object id="57" x="134" y="514" width="50" height="70"/>
+  <object id="58" x="196" y="514" width="50" height="70"/>
+  <object id="59" x="258" y="514" width="50" height="70"/>
+  <object id="60" x="320" y="514" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="17" name="idleDownleft" locked="1">
+  <object id="1" x="9" y="2" width="50" height="70"/>
+  <object id="4" x="73" y="2" width="50" height="70"/>
+  <object id="5" x="137" y="2" width="50" height="70"/>
+ </objectgroup>
+</map>

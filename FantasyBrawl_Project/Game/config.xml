@@ -34,9 +34,9 @@
   <entities>
 
     <player>
-      <folder>animation/player.tmx</folder>
-      <texture>textures/spritesheet.png</texture>
-      <collider x="0" y="0" width="24" height="24"/>
+      <folder>Animations/player.tmx</folder>
+      <texture1>textures/Wendolin Red Sprite.png</texture1>
+      <collider x="0" y="0" width="30" height="68"/>
     </player>
 
   </entities>

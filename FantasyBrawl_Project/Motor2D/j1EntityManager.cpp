@@ -30,26 +30,36 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	pugi::xml_node playernode = config.child("player");
 
-	// --- Player 1 Awake ---
-	playerinfo.folder.assign(playernode.child("folder").child_value());
-	playerinfo.Texture.assign(playernode.child("texture").child_value());
-
-	//playerinfo.idleRight = LoadAnimation(playerinfo.folder.GetString(), "idle right");
-	//playerinfo.idleLeft = LoadAnimation(playerinfo.folder.GetString(), "idle left");
-	//playerinfo.runRight = LoadAnimation(playerinfo.folder.GetString(), "run right");
-	//playerinfo.runLeft = LoadAnimation(playerinfo.folder.GetString(), "run left");
 	int x = playernode.child("collider").attribute("x").as_int();
 	int y = playernode.child("collider").attribute("y").as_int();
 	int w = playernode.child("collider").attribute("width").as_int();
 	int h = playernode.child("collider").attribute("height").as_int();
-	playerinfo.playerrect = { x,y,w,h };
+
+	// --- Player 1 Awake ---
+	player1info.folder.assign(playernode.child("folder").child_value());
+	player1info.Texture.assign(playernode.child("texture1").child_value());
+
+	player1info.idleRight = LoadAnimation(player1info.folder.data(), "idleRight");
+	player1info.idleLeft = LoadAnimation(player1info.folder.data(), "idleLeft");
+	player1info.idleUp = LoadAnimation(player1info.folder.data(), "idleUp");
+	player1info.idleDown = LoadAnimation(player1info.folder.data(), "idleDown");
+	player1info.idleUpright = LoadAnimation(player1info.folder.data(), "idleUpright");
+	player1info.idleUpleft = LoadAnimation(player1info.folder.data(), "idleUpleft");
+	player1info.idleDownright = LoadAnimation(player1info.folder.data(), "idleDownright");
+	player1info.idleDownleft = LoadAnimation(player1info.folder.data(), "idleDownleft");
+
+	player1info.moveRight = LoadAnimation(player1info.folder.data(), "moveRight");
+	player1info.moveLeft = LoadAnimation(player1info.folder.data(), "moveLeft");
+	player1info.moveUp = LoadAnimation(player1info.folder.data(), "moveUp");
+	player1info.moveDown = LoadAnimation(player1info.folder.data(), "moveDown");
+	player1info.moveUpright = LoadAnimation(player1info.folder.data(), "moveUpright");
+	player1info.moveUpleft = LoadAnimation(player1info.folder.data(), "moveUpleft");
+	player1info.moveDownright = LoadAnimation(player1info.folder.data(), "moveDownright");
+	player1info.moveDownleft = LoadAnimation(player1info.folder.data(), "moveDownleft");
+
+	player1info.playerrect = { x,y,w,h };
 
 	// --- Player 1 main variables ---
-
-	//playerinfo.idleRight->speed = 10.0f;
-	//playerinfo.idleLeft->speed = 10.0f;
-	//playerinfo.runRight->speed = 10.0f;
-	//playerinfo.runLeft->speed = 10.0f;
 
 	// --------------------
 

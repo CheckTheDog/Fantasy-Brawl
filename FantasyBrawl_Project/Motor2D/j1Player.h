@@ -12,16 +12,21 @@ struct Playerdata {
 
 	Animation* idleRight = nullptr;
 	Animation* idleLeft = nullptr;
-	Animation* runRight = nullptr;
-	Animation* runLeft = nullptr;
-	Animation* jumpingRight = nullptr;
-	Animation* jumpingLeft = nullptr;
-	Animation* fallingRight = nullptr;
-	Animation* fallingLeft = nullptr;
-	Animation* deathRight = nullptr;
-	Animation* deathLeft = nullptr;
-	Animation* airRight = nullptr;
-	Animation* airLeft = nullptr;
+	Animation* idleUp = nullptr;
+	Animation* idleUpright = nullptr;
+	Animation* idleUpleft = nullptr;
+	Animation* idleDown = nullptr;
+	Animation* idleDownright = nullptr;
+	Animation* idleDownleft = nullptr;
+
+	Animation* moveRight = nullptr;
+	Animation* moveLeft = nullptr;
+	Animation* moveUp = nullptr;
+	Animation* moveUpright = nullptr;
+	Animation* moveUpleft = nullptr;
+	Animation* moveDown = nullptr;
+	Animation* moveDownright = nullptr;
+	Animation* moveDownleft = nullptr;
 
 	std::string folder;
 	std::string Texture;
@@ -45,6 +50,14 @@ enum class AXISDIRECTION
 	AXIS_Y
 };
 
+enum class animations
+{
+	NONE, IDLE_UP, IDLE_UPRIGHT, IDLE_RIGHT, IDLE_DOWNRIGHT,
+	IDLE_DOWN, IDLE_DOWNLEFT, IDLE_LEFT, IDLE_UPLEFT,
+	MOVE_UP, MOVE_UPRIGHT, MOVE_RIGHT, MOVE_DOWNRIGHT,
+	MOVE_DOWN, MOVE_DOWNLEFT, MOVE_LEFT, MOVE_UPLEFT
+};
+
 
 class j1Player :public j1Entity
 {
@@ -64,7 +77,6 @@ public:
 	void LogicUpdate(float dt);
 
 	// --- Entity Movement ---
-	void UpdateEntityMovement(float dt);
 	void HandleAnimations();
 	void MoveX(float dt);
 	void MoveY(float dt);
@@ -92,21 +104,20 @@ public:
 public:
 
 	PLAYER ID;
-	Playerdata playerinfo;
+	Playerdata player1info;
 	SDL_Rect Intersection = { 0,0,0,0 };
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };
-	MOVEMENT EntityMovement = MOVEMENT::STATIC;
+	Animation* CurrentAnimation;
+	MOVEMENT EntityMovement;
 	AXISDIRECTION direction;
 
 	// --- Gamepad ---
 	float Axisx_value = 0.0f;
 	float Axisy_value = 0.0f;
 
-	float Axis_range = 0.0f;
 	float multipliermin = 0.1f;
-
 	float multiplier_x = 0.0f;
 	float multiplier_y = 0.0f;
 };

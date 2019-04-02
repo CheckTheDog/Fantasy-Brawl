@@ -82,8 +82,8 @@ bool j1Scene::Start()
 
 	entity_info player_info;
 
-	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
-	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->playerinfo);
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
 
 	return true;
 }
@@ -103,7 +103,7 @@ bool j1Scene::PreUpdate()
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
 
-	if(App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	/*if(App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		if(origin_selected == true)
 		{
@@ -115,7 +115,7 @@ bool j1Scene::PreUpdate()
 			origin = p;
 			origin_selected = true;
 		}
-	}
+	}*/
 
 	return true;
 }
@@ -218,7 +218,7 @@ bool j1Scene::Update(float dt)
 
 	// Debug pathfinding ------------------------------
 	//int x, y;
-	App->input->GetMousePosition(x, y);
+	/*App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
 	p = App->map->MapToWorld(p.x, p.y);
@@ -231,7 +231,7 @@ bool j1Scene::Update(float dt)
 	{
 		iPoint pos = App->map->MapToWorld(path->at(i).x, path->at(i).y);
 		App->render->Blit(debug_tex, pos.x, pos.y);
-	}
+	}*/
 
 	return true;
 }

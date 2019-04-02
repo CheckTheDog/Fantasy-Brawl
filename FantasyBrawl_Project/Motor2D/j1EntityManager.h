@@ -52,7 +52,7 @@ public:
 	float				update_ms_cycle = 0;
 	uint playerid = 0;
 	// --- Player ---
-	Playerdata playerinfo;
+	Playerdata player1info;
 	// add playerinfo2 ...
 };
 
