@@ -70,7 +70,8 @@ void j1Player::HandleAnimations()
 
 	bool attacking = false;
 
-	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
+		&& (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin))
 		attacking = true;
 
 	/*if ((CurrentAnimation == player1info.attackRight
@@ -84,151 +85,149 @@ void j1Player::HandleAnimations()
 		&& CurrentAnimation->Finished() == true)
 		attacking = false;*/
 
+	if(attacking)
+	{ 
+		if (RJdirection_x > multipliermin)
+		{
+			if (RJdirection_y > multipliermin)
+			{
+				CurrentAnimation = player1info.attackDownright;
+			}
+			else if (RJdirection_y < -multipliermin)
+			{
+				CurrentAnimation = player1info.attackUpright;
+			}
+			else
+			{
+				CurrentAnimation = player1info.attackRight;
+			}
+		}
+
+		// --- Moving Left ---
+
+		else if (RJdirection_x < -multipliermin)
+		{
+			if (RJdirection_y > multipliermin)
+			{
+				CurrentAnimation = player1info.attackDownleft;
+			}
+			else if (RJdirection_y < -multipliermin)
+			{
+				CurrentAnimation = player1info.attackUpleft;
+			}
+			else
+			{
+				CurrentAnimation = player1info.attackLeft;
+			}
+		}
+
+		else
+		{
+			if (RJdirection_y > multipliermin)
+			{
+				CurrentAnimation = player1info.attackDown;
+			}
+			else if (RJdirection_y < -multipliermin)
+			{
+				CurrentAnimation = player1info.attackUp;
+			}
+		}
+	}
+
+
 	// --- Moving Right ---
 
-	if (multiplier_x > multipliermin)
-	{
-		if (multiplier_y > multipliermin)
-		{
-			if (!attacking)
-				CurrentAnimation = player1info.moveDownright;
-			else
-				CurrentAnimation = player1info.attackDownright;
-		}
-		else if (multiplier_y < -multipliermin)
-		{
-			if (!attacking)
-				CurrentAnimation = player1info.moveUpright;
-			else
-				CurrentAnimation = player1info.attackUpright;
-		}
-		else
-		{
-			if (!attacking)
-				CurrentAnimation = player1info.moveRight;
-			else
-				CurrentAnimation = player1info.attackRight;
-		}
-	}
-
-	// --- Moving Left ---
-
-	else if (multiplier_x < -multipliermin)
-	{
-		if (multiplier_y > multipliermin)
-		{
-			if (!attacking)
-				CurrentAnimation = player1info.moveDownleft;
-			else
-				CurrentAnimation = player1info.attackDownleft;
-		}
-		else if (multiplier_y < -multipliermin)
-		{
-			if (!attacking)
-				CurrentAnimation = player1info.moveUpleft;
-			else
-				CurrentAnimation = player1info.attackUpleft;
-		}
-		else
-		{
-			if (!attacking)
-				CurrentAnimation = player1info.moveLeft;
-			else
-				CurrentAnimation = player1info.attackLeft;
-		}
-	}
 	else
 	{
-		if (multiplier_y > multipliermin)
+		if (LJdirection_x > multipliermin)
 		{
-			if (!attacking)
+			if (LJdirection_y > multipliermin)
+			{
+				CurrentAnimation = player1info.moveDownright;
+			}
+			else if (LJdirection_y < -multipliermin)
+			{
+				CurrentAnimation = player1info.moveUpright;
+			}
+			else
+			{
+				CurrentAnimation = player1info.moveRight;
+			}
+		}
+
+		// --- Moving Left ---
+
+		else if (LJdirection_x < -multipliermin)
+		{
+			if (LJdirection_y > multipliermin)
+			{
+				CurrentAnimation = player1info.moveDownleft;
+			}
+			else if (LJdirection_y < -multipliermin)
+			{
+				CurrentAnimation = player1info.moveUpleft;
+			}
+			else
+			{
+				CurrentAnimation = player1info.moveLeft;
+			}
+		}
+
+		else
+		{
+			if (LJdirection_y > multipliermin)
+			{
 				CurrentAnimation = player1info.moveDown;
-			else
-				CurrentAnimation = player1info.attackDown;
-		}
-		else if (multiplier_y < -multipliermin)
-		{
-			if (!attacking)
+			}
+			else if (LJdirection_y < -multipliermin)
+			{
 				CurrentAnimation = player1info.moveUp;
+			}
+
+			// --- Not moving at all ---
+
 			else
-				CurrentAnimation = player1info.attackUp;
-		}
-
-		// --- Not moving at all ---
-
-		else 
-		{
-			if (CurrentAnimation == player1info.moveRight 
-				|| CurrentAnimation == player1info.idleRight
-				|| CurrentAnimation == player1info.attackRight)
 			{
-				if (!attacking)
+				if (CurrentAnimation == player1info.moveRight
+					|| CurrentAnimation == player1info.attackRight)
+				{
 					CurrentAnimation = player1info.idleRight;
-				else
-					CurrentAnimation = player1info.attackRight;
-			}
-			else if (CurrentAnimation == player1info.moveLeft 
-				|| CurrentAnimation == player1info.idleLeft
-				|| CurrentAnimation == player1info.attackLeft)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveLeft
+					|| CurrentAnimation == player1info.attackLeft)
+				{
 					CurrentAnimation = player1info.idleLeft;
-				else
-					CurrentAnimation = player1info.attackLeft;
-			}
-			else if (CurrentAnimation == player1info.moveDown 
-				|| CurrentAnimation == player1info.idleDown
-				|| CurrentAnimation == player1info.attackDown)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveDown
+					|| CurrentAnimation == player1info.attackDown)
+				{
 					CurrentAnimation = player1info.idleDown;
-				else
-					CurrentAnimation = player1info.attackDown;
-			}
-			else if (CurrentAnimation == player1info.moveDownright 
-				|| CurrentAnimation == player1info.idleDownright
-				|| CurrentAnimation == player1info.attackDownright)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveDownright
+					|| CurrentAnimation == player1info.attackDownright)
+				{
 					CurrentAnimation = player1info.idleDownright;
-				else
-					CurrentAnimation = player1info.attackDownright;
-			}
-			else if (CurrentAnimation == player1info.moveDownleft 
-				|| CurrentAnimation == player1info.idleDownleft
-				|| CurrentAnimation == player1info.attackDownleft)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveDownleft
+					|| CurrentAnimation == player1info.attackDownleft)
+				{
 					CurrentAnimation = player1info.idleDownleft;
-				else
-					CurrentAnimation = player1info.attackDownleft;
-			}
-			else if (CurrentAnimation == player1info.moveUp 
-				|| CurrentAnimation == player1info.idleUp
-				|| CurrentAnimation == player1info.attackUp)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveUp
+					|| CurrentAnimation == player1info.attackUp)
+				{
 					CurrentAnimation = player1info.idleUp;
-				else
-					CurrentAnimation = player1info.attackUp;
-			}
-			else if (CurrentAnimation == player1info.moveUpright 
-				|| CurrentAnimation == player1info.idleUpright
-				|| CurrentAnimation == player1info.attackUpright)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveUpright
+					|| CurrentAnimation == player1info.attackUpright)
+				{
 					CurrentAnimation = player1info.idleUpright;
-				else
-					CurrentAnimation = player1info.attackUpright;
-			}
-			else if (CurrentAnimation == player1info.moveUpleft 
-				|| CurrentAnimation == player1info.idleUpleft
-				|| CurrentAnimation == player1info.attackUpleft)
-			{
-				if (!attacking)
+				}
+				else if (CurrentAnimation == player1info.moveUpleft
+					|| CurrentAnimation == player1info.attackUpleft)
+				{
 					CurrentAnimation = player1info.idleUpleft;
-				else
-					CurrentAnimation = player1info.attackUpleft;
+				}
 			}
 		}
 	}
@@ -240,10 +239,10 @@ void j1Player::MoveX(float dt)
 {
 	// --- Performing Movement X ---
 
-	if (abs(multiplier_x) > multipliermin)
+	if (abs(LJdirection_x) > multipliermin)
 	{
-		multiplier_x *= Entityinfo.Speed*dt;
-		Future_position.x += multiplier_x;
+		LJdirection_x *= Entityinfo.Speed*dt;
+		Future_position.x += LJdirection_x;
 	}
 
 	direction = AXISDIRECTION::AXIS_X;
@@ -255,10 +254,10 @@ void j1Player::MoveY(float dt)
 {
 	// --- Performing Movement Y ---
 
-	if (abs(multiplier_y) > multipliermin)
+	if (abs(LJdirection_y) > multipliermin)
 	{
-		multiplier_y *= Entityinfo.Speed*dt;
-		Future_position.y += multiplier_y;
+		LJdirection_y *= Entityinfo.Speed*dt;
+		Future_position.y += LJdirection_y;
 	}
 
 	direction = AXISDIRECTION::AXIS_Y;
@@ -270,18 +269,32 @@ void j1Player::HandleInput()
 {
 	// --- LOGIC ---
 
-	Axisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTX);
-	Axisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
+	LJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTX);
+	LJAxisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
 
-	if (Axisx_value > 0)
-		multiplier_x = (Axisx_value) / AXISMAX;
+	if (LJAxisx_value > 0)
+		LJdirection_x = (LJAxisx_value) / AXISMAX;
 	else
-		multiplier_x = (Axisx_value) / AXISMAX;
+		LJdirection_x = (LJAxisx_value) / AXISMAX;
 
-	if (Axisy_value > 0)
-		multiplier_y = (Axisy_value) / AXISMAX;
+	if (LJAxisy_value > 0)
+		LJdirection_y = (LJAxisy_value) / AXISMAX;
 	else
-		multiplier_y = (Axisy_value) / AXISMAX;
+		LJdirection_y = (LJAxisy_value) / AXISMAX;
+
+
+	RJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTX);
+	RJAxisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTY);
+
+	if (RJAxisx_value > 0)
+		RJdirection_x = (RJAxisx_value) / AXISMAX;
+	else
+		RJdirection_x = (RJAxisx_value) / AXISMAX;
+
+	if (RJAxisy_value > 0)
+		RJdirection_y = (RJAxisy_value) / AXISMAX;
+	else
+		RJdirection_y = (RJAxisy_value) / AXISMAX;
 
 	//--------------
 }
@@ -326,17 +339,17 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 	{
 	case AXISDIRECTION::AXIS_X:
 
-		if (multiplier_x > 0.0f)
+		if (LJdirection_x > 0.0f)
 			EntityMovement = MOVEMENT::RIGHTWARDS;
-		else if (multiplier_x < 0.0f)
+		else if (LJdirection_x < 0.0f)
 			EntityMovement = MOVEMENT::LEFTWARDS;
 		break;
 
 	case AXISDIRECTION::AXIS_Y:
 
-		if (multiplier_y > 0.0f)
+		if (LJdirection_y > 0.0f)
 			EntityMovement = MOVEMENT::DOWNWARDS;
-		else if (multiplier_y < 0.0f)
+		else if (LJdirection_y < 0.0f)
 			EntityMovement = MOVEMENT::UPWARDS;
 		break;
 	}

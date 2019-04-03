@@ -123,14 +123,19 @@ public:
 	AXISDIRECTION direction;
 
 	// --- Gamepad ---
-	float Axisx_value = 0.0f;
-	float Axisy_value = 0.0f;
-
 	float multipliermin = 0.1f;
-	float multiplier_x = 0.0f;
-	float multiplier_y = 0.0f;
 
-	// --- Combat ---
+	// Left Joystick LJ 
+	float LJAxisx_value = 0.0f;
+	float LJAxisy_value = 0.0f;
+	float LJdirection_x = 0.0f;
+	float LJdirection_y = 0.0f;
+
+	// Right Joystick RJ
+	float RJAxisx_value = 0.0f;
+	float RJAxisy_value = 0.0f;
+	float RJdirection_x = 0.0f;
+	float RJdirection_y = 0.0f;
 	
 };
 
