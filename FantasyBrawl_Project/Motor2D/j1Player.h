@@ -59,14 +59,12 @@ enum class AXISDIRECTION
 	AXIS_Y
 };
 
-enum class animations
+enum class PSTATE
 {
-	NONE, IDLE_UP, IDLE_UPRIGHT, IDLE_RIGHT, IDLE_DOWNRIGHT,
-	IDLE_DOWN, IDLE_DOWNLEFT, IDLE_LEFT, IDLE_UPLEFT,
-	MOVE_UP, MOVE_UPRIGHT, MOVE_RIGHT, MOVE_DOWNRIGHT,
-	MOVE_DOWN, MOVE_DOWNLEFT, MOVE_LEFT, MOVE_UPLEFT
+	MOVING,
+	ATTACKING,
+	IDLE
 };
-
 
 class j1Player :public j1Entity
 {
@@ -86,11 +84,15 @@ public:
 	void LogicUpdate(float dt);
 
 	// --- Entity Movement ---
-	void HandleAnimations();
 	void MoveX(float dt);
 	void MoveY(float dt);
 	void HandleInput();
 
+	// --- Entity Animations ---
+	void HandleAnimations();
+	void HandleAttackAnimations();
+	void HandleMovementAnimations();
+	void HandleIdleAnimations();
 
 	// --- Save & Load ---
 	bool Load(pugi::xml_node&);
@@ -120,6 +122,7 @@ public:
 	fPoint Future_position = { 0,0 };
 	Animation* CurrentAnimation;
 	MOVEMENT EntityMovement;
+	PSTATE PlayerState;
 	AXISDIRECTION direction;
 
 	// --- Gamepad ---

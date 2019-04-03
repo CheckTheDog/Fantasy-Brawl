@@ -36,7 +36,8 @@ bool j1Player::Start()
 	CurrentAnimation = player1info.idleDown;
 
 	// --- Current Movement State (for collisions) ---
-	MOVEMENT EntityMovement = MOVEMENT::STATIC;
+	EntityMovement = MOVEMENT::STATIC;
+	PlayerState = PSTATE::IDLE;
 
 	// --- Current Player Position ---
 	Entityinfo.position.x = 100;
@@ -66,173 +67,180 @@ bool j1Player::Start()
 
 void j1Player::HandleAnimations()
 {
-	// --- Handling Animations ---
-
-	bool attacking = false;
-
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
 		&& (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin))
-		attacking = true;
+		PlayerState = PSTATE::ATTACKING;
+	else if ((abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin))
+		PlayerState = PSTATE::MOVING;
+	else
+		PlayerState = PSTATE::IDLE;
 
-	/*if ((CurrentAnimation == player1info.attackRight
-		|| CurrentAnimation == player1info.attackLeft
-		|| CurrentAnimation == player1info.attackUp
-		|| CurrentAnimation == player1info.attackUpright
-		|| CurrentAnimation == player1info.attackUpleft
-		|| CurrentAnimation == player1info.attackDown
-		|| CurrentAnimation == player1info.attackDownright
-		|| CurrentAnimation == player1info.attackDownleft)
-		&& CurrentAnimation->Finished() == true)
-		attacking = false;*/
+	switch (PlayerState)
+	{
+	case PSTATE::MOVING:
+		HandleMovementAnimations();
+		break;
 
-	if(attacking)
-	{ 
-		if (RJdirection_x > multipliermin)
+	case PSTATE::ATTACKING:
+		HandleAttackAnimations();
+		break;
+
+	case PSTATE::IDLE:
+		HandleIdleAnimations();
+		break;
+	}
+}
+
+void j1Player::HandleAttackAnimations()
+{
+	// --- Attacking Right ---
+
+	if (RJdirection_x > multipliermin)
+	{
+		if (RJdirection_y > multipliermin)
 		{
-			if (RJdirection_y > multipliermin)
-			{
-				CurrentAnimation = player1info.attackDownright;
-			}
-			else if (RJdirection_y < -multipliermin)
-			{
-				CurrentAnimation = player1info.attackUpright;
-			}
-			else
-			{
-				CurrentAnimation = player1info.attackRight;
-			}
+			CurrentAnimation = player1info.attackDownright;
 		}
-
-		// --- Moving Left ---
-
-		else if (RJdirection_x < -multipliermin)
+		else if (RJdirection_y < -multipliermin)
 		{
-			if (RJdirection_y > multipliermin)
-			{
-				CurrentAnimation = player1info.attackDownleft;
-			}
-			else if (RJdirection_y < -multipliermin)
-			{
-				CurrentAnimation = player1info.attackUpleft;
-			}
-			else
-			{
-				CurrentAnimation = player1info.attackLeft;
-			}
+			CurrentAnimation = player1info.attackUpright;
 		}
-
 		else
 		{
-			if (RJdirection_y > multipliermin)
-			{
-				CurrentAnimation = player1info.attackDown;
-			}
-			else if (RJdirection_y < -multipliermin)
-			{
-				CurrentAnimation = player1info.attackUp;
-			}
+			CurrentAnimation = player1info.attackRight;
 		}
 	}
 
+	// --- Attacking Left ---
 
-	// --- Moving Right ---
+	else if (RJdirection_x < -multipliermin)
+	{
+		if (RJdirection_y > multipliermin)
+		{
+			CurrentAnimation = player1info.attackDownleft;
+		}
+		else if (RJdirection_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.attackUpleft;
+		}
+		else
+		{
+			CurrentAnimation = player1info.attackLeft;
+		}
+	}
+
+	// --- Attacking UP/Down ---
 
 	else
 	{
-		if (LJdirection_x > multipliermin)
+		if (RJdirection_y > multipliermin)
 		{
-			if (LJdirection_y > multipliermin)
-			{
-				CurrentAnimation = player1info.moveDownright;
-			}
-			else if (LJdirection_y < -multipliermin)
-			{
-				CurrentAnimation = player1info.moveUpright;
-			}
-			else
-			{
-				CurrentAnimation = player1info.moveRight;
-			}
+			CurrentAnimation = player1info.attackDown;
 		}
-
-		// --- Moving Left ---
-
-		else if (LJdirection_x < -multipliermin)
+		else if (RJdirection_y < -multipliermin)
 		{
-			if (LJdirection_y > multipliermin)
-			{
-				CurrentAnimation = player1info.moveDownleft;
-			}
-			else if (LJdirection_y < -multipliermin)
-			{
-				CurrentAnimation = player1info.moveUpleft;
-			}
-			else
-			{
-				CurrentAnimation = player1info.moveLeft;
-			}
+			CurrentAnimation = player1info.attackUp;
 		}
+	}
+}
 
+void j1Player::HandleMovementAnimations()
+{
+	// --- Moving Right ---
+
+	if (LJdirection_x > multipliermin)
+	{
+		if (LJdirection_y > multipliermin)
+		{
+			CurrentAnimation = player1info.moveDownright;
+		}
+		else if (LJdirection_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.moveUpright;
+		}
 		else
 		{
-			if (LJdirection_y > multipliermin)
-			{
-				CurrentAnimation = player1info.moveDown;
-			}
-			else if (LJdirection_y < -multipliermin)
-			{
-				CurrentAnimation = player1info.moveUp;
-			}
-
-			// --- Not moving at all ---
-
-			else
-			{
-				if (CurrentAnimation == player1info.moveRight
-					|| CurrentAnimation == player1info.attackRight)
-				{
-					CurrentAnimation = player1info.idleRight;
-				}
-				else if (CurrentAnimation == player1info.moveLeft
-					|| CurrentAnimation == player1info.attackLeft)
-				{
-					CurrentAnimation = player1info.idleLeft;
-				}
-				else if (CurrentAnimation == player1info.moveDown
-					|| CurrentAnimation == player1info.attackDown)
-				{
-					CurrentAnimation = player1info.idleDown;
-				}
-				else if (CurrentAnimation == player1info.moveDownright
-					|| CurrentAnimation == player1info.attackDownright)
-				{
-					CurrentAnimation = player1info.idleDownright;
-				}
-				else if (CurrentAnimation == player1info.moveDownleft
-					|| CurrentAnimation == player1info.attackDownleft)
-				{
-					CurrentAnimation = player1info.idleDownleft;
-				}
-				else if (CurrentAnimation == player1info.moveUp
-					|| CurrentAnimation == player1info.attackUp)
-				{
-					CurrentAnimation = player1info.idleUp;
-				}
-				else if (CurrentAnimation == player1info.moveUpright
-					|| CurrentAnimation == player1info.attackUpright)
-				{
-					CurrentAnimation = player1info.idleUpright;
-				}
-				else if (CurrentAnimation == player1info.moveUpleft
-					|| CurrentAnimation == player1info.attackUpleft)
-				{
-					CurrentAnimation = player1info.idleUpleft;
-				}
-			}
+			CurrentAnimation = player1info.moveRight;
 		}
 	}
 
-	// ---------------------------
+	// --- Moving Left ---
+
+	else if (LJdirection_x < -multipliermin)
+	{
+		if (LJdirection_y > multipliermin)
+		{
+			CurrentAnimation = player1info.moveDownleft;
+		}
+		else if (LJdirection_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.moveUpleft;
+		}
+		else
+		{
+			CurrentAnimation = player1info.moveLeft;
+		}
+	}
+
+	// --- Moving UP/Down ---
+
+	else
+	{
+		if (LJdirection_y > multipliermin)
+		{
+			CurrentAnimation = player1info.moveDown;
+		}
+		else if (LJdirection_y < -multipliermin)
+		{
+			CurrentAnimation = player1info.moveUp;
+		}
+	}
+}
+
+void j1Player::HandleIdleAnimations()
+{
+	// --- Not moving at all ---
+
+	if (CurrentAnimation == player1info.moveRight
+		|| CurrentAnimation == player1info.attackRight)
+	{
+		CurrentAnimation = player1info.idleRight;
+	}
+	else if (CurrentAnimation == player1info.moveLeft
+		|| CurrentAnimation == player1info.attackLeft)
+	{
+		CurrentAnimation = player1info.idleLeft;
+	}
+	else if (CurrentAnimation == player1info.moveDown
+		|| CurrentAnimation == player1info.attackDown)
+	{
+		CurrentAnimation = player1info.idleDown;
+	}
+	else if (CurrentAnimation == player1info.moveDownright
+		|| CurrentAnimation == player1info.attackDownright)
+	{
+		CurrentAnimation = player1info.idleDownright;
+	}
+	else if (CurrentAnimation == player1info.moveDownleft
+		|| CurrentAnimation == player1info.attackDownleft)
+	{
+		CurrentAnimation = player1info.idleDownleft;
+	}
+	else if (CurrentAnimation == player1info.moveUp
+		|| CurrentAnimation == player1info.attackUp)
+	{
+		CurrentAnimation = player1info.idleUp;
+	}
+	else if (CurrentAnimation == player1info.moveUpright
+		|| CurrentAnimation == player1info.attackUpright)
+	{
+		CurrentAnimation = player1info.idleUpright;
+	}
+	else if (CurrentAnimation == player1info.moveUpleft
+		|| CurrentAnimation == player1info.attackUpleft)
+	{
+		CurrentAnimation = player1info.idleUpleft;
+	}
 }
 
 void j1Player::MoveX(float dt)
@@ -267,7 +275,7 @@ void j1Player::MoveY(float dt)
 
 void j1Player::HandleInput()
 {
-	// --- LOGIC ---
+	// --- LOGIC: Left Joystick ---
 
 	LJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTX);
 	LJAxisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
@@ -282,6 +290,7 @@ void j1Player::HandleInput()
 	else
 		LJdirection_y = (LJAxisy_value) / AXISMAX;
 
+	// --- LOGIC: Right Joystick ---
 
 	RJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTX);
 	RJAxisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTY);
