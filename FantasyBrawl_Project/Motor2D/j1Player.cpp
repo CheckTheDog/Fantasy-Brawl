@@ -67,66 +67,169 @@ bool j1Player::Start()
 void j1Player::HandleAnimations()
 {
 	// --- Handling Animations ---
+
+	bool attacking = false;
+
+	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
+		attacking = true;
+
+	/*if ((CurrentAnimation == player1info.attackRight
+		|| CurrentAnimation == player1info.attackLeft
+		|| CurrentAnimation == player1info.attackUp
+		|| CurrentAnimation == player1info.attackUpright
+		|| CurrentAnimation == player1info.attackUpleft
+		|| CurrentAnimation == player1info.attackDown
+		|| CurrentAnimation == player1info.attackDownright
+		|| CurrentAnimation == player1info.attackDownleft)
+		&& CurrentAnimation->Finished() == true)
+		attacking = false;*/
+
+	// --- Moving Right ---
+
 	if (multiplier_x > multipliermin)
 	{
 		if (multiplier_y > multipliermin)
 		{
-			CurrentAnimation = player1info.moveDownright;
+			if (!attacking)
+				CurrentAnimation = player1info.moveDownright;
+			else
+				CurrentAnimation = player1info.attackDownright;
 		}
 		else if (multiplier_y < -multipliermin)
 		{
-			CurrentAnimation = player1info.moveUpright;
+			if (!attacking)
+				CurrentAnimation = player1info.moveUpright;
+			else
+				CurrentAnimation = player1info.attackUpright;
 		}
 		else
 		{
-			CurrentAnimation = player1info.moveRight;
+			if (!attacking)
+				CurrentAnimation = player1info.moveRight;
+			else
+				CurrentAnimation = player1info.attackRight;
 		}
 	}
+
+	// --- Moving Left ---
+
 	else if (multiplier_x < -multipliermin)
 	{
 		if (multiplier_y > multipliermin)
 		{
-			CurrentAnimation = player1info.moveDownleft;
+			if (!attacking)
+				CurrentAnimation = player1info.moveDownleft;
+			else
+				CurrentAnimation = player1info.attackDownleft;
 		}
 		else if (multiplier_y < -multipliermin)
 		{
-			CurrentAnimation = player1info.moveUpleft;
+			if (!attacking)
+				CurrentAnimation = player1info.moveUpleft;
+			else
+				CurrentAnimation = player1info.attackUpleft;
 		}
 		else
 		{
-			CurrentAnimation = player1info.moveLeft;
+			if (!attacking)
+				CurrentAnimation = player1info.moveLeft;
+			else
+				CurrentAnimation = player1info.attackLeft;
 		}
 	}
 	else
 	{
 		if (multiplier_y > multipliermin)
 		{
-			CurrentAnimation = player1info.moveDown;
+			if (!attacking)
+				CurrentAnimation = player1info.moveDown;
+			else
+				CurrentAnimation = player1info.attackDown;
 		}
 		else if (multiplier_y < -multipliermin)
 		{
-			CurrentAnimation = player1info.moveUp;
+			if (!attacking)
+				CurrentAnimation = player1info.moveUp;
+			else
+				CurrentAnimation = player1info.attackUp;
 		}
-		else
+
+		// --- Not moving at all ---
+
+		else 
 		{
-			if (CurrentAnimation == player1info.moveRight)
-				CurrentAnimation = player1info.idleRight;
-			else if (CurrentAnimation == player1info.moveLeft)
-				CurrentAnimation = player1info.idleLeft;
-
-			else if (CurrentAnimation == player1info.moveDown)
-				CurrentAnimation = player1info.idleDown;
-			else if (CurrentAnimation == player1info.moveDownright)
-				CurrentAnimation = player1info.idleDownright;
-			else if (CurrentAnimation == player1info.moveDownleft)
-				CurrentAnimation = player1info.idleDownleft;
-
-			else if (CurrentAnimation == player1info.moveUp)
-				CurrentAnimation = player1info.idleUp;
-			else if (CurrentAnimation == player1info.moveUpright)
-				CurrentAnimation = player1info.idleUpright;
-			else if (CurrentAnimation == player1info.moveUpleft)
-				CurrentAnimation = player1info.idleUpleft;
+			if (CurrentAnimation == player1info.moveRight 
+				|| CurrentAnimation == player1info.idleRight
+				|| CurrentAnimation == player1info.attackRight)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleRight;
+				else
+					CurrentAnimation = player1info.attackRight;
+			}
+			else if (CurrentAnimation == player1info.moveLeft 
+				|| CurrentAnimation == player1info.idleLeft
+				|| CurrentAnimation == player1info.attackLeft)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleLeft;
+				else
+					CurrentAnimation = player1info.attackLeft;
+			}
+			else if (CurrentAnimation == player1info.moveDown 
+				|| CurrentAnimation == player1info.idleDown
+				|| CurrentAnimation == player1info.attackDown)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleDown;
+				else
+					CurrentAnimation = player1info.attackDown;
+			}
+			else if (CurrentAnimation == player1info.moveDownright 
+				|| CurrentAnimation == player1info.idleDownright
+				|| CurrentAnimation == player1info.attackDownright)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleDownright;
+				else
+					CurrentAnimation = player1info.attackDownright;
+			}
+			else if (CurrentAnimation == player1info.moveDownleft 
+				|| CurrentAnimation == player1info.idleDownleft
+				|| CurrentAnimation == player1info.attackDownleft)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleDownleft;
+				else
+					CurrentAnimation = player1info.attackDownleft;
+			}
+			else if (CurrentAnimation == player1info.moveUp 
+				|| CurrentAnimation == player1info.idleUp
+				|| CurrentAnimation == player1info.attackUp)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleUp;
+				else
+					CurrentAnimation = player1info.attackUp;
+			}
+			else if (CurrentAnimation == player1info.moveUpright 
+				|| CurrentAnimation == player1info.idleUpright
+				|| CurrentAnimation == player1info.attackUpright)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleUpright;
+				else
+					CurrentAnimation = player1info.attackUpright;
+			}
+			else if (CurrentAnimation == player1info.moveUpleft 
+				|| CurrentAnimation == player1info.idleUpleft
+				|| CurrentAnimation == player1info.attackUpleft)
+			{
+				if (!attacking)
+					CurrentAnimation = player1info.idleUpleft;
+				else
+					CurrentAnimation = player1info.attackUpleft;
+			}
 		}
 	}
 

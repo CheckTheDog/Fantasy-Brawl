@@ -28,6 +28,15 @@ struct Playerdata {
 	Animation* moveDownright = nullptr;
 	Animation* moveDownleft = nullptr;
 
+	Animation* attackRight = nullptr;
+	Animation* attackLeft = nullptr;
+	Animation* attackUp = nullptr;
+	Animation* attackUpright = nullptr;
+	Animation* attackUpleft = nullptr;
+	Animation* attackDown = nullptr;
+	Animation* attackDownright = nullptr;
+	Animation* attackDownleft = nullptr;
+
 	std::string folder;
 	std::string Texture;
 
@@ -120,6 +129,9 @@ public:
 	float multipliermin = 0.1f;
 	float multiplier_x = 0.0f;
 	float multiplier_y = 0.0f;
+
+	// --- Combat ---
+	
 };
 
 #endif // __j1Player_H__

@@ -57,6 +57,15 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player1info.moveDownright = LoadAnimation(player1info.folder.data(), "moveDownright");
 	player1info.moveDownleft = LoadAnimation(player1info.folder.data(), "moveDownleft");
 
+	player1info.attackRight = LoadAnimation(player1info.folder.data(), "attackRight");
+	player1info.attackLeft = LoadAnimation(player1info.folder.data(), "attackLeft");
+	player1info.attackUp = LoadAnimation(player1info.folder.data(), "attackUp");
+	player1info.attackDown = LoadAnimation(player1info.folder.data(), "attackDown");
+	player1info.attackUpright = LoadAnimation(player1info.folder.data(), "attackUpright");
+	player1info.attackUpleft = LoadAnimation(player1info.folder.data(), "attackUpleft");
+	player1info.attackDownright = LoadAnimation(player1info.folder.data(), "attackDownright");
+	player1info.attackDownleft = LoadAnimation(player1info.folder.data(), "attackDownleft");
+
 	player1info.playerrect = { x,y,w,h };
 
 	// --- Player 1 main variables ---

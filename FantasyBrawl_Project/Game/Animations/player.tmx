@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="400" height="870" tilewidth="1" tileheight="1" infinite="0" nextlayerid="18" nextobjectid="87">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="400" height="1200" tilewidth="1" tileheight="1" infinite="0" nextlayerid="26" nextobjectid="99">
  <imagelayer id="1" name="spritesheet" locked="1">
-  <image source="../Textures/Wendolin Red Sprite.png" width="400" height="870"/>
+  <image source="../Textures/Wendolin Red Sprite.png" width="400" height="1200"/>
  </imagelayer>
  <objectgroup id="2" name="idleDownright" locked="1">
   <object id="6" x="217" y="2" width="50" height="70"/>
@@ -64,6 +64,30 @@
   <object id="84" x="191" y="798" width="50" height="70"/>
   <object id="85" x="253" y="798" width="50" height="70"/>
   <object id="86" x="315" y="798" width="50" height="70"/>
+ </objectgroup>
+ <objectgroup id="18" name="attackDown">
+  <object id="87" x="10" y="946" width="43.875" height="66.125"/>
+ </objectgroup>
+ <objectgroup id="22" name="attackDownright">
+  <object id="95" x="68.7917" y="872.208" width="44.125" height="65.75"/>
+ </objectgroup>
+ <objectgroup id="23" name="attackDownleft">
+  <object id="96" x="9.875" y="872" width="44.125" height="65.75"/>
+ </objectgroup>
+ <objectgroup id="24" name="attackUpleft">
+  <object id="97" x="130.625" y="872" width="46.25" height="65.75"/>
+ </objectgroup>
+ <objectgroup id="25" name="attackUpright">
+  <object id="98" x="197.875" y="871.875" width="46.25" height="66.125"/>
+ </objectgroup>
+ <objectgroup id="19" name="attackUp">
+  <object id="92" x="71" y="945.75" width="44" height="66.375"/>
+ </objectgroup>
+ <objectgroup id="20" name="attackLeft">
+  <object id="93" x="261" y="872.25" width="40.125" height="65.75"/>
+ </objectgroup>
+ <objectgroup id="21" name="attackRight">
+  <object id="94" x="322" y="872.125" width="39.875" height="66"/>
  </objectgroup>
  <objectgroup id="12" name="idleUp" locked="1">
   <object id="26" x="223" y="218" width="50" height="70"/>
