@@ -36,7 +36,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	int h = playernode.child("collider").attribute("height").as_int();
 
 	// --- Player 1 Awake ---
-	player1info.folder.assign(playernode.child("folder").child_value());
+	player1info.folder.assign(playernode.child("folder1").child_value());
 	player1info.Texture.assign(playernode.child("texture1").child_value());
 
 	player1info.idleRight = LoadAnimation(player1info.folder.data(), "idleRight");
@@ -68,11 +68,109 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	player1info.playerrect = { x,y,w,h };
 
-	// --- Player 1 main variables ---
-
 	// --------------------
 
-	// --- Player 2,3,4 Awake... ---
+	// --- Player 2 Awake ---
+	player2info.folder.assign(playernode.child("folder2").child_value());
+	player2info.Texture.assign(playernode.child("texture2").child_value());
+		  
+	player2info.idleRight = LoadAnimation(player2info.folder.data(), "idleRight");
+	player2info.idleLeft = LoadAnimation(player2info.folder.data(), "idleLeft");
+	player2info.idleUp = LoadAnimation(player2info.folder.data(), "idleUp");
+	player2info.idleDown = LoadAnimation(player2info.folder.data(), "idleDown");
+	player2info.idleUpright = LoadAnimation(player2info.folder.data(), "idleUpright");
+	player2info.idleUpleft = LoadAnimation(player2info.folder.data(), "idleUpleft");
+	player2info.idleDownright = LoadAnimation(player2info.folder.data(), "idleDownright");
+	player2info.idleDownleft = LoadAnimation(player2info.folder.data(), "idleDownleft");
+		  
+	player2info.moveRight = LoadAnimation(player2info.folder.data(), "moveRight");
+	player2info.moveLeft = LoadAnimation(player2info.folder.data(), "moveLeft");
+	player2info.moveUp = LoadAnimation(player2info.folder.data(), "moveUp");
+	player2info.moveDown = LoadAnimation(player2info.folder.data(), "moveDown");
+	player2info.moveUpright = LoadAnimation(player2info.folder.data(), "moveUpright");
+	player2info.moveUpleft = LoadAnimation(player2info.folder.data(), "moveUpleft");
+	player2info.moveDownright = LoadAnimation(player2info.folder.data(), "moveDownright");
+	player2info.moveDownleft = LoadAnimation(player2info.folder.data(), "moveDownleft");
+		  
+	player2info.attackRight = LoadAnimation(player2info.folder.data(), "attackRight");
+	player2info.attackLeft = LoadAnimation(player2info.folder.data(), "attackLeft");
+	player2info.attackUp = LoadAnimation(player2info.folder.data(), "attackUp");
+	player2info.attackDown = LoadAnimation(player2info.folder.data(), "attackDown");
+	player2info.attackUpright = LoadAnimation(player2info.folder.data(), "attackUpright");
+	player2info.attackUpleft = LoadAnimation(player2info.folder.data(), "attackUpleft");
+	player2info.attackDownright = LoadAnimation(player2info.folder.data(), "attackDownright");
+	player2info.attackDownleft = LoadAnimation(player2info.folder.data(), "attackDownleft");
+
+	player2info.playerrect = { x,y,w,h };
+	// --------------------
+
+	// --- Player 3 Awake ---
+	player3info.folder.assign(playernode.child("folder3").child_value());
+	player3info.Texture.assign(playernode.child("texture3").child_value());
+		  
+	player3info.idleRight = LoadAnimation(player3info.folder.data(), "idleRight");
+	player3info.idleLeft = LoadAnimation(player3info.folder.data(), "idleLeft");
+	player3info.idleUp = LoadAnimation(player3info.folder.data(), "idleUp");
+	player3info.idleDown = LoadAnimation(player3info.folder.data(), "idleDown");
+	player3info.idleUpright = LoadAnimation(player3info.folder.data(), "idleUpright");
+	player3info.idleUpleft = LoadAnimation(player3info.folder.data(), "idleUpleft");
+	player3info.idleDownright = LoadAnimation(player3info.folder.data(), "idleDownright");
+	player3info.idleDownleft = LoadAnimation(player3info.folder.data(), "idleDownleft");
+		  
+	player3info.moveRight = LoadAnimation(player3info.folder.data(), "moveRight");
+	player3info.moveLeft = LoadAnimation(player3info.folder.data(), "moveLeft");
+	player3info.moveUp = LoadAnimation(player3info.folder.data(), "moveUp");
+	player3info.moveDown = LoadAnimation(player3info.folder.data(), "moveDown");
+	player3info.moveUpright = LoadAnimation(player3info.folder.data(), "moveUpright");
+	player3info.moveUpleft = LoadAnimation(player3info.folder.data(), "moveUpleft");
+	player3info.moveDownright = LoadAnimation(player3info.folder.data(), "moveDownright");
+	player3info.moveDownleft = LoadAnimation(player3info.folder.data(), "moveDownleft");
+		  
+	player3info.attackRight = LoadAnimation(player3info.folder.data(), "attackRight");
+	player3info.attackLeft = LoadAnimation(player3info.folder.data(), "attackLeft");
+	player3info.attackUp = LoadAnimation(player3info.folder.data(), "attackUp");
+	player3info.attackDown = LoadAnimation(player3info.folder.data(), "attackDown");
+	player3info.attackUpright = LoadAnimation(player3info.folder.data(), "attackUpright");
+	player3info.attackUpleft = LoadAnimation(player3info.folder.data(), "attackUpleft");
+	player3info.attackDownright = LoadAnimation(player3info.folder.data(), "attackDownright");
+	player3info.attackDownleft = LoadAnimation(player3info.folder.data(), "attackDownleft");
+		  
+	player3info.playerrect = { x,y,w,h };
+	// --------------------
+
+	// --- Player 4 Awake ---
+	player4info.folder.assign(playernode.child("folder4").child_value());
+	player4info.Texture.assign(playernode.child("texture4").child_value());
+		  
+	player4info.idleRight = LoadAnimation(player4info.folder.data(), "idleRight");
+	player4info.idleLeft = LoadAnimation(player4info.folder.data(), "idleLeft");
+	player4info.idleUp = LoadAnimation(player4info.folder.data(), "idleUp");
+	player4info.idleDown = LoadAnimation(player4info.folder.data(), "idleDown");
+	player4info.idleUpright = LoadAnimation(player4info.folder.data(), "idleUpright");
+	player4info.idleUpleft = LoadAnimation(player4info.folder.data(), "idleUpleft");
+	player4info.idleDownright = LoadAnimation(player4info.folder.data(), "idleDownright");
+	player4info.idleDownleft = LoadAnimation(player4info.folder.data(), "idleDownleft");
+		  
+	player4info.moveRight = LoadAnimation(player4info.folder.data(), "moveRight");
+	player4info.moveLeft = LoadAnimation(player4info.folder.data(), "moveLeft");
+	player4info.moveUp = LoadAnimation(player4info.folder.data(), "moveUp");
+	player4info.moveDown = LoadAnimation(player4info.folder.data(), "moveDown");
+	player4info.moveUpright = LoadAnimation(player4info.folder.data(), "moveUpright");
+	player4info.moveUpleft = LoadAnimation(player4info.folder.data(), "moveUpleft");
+	player4info.moveDownright = LoadAnimation(player4info.folder.data(), "moveDownright");
+	player4info.moveDownleft = LoadAnimation(player4info.folder.data(), "moveDownleft");
+		  
+	player4info.attackRight = LoadAnimation(player4info.folder.data(), "attackRight");
+	player4info.attackLeft = LoadAnimation(player4info.folder.data(), "attackLeft");
+	player4info.attackUp = LoadAnimation(player4info.folder.data(), "attackUp");
+	player4info.attackDown = LoadAnimation(player4info.folder.data(), "attackDown");
+	player4info.attackUpright = LoadAnimation(player4info.folder.data(), "attackUpright");
+	player4info.attackUpleft = LoadAnimation(player4info.folder.data(), "attackUpleft");
+	player4info.attackDownright = LoadAnimation(player4info.folder.data(), "attackDownright");
+	player4info.attackDownleft = LoadAnimation(player4info.folder.data(), "attackDownleft");
+		  
+	player4info.playerrect = { x,y,w,h };
+	// --------------------
 
 	return ret;
 }

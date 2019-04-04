@@ -53,6 +53,9 @@ public:
 	uint playerid = 0;
 	// --- Player ---
 	Playerdata player1info;
+	Playerdata player2info;
+	Playerdata player3info;
+	Playerdata player4info;
 	// add playerinfo2 ...
 };
 

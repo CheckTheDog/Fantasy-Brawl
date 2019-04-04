@@ -115,7 +115,7 @@ public:
 public:
 
 	PLAYER ID;
-	Playerdata player1info;
+	Playerdata playerinfo;
 	SDL_Rect Intersection = { 0,0,0,0 };
 
 	// --- MOVEMENT VARIABLES ---
