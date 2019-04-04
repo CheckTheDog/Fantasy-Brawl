@@ -1,0 +1,2 @@
+rules_collisions.tmx
+rules_beauty.tmx
