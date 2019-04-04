@@ -2,15 +2,14 @@
 #define _j1PARTICLE_SYSTEM_H_
 
 #include "j1Module.h"
+#include "j1Textures.h"
 #include "p2Point.h"
-#include "Animation.h"
+#include "p2Log.h"
 
 #include "SDL/include/SDL_rect.h"
 
-#define MAX_ACTIVE_PARTICLES 100
-#define MAX_FRAMES 50
-
 struct SDL_Texture;
+struct SDL_Rect;
 
 
 enum particleType //TIPOS DE PARTICULAS
@@ -19,7 +18,7 @@ enum particleType //TIPOS DE PARTICULAS
 
 };
 
-struct Particle
+struct ParticleData
 {
 
 	Particle();
