@@ -8,6 +8,8 @@ struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
 
+#define JOYSTICK_DEAD_ZONE 1000
+
 struct Playerdata {
 
 	Animation* idleRight = nullptr;
@@ -36,6 +38,27 @@ struct Playerdata {
 	Animation* attackDown = nullptr;
 	Animation* attackDownright = nullptr;
 	Animation* attackDownleft = nullptr;
+
+	float AnimationRangeRight_start = -22.5f;
+	float AnimationRangeRight_end = 22.5f;
+	float AnimationRangeLeft_start = 157.5f;
+	float AnimationRangeLeft_end = 180.0f;
+	float AnimationRangeLeft_start2 = -157.5f;
+	float AnimationRangeLeft_end2 = -180.0f;
+
+	float AnimationRangeUp_start = -112.5f;
+	float AnimationRangeUp_end = -67.5f;
+	float AnimationRangeUpright_start = -67.5f;
+	float AnimationRangeUpright_end = -22.5f;
+	float AnimationRangeUpleft_start = -157.5;
+	float AnimationRangeUpleft_end = -112.5f;
+
+	float AnimationRangeDown_start = 67.5f;
+	float AnimationRangeDown_end = 112.5f;
+	float AnimationRangeDownright_start = 22.5f;
+	float AnimationRangeDownright_end = 67.5f;
+	float AnimationRangeDownleft_start = 112.5f;
+	float AnimationRangeDownleft_end = 157.5f;
 
 	std::string folder;
 	std::string Texture;
@@ -93,6 +116,7 @@ public:
 	void HandleAttackAnimations();
 	void HandleMovementAnimations();
 	void HandleIdleAnimations();
+	bool InRange(float axisX, float axisY, float range_start, float range_end);
 
 	// --- Save & Load ---
 	bool Load(pugi::xml_node&);

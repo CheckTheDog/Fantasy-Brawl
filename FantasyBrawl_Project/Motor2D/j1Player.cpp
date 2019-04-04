@@ -112,154 +112,98 @@ void j1Player::HandleAnimations()
 
 void j1Player::HandleAttackAnimations()
 {
-	// --- Attacking Right ---
+	if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeRight_start, playerinfo.AnimationRangeRight_end))
+		CurrentAnimation = playerinfo.attackRight;
 
-	if (RJdirection_x > multipliermin)
-	{
-		if (RJdirection_y > multipliermin)
-		{
-			CurrentAnimation = playerinfo.attackDownright;
-		}
-		else if (RJdirection_y < -multipliermin)
-		{
-			CurrentAnimation = playerinfo.attackUpright;
-		}
-		else
-		{
-			CurrentAnimation = playerinfo.attackRight;
-		}
-	}
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeLeft_start, playerinfo.AnimationRangeLeft_end)
+		|| InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeLeft_start2, playerinfo.AnimationRangeLeft_end2))
+		CurrentAnimation = playerinfo.attackLeft;
 
-	// --- Attacking Left ---
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeUp_start, playerinfo.AnimationRangeUp_end))
+		CurrentAnimation = playerinfo.attackUp;
 
-	else if (RJdirection_x < -multipliermin)
-	{
-		if (RJdirection_y > multipliermin)
-		{
-			CurrentAnimation = playerinfo.attackDownleft;
-		}
-		else if (RJdirection_y < -multipliermin)
-		{
-			CurrentAnimation = playerinfo.attackUpleft;
-		}
-		else
-		{
-			CurrentAnimation = playerinfo.attackLeft;
-		}
-	}
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeUpright_start, playerinfo.AnimationRangeUpright_end))
+		CurrentAnimation = playerinfo.attackUpright;
 
-	// --- Attacking UP/Down ---
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeUpleft_start, playerinfo.AnimationRangeUpleft_end))
+		CurrentAnimation = playerinfo.attackUpleft;
 
-	else
-	{
-		if (RJdirection_y > multipliermin)
-		{
-			CurrentAnimation = playerinfo.attackDown;
-		}
-		else if (RJdirection_y < -multipliermin)
-		{
-			CurrentAnimation = playerinfo.attackUp;
-		}
-	}
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeDown_start, playerinfo.AnimationRangeDown_end))
+		CurrentAnimation = playerinfo.attackDown;
+
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeDownright_start, playerinfo.AnimationRangeDownright_end))
+		CurrentAnimation = playerinfo.attackDownright;
+
+	else if (InRange(RJdirection_x, RJdirection_y, playerinfo.AnimationRangeDownleft_start, playerinfo.AnimationRangeDownleft_end))
+		CurrentAnimation = playerinfo.attackDownleft;
 }
 
 void j1Player::HandleMovementAnimations()
 {
-	// --- Moving Right ---
+	if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeRight_start, playerinfo.AnimationRangeRight_end))
+		CurrentAnimation = playerinfo.moveRight;
 
-	if (LJdirection_x > multipliermin)
-	{
-		if (LJdirection_y > multipliermin)
-		{
-			CurrentAnimation = playerinfo.moveDownright;
-		}
-		else if (LJdirection_y < -multipliermin)
-		{
-			CurrentAnimation = playerinfo.moveUpright;
-		}
-		else
-		{
-			CurrentAnimation = playerinfo.moveRight;
-		}
-	}
-
-	// --- Moving Left ---
-
-	else if (LJdirection_x < -multipliermin)
-	{
-		if (LJdirection_y > multipliermin)
-		{
-			CurrentAnimation = playerinfo.moveDownleft;
-		}
-		else if (LJdirection_y < -multipliermin)
-		{
-			CurrentAnimation = playerinfo.moveUpleft;
-		}
-		else
-		{
-			CurrentAnimation = playerinfo.moveLeft;
-		}
-	}
-
-	// --- Moving UP/Down ---
-
-	else
-	{
-		if (LJdirection_y > multipliermin)
-		{
-			CurrentAnimation = playerinfo.moveDown;
-		}
-		else if (LJdirection_y < -multipliermin)
-		{
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeLeft_start, playerinfo.AnimationRangeLeft_end)
+		|| InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeLeft_start2, playerinfo.AnimationRangeLeft_end2))
+		 	CurrentAnimation = playerinfo.moveLeft;
+		 
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeUp_start, playerinfo.AnimationRangeUp_end))
 			CurrentAnimation = playerinfo.moveUp;
-		}
-	}
+		
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeUpright_start, playerinfo.AnimationRangeUpright_end))
+			CurrentAnimation = playerinfo.moveUpright;
+		
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeUpleft_start, playerinfo.AnimationRangeUpleft_end))
+			CurrentAnimation = playerinfo.moveUpleft;
+		
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeDown_start, playerinfo.AnimationRangeDown_end))
+		 	CurrentAnimation = playerinfo.moveDown;
+		 
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeDownright_start, playerinfo.AnimationRangeDownright_end))
+		 	CurrentAnimation = playerinfo.moveDownright;
+		 
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeDownleft_start, playerinfo.AnimationRangeDownleft_end))
+		CurrentAnimation = playerinfo.moveDownleft;
 }
 
 void j1Player::HandleIdleAnimations()
 {
-	// --- Not moving at all ---
-
-	if (CurrentAnimation == playerinfo.moveRight
-		|| CurrentAnimation == playerinfo.attackRight)
-	{
+	if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeRight_start, playerinfo.AnimationRangeRight_end))
 		CurrentAnimation = playerinfo.idleRight;
-	}
-	else if (CurrentAnimation == playerinfo.moveLeft
-		|| CurrentAnimation == playerinfo.attackLeft)
-	{
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeLeft_start, playerinfo.AnimationRangeLeft_end)
+		   ||InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeLeft_start2, playerinfo.AnimationRangeLeft_end2))
 		CurrentAnimation = playerinfo.idleLeft;
-	}
-	else if (CurrentAnimation == playerinfo.moveDown
-		|| CurrentAnimation == playerinfo.attackDown)
-	{
-		CurrentAnimation = playerinfo.idleDown;
-	}
-	else if (CurrentAnimation == playerinfo.moveDownright
-		|| CurrentAnimation == playerinfo.attackDownright)
-	{
-		CurrentAnimation = playerinfo.idleDownright;
-	}
-	else if (CurrentAnimation == playerinfo.moveDownleft
-		|| CurrentAnimation == playerinfo.attackDownleft)
-	{
-		CurrentAnimation = playerinfo.idleDownleft;
-	}
-	else if (CurrentAnimation == playerinfo.moveUp
-		|| CurrentAnimation == playerinfo.attackUp)
-	{
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeUp_start, playerinfo.AnimationRangeUp_end))
 		CurrentAnimation = playerinfo.idleUp;
-	}
-	else if (CurrentAnimation == playerinfo.moveUpright
-		|| CurrentAnimation == playerinfo.attackUpright)
-	{
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeUpright_start, playerinfo.AnimationRangeUpright_end))
 		CurrentAnimation = playerinfo.idleUpright;
-	}
-	else if (CurrentAnimation == playerinfo.moveUpleft
-		|| CurrentAnimation == playerinfo.attackUpleft)
-	{
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeUpleft_start, playerinfo.AnimationRangeUpleft_end))
 		CurrentAnimation = playerinfo.idleUpleft;
-	}
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeDown_start, playerinfo.AnimationRangeDown_end))
+		CurrentAnimation = playerinfo.idleDown;
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeDownright_start, playerinfo.AnimationRangeDownright_end))
+		CurrentAnimation = playerinfo.idleDownright;
+
+	else if (InRange(LJdirection_x, LJdirection_y, playerinfo.AnimationRangeDownleft_start, playerinfo.AnimationRangeDownleft_end))
+		CurrentAnimation = playerinfo.idleDownleft;
+}
+
+bool j1Player::InRange(float axisX, float axisY, float range_start, float range_end)
+{
+	float angle = std::atan2(axisY,axisX) * (180.0f/M_PI);
+
+	/*if (axisX == 0 || axisY == 0)
+		angle = 0.0f;*/
+
+	//LOG("angle: %f", angle);
+
+	return (angle > range_start && angle <= range_end);
 }
 
 void j1Player::MoveX(float dt)
@@ -309,6 +253,11 @@ void j1Player::HandleInput()
 	else
 		LJdirection_y = (LJAxisy_value) / AXISMAX;
 
+	//if (abs(LJdirection_x) < multipliermin)
+	//	LJdirection_x = 0.0f;
+	//if (abs(LJdirection_y) < multipliermin)
+	//	LJdirection_y = 0.0f;
+
 	// --- LOGIC: Right Joystick ---
 
 	RJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTX);
@@ -324,7 +273,15 @@ void j1Player::HandleInput()
 	else
 		RJdirection_y = (RJAxisy_value) / AXISMAX;
 
+	//if (abs(RJdirection_x) < multipliermin)
+	//	RJdirection_x = 0.0f;
+	//if (abs(RJdirection_y) < multipliermin)
+	//	RJdirection_y = 0.0f;
+
 	//--------------
+
+	//LOG("direction_x: %f", LJdirection_x);
+	//LOG("direction_y: %f", LJdirection_y);
 }
 
 bool j1Player::Update(float dt)
