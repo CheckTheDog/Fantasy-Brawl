@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="65" height="65" tilewidth="28" tileheight="28" infinite="0" nextlayerid="15" nextobjectid="1">
  <tileset firstgid="1" name="tileset trial3" tilewidth="28" tileheight="28" tilecount="132" columns="12">
-  <image source="tileset trial3.png" width="350" height="308"/>
+  <image source="tileset3.png" width="350" height="308"/>
  </tileset>
  <tileset firstgid="133" name="Colliders" tilewidth="28" tileheight="28" tilecount="3" columns="3">
   <image source="Colliders.png" width="84" height="28"/>
