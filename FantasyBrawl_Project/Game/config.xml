@@ -29,7 +29,7 @@
   </map>
 
   <scene>
-    <map_name path="map2.tmx"/>
+    <map_name path="Map2x.tmx"/>
   </scene>
 
   <entities>
