@@ -38,10 +38,10 @@
       <folder2>Animations/player.tmx</folder2>
       <folder3>Animations/player.tmx</folder3>
       <folder4>Animations/player.tmx</folder4>
-      <texture1>textures/Wendolin Red Sprite.png</texture1>
-      <texture2>textures/Wendolin Red Sprite.png</texture2>
-      <texture3>textures/Wendolin Red Sprite.png</texture3>
-      <texture4>textures/Wendolin Red Sprite.png</texture4>
+      <texture1>textures/Wendolin Red Sprite 3x.png</texture1>
+      <texture2>textures/Wendolin Red Sprite 3x.png</texture2>
+      <texture3>textures/Wendolin Red Sprite 3x.png</texture3>
+      <texture4>textures/Wendolin Red Sprite 3x.png</texture4>
       <collider x="0" y="0" width="30" height="68"/>
       
       <AnimationRangeRight range_start="-22.5f" range_end="22.5f" />
