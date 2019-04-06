@@ -3,46 +3,18 @@
 
 #include "j1Module.h"
 #include "j1Textures.h"
+#include "Particle.h"
 #include "p2Point.h"
 #include "p2Log.h"
+#include <iostream>
 
 #include "SDL/include/SDL_rect.h"
 
+using namespace std;
+
 struct SDL_Texture;
 struct SDL_Rect;
-
-
-enum particleType //TIPOS DE PARTICULAS
-{
-	NONE,
-
-};
-
-struct ParticleData
-{
-
-	Particle();
-	Particle(Particle& p);
-	~Particle();
-
-	Animation anim;
-	particleType type;
-
-	bool isActive = false;
-	fPoint pos;
-	fPoint speed;
-	float angle;
-	int width;
-	int height;
-
-	SDL_Rect frames[MAX_FRAMES];
-
-	void PushBack(const SDL_Rect& rect);
-	float current_frame = 0.0f;
-	int last_frame = 0;
-	
-
-};
+class ParticleEmitter;
 
 class j1ParticleSystem : public j1Module
 {
@@ -52,19 +24,20 @@ public:
 	j1ParticleSystem();
 	~j1ParticleSystem();
 
-	bool Awake(pugi::xml_node&);
-	bool Start();
 	bool Update(float dt);
-	bool CleanUp();
 
-	void LoadParticle(const char* filePath, const char* fileName);
-	void AddParticle(particleType type, fPoint pos);
-	void AddProjectile();
+	Particle* newParticle(ParticleInfo info);
+	ParticleEmitter* newEmitter(fPoint pos, string configPath);
+
+	void updateParticles();
+	void updateEmitters();
+	
 
 private:
 	
-	SDL_Texture * graphics = nullptr;
-	Particle* isActive[MAX_ACTIVE_PARTICLES];
+	static const int MAX_PARTICLES = 1000;
+
+	Particle particles[MAX_PARTICLES];
 
 
 };
