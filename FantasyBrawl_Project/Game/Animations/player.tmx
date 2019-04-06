@@ -4,6 +4,10 @@
   <image source="../Textures/Wendolin Red Sprite.png" width="400" height="1200"/>
  </imagelayer>
  <objectgroup id="2" name="idleDownright" locked="1">
+  <properties>
+   <property name="range_end" type="int" value="45"/>
+   <property name="range_start" type="int" value="4"/>
+  </properties>
   <object id="6" x="217" y="2" width="50" height="70"/>
   <object id="7" x="281" y="2" width="50" height="70"/>
   <object id="8" x="345" y="2" width="50" height="70"/>

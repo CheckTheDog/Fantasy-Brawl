@@ -39,27 +39,6 @@ struct Playerdata {
 	Animation* attackDownright = nullptr;
 	Animation* attackDownleft = nullptr;
 
-	float AnimationRangeRight_start = -22.5f;
-	float AnimationRangeRight_end = 22.5f;
-	float AnimationRangeLeft_start = 157.5f;
-	float AnimationRangeLeft_end = 180.0f;
-	float AnimationRangeLeft_start2 = -157.5f;
-	float AnimationRangeLeft_end2 = -180.0f;
-
-	float AnimationRangeUp_start = -112.5f;
-	float AnimationRangeUp_end = -67.5f;
-	float AnimationRangeUpright_start = -67.5f;
-	float AnimationRangeUpright_end = -22.5f;
-	float AnimationRangeUpleft_start = -157.5;
-	float AnimationRangeUpleft_end = -112.5f;
-
-	float AnimationRangeDown_start = 67.5f;
-	float AnimationRangeDown_end = 112.5f;
-	float AnimationRangeDownright_start = 22.5f;
-	float AnimationRangeDownright_end = 67.5f;
-	float AnimationRangeDownleft_start = 112.5f;
-	float AnimationRangeDownleft_end = 157.5f;
-
 	std::string folder;
 	std::string Texture;
 
@@ -113,9 +92,9 @@ public:
 
 	// --- Entity Animations ---
 	void HandleAnimations();
-	void HandleAttackAnimations();
-	void HandleMovementAnimations();
-	void HandleIdleAnimations();
+	void GetAttackAnimation();
+	void GetMovementAnimation();
+	void GetIdleAnimation();
 	bool InRange(float axisX, float axisY, float range_start, float range_end);
 
 	// --- Save & Load ---
@@ -138,18 +117,17 @@ public:
 
 public:
 
+	// --- Basic Stuff ---
 	PLAYER ID;
 	Playerdata playerinfo;
-	SDL_Rect Intersection = { 0,0,0,0 };
+	PSTATE PlayerState;
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };
-	Animation* CurrentAnimation;
 	MOVEMENT EntityMovement;
-	PSTATE PlayerState;
 	AXISDIRECTION direction;
 
-	// --- Gamepad ---
+	// --- Gamepad Input ---
 	float multipliermin = 0.1f;
 
 	// Left Joystick LJ 
@@ -164,6 +142,8 @@ public:
 	float RJdirection_x = 0.0f;
 	float RJdirection_y = 0.0f;
 	
+	// --- Collisions ---
+	SDL_Rect Intersection = { 0,0,0,0 };
 };
 
 #endif // __j1Player_H__

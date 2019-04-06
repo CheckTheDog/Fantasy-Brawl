@@ -35,6 +35,28 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	int w = playernode.child("collider").attribute("width").as_int();
 	int h = playernode.child("collider").attribute("height").as_int();
 
+	// --- Animation Ranges --- 
+	animranges.AnimationRangeRight_start = playernode.child("AnimationRangeRight").attribute("range_start").as_float();
+	animranges.AnimationRangeRight_end = playernode.child("AnimationRangeRight").attribute("range_end").as_float();
+	animranges.AnimationRangeLeft_start = playernode.child("AnimationRangeLeft").attribute("range_start").as_float();
+	animranges.AnimationRangeLeft_end = playernode.child("AnimationRangeLeft").attribute("range_end").as_float();
+	animranges.AnimationRangeLeft_start2= playernode.child("AnimationRangeLeft2").attribute("range_start").as_float();
+	animranges.AnimationRangeLeft_end2 = playernode.child("AnimationRangeLeft2").attribute("range_end").as_float();
+
+	animranges.AnimationRangeUp_start= playernode.child("AnimationRangeUp").attribute("range_start").as_float();
+	animranges.AnimationRangeUp_end = playernode.child("AnimationRangeUp").attribute("range_end").as_float();
+	animranges.AnimationRangeUpright_start= playernode.child("AnimationRangeUpright").attribute("range_start").as_float();
+	animranges.AnimationRangeUpright_end = playernode.child("AnimationRangeUpright").attribute("range_end").as_float();
+	animranges.AnimationRangeUpleft_start = playernode.child("AnimationRangeUpleft").attribute("range_start").as_float();
+	animranges.AnimationRangeUpleft_end = playernode.child("AnimationRangeUpleft").attribute("range_end").as_float();
+
+	animranges.AnimationRangeDown_start = playernode.child("AnimationRangeDown").attribute("range_start").as_float();
+	animranges.AnimationRangeDown_end = playernode.child("AnimationRangeDown").attribute("range_end").as_float();
+	animranges.AnimationRangeDownright_start= playernode.child("AnimationRangeDownright").attribute("range_start").as_float();
+	animranges.AnimationRangeDownright_end = playernode.child("AnimationRangeDownright").attribute("range_end").as_float();
+	animranges.AnimationRangeDownleft_start = playernode.child("AnimationRangeDownleft").attribute("range_start").as_float();
+	animranges.AnimationRangeDownleft_end = playernode.child("AnimationRangeDownleft").attribute("range_end").as_float();
+
 	// --- Player 1 Awake ---
 	player1info.folder.assign(playernode.child("folder1").child_value());
 	player1info.Texture.assign(playernode.child("texture1").child_value());
@@ -341,16 +363,20 @@ Animation* j1EntityManager::LoadAnimation(const char* animationPath, const char*
 				y = sprite.attribute("y").as_int();
 				w = sprite.attribute("width").as_int();
 				h = sprite.attribute("height").as_int();
-
+				
 				animation->PushBack({ x, y, w, h });
 			}
 
+			break;
 		}
 	}
 	if (anim = true)
 		return animation;
 	else
+	{
+		delete animation;
 		return nullptr;
+	}
 
 }
 

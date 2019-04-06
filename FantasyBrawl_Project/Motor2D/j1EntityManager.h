@@ -13,6 +13,30 @@
 
 class j1Entity;
 
+struct AnimationRanges
+{
+	float AnimationRangeRight_start = 0.0f;
+	float AnimationRangeRight_end = 0.0f;
+	float AnimationRangeLeft_start = 0.0f;
+	float AnimationRangeLeft_end = 0.0f;
+	float AnimationRangeLeft_start2 = 0.0f;
+	float AnimationRangeLeft_end2 = 0.0f;
+
+	float AnimationRangeUp_start = 0.0f;
+	float AnimationRangeUp_end = 0.0f;
+	float AnimationRangeUpright_start = 0.0f;
+	float AnimationRangeUpright_end = 0.0f;
+	float AnimationRangeUpleft_start = 0.0f;
+	float AnimationRangeUpleft_end = 0.0f;
+
+	float AnimationRangeDown_start = 0.0f;
+	float AnimationRangeDown_end = 0.0f;
+	float AnimationRangeDownright_start = 0.0f;
+	float AnimationRangeDownright_end = 0.0f;
+	float AnimationRangeDownleft_start = 0.0f;
+	float AnimationRangeDownleft_end = 0.0f;
+};
+
 class j1EntityManager : public j1Module
 {
 public:
@@ -56,6 +80,7 @@ public:
 	Playerdata player2info;
 	Playerdata player3info;
 	Playerdata player4info;
+	AnimationRanges animranges;
 	// add playerinfo2 ...
 };
 

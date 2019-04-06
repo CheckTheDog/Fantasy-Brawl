@@ -43,6 +43,17 @@
       <texture3>textures/Wendolin Red Sprite.png</texture3>
       <texture4>textures/Wendolin Red Sprite.png</texture4>
       <collider x="0" y="0" width="30" height="68"/>
+      
+      <AnimationRangeRight range_start="-22.5f" range_end="22.5f" />
+      <AnimationRangeLeft range_start="157.5f" range_end="180.0f" />
+      <AnimationRangeLeft2 range_start="-157.5f" range_end="-180.0f" />
+      <AnimationRangeUp range_start="-112.5f" range_end="-67.5f" />
+      <AnimationRangeUpright range_start="-67.5f" range_end="-22.5f" />
+      <AnimationRangeUpleft range_start="-157.5" range_end="-112.5f" />
+      <AnimationRangeDown range_start="67.5f" range_end="112.5f" />
+      <AnimationRangeDownright range_start="22.5f" range_end=" 67.5f" />
+      <AnimationRangeDownleft range_start="112.5f" range_end="157.5f" />
+
     </player>
 
   </entities>
