@@ -302,7 +302,7 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->render->Blit(spritesheet, this->Entityinfo.position.x - 7, this->Entityinfo.position.y, &CurrentAnimation->GetCurrentFrame(dt));
+	App->render->Blit(spritesheet, this->Entityinfo.position.x - 4, this->Entityinfo.position.y - 65, &CurrentAnimation->GetCurrentFrame(dt));
 
 	return ret;
 }
