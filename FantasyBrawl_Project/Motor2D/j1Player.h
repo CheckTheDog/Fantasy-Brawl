@@ -8,7 +8,7 @@ struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
 
-#define JOYSTICK_DEAD_ZONE 1000
+#define JOYSTICK_DEAD_ZONE 8000
 
 struct Playerdata {
 
