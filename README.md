@@ -1,4 +1,4 @@
-# FANTASY BRAWL
+﻿# FANTASY BRAWL
 
 Fantasy Brawl is a Battle Royale game developed by CheckTheDog that features intense action in a PvP map. 
 4 players have to give their best in order to survive the struggle! 
@@ -13,11 +13,10 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 - Player Movement (Gamepad Exclusive):
 
   - Move around: Left joystick, movement in any direction
-  - Aim: Right Joystick, aim at any direction (TBD)
 
 - Player Attack (Gamepad Exclusive):
 
-TBD
+  - Aim & Attack: Right Joystick, aim at any direction while pressing RIGHT TRIGGER, release to shoot. 
 
 ### AUTHORS: CheckTheDog
 
@@ -90,7 +89,8 @@ Aitor:
 - Entity System
 - Collision System
 - Player Movement
-- Character movement animations (implementation)
+- Player Aim
+- Character animations (implementation)
 
 Didac:
 
@@ -98,8 +98,9 @@ Didac:
 
 Pol:
 
-- Character movement animations (creation)
+- Character animations (creation)
+- First Map
 
 Vladislav: 
 
-- Character movement animations in Tiled 
+- Character animations in Tiled 
