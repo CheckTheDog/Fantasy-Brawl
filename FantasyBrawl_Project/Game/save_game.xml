@@ -6,8 +6,12 @@
 	<audio />
 	<entities>
 		<Player>
-			<Playerx value="0" />
-			<Playery value="47.2999992" />
+			<Playerx value="200" />
+			<Playery value="0" />
+			<Playery value="0" />
+		</Player>
+		<Player>
+			<Playerx value="200" />
 		</Player>
 	</entities>
 	<collision />

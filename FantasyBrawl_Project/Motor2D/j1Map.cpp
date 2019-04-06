@@ -24,6 +24,9 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.assign(config.child("folder").child_value());
+	redCollider = config.child("colliders").attribute("red").as_int();
+	greenCollider = config.child("colliders").attribute("green").as_int();
+	blueCollider = config.child("colliders").attribute("blue").as_int();
 
 	return ret;
 }
@@ -33,15 +36,14 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	/*p2List_item<MapLayer*>* item = data.layers.start;*/
 	std::list<MapLayer*>::const_iterator item = data.layers.begin();
 
 	for(; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
 
-	/*	if(layer->properties.Get("Nodraw") != 0)
-			continue;*/
+		if(layer->properties.Get("Nodraw") != 0)
+			continue;
 
 		for(int y = 0; y < data.height; ++y)
 		{
@@ -536,7 +538,12 @@ bool j1Map::ColliderDrawer()
 
 							iPoint pos = MapToWorld(x, y);
 
-							App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+							if (tile_id == redCollider)
+								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+							else if (tile_id == greenCollider)
+								LOG("");
+							else if (tile_id == blueCollider)
+								LOG("");
 
 						}
 					}
