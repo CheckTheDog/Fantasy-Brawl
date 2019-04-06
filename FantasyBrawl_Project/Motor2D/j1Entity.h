@@ -2,7 +2,6 @@
 #define __J1ENTITY_H__
 
 #include "p2Point.h"
-#include <vector>
 #include "Animation.h"
 #include "PugiXml\src\pugixml.hpp"
 

@@ -32,7 +32,6 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	for (pugi::xml_node stage = config.child("map_name"); stage; stage = stage.next_sibling("map_name"))
 	{
 		std::string* StageName = new std::string(stage.attribute("path").as_string());
-		//StageList.add(StageName);
 		StageList.push_back(StageName);
 	}
 
