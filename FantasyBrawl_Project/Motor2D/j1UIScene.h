@@ -7,7 +7,7 @@
 
 class UI_element;
 //class Clock;
-//class Button;
+class Button;
 
 
 enum menu_id
@@ -72,7 +72,7 @@ public:
 	settings_values startValues;
 	settings_values defaultValues;
 	/*Clock* clock = nullptr;*/
-	/*Button* continueButton = nullptr;*/
+	Button* continueButton = nullptr;
 	menu_id previous_menu;
 };
 #endif // !__j1UISCENE_H__ 

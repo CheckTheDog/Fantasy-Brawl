@@ -9,10 +9,10 @@
 #include "p2Log.h"
 #include "j1Transition.h"
 #include "UI_element.h"
-//#include "UI_Button.h"
+#include "UI_Button.h"
 #include "UI_Image.h"
 //#include "UI_Slider.h"
-//#include "UI_Window.h"
+#include "UI_Window.h"
 //#include "UI_Clock.h"
 
 

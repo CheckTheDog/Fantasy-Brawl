@@ -70,6 +70,12 @@
     <ClCompile Include="UI_Text.cpp">
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Button.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Window.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -157,6 +163,12 @@
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_Text.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Button.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Window.h">
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>
