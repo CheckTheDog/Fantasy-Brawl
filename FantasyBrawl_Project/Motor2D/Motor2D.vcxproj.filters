@@ -58,6 +58,9 @@
     <ClCompile Include="j1Gui.cpp">
       <Filter>Development  ========\Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="j1Transition.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="UI_element.h">
       <Filter>Development  ========\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Transition.h">
+      <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

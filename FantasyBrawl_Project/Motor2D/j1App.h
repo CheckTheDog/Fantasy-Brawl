@@ -20,6 +20,7 @@ class j1Collision;
 class j1EntityManager;
 class j1Fonts;
 class j1Gui;
+class j1Transition;
 
 class j1App
 {
@@ -95,6 +96,7 @@ public:
 	j1Collision*        coll = nullptr;
 	j1Gui*				gui = NULL;
 	j1Fonts*			fonts = NULL;
+	j1Transition*		transition = NULL;
 
 	int              framerate_cap;
 private:

@@ -16,6 +16,7 @@
 #include "j1EntityManager.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
+#include "j1Transition.h"
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
@@ -37,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	fonts = new j1Fonts();
 	gui = new j1Gui();
+	transition = new j1Transition();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -51,6 +53,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(fonts);
 	AddModule(gui);
+	AddModule(transition);
 
 	// render last to swap buffer
 	AddModule(render);
