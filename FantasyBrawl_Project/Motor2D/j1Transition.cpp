@@ -24,7 +24,7 @@ bool j1Transition::Update(float dt)
 			{
 				App->gui->alpha_value = 0;
 				menuState = GOUT;
-				/*App->ui_scene->loadMenu(newMenuID);*/
+				App->ui_scene->loadMenu(newMenuID);
 			}
 		}
 		else if (menuState == GOUT)
@@ -77,16 +77,16 @@ bool j1Transition::PostUpdate(float dt)
 	return true;
 }
 
-//void j1Transition::menuTransition(menu_id newMenuID, float time)
-//{
-//
-//	this->newMenuID = newMenuID;
-//	timer.Start();
-//	total_time = time * 0.5f;
-//	doingMenuTransition = true;
-//	menuState = GIN;
-//
-//}
+void j1Transition::menuTransition(menu_id newMenuID, float time)
+{
+
+	this->newMenuID = newMenuID;
+	timer.Start();
+	total_time = time * 0.5f;
+	doingMenuTransition = true;
+	menuState = GIN;
+
+}
 void j1Transition::sceneTransition(int newLvl, float time)
 {
 

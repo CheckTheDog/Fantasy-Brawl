@@ -61,6 +61,9 @@
     <ClCompile Include="j1Transition.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1UIScene.cpp">
+      <Filter>Development  ========\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="j1Transition.h">
       <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1UIScene.h">
+      <Filter>Development  ========\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

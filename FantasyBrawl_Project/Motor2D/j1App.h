@@ -21,6 +21,7 @@ class j1EntityManager;
 class j1Fonts;
 class j1Gui;
 class j1Transition;
+class j1UIScene;
 
 class j1App
 {
@@ -97,6 +98,7 @@ public:
 	j1Gui*				gui = NULL;
 	j1Fonts*			fonts = NULL;
 	j1Transition*		transition = NULL;
+	j1UIScene*			ui_scene = NULL;
 
 	int              framerate_cap;
 private:
