@@ -9,11 +9,11 @@
 #include "j1Window.h"
 #include "j1Audio.h"
 #include "UI_element.h"
-//#include "UI_Image.h"
-//#include "UI_Text.h"
+#include "UI_Image.h"
+#include "UI_Text.h"
 //#include "UI_Button.h"
 //#include "UI_Window.h"
-//#include "j1UIScene.h"
+#include "j1UIScene.h"
 //#include "UI_Slider.h"
 //#include "UI_Clock.h"
 
@@ -191,7 +191,7 @@ bool j1Gui::CleanUp()
 
 void j1Gui::UIDebugDraw()
 {
-	/*for (std::list <UI_element*>::const_iterator item = App->ui_scene->current_menu->elements.begin(); item != App->ui_scene->current_menu->elements.end(); ++item)
+	for (std::list <UI_element*>::const_iterator item = App->ui_scene->current_menu->elements.begin(); item != App->ui_scene->current_menu->elements.end(); ++item)
 	{
 		SDL_Rect box;
 		int scale = App->win->GetScale();
@@ -200,7 +200,7 @@ void j1Gui::UIDebugDraw()
 		box.w = (*item)->section.w;
 		box.h = (*item)->section.h;
 		App->render->DrawQuad(box, 255, 0, 0, 255, false, false);
-	}*/
+	}
 
 }
 // const getter for atlas
@@ -209,33 +209,33 @@ const SDL_Texture* j1Gui::GetAtlas() const
 	return atlas;
 }
 
-//Text* j1Gui::createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
-//{
-//	Text* ret = new Text(text, x, y, font, color, callback);
-//	ret->solid = false;
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
+Text* j1Gui::createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
+{
+	Text* ret = new Text(text, x, y, font, color, callback);
+	ret->solid = false;
+	UI_elements.push_back(ret);
 
-//Image* j1Gui::createImage(int x, int y, SDL_Texture* texture, j1Module* callback)
-//{
-//	uint tex_width, tex_height;
-//	App->tex->GetSize(texture, tex_width, tex_height);
-//	Image* ret = new Image(texture, x, y, { 0, 0, (int)tex_width, (int)tex_height }, callback);
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
-//
-//Image* j1Gui::createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* callback)
-//{
-//	Image* ret = new Image(atlas, x, y, section, callback);
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
-//
+	return ret;
+}
+
+Image* j1Gui::createImage(int x, int y, SDL_Texture* texture, j1Module* callback)
+{
+	uint tex_width, tex_height;
+	App->tex->GetSize(texture, tex_width, tex_height);
+	Image* ret = new Image(texture, x, y, { 0, 0, (int)tex_width, (int)tex_height }, callback);
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+Image* j1Gui::createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* callback)
+{
+	Image* ret = new Image(atlas, x, y, section, callback);
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
 //Button* j1Gui::createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standbyUnactive, SDL_Rect OnMouseUnactive, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback)
 //{
 //	SDL_Texture* usingTexture = (texture) ? texture : atlas;

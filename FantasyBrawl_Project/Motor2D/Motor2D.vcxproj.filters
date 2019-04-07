@@ -64,6 +64,12 @@
     <ClCompile Include="j1UIScene.cpp">
       <Filter>Development  ========\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Image.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Text.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -147,6 +153,12 @@
     <ClInclude Include="j1UIScene.h">
       <Filter>Development  ========\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="UI_Image.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Text.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities ===========">
@@ -178,6 +190,9 @@
     </Filter>
     <Filter Include="Development  ========\Modules\UI">
       <UniqueIdentifier>{a933b1d1-8b7b-4065-8f79-4b7201708de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development  ========\Modules\UI\Elements">
+      <UniqueIdentifier>{19c05384-48fa-4272-af3b-c4e75023b798}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
