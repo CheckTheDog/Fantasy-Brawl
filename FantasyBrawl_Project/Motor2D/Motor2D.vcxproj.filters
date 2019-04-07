@@ -76,6 +76,12 @@
     <ClCompile Include="UI_Window.cpp">
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_Slider.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Clock.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -169,6 +175,12 @@
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_Window.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Slider.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Clock.h">
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>

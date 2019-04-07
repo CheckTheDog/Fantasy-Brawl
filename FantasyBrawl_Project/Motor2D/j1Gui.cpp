@@ -14,8 +14,8 @@
 #include "UI_Button.h"
 #include "UI_Window.h"
 #include "j1UIScene.h"
-//#include "UI_Slider.h"
-//#include "UI_Clock.h"
+#include "UI_Slider.h"
+#include "UI_Clock.h"
 
 
 
@@ -147,7 +147,7 @@ bool j1Gui::Update(float dt)
 // Called after all Updates
 bool j1Gui::PostUpdate(float dt)
 {
-	/*if (App->ui_scene->current_menu != nullptr)
+	if (App->ui_scene->current_menu != nullptr)
 	{
 		for (std::list <UI_element*>::const_iterator item = App->ui_scene->current_menu->elements.begin(); item != App->ui_scene->current_menu->elements.end(); ++item)
 		{
@@ -165,7 +165,7 @@ bool j1Gui::PostUpdate(float dt)
 			if ((*item)->parent == nullptr)
 				(*item)->BlitElement();
 		}
-	}*/
+	}
 	if (UI_Debug)
 		UIDebugDraw();
 
@@ -236,17 +236,17 @@ Image* j1Gui::createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* cal
 	return ret;
 }
 
-//Button* j1Gui::createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standbyUnactive, SDL_Rect OnMouseUnactive, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback)
-//{
-//	SDL_Texture* usingTexture = (texture) ? texture : atlas;
-//
-//	Button* ret = new Button(x, y, usingTexture, standbyUnactive, OnMouseUnactive, standbyActive, OnMouseActive, callback);
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
-//
-//
+Button* j1Gui::createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standbyUnactive, SDL_Rect OnMouseUnactive, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	Button* ret = new Button(x, y, usingTexture, standbyUnactive, OnMouseUnactive, standbyActive, OnMouseActive, callback);
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+
 Window* j1Gui::createWindow(int x, int y, SDL_Texture * texture, SDL_Rect section, j1Module * callback)
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
@@ -257,34 +257,34 @@ Window* j1Gui::createWindow(int x, int y, SDL_Texture * texture, SDL_Rect sectio
 	return ret;
 }
 
-//Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress, j1Module * callback, char* text)
-//{
-//	SDL_Texture* usingTexture = (texture) ? texture : atlas;
-//
-//	Slider* ret = new Slider(x, y, usingTexture, empty, full, default_progress, callback);
-//	ret->solid = false;
-//
-//	if (full.w > full.h)
-//	{
-//		button->setDragable(true, false);
-//		button->setLimits(empty.w / (2 / UI_scale), empty.w / (2 / UI_scale), -1, -1);
-//	}
-//	else
-//	{
-//		button->setDragable(false, true);
-//		button->setLimits(-1, -1, empty.h / (2 / UI_scale), empty.h / (2 / UI_scale));
-//	}
-//
-//	ret->appendChild(((empty.w * UI_scale) - 5 - button->section.w / (2 / UI_scale)) * default_progress, y, button);
-//	button->setOriginalPos(((empty.w * UI_scale) - 7 - button->section.w / (2 / UI_scale)) * 0.5f, y);
-//
-//	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
-//
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
-//
+Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress, j1Module * callback, char* text)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	Slider* ret = new Slider(x, y, usingTexture, empty, full, default_progress, callback);
+	ret->solid = false;
+
+	if (full.w > full.h)
+	{
+		button->setDragable(true, false);
+		button->setLimits(empty.w / (2 / UI_scale), empty.w / (2 / UI_scale), -1, -1);
+	}
+	else
+	{
+		button->setDragable(false, true);
+		button->setLimits(-1, -1, empty.h / (2 / UI_scale), empty.h / (2 / UI_scale));
+	}
+
+	ret->appendChild(((empty.w * UI_scale) - 5 - button->section.w / (2 / UI_scale)) * default_progress, y, button);
+	button->setOriginalPos(((empty.w * UI_scale) - 7 - button->section.w / (2 / UI_scale)) * 0.5f, y);
+
+	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
+
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
 Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, j1Module* callback)
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
@@ -295,21 +295,21 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	return ret;
 }
 
-//Clock * j1Gui::createTimer(int x, int y, int initial_value, _TTF_Font * font, SDL_Color color, j1Module * callback)
-//{
-//	Clock* ret = new Clock(x, y, TIMER, font, color, callback);
-//	ret->setStartValue(initial_value);
-//	ret->solid = false;
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
-//
-//Clock * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color, j1Module * callback)
-//{
-//	Clock* ret = new Clock(x, y, STOPWATCH, font, color, callback);
-//	ret->solid = false;
-//	UI_elements.push_back(ret);
-//
-//	return ret;
-//}
+Clock * j1Gui::createTimer(int x, int y, int initial_value, _TTF_Font * font, SDL_Color color, j1Module * callback)
+{
+	Clock* ret = new Clock(x, y, TIMER, font, color, callback);
+	ret->setStartValue(initial_value);
+	ret->solid = false;
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+Clock * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color, j1Module * callback)
+{
+	Clock* ret = new Clock(x, y, STOPWATCH, font, color, callback);
+	ret->solid = false;
+	UI_elements.push_back(ret);
+
+	return ret;
+}

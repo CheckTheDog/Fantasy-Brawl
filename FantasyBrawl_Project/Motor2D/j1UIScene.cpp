@@ -11,9 +11,9 @@
 #include "UI_element.h"
 #include "UI_Button.h"
 #include "UI_Image.h"
-//#include "UI_Slider.h"
+#include "UI_Slider.h"
 #include "UI_Window.h"
-//#include "UI_Clock.h"
+#include "UI_Clock.h"
 
 
 j1UIScene::j1UIScene()
@@ -202,7 +202,7 @@ bool j1UIScene::PostUpdate(float dt)
 bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 {
 	bool ret = true;
-	/*
+	
 	if (event_type == MOUSE_ENTER)
 	{
 		element->state = MOUSEOVER;
@@ -252,14 +252,14 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			ret = false;
 			break;
 		case PAUSE:
-			if (!App->paused)
+			/*if (!App->paused)
 			{
 
 			}
 			else
 			{
 
-			}
+			}*/
 			break;
 		case APPLY:
 
@@ -315,7 +315,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	{
 		Clock* clock = (Clock*)element;
 		LOG("Clock alarm at: %d", clock->time);
-	}*/
+	}
 
 	return ret;
 }
@@ -352,7 +352,7 @@ bool j1UIScene::Save(pugi::xml_node& data) const
 bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
-	/*
+	
 	previous_menu = current_menu->id;
 	pauseClock();
 	for (std::list <menu*>::const_iterator item = menus.begin(); item != menus.end(); item++)
@@ -390,7 +390,7 @@ bool j1UIScene::loadMenu(menu_id id)
 		}
 	}
 
-	*/
+	
 	return ret;
 }
 
@@ -398,13 +398,12 @@ bool j1UIScene::loadMenu(menu_id id)
 
 void j1UIScene::applySettings(settings_values values)
 {
-	/*Uint32 flag = 0;
+	Uint32 flag = 0;
 	if (values.fullscreen)
 		flag = SDL_WINDOW_FULLSCREEN;
 	SDL_SetWindowFullscreen(App->win->window, flag);
 
-	App->audio->setMusicVolume(values.music);
-	App->audio->setFxVolume(values.fx);
+
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{
@@ -427,31 +426,31 @@ void j1UIScene::applySettings(settings_values values)
 			}
 			slider->button->localPosition.x = ((slider->section.w * App->gui->UI_scale) - 5 - slider->button->section.w / (2 / App->gui->UI_scale)) * slider->progress;
 		}
-	}*/
+	}
 }
 
 void j1UIScene::pauseClock()
 {
-	/*for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
+	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{
 		if ((*item)->element_type == CLOCK)
 		{
 			Clock* clock = (Clock*)*item;
-			if (!clock->counter.isPaused())
-				clock->counter.Pause();
+			/*if (!clock->counter.isPaused())
+				clock->counter.Pause();*/
 		}
-	}*/
+	}
 }
 
 void j1UIScene::playClock()
 {
-	///*for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
-	//{
-	//	if ((*item)->element_type == CLOCK)
-	//	{
-	//		Clock* clock = (Clock*)*item;
-	//		if (clock->counter.isPaused())
-	//			clock->counter.Play();
-	//	}
-	//}*/
+	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
+	{
+		if ((*item)->element_type == CLOCK)
+		{
+			Clock* clock = (Clock*)*item;
+			/*if (clock->counter.isPaused())
+				clock->counter.Play();*/
+		}
+	}
 }

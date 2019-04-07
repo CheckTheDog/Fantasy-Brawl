@@ -6,7 +6,7 @@
 
 
 class UI_element;
-//class Clock;
+class Clock;
 class Button;
 
 
@@ -71,7 +71,7 @@ public:
 	settings_values newValues;
 	settings_values startValues;
 	settings_values defaultValues;
-	/*Clock* clock = nullptr;*/
+	Clock* clock = nullptr;
 	Button* continueButton = nullptr;
 	menu_id previous_menu;
 };

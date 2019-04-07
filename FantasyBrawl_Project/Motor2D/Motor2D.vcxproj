@@ -98,7 +98,9 @@
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="UI_Button.cpp" />
+    <ClCompile Include="UI_Clock.cpp" />
     <ClCompile Include="UI_Image.cpp" />
+    <ClCompile Include="UI_Slider.cpp" />
     <ClCompile Include="UI_Text.cpp" />
     <ClCompile Include="UI_Window.cpp" />
   </ItemGroup>
@@ -130,8 +132,10 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_Clock.h" />
     <ClInclude Include="UI_element.h" />
     <ClInclude Include="UI_Image.h" />
+    <ClInclude Include="UI_Slider.h" />
     <ClInclude Include="UI_Text.h" />
     <ClInclude Include="UI_Window.h" />
   </ItemGroup>
