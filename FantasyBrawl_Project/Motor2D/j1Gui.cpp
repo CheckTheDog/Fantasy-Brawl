@@ -3,19 +3,20 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-//#include "j1Fonts.h"
+#include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
-//#include "UI_element.h"
+#include "j1Window.h"
+#include "j1Audio.h"
+#include "UI_element.h"
 //#include "UI_Image.h"
 //#include "UI_Text.h"
 //#include "UI_Button.h"
 //#include "UI_Window.h"
-#include "j1Window.h"
 //#include "j1UIScene.h"
 //#include "UI_Slider.h"
 //#include "UI_Clock.h"
-#include "j1Audio.h"
+
 
 
 j1Gui::j1Gui() : j1Module()

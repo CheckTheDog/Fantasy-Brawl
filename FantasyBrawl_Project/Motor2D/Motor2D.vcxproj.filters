@@ -52,11 +52,11 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Gui.cpp">
-      <Filter>Development  ========\UI</Filter>
-    </ClCompile>
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Development  ========\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,10 +127,13 @@
       <Filter>Utilities ===========</Filter>
     </ClInclude>
     <ClInclude Include="j1Gui.h">
-      <Filter>Development  ========\UI</Filter>
+      <Filter>Development  ========\Modules\UI</Filter>
     </ClInclude>
     <ClInclude Include="j1Fonts.h">
       <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_element.h">
+      <Filter>Development  ========\Modules\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +164,7 @@
     <Filter Include="Development  ========\Entities\Tools">
       <UniqueIdentifier>{5bd7ebd8-39cd-4afc-b5e2-f75654684368}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Development  ========\UI">
+    <Filter Include="Development  ========\Modules\UI">
       <UniqueIdentifier>{a933b1d1-8b7b-4065-8f79-4b7201708de6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
