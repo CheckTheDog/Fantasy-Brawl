@@ -18,6 +18,7 @@ class j1Map;
 class j1PathFinding;
 class j1Collision;
 class j1EntityManager;
+class j1Fonts;
 class j1Gui;
 
 class j1App
@@ -93,6 +94,7 @@ public:
 	j1EntityManager*    entities = nullptr;
 	j1Collision*        coll = nullptr;
 	j1Gui*				gui = NULL;
+	j1Fonts*			fonts = NULL;
 
 	int              framerate_cap;
 private:
