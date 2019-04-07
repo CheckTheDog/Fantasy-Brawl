@@ -52,6 +52,9 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Development  ========\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Utilities ===========</Filter>
     </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Development  ========\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities ===========">
@@ -148,6 +154,9 @@
     </Filter>
     <Filter Include="Development  ========\Entities\Tools">
       <UniqueIdentifier>{5bd7ebd8-39cd-4afc-b5e2-f75654684368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development  ========\UI">
+      <UniqueIdentifier>{a933b1d1-8b7b-4065-8f79-4b7201708de6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
