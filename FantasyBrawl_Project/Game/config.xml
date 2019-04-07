@@ -32,6 +32,10 @@
     <map_name path="Map2x.tmx"/>
   </scene>
 
+  <gui>
+    <atlas file="gui/atlas.png"/>
+  </gui>
+
   <entities>
 
     <player>

@@ -60,8 +60,8 @@ bool j1Transition::Update(float dt)
 			{
 				alpha_value = 255;
 				sceneState = GOUT;
-				/*App->scene->newLvl = newLvl;
-				App->scene->load_lvl = true;*/
+				App->scene->newLvl = newLvl;
+				App->scene->load_lvl = true;
 			}
 
 		}

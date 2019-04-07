@@ -51,134 +51,132 @@ bool j1UIScene::Start()
 
 	
 
-	//menu* creditsMenu = new menu(CREDITS_MENU);
-	//{
-	//	
-	//}
+	menu* creditsMenu = new menu(CREDITS_MENU);
+	{
+		
+	}
 
-	//menu* startMenu = new menu(START_MENU);
-	//{
-	//	
-
-
-	//	//PLAY
-	//	UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-	//	new_game->function = NEW_GAME;
-
-	//	UI_element* new_text = App->gui->createText("PLAY", 200, 200, big_buttons_font, brown_color);
-	//	new_text->setOutlined(true);
-	//	new_game->appendChildAtCenter(new_text);
-
-	//	//CHAMPIONS
-	//	continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-	//	continueButton->function = CONTINUE;
+	menu* startMenu = new menu(START_MENU);
+	{
+		
 
 
-	//	UI_element* continue_text = App->gui->createText("CHAMPIONS", 200, 200, big_buttons_font, brown_color);
-	//	continue_text->setOutlined(true);
-	//	continueButton->appendChildAtCenter(continue_text);
+		//PLAY
+		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		new_game->function = NEW_GAME;
 
-	//	//EXIT GAME
-	//	UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* new_text = App->gui->createText("PLAY", 200, 200, big_buttons_font, brown_color);
+		new_text->setOutlined(true);
+		new_game->appendChildAtCenter(new_text);
 
-	//	exit_game->function = EXIT;
-
-	//	UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, brown_color);
-	//	exit_text->setOutlined(true);
-	//	exit_game->appendChildAtCenter(exit_text);
-
-	//	//CREDITS
-	//	UI_element* credits = App->gui->createButton(App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 0,613,160,100 }, { 0,613,160,100 }, { 0,613,160,100 }, this);
-	//	credits->function = CREDITS;
+		//CHAMPIONS
+		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		continueButton->function = CONTINUE;
 
 
+		UI_element* continue_text = App->gui->createText("CHAMPIONS", 200, 200, big_buttons_font, brown_color);
+		continue_text->setOutlined(true);
+		continueButton->appendChildAtCenter(continue_text);
 
-	//	//SETTINGS
-	//	UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, App->gui->UI_scale, NULL, { 250,613,170,150 }, { 250,613,170,150 }, { 250,613,170,150 }, this);
+		//EXIT GAME
+		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
 
-	//	settings_start_menu->function = SETTINGS;
+		exit_game->function = EXIT;
 
+		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, brown_color);
+		exit_text->setOutlined(true);
+		exit_game->appendChildAtCenter(exit_text);
 
-	//	//BACKGROUND
-	//	UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/background.png"), this);
-
-	//	startMenu->elements.push_back(background_image);
-	//	startMenu->elements.push_back(new_game);
-	//	startMenu->elements.push_back(new_text);
-	//	startMenu->elements.push_back(continueButton);
-	//	startMenu->elements.push_back(continue_text);
-	//	startMenu->elements.push_back(exit_game);
-	//	startMenu->elements.push_back(exit_text);
-	//	startMenu->elements.push_back(credits);
-	//	startMenu->elements.push_back(settings_start_menu);
-	//	menus.push_back(startMenu);
-	//}
-
-
-	//menu* championSelection = new menu(SELECTION_MENU);
-	//{
-	//	UI_element* selection_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
-	//	UI_element* settings_text = App->gui->createText("CHAMPION SELECTION", 425, 120, big_buttons_font, brown_color);
-	//	settings_text->setOutlined(true);
+		//CREDITS
+		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 0,613,160,100 }, { 0,613,160,100 }, { 0,613,160,100 }, this);
+		credits->function = CREDITS;
 
 
 
-	//	championSelection->elements.push_back(selection_window);
-	//	menus.push_back(championSelection);
-	//}
+		//SETTINGS
+		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, App->gui->UI_scale, NULL, { 250,613,170,150 }, { 250,613,170,150 }, { 250,613,170,150 }, this);
 
-	//menu* settingsMenu = new menu(SETTINGS_MENU);
-	//{
-	//	//WINDOW
-	//	UI_element* settings_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
-	//	UI_element* settings_text = App->gui->createText("OPTIONS", 425, 120, big_buttons_font, brown_color);
-	//	settings_text->setOutlined(true);
+		settings_start_menu->function = SETTINGS;
 
 
-	//	//BACK BUTTON
-	//	UI_element* back_button = App->gui->createButton(350 * App->gui->UI_scale, 525 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-	//	back_button->function = BACK;
-	//	UI_element* back_text = App->gui->createText("BACK", 200, 200, mid_buttons_font, brown_color);
-	//	back_text->setOutlined(true);
-	//	back_button->appendChildAtCenter(back_text);
+		//BACKGROUND
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/background.png"), this);
 
-	//	//AUDIO
-	//	Button* music_slider_butt = App->gui->createButton(0, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-	//	Slider* music_slider = App->gui->createSlider(0, 0, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
-	//	music_slider->modify = MUSIC;
-	//	settings_window->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
+		startMenu->elements.push_back(background_image);
+		startMenu->elements.push_back(new_game);
+		startMenu->elements.push_back(new_text);
+		startMenu->elements.push_back(continueButton);
+		startMenu->elements.push_back(continue_text);
+		startMenu->elements.push_back(exit_game);
+		startMenu->elements.push_back(exit_text);
+		startMenu->elements.push_back(credits);
+		startMenu->elements.push_back(settings_start_menu);
+		menus.push_back(startMenu);
+	}
 
-	//	UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
-	//	audio_text->setOutlined(true);
 
-	//	//FULLSCREEN
-	//	Button* full_switch = App->gui->createSwitch(0, 0, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
-	//	settings_window->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
-
-	//	UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
-	//	fullscreen_text->setOutlined(true);
+	menu* championSelection = new menu(SELECTION_MENU);
+	{
+		UI_element* selection_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
+		UI_element* settings_text = App->gui->createText("CHAMPION SELECTION", 425, 120, big_buttons_font, brown_color);
+		settings_text->setOutlined(true);
 
 
 
-	//	settingsMenu->elements.push_back(settings_window);
-	//	settingsMenu->elements.push_back(settings_text);
-	//	settingsMenu->elements.push_back(back_button);
-	//	settingsMenu->elements.push_back(back_text);
-	//	settingsMenu->elements.push_back(music_slider_butt);
-	//	settingsMenu->elements.push_back(music_slider);
-	//	settingsMenu->elements.push_back(audio_text);
-	//	settingsMenu->elements.push_back(full_switch);
-	//	settingsMenu->elements.push_back(fullscreen_text);
-	//	menus.push_back(settingsMenu);
-	//}
+		championSelection->elements.push_back(selection_window);
+		menus.push_back(championSelection);
+	}
+
+	menu* settingsMenu = new menu(SETTINGS_MENU);
+	{
+		//WINDOW
+		UI_element* settings_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
+		UI_element* settings_text = App->gui->createText("OPTIONS", 425, 120, big_buttons_font, brown_color);
+		settings_text->setOutlined(true);
+
+
+		//BACK BUTTON
+		UI_element* back_button = App->gui->createButton(350 * App->gui->UI_scale, 525 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		back_button->function = BACK;
+		UI_element* back_text = App->gui->createText("BACK", 200, 200, mid_buttons_font, brown_color);
+		back_text->setOutlined(true);
+		back_button->appendChildAtCenter(back_text);
+
+		//AUDIO
+		Button* music_slider_butt = App->gui->createButton(0, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* music_slider = App->gui->createSlider(0, 0, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
+		music_slider->modify = MUSIC;
+		settings_window->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
+
+		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
+		audio_text->setOutlined(true);
+
+		//FULLSCREEN
+		Button* full_switch = App->gui->createSwitch(0, 0, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
+		settings_window->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
+
+		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
+		fullscreen_text->setOutlined(true);
 
 
 
-	//current_menu = startMenu;
+		settingsMenu->elements.push_back(settings_window);
+		settingsMenu->elements.push_back(settings_text);
+		settingsMenu->elements.push_back(back_button);
+		settingsMenu->elements.push_back(back_text);
+		settingsMenu->elements.push_back(music_slider_butt);
+		settingsMenu->elements.push_back(music_slider);
+		settingsMenu->elements.push_back(audio_text);
+		settingsMenu->elements.push_back(full_switch);
+		settingsMenu->elements.push_back(fullscreen_text);
+		menus.push_back(settingsMenu);
+	}
 
-	//defaultValues.fx = fx_progress;
-	//defaultValues.music = music_progress;
-	//newValues = defaultValues;
+
+
+	current_menu = startMenu;
+
+	
 
 	return true;
 }
