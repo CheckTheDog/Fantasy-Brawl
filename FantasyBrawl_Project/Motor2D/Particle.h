@@ -30,13 +30,17 @@ struct ParticleInfo
 	fPoint pos;
 
 	float angle;
-	float velocity;
+	float speed;
+
+	float initSpin;
+	float finalSpin;
 
 	SDL_BlendMode blendMode;
 
 	string texPath;
 
 	int drawingOrder;
+	bool isGravityOn;
 };
 
 class Particle
@@ -49,10 +53,13 @@ public:
 
 	void Init(ParticleInfo data);
 	void Animate();
+	bool isActive()const;
 	void Draw();
 
 private:
 
+	float calculateRatio(float init, float fin)const;
+	float degToRad(float deg);
 	void config(ParticleInfo data);
 
 	void loadParticle(const char* path);
@@ -63,13 +70,15 @@ private:
 	int lifeTime;
 	int framesLeft;
 
+	float lifeTimeRatio = 1.0f;
+
 	fPoint pos;
 	iPoint initSize;
 	fPoint velocity;
 
-	float initScale;
-	float scale;
-	float finalScale;
+	float initScale = 1.0f;
+	float scale = 1.0f;
+	float finalScale = 0.0f;
 
 	Color initColor;
 	Color currColor;
@@ -77,9 +86,15 @@ private:
 
 	SDL_BlendMode blendMode;
 
+	float initSpin;
+	float currSpin;
+	float finalSpin;
+
 	int drawingOrder = 1;
 
 	SDL_Texture* tex = nullptr;
+
+	bool isGravityOn = true;
 
 };
 
