@@ -5,6 +5,7 @@
 #include "p2Log.h"
 
 #include "j1Window.h"
+#include "j1FileSystem.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
@@ -18,6 +19,7 @@
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
+#include"PhysFS\include\physfs.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -26,6 +28,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	input = new j1Input();
 	win = new j1Window();
+	filesystem = new j1FileSystem();
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
@@ -35,9 +38,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new j1EntityManager();
 	particlesys = new j1ParticleSystem();
 	pathfinding = new j1PathFinding();
-
+	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+	AddModule(filesystem);
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);

@@ -2,6 +2,8 @@
 #define _PARTICLE_EMITTER_H_
 
 #include "ParticleEmitter.h"
+#include "j1FileSystem.h"
+#include "j1Module.h"
 #include "j1App.h"
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -50,10 +52,10 @@ void ParticleEmitter::Update(float dt)
 		isActive = false;
 }
 
-bool ParticleEmitter::loadParticle(pugi::xml_document& file, pugi::xml_node& config, const char* path)
+bool ParticleEmitter::loadParticle(pugi::xml_document& file, pugi::xml_node& config, std::string path)
 {
 	char* buffer;
-	int size = App;
+	int size = App->filesystem->Load(path.c_str(), &buffer);
 	pugi::xml_parse_result result = file.load_buffer(buffer, size);
 
 	if (size != 0)

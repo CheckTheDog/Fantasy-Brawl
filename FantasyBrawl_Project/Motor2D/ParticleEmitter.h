@@ -54,7 +54,7 @@ public:
 
 private:
 
-	bool loadParticle(pugi::xml_document& file, pugi::xml_node& config, const char* path);
+	bool loadParticle(pugi::xml_document& file, pugi::xml_node& config, std::string path);
 	void particleConfig(ParticleInfo& data);
 
 private:
