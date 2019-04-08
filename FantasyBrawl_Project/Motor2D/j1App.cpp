@@ -33,7 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	coll = new j1Collision();
 	entities = new j1EntityManager();
-	particles = new j1ParticleSystem();
+	particlesys = new j1ParticleSystem();
 	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
@@ -46,7 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(coll);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(particles);
+	AddModule(particlesys);
 	AddModule(pathfinding);
 
 	// render last to swap buffer

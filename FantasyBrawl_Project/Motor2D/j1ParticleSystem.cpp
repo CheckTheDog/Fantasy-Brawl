@@ -1,17 +1,13 @@
-#include "j1App.h"
-#include "j1Textures.h"
-#include "j1Window.h"
-#include "j1Render.h"
-#include "j1Input.h"
 #include "p2Log.h"
+#include "j1App.h"
+#include "j1Window.h"
 #include "j1ParticleSystem.h"
+#include "ParticleEmitter.h"
 
 
 j1ParticleSystem::j1ParticleSystem()
 {
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 
-		isActive[i] = nullptr;
 }
 
 j1ParticleSystem::~j1ParticleSystem()
@@ -19,94 +15,72 @@ j1ParticleSystem::~j1ParticleSystem()
 
 }
 
-bool j1ParticleSystem::Awake(pugi::xml_node& conf)
-{
-
-}
-
-bool j1ParticleSystem::Start()
-{
-	bool ret = true;
-
-	graphics = App->tex->Load("textures/Wendolin Red Dagger.png");
-	
-	if (graphics == nullptr)
-	{
-		LOG("Particle sprites were not loaded correctly");
-		ret = false;
-	}
-
-		return ret;
-}
-
-bool j1ParticleSystem::CleanUp()
-{
-	App->tex->UnLoad(graphics);
-
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-	{
-		if (isActive[i] != nullptr)
-		{
-			delete isActive[i];
-			isActive[i] = nullptr;
-		}
-	}
-}
-
 bool j1ParticleSystem::Update(float dt)
 {
+	debugPTimer.Start();
+	updateParticles();
+	updateEmitters();
+	updateTime = debugPTimer.Read();
 
+	return true;
 }
 
-void Particle::PushBack(const SDL_Rect& rect)
+Particle* j1ParticleSystem::newParticle(ParticleInfo data)
 {
-	frames[last_frame++] = rect;
-}
-
-void j1ParticleSystem::LoadParticle(const char* filePath, const char* fileName) {
-
-	Particle* p_anim = new Particle();
-
-	bool anim = false;
-
-	pugi::xml_document particleDoc;
-	pugi::xml_parse_result result = particleDoc.load_file(filePath);
-
-
-	if (result == NULL)
+	for (int i = 0; i < MAX_PARTICLES; i++)
 	{
-		LOG("Issue loading animation");
-	}
-
-	pugi::xml_node objgroup;
-	for (objgroup = particleDoc.child("map").child("objectgroup"); objgroup; objgroup = objgroup.next_sibling("objectgroup"))
-	{
-		std::string name = objgroup.attribute("name").as_string();
-		if (name == fileName)
+		if (particles[i].isActive() == false)
 		{
-			anim = true;
-			int x, y, h, w;
-
-			for (pugi::xml_node sprite = objgroup.child("object"); sprite; sprite = sprite.next_sibling("object"))
-			{
-				x = sprite.attribute("x").as_int();
-				y = sprite.attribute("y").as_int();
-				w = sprite.attribute("width").as_int();
-				h = sprite.attribute("height").as_int();
-
-				p_anim->PushBack({ x, y, w, h });
-			}
-
+			particles[i].Init(data);
+			
+			return &particles[i];
 		}
 	}
-	/*if (anim == true)
-		return p_anim;
-	else
-		return nullptr;*/
+}
+
+ParticleEmitter* j1ParticleSystem::newEmitter(fPoint pos, const char* configPath)
+{
+	ParticleEmitter* emitter = nullptr;
+
+	emitter = new ParticleEmitter(pos, configPath);
+
+	pEmitters.push_back(emitter);
+	return emitter;
 
 }
 
-void j1ParticleSystem::AddParticle(particleType yype, fPoint pos)
+void j1ParticleSystem::updateParticles()
 {
+	particleCount = 0;
 
+	for (int i = 0; i < MAX_PARTICLES; i++)
+	{
+		if (particles[i].isActive() == false)
+			continue;
+
+		particles[i].Animate();
+
+		if (particles[i].isActive() == false)
+			continue;
+
+		particles[i].Draw();
+		particleCount++;
+	}
+}
+
+void j1ParticleSystem::updateEmitters()
+{
+	std::list<ParticleEmitter*>::iterator it = pEmitters.begin();
+	while (it != pEmitters.end());
+	{
+		if (!(*it)->isActive)
+			pEmitters.erase(it++);
+
+		else
+		{
+			(*it)->Update(0);
+			++it;
+		}
+	}
+	
 }

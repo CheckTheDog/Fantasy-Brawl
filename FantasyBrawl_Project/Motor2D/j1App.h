@@ -92,7 +92,7 @@ public:
 	j1PathFinding*		pathfinding = NULL;
 	j1EntityManager*    entities = nullptr;
 	j1Collision*        coll = nullptr;
-	j1ParticleSystem	particles = nullptr;
+	j1ParticleSystem*	particlesys = nullptr;
 
 	int              framerate_cap;
 private:
