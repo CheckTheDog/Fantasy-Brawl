@@ -8,6 +8,8 @@ struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
 
+#define JOYSTICK_DEAD_ZONE 8000
+
 struct Playerdata {
 
 	Animation* idleRight = nullptr;
@@ -27,6 +29,15 @@ struct Playerdata {
 	Animation* moveDown = nullptr;
 	Animation* moveDownright = nullptr;
 	Animation* moveDownleft = nullptr;
+
+	Animation* attackRight = nullptr;
+	Animation* attackLeft = nullptr;
+	Animation* attackUp = nullptr;
+	Animation* attackUpright = nullptr;
+	Animation* attackUpleft = nullptr;
+	Animation* attackDown = nullptr;
+	Animation* attackDownright = nullptr;
+	Animation* attackDownleft = nullptr;
 
 	std::string folder;
 	std::string Texture;
@@ -50,14 +61,12 @@ enum class AXISDIRECTION
 	AXIS_Y
 };
 
-enum class animations
+enum class PSTATE
 {
-	NONE, IDLE_UP, IDLE_UPRIGHT, IDLE_RIGHT, IDLE_DOWNRIGHT,
-	IDLE_DOWN, IDLE_DOWNLEFT, IDLE_LEFT, IDLE_UPLEFT,
-	MOVE_UP, MOVE_UPRIGHT, MOVE_RIGHT, MOVE_DOWNRIGHT,
-	MOVE_DOWN, MOVE_DOWNLEFT, MOVE_LEFT, MOVE_UPLEFT
+	MOVING,
+	ATTACKING,
+	IDLE
 };
-
 
 class j1Player :public j1Entity
 {
@@ -77,11 +86,16 @@ public:
 	void LogicUpdate(float dt);
 
 	// --- Entity Movement ---
-	void HandleAnimations();
 	void MoveX(float dt);
 	void MoveY(float dt);
 	void HandleInput();
 
+	// --- Entity Animations ---
+	void HandleAnimations();
+	void GetAttackAnimation();
+	void GetMovementAnimation();
+	void GetIdleAnimation();
+	bool InRange(float axisX, float axisY, float range_start, float range_end);
 
 	// --- Save & Load ---
 	bool Load(pugi::xml_node&);
@@ -103,23 +117,33 @@ public:
 
 public:
 
+	// --- Basic Stuff ---
 	PLAYER ID;
-	Playerdata player1info;
-	SDL_Rect Intersection = { 0,0,0,0 };
+	Playerdata playerinfo;
+	PSTATE PlayerState;
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };
-	Animation* CurrentAnimation;
 	MOVEMENT EntityMovement;
 	AXISDIRECTION direction;
 
-	// --- Gamepad ---
-	float Axisx_value = 0.0f;
-	float Axisy_value = 0.0f;
-
+	// --- Gamepad Input ---
 	float multipliermin = 0.1f;
-	float multiplier_x = 0.0f;
-	float multiplier_y = 0.0f;
+
+	// Left Joystick LJ 
+	float LJAxisx_value = 0.0f;
+	float LJAxisy_value = 0.0f;
+	float LJdirection_x = 0.0f;
+	float LJdirection_y = 0.0f;
+
+	// Right Joystick RJ
+	float RJAxisx_value = 0.0f;
+	float RJAxisy_value = 0.0f;
+	float RJdirection_x = 0.0f;
+	float RJdirection_y = 0.0f;
+	
+	// --- Collisions ---
+	SDL_Rect Intersection = { 0,0,0,0 };
 };
 
 #endif // __j1Player_H__

@@ -143,6 +143,11 @@ private:
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
+
+	// --- Collider id's ---
+	int redCollider = 0;
+	int greenCollider = 0;
+	int blueCollider = 0;
 };
 
 #endif // __j1MAP_H__

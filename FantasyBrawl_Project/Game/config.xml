@@ -24,19 +24,37 @@
 
   <map>
     <folder>maps/</folder>
+    <colliders red="185" green="184" blue="183"/>
+
   </map>
 
   <scene>
-    <map_name path="iso_walk.tmx"/>
-    <map_name path="iso.tmx"/>
+    <map_name path="Map2x.tmx"/>
   </scene>
 
   <entities>
 
     <player>
-      <folder>Animations/player.tmx</folder>
-      <texture1>textures/Wendolin Red Sprite.png</texture1>
-      <collider x="0" y="0" width="30" height="68"/>
+      <folder1>Animations/player.tmx</folder1>
+      <folder2>Animations/player.tmx</folder2>
+      <folder3>Animations/player.tmx</folder3>
+      <folder4>Animations/player.tmx</folder4>
+      <texture1>textures/Wendolin Red Sprite 3x.png</texture1>
+      <texture2>textures/Wendolin Red Sprite 3x.png</texture2>
+      <texture3>textures/Wendolin Red Sprite 3x.png</texture3>
+      <texture4>textures/Wendolin Red Sprite 3x.png</texture4>
+      <collider x="0" y="0" width="70" height="30"/>
+      
+      <AnimationRangeRight range_start="-22.5f" range_end="22.5f" />
+      <AnimationRangeLeft range_start="157.5f" range_end="180.0f" />
+      <AnimationRangeLeft2 range_start="-157.5f" range_end="-180.0f" />
+      <AnimationRangeUp range_start="-112.5f" range_end="-67.5f" />
+      <AnimationRangeUpright range_start="-67.5f" range_end="-22.5f" />
+      <AnimationRangeUpleft range_start="-157.5" range_end="-112.5f" />
+      <AnimationRangeDown range_start="67.5f" range_end="112.5f" />
+      <AnimationRangeDownright range_start="22.5f" range_end=" 67.5f" />
+      <AnimationRangeDownleft range_start="112.5f" range_end="157.5f" />
+
     </player>
 
   </entities>
