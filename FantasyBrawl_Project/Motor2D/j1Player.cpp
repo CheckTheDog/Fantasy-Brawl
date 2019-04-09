@@ -71,8 +71,6 @@ bool j1Player::Start()
 	PlayerState = PSTATE::IDLE;
 
 	// --- Current Player Position ---
-	Entityinfo.position.x = 200;
-	Entityinfo.position.y = 0;
 	Future_position.x = Entityinfo.position.x;
 	Future_position.y = Entityinfo.position.y;
 
