@@ -9,7 +9,6 @@
 
 // Modules
 class j1Window;
-class j1FileSystem;
 class j1Input;
 class j1Render;
 class j1Textures;
@@ -84,7 +83,6 @@ public:
 
 	// Modules
 	j1Window*			win = NULL;
-	j1FileSystem*		filesystem = NULL;
 	j1Input*			input = NULL;
 	j1Render*			render = NULL;
 	j1Textures*			tex = NULL;

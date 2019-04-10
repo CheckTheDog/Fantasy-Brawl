@@ -2,7 +2,6 @@
 #define _PARTICLE_EMITTER_H_
 
 #include "ParticleEmitter.h"
-#include "j1FileSystem.h"
 #include "j1Module.h"
 #include "j1App.h"
 #include "p2Defs.h"
@@ -17,7 +16,7 @@ ParticleEmitter::ParticleEmitter(fPoint pos, const char* configPath)
 	emissionTimer.Start();
 	srand(time(NULL));
 
-	loadParticle(configFile, config, configPath);
+	loadParticle(configPath,);
 	freq = config.child("frequency").attribute("value").as_float(10);
 	period = 1000 * (1 / freq);
 
@@ -26,7 +25,7 @@ ParticleEmitter::ParticleEmitter(fPoint pos, const char* configPath)
 
 	type = (emitterType)config.child("type").attribute("value").as_int(0);
 
-	if (type != NONE)
+	if (type != NO_ATTACK)
 	{
 		for (int i = 0; i < maxEmissions; i++)
 		newParticle();
@@ -52,37 +51,31 @@ void ParticleEmitter::Update(float dt)
 		isActive = false;
 }
 
-bool ParticleEmitter::loadParticle(pugi::xml_document& file, pugi::xml_node& config, std::string path)
+bool ParticleEmitter::loadParticle(pugi::xml_document& config, pugi::xml_node& configNode)
 {
-	char* buffer;
-	int size = App->filesystem->Load(path.c_str(), &buffer);
-	pugi::xml_parse_result result = file.load_buffer(buffer, size);
-
-	if (size != 0)
-		RELEASE(buffer);
+	pugi::xml_document particleDoc;
+	pugi::xml_parse_result result = particleDoc.load_file(path);
 
 	if (result == NULL)
 	{
-		LOG("XML file %s could not be loaded", result.description());
+		LOG("Cannot load particle sprites");
 		return false;
 	}
+		
+	pugi::xml_node particles = particleDoc.child("particles").child("emitter").child("texturePath");
 
-	else
-	{
-		config = file.child("config");
-		return true;
-	}
-
+	return true;
+	
 }
 
 void ParticleEmitter::particleConfig(ParticleInfo& data)
 {
 	float angle = config.child("angle").attribute("value").as_float(90);
-	float angleDiff = config.child("angle").attribute("diff").as_float(0);
+	float angleDiff = config.child("angle").attribute("variation").as_float(0);
 	data.angle = operationRand(angle, angleDiff);
 
 	float speed = config.child("speed").attribute("value").as_float(0);
-	float speedDiff = config.child("speed").attribute("diff").as_float(0);
+	float speedDiff = config.child("speed").attribute("variation").as_float(0);
 	data.speed = operationRand(speed, speedDiff);
 
 	fPoint pos;
@@ -91,16 +84,16 @@ void ParticleEmitter::particleConfig(ParticleInfo& data)
 	data.pos.x = operationRand(initPos.x, pos.x);
 	data.pos.y = operationRand(initPos.y, pos.y);
 
-	int lifeTime = config.child("lifetime").attribute("vlaue").as_float(100);
-	int lifeTimeDiff = config.child("lifetime").attribute("diff").as_float(0);
+	float lifeTime = config.child("lifetime").attribute("vlaue").as_float(100);
+	float lifeTimeDiff = config.child("lifetime").attribute("variation").as_float(0);
 	data.lifeTime = operationRand(lifeTime, lifeTimeDiff);
 	
 	float initScale = config.child("initialScale").attribute("value").as_float(1);
-	float iScaleDiff = config.child("initialScale").attribute("diff").as_float(0);
+	float iScaleDiff = config.child("initialScale").attribute("variation").as_float(0);
 	data.speed = operationRand(initScale, iScaleDiff);
 
 	float finalScale = config.child("finalScale").attribute("value").as_float(1);
-	float fScaleDiff = config.child("finalScale").attribute("diff").as_float(0);
+	float fScaleDiff = config.child("finalScale").attribute("variation").as_float(0);
 	data.speed = operationRand(finalScale, fScaleDiff);
 
 	data.initColor.r = config.child("initialColor").attribute("r").as_int(255);
@@ -119,7 +112,7 @@ void ParticleEmitter::particleConfig(ParticleInfo& data)
 
 	data.initSpin = config.child("spin").attribute("initialValue").as_float(0);
 	float finalSpin = config.child("spin").attribute("finalValue").as_float(0);
-	float finalSpinDiff = config.child("spin").attribute("diff").as_float(0);
+	float finalSpinDiff = config.child("spin").attribute("variation").as_float(0);
 	data.finalSpin = operationRand(finalSpin, finalSpinDiff);
 
 	data.drawingOrder = config.child("drawingOrder").attribute("value").as_int(1);

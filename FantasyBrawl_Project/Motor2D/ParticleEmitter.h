@@ -6,11 +6,11 @@
 
 enum emitterType 
 {
-		NONE,
 		BASIC_ATTACK,
 		SPECIAL_ABILITY,
 		DEATH,
-		ITEM_PICK
+		ITEM_PICK,
+		NO_ATTACK
 };
 
 ParticleInfo;
@@ -54,7 +54,7 @@ public:
 
 private:
 
-	bool loadParticle(pugi::xml_document& file, pugi::xml_node& config, std::string path);
+	bool loadParticle(const char* path, const char* name);
 	void particleConfig(ParticleInfo& data);
 
 private:

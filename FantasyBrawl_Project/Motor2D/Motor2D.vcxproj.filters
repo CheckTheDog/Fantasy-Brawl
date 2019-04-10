@@ -61,8 +61,8 @@
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Development  ========\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="j1FileSystem.cpp">
-      <Filter>Development  ========\Modules\Core</Filter>
+    <ClCompile Include="j1Projectiles.cpp">
+      <Filter>Development  ========\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,8 +141,8 @@
     <ClInclude Include="ParticleEmitter.h">
       <Filter>Development  ========\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="j1FileSystem.h">
-      <Filter>Development  ========\Modules\Core</Filter>
+    <ClInclude Include="j1Projectiles.h">
+      <Filter>Development  ========\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

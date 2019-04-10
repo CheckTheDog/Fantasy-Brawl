@@ -99,7 +99,8 @@ int j1Projectiles::ProjectileType(PROJECTILE_TYPE type, j1Player* player) {
 	int counter = 0;
 	for (std::list<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); ++it) {
 		Projectile* p = *it;
-		if (p->type == type && p->coll->player == player) {
+		if (p->type == type && p->coll->type ==	COLLIDER_TYPE::COLLIDER_PLAYER)
+		{
 			counter++;
 		}
 	}
@@ -118,7 +119,10 @@ void Projectile::Update() {
 	}
 	
 }
-void Projectile::Draw(SDL_Texture* sprites) {
-	if (anim)
-		App->render->Blit(sprites, pos.x, pos.y, &anim->GetCurrentFrame, scale, isFlipped, 1.0f, angle);
+void Projectile::Draw(SDL_Texture* sprites)
+{
+	j1Timer delta;
+	float dt = delta.ReadSec()/1000;
+	if (&anim)
+		App->render->Blit(sprites, pos.x, pos.y, &anim->GetCurrentFrame(dt), scale, isFlipped, 1.0f, angle);
 }

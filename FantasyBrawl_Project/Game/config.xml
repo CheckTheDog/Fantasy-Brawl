@@ -58,5 +58,31 @@
     </player>
 
   </entities>
+  
+  <particles>
+  
+	<emitter>
+	
+	<angle value="90.0f", variation="0.0f" />
+	<speed value="0.0f", variation="0.0f" />
+	<position x="0.0f", y="0.0f" />
+	<lifetime value="100.0f", variation="0.0f" >
+	<initiialScale value="1.0f", variation="0.0f" />
+	<finalScale value="1.0f", variation="0.0f" />
+	<initialColor r="255", g="255", b="255", alpha="255" />
+	<finalColor r="255", g="255", b="255", alpha="255" />
+	<blendMode value="0" />
+	<texturePath>textures/Wendolin Red Dagger.png</texturePath>
+	<spin initialValue="0.0f", finalValue="0.0f", variation="0.0f" />
+	<drawingOrder value="1" />
+	<gravity value="true" />
+	
+	<frequency value="10.0f" />
+	<maxEmissions value="1000" />
+	<type value="0" />
+	
+	</emitter>
+	
+</particles>
 
 </config>
