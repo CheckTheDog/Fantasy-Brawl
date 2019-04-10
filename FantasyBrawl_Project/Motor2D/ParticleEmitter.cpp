@@ -53,14 +53,14 @@ void ParticleEmitter::Update(float dt)
 		isActive = false;
 }
 
-bool ParticleEmitter::loadParticle(const char* path, const char* name)
+bool ParticleEmitter::loadParticle(const char* pPath, const char* pName)
 {
 	Animation* animation = new Animation();
 
 	bool anim = false;
 
 	pugi::xml_document animationDocument;
-	pugi::xml_parse_result result = animationDocument.load_file(path);
+	pugi::xml_parse_result result = animationDocument.load_file(pPath);
 
 
 	if (result == NULL)
@@ -72,8 +72,9 @@ bool ParticleEmitter::loadParticle(const char* path, const char* name)
 	for (objgroup = animationDocument.child("map").child("objectgroup"); objgroup; objgroup = objgroup.next_sibling("objectgroup"))
 	{
 		std::string name = objgroup.attribute("name").as_string();
-		if (name == name)
+		if (name == pName)
 		{
+			
 			anim = true;
 			int x, y, h, w;
 
@@ -98,59 +99,58 @@ bool ParticleEmitter::loadParticle(const char* path, const char* name)
 		return nullptr;
 	}
 
-	
 }
 
 void ParticleEmitter::particleConfig(ParticleInfo& data)
 {
-	float angle = config.child("angle").attribute("value").as_float(90);
-	float angleDiff = config.child("angle").attribute("variation").as_float(0);
+	float angle = config.child("angle").attribute("value").as_float();
+	float angleDiff = config.child("angle").attribute("variation").as_float();
 	data.angle = operationRand(angle, angleDiff);
 
-	float speed = config.child("speed").attribute("value").as_float(0);
-	float speedDiff = config.child("speed").attribute("variation").as_float(0);
+	float speed = config.child("speed").attribute("value").as_float();
+	float speedDiff = config.child("speed").attribute("variation").as_float();
 	data.speed = operationRand(speed, speedDiff);
 
 	fPoint pos;
-	pos.x = config.child("position").attribute("x").as_float(0);
-	pos.y = config.child("position").attribute("y").as_float(0);
+	pos.x = config.child("position").attribute("x").as_float();
+	pos.y = config.child("position").attribute("y").as_float();
 	data.pos.x = operationRand(initPos.x, pos.x);
 	data.pos.y = operationRand(initPos.y, pos.y);
 
-	float lifeTime = config.child("lifetime").attribute("vlaue").as_float(100);
-	float lifeTimeDiff = config.child("lifetime").attribute("variation").as_float(0);
+	float lifeTime = config.child("lifetime").attribute("vlaue").as_float();
+	float lifeTimeDiff = config.child("lifetime").attribute("variation").as_float();
 	data.lifeTime = operationRand(lifeTime, lifeTimeDiff);
 	
-	float initScale = config.child("initialScale").attribute("value").as_float(1);
-	float iScaleDiff = config.child("initialScale").attribute("variation").as_float(0);
+	float initScale = config.child("initialScale").attribute("value").as_float();
+	float iScaleDiff = config.child("initialScale").attribute("variation").as_float();
 	data.speed = operationRand(initScale, iScaleDiff);
 
-	float finalScale = config.child("finalScale").attribute("value").as_float(1);
-	float fScaleDiff = config.child("finalScale").attribute("variation").as_float(0);
+	float finalScale = config.child("finalScale").attribute("value").as_float();
+	float fScaleDiff = config.child("finalScale").attribute("variation").as_float();
 	data.speed = operationRand(finalScale, fScaleDiff);
 
-	data.initColor.r = config.child("initialColor").attribute("r").as_int(255);
-	data.initColor.g = config.child("initialColor").attribute("g").as_int(255);
-	data.initColor.b = config.child("initialColor").attribute("b").as_int(255);
-	data.initColor.alpha = config.child("initialColor").attribute("a").as_int(255);
+	data.initColor.r = config.child("initialColor").attribute("r").as_int();
+	data.initColor.g = config.child("initialColor").attribute("g").as_int();
+	data.initColor.b = config.child("initialColor").attribute("b").as_int();
+	data.initColor.alpha = config.child("initialColor").attribute("a").as_int();
 
-	data.finalColor.r = config.child("finalColor").attribute("r").as_int(255);
-	data.finalColor.g = config.child("finalColor").attribute("g").as_int(255);
-	data.finalColor.b = config.child("finalColor").attribute("b").as_int(255);
-	data.finalColor.alpha = config.child("finalColor").attribute("a").as_int(255);
+	data.finalColor.r = config.child("finalColor").attribute("r").as_int();
+	data.finalColor.g = config.child("finalColor").attribute("g").as_int();
+	data.finalColor.b = config.child("finalColor").attribute("b").as_int();
+	data.finalColor.alpha = config.child("finalColor").attribute("a").as_int();
 
-	data.blendMode = (SDL_BlendMode)config.child("blendMode").attribute("value").as_int(0);
+	data.blendMode = (SDL_BlendMode)config.child("blendMode").attribute("value").as_int();
 
 	data.texPath = config.child("texturePath").attribute("value").as_string("Path error");
 
-	data.initSpin = config.child("spin").attribute("initialValue").as_float(0);
-	float finalSpin = config.child("spin").attribute("finalValue").as_float(0);
-	float finalSpinDiff = config.child("spin").attribute("variation").as_float(0);
+	data.initSpin = config.child("spin").attribute("initialValue").as_float();
+	float finalSpin = config.child("spin").attribute("finalValue").as_float();
+	float finalSpinDiff = config.child("spin").attribute("variation").as_float();
 	data.finalSpin = operationRand(finalSpin, finalSpinDiff);
 
-	data.drawingOrder = config.child("drawingOrder").attribute("value").as_int(1);
+	data.drawingOrder = config.child("drawingOrder").attribute("value").as_int();
 
-	data.isGravityOn = config.child("gravity").attribute("value").as_bool(true);
+	data.isGravityOn = config.child("gravity").attribute("value").as_bool();
 }
 
 Particle* ParticleEmitter::newParticle()

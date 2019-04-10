@@ -73,7 +73,7 @@ void j1ParticleSystem::updateEmitters()
 	std::list<ParticleEmitter*>::iterator it = pEmitters.begin();
 	while (it != pEmitters.end());
 	{
-		if (!(*it)->isActive)
+		if ((*it)->isActive == false)
 			pEmitters.erase(it++);
 
 		else

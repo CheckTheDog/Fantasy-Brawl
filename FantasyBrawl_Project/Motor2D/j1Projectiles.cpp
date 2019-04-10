@@ -84,9 +84,11 @@ Projectile* j1Projectiles::AddProjectile(PROJECTILE_TYPE type, iPoint position, 
 {
 	Projectile* newProjectile = nullptr;
 	
-	if (type == BASIC_WN)
+	switch(type)
 	{
+		case BASIC_ATTACK:
 		newProjectile = new Projectile(&dagger, position, speed, collider, life, flipped, scale, type, emitter, emitterOffset);
+		break;
 	}
 
 	newProjectile->angularVel = angularVel;
