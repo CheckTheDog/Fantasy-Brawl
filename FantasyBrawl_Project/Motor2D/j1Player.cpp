@@ -71,8 +71,6 @@ bool j1Player::Start()
 	PlayerState = PSTATE::IDLE;
 
 	// --- Current Player Position ---
-	Entityinfo.position.x = 200;
-	Entityinfo.position.y = 0;
 	Future_position.x = Entityinfo.position.x;
 	Future_position.y = Entityinfo.position.y;
 
@@ -283,7 +281,10 @@ bool j1Player::Update(float dt)
 {
 	HandleInput();
 
-	if (abs(LJAxisx_value) > JOYSTICK_DEAD_ZONE || abs(LJAxisy_value) > JOYSTICK_DEAD_ZONE)
+	if (abs(LJAxisx_value) > JOYSTICK_DEAD_ZONE 
+		|| abs(LJAxisy_value) > JOYSTICK_DEAD_ZONE
+		|| abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
+		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE)
 		HandleAnimations();
 	else
 		GetIdleAnimation();
@@ -302,7 +303,7 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->render->Blit(spritesheet, this->Entityinfo.position.x - 4, this->Entityinfo.position.y - 65, &CurrentAnimation->GetCurrentFrame(dt));
+	App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, &CurrentAnimation->GetCurrentFrame(dt));
 
 	return ret;
 }
