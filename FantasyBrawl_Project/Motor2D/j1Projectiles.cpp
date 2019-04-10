@@ -80,15 +80,15 @@ bool j1Projectiles::CleanUp() {
 	return true;
 }
 
-Projectile* j1Projectiles::AddProjectile(PROJECTILE_TYPE type, iPoint position, iPoint speed, Collider* collider, int life, bool fliped, int scale, ParticleEmitter* emitter = nullptr, iPoint emitterOffset = { 0,0 }, float angularVel = 0)
+Projectile* j1Projectiles::AddProjectile(PROJECTILE_TYPE type, iPoint position, iPoint speed, Collider* collider, int life, bool flipped, int scale, ParticleEmitter* emitter, iPoint emitterOffset, float angularVel)
 {
 	Projectile* newProjectile = nullptr;
-	switch (type) {
-	case BASIC_WN:
-		newProjectile = new Projectile(&dagger, position, speed, collider, life, fliped, scale, BASIC_WN, emitter, emitterOffset);
-		break;
-
+	
+	if (type == BASIC_WN)
+	{
+		newProjectile = new Projectile(&dagger, position, speed, collider, life, flipped, scale, type, emitter, emitterOffset);
 	}
+
 	newProjectile->angularVel = angularVel;
 	projectiles.push_back(newProjectile);
 	return newProjectile;
@@ -99,7 +99,7 @@ int j1Projectiles::ProjectileType(PROJECTILE_TYPE type, j1Player* player) {
 	int counter = 0;
 	for (std::list<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); ++it) {
 		Projectile* p = *it;
-		if (p->type == type && p->coll->type ==	COLLIDER_TYPE::COLLIDER_PLAYER)
+		if (p->pType == type && p->coll->type ==	COLLIDER_TYPE::COLLIDER_PLAYER)
 		{
 			counter++;
 		}
@@ -113,8 +113,8 @@ void Projectile::Update() {
 		coll->SetPos(pos.x, pos.y);
 
 		if (emitter) {
-			emitter->initPos.x = (float)pos.x + coll->rect.w / 2 + emitter_offset.x;
-			emitter->initPos.y = (float)pos.y + coll->rect.h / 2 + emitter_offset.y;
+			emitter->initPos.x = (float)pos.x + coll->rect.w / 2 + emitterOffset.x;
+			emitter->initPos.y = (float)pos.y + coll->rect.h / 2 + emitterOffset.y;
 		}
 	}
 	

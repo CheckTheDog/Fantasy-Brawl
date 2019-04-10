@@ -23,7 +23,7 @@ enum PROJECTILE_TYPE {
 
 struct Projectile {
 	Projectile(Animation* animation, iPoint position, iPoint speed, Collider* collider, int life, bool flipped, int scale, PROJECTILE_TYPE type, ParticleEmitter* emitter, iPoint emitterOffset) :
-		anim(animation), pos(position), speed(speed), coll(collider), life(life), isFlipped(flipped), scale(scale), type(type), emitter(emitter), emitter_offset(emitterOffset) {
+		anim(animation), pos(position), speed(speed), coll(collider), life(life), isFlipped(flipped), scale(scale), pType(type), emitter(emitter), emitterOffset(emitterOffset) {
 
 		born = SDL_GetTicks();
 	}
@@ -38,9 +38,9 @@ struct Projectile {
 	int life; 
 	bool isFlipped;
 	int scale;
-	PROJECTILE_TYPE type;
+	PROJECTILE_TYPE pType;
 	ParticleEmitter* emitter = nullptr;
-	iPoint emitter_offset;
+	iPoint emitterOffset;
 	int gravity = 1;
 	float angularVel;
 	float angle = 0.0f;
