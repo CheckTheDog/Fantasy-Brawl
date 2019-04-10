@@ -16,7 +16,9 @@ ParticleEmitter::ParticleEmitter(fPoint pos, const char* configPath)
 	emissionTimer.Start();
 	srand(time(NULL));
 
-	loadParticle(configPath,);
+	anim.PushBack({ 0,0,28,18 });
+	anim.loop = true;
+
 	freq = config.child("frequency").attribute("value").as_float(10);
 	period = 1000 * (1 / freq);
 
@@ -51,20 +53,51 @@ void ParticleEmitter::Update(float dt)
 		isActive = false;
 }
 
-bool ParticleEmitter::loadParticle(pugi::xml_document& config, pugi::xml_node& configNode)
+bool ParticleEmitter::loadParticle(const char* path, const char* name)
 {
-	pugi::xml_document particleDoc;
-	pugi::xml_parse_result result = particleDoc.load_file(path);
+	Animation* animation = new Animation();
+
+	bool anim = false;
+
+	pugi::xml_document animationDocument;
+	pugi::xml_parse_result result = animationDocument.load_file(path);
+
 
 	if (result == NULL)
 	{
-		LOG("Cannot load particle sprites");
-		return false;
+		LOG("Issue loading animation");
 	}
-		
-	pugi::xml_node particles = particleDoc.child("particles").child("emitter").child("texturePath");
 
-	return true;
+	pugi::xml_node objgroup;
+	for (objgroup = animationDocument.child("map").child("objectgroup"); objgroup; objgroup = objgroup.next_sibling("objectgroup"))
+	{
+		std::string name = objgroup.attribute("name").as_string();
+		if (name == name)
+		{
+			anim = true;
+			int x, y, h, w;
+
+			for (pugi::xml_node sprite = objgroup.child("object"); sprite; sprite = sprite.next_sibling("object"))
+			{
+				x = sprite.attribute("x").as_int();
+				y = sprite.attribute("y").as_int();
+				w = sprite.attribute("width").as_int();
+				h = sprite.attribute("height").as_int();
+
+				animation->PushBack({ x, y, w, h });
+			}
+
+			break;
+		}
+	}
+	if (anim = true)
+		return animation;
+	else
+	{
+		delete animation;
+		return nullptr;
+	}
+
 	
 }
 

@@ -52,6 +52,8 @@ public:
 	int maxEmissions;
 	int currEmissions;
 
+	Animation anim;
+
 private:
 
 	bool loadParticle(const char* path, const char* name);
