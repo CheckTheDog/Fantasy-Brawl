@@ -17,18 +17,57 @@ ArenaInteractions::~ArenaInteractions()
 bool ArenaInteractions::Start()
 {
 	StartStorm();
+	storm_timer.Start();
 
 	storm_speed = 5;
+
+	//This is hardcoded, must be loaded from xml
+	stormPhase* ph1 = new stormPhase(5,3);
+	stormPhase* ph2 = new stormPhase(10, 5);
+	stormPhase* ph3 = new stormPhase(5, 3);
+
+	storm_phases.push_back(ph1);
+	storm_phases.push_back(ph2);
+	storm_phases.push_back(ph3);
 
 	return true;
 }
 
 bool ArenaInteractions::Update(float dt)
 {
-
+	if(storm_moving == true)
 	UpdateStorm();
+
+	std::list<stormPhase*>::iterator phase_iterator = storm_phases.begin();
+
+	for (int i = 0; i < current_phase; i++)
+	{
+		phase_iterator++;
+	}
+
+	if (phase_iterator != storm_phases.end())
+	{
+		if (storm_timer.ReadSec() >= (*phase_iterator)->waiting_time && storm_moving == false)
+		{
+			storm_moving = true;
+			storm_timer.Start();
+		}
+		else if (storm_moving == true && storm_timer.ReadSec() >= (*phase_iterator)->tiles_advanced)
+		{
+			storm_moving = false;
+			storm_timer.Start();
+			current_phase++;
+		}
+	}
+
+
 	DrawStorm();
 
+	return true;
+}
+
+bool ArenaInteractions::PostUpdate()
+{
 	return true;
 }
 

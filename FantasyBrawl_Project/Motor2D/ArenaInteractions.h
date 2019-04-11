@@ -6,10 +6,21 @@
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
 #include "p2Point.h"
+#include <list>
 
 class j1Timer;
 class j1PerfTimer;
 
+struct stormPhase
+{
+	stormPhase(Uint16 waiting_time, Uint8 tiles_advanced) :
+		waiting_time(waiting_time),
+		tiles_advanced(tiles_advanced)
+	{}
+
+	Uint16 waiting_time = 0;
+	Uint8 tiles_advanced = 0;
+};
 
 enum class STORM_AREA
 {
@@ -31,6 +42,7 @@ public: /// Functions
 
 	//Called each loop iteration
 	bool Update(float dt);
+	bool PostUpdate();
 
 
 private: /// Functions
@@ -53,6 +65,8 @@ public: /// Variables
 
 	float a = 200.0f;
 
+	bool storm_moving = false;
+
 private: /// Variables
 	SDL_Rect safe_area = {0,0,0,0};
 	j1Timer storm_timer;
@@ -67,6 +81,10 @@ private: /// Variables
 	//Start and total time for blending purposes
 	Uint32 start_time = 0;
 	Uint32 total_time = 0;
+
+	//List for the storm phases, for now the
+	std::list<stormPhase*> storm_phases;
+	Uint8 current_phase = 0;
 };
 
 
