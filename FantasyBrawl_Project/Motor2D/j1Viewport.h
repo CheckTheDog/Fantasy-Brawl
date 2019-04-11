@@ -175,6 +175,9 @@ public:
 	fPoint				 screen_2 = { 0,0 };
 	fPoint				 screen_3 = { 0,0 };
 	fPoint				 screen_4 = { 0,0 };
+	
+	// Views
+	uint				 number_of_views = 1;
 
 private:
 	// Layer Blit list
@@ -201,8 +204,6 @@ private:
 	// Win Size
 	uint                 win_w = 0, win_h = 0;
 
-	// Views
-	uint				 number_of_views = 1;
 
 	SDL_Rect			 four_views_1 = { 0,0,0,0 };
 	SDL_Rect			 four_views_2 = { 0,0,0,0 };

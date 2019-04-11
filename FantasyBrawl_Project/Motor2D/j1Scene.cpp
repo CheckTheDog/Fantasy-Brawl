@@ -120,17 +120,49 @@ bool j1Scene::Update(float dt)
 		ChangeMap(1);
 
 	//Make the camera movement independent of framerate
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
+	{
 		App->view->ScreenMove(1, 0, ceil(150.0*dt));
+		App->view->ScreenMove(2, 0, ceil(150.0*dt));
+		App->view->ScreenMove(3, 0, ceil(150.0*dt));
+		App->view->ScreenMove(4, 0, ceil(150.0*dt));
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
 		App->view->ScreenMove(1, 0, -ceil(150.0*dt));
-
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		App->view->ScreenMove(2, 0, -ceil(150.0*dt));
+		App->view->ScreenMove(3, 0, -ceil(150.0*dt));
+		App->view->ScreenMove(4, 0, -ceil(150.0*dt));
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
 		App->view->ScreenMove(1, ceil(150.0*dt), 0);
-
+		App->view->ScreenMove(2, ceil(150.0*dt), 0);
+		App->view->ScreenMove(3, ceil(150.0*dt), 0);
+		App->view->ScreenMove(4, ceil(150.0*dt), 0);
+	}
+		
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
 		App->view->ScreenMove(1, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(2, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(3, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(4, -ceil(150.0*dt), 0);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
+		if (App->view->number_of_views == 4) 
+		{
+			App->view->number_of_views = 1;
+		}
+		else
+		{
+			App->view->number_of_views = 4;
+		}
+	}
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 		App->view->ScreenMove(1, ceil(150.0*dt), 0);
