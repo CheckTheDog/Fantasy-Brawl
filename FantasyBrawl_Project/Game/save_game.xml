@@ -6,9 +6,9 @@
 	<audio />
 	<entities>
 		<Player>
-			<Playerx value="200" />
-			<Playery value="0" />
-			<Playery value="0" />
+			<Playerx value="100" />
+			<Playery value="100" />
+			<Playery value="200" />
 		</Player>
 		<Player>
 			<Playerx value="200" />
@@ -18,7 +18,8 @@
 	<map />
 	<scene />
 	<pathfinding />
+	<viewports />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-107" y="0" />
 	</renderer>
 </game_state>
