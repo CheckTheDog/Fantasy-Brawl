@@ -25,14 +25,10 @@ bool ArenaInteractions::Start()
 
 bool ArenaInteractions::Update(float dt)
 {
-	//App->render->DrawQuad(safe_area, 75,0,130,80);
-
-	for (int i = 0; i < 4; ++i)
-	{
-		App->render->DrawQuad(storm_areas[i], 75, 0, 130, 80);
-	}
 
 	UpdateStorm();
+	DrawStorm();
+
 	return true;
 }
 
@@ -50,6 +46,9 @@ void ArenaInteractions::StartStorm()
 	//Start the timers
 	storm_timer.Start();
 	storm_update_ptimer.Start();
+
+	//Start the visual blend
+	BlendStormStart(2.000);
 }
 
 void ArenaInteractions::UpdateStorm()
@@ -86,4 +85,30 @@ void ArenaInteractions::UpdateStorm()
 			storm_update_ptimer.Start();
 		}
 	}
+}
+
+void ArenaInteractions::DrawStorm()
+{
+	//Iterate through the storm_areas and print them
+	
+	Uint32 now = SDL_GetTicks() - start_time;
+	float normalized = MIN(0.7f, (float)now / (float)total_time);
+
+	normalized = 1.0f - normalized;
+
+
+	for (int i = 0; i < 4; ++i)
+	{
+		App->render->DrawQuad(storm_areas[i], 75, 0, 130, (Uint8)(normalized * a));
+	}
+
+	if (now >= total_time)
+		BlendStormStart(3.000);
+}
+
+void ArenaInteractions::BlendStormStart(float time)
+{
+
+	start_time = SDL_GetTicks();
+	total_time = (Uint32)(time * 0.5f * 1000.0f);
 }

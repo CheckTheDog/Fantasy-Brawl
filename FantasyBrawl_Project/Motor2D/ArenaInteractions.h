@@ -41,10 +41,17 @@ private: /// Functions
 	//For now this will update the size and position of the storm
 	void UpdateStorm();
 
+	//This function does the alpha blending and prints the areas of Storm with the correct alpha
+	void DrawStorm();
+
+	void BlendStormStart(float time);
+
 public: /// Variables
 
 	// Amount of pixels the storm will move each 100 ms
 	int storm_speed;
+
+	float a = 200.0f;
 
 private: /// Variables
 	SDL_Rect safe_area = {0,0,0,0};
@@ -56,6 +63,10 @@ private: /// Variables
 
 	//We will use an iPoint, x for width and y for height
 	iPoint map_size;
+
+	//Start and total time for blending purposes
+	Uint32 start_time = 0;
+	Uint32 total_time = 0;
 };
 
 
