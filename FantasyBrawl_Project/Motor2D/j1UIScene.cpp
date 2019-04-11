@@ -181,6 +181,50 @@ bool j1UIScene::Start()
 		menus.push_back(settingsMenu);
 	}
 
+	menu* pauseMenu = new menu(PAUSE_MENU);
+	{
+		//WINDOW
+		UI_element* pause_window = App->gui->createWindow(140*App->gui->UI_scale, 50*App->gui->UI_scale, App->tex->Load("gui/medium_parchment.png"), { 225,250, 744, 703 }, this);
+		UI_element* pause_text = App->gui->createText("PAUSE", 450, 100, big_buttons_font, brown_color);
+		pause_text->setOutlined(true);
+
+
+		//BACK BUTTON
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		back_button->function = BACK;
+		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
+		back_text->setOutlined(true);
+		back_button->appendChildAtCenter(back_text);
+
+		//AUDIO
+		Button* music_slider_butt = App->gui->createButton(500, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* music_slider = App->gui->createSlider(420, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
+		music_slider->modify = MUSIC;
+		
+
+		UI_element* audio_text = App->gui->createText("AUDIO", 330, 240, mid_buttons_font, brown_color);
+		audio_text->setOutlined(true);
+
+		//FULLSCREEN
+		Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
+		
+
+		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 330, 400, mid_buttons_font, brown_color);
+		fullscreen_text->setOutlined(true);
+
+
+
+		pauseMenu->elements.push_back(pause_window);
+		pauseMenu->elements.push_back(pause_text);
+		pauseMenu->elements.push_back(back_button);
+		pauseMenu->elements.push_back(back_text);
+		pauseMenu->elements.push_back(music_slider_butt);
+		pauseMenu->elements.push_back(music_slider);
+		pauseMenu->elements.push_back(audio_text);
+		pauseMenu->elements.push_back(full_switch);
+		pauseMenu->elements.push_back(fullscreen_text);
+		menus.push_back(pauseMenu);
+	}
 
 
 	current_menu = startMenu;
@@ -206,9 +250,17 @@ bool j1UIScene::Update(float dt)
 		}
 		else if (actual_menu == INGAME_MENU)
 		{
-			actual_menu = START_MENU;
-			App->transition->menuTransition(START_MENU);
+			actual_menu = PAUSE_MENU;
+			App->transition->menuTransition(PAUSE_MENU);
 			ret = true;
+
+		}
+		else if (actual_menu == PAUSE_MENU)
+		{
+			actual_menu = INGAME_MENU;
+			App->transition->menuTransition(INGAME_MENU);
+			ret = true;
+
 		}
 		
 
@@ -265,6 +317,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		break;
 		case SETTINGS:
+			actual_menu = SETTINGS_MENU;
 			App->transition->menuTransition(SETTINGS_MENU, 0.3);
 			break;
 		case CREDITS:
@@ -274,14 +327,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			ret = false;
 			break;
 		case PAUSE:
-			/*if (!App->paused)
-			{
-
-			}
-			else
-			{
-
-			}*/
+			
 			break;
 		case APPLY:
 
@@ -290,7 +336,16 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			break;
 		case BACK:
-			App->transition->menuTransition(previous_menu, 0.3);
+			if (actual_menu == SETTINGS_MENU)
+			{
+				App->transition->menuTransition(previous_menu, 0.3);
+				actual_menu = START_MENU;
+			}
+			if (actual_menu == PAUSE_MENU)
+			{
+				App->transition->menuTransition(START_MENU, 0.3);
+				actual_menu = START_MENU;
+			}
 			break;
 		case RESTORE:
 
