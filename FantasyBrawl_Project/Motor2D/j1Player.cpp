@@ -10,7 +10,6 @@
 #include "j1Window.h"
 #include "j1EntityManager.h"
 #include "j1Audio.h"
-#include "j1BuffManager.h"
 
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
@@ -279,10 +278,6 @@ void j1Player::HandleInput()
 	LOG("direction_x: %f", LJdirection_x);
 	LOG("direction_y: %f", LJdirection_y);
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		App->buff->ApplyEffect(&App->buff->effects[HEAL], this);
-	}
 }
 
 bool j1Player::Update(float dt)
