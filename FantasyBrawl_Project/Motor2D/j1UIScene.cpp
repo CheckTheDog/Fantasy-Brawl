@@ -114,6 +114,12 @@ bool j1UIScene::Start()
 		menus.push_back(startMenu);
 	}
 
+	menu* ingameMenu = new menu(INGAME_MENU);
+	{
+
+		menus.push_back(ingameMenu);
+
+	}
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
@@ -130,15 +136,16 @@ bool j1UIScene::Start()
 	menu* settingsMenu = new menu(SETTINGS_MENU);
 	{
 		//WINDOW
-		UI_element* settings_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
-		UI_element* settings_text = App->gui->createText("OPTIONS", 425, 120, big_buttons_font, brown_color);
+		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
+		UI_element* settings_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+		UI_element* settings_text = App->gui->createText("OPTIONS", 425, 60, big_buttons_font, brown_color);
 		settings_text->setOutlined(true);
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(350 * App->gui->UI_scale, 525 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 200, 200, mid_buttons_font, brown_color);
+		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
 
@@ -146,21 +153,21 @@ bool j1UIScene::Start()
 		Button* music_slider_butt = App->gui->createButton(0, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* music_slider = App->gui->createSlider(0, 0, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
 		music_slider->modify = MUSIC;
-		settings_window->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
 
 		//FULLSCREEN
 		Button* full_switch = App->gui->createSwitch(0, 0, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
-		settings_window->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
+		settings_image->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
 
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
 		fullscreen_text->setOutlined(true);
 
 
 
-		settingsMenu->elements.push_back(settings_window);
+		settingsMenu->elements.push_back(settings_image);
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
 		settingsMenu->elements.push_back(back_text);
@@ -227,7 +234,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
-			App->transition->menuTransition(SELECTION_MENU, 0.3);
+			App->transition->menuTransition(INGAME_MENU, 0.3);
 			break;
 		}
 		case RESTART:
