@@ -75,5 +75,6 @@ public:
 	Clock* clock = nullptr;
 	Button* continueButton = nullptr;
 	menu_id previous_menu;
+	menu_id actual_menu = START_MENU;
 };
 #endif // !__j1UISCENE_H__ 

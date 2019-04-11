@@ -18,7 +18,10 @@
 	<map />
 	<scene />
 	<pathfinding />
+	<fonts />
 	<gui />
+	<:anonymous />
+	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

@@ -8,12 +8,14 @@
 #include "j1Window.h"
 #include "p2Log.h"
 #include "j1Transition.h"
+#include "j1Input.h"
 #include "UI_element.h"
 #include "UI_Button.h"
 #include "UI_Image.h"
 #include "UI_Slider.h"
 #include "UI_Window.h"
 #include "UI_Clock.h"
+
 
 
 j1UIScene::j1UIScene()
@@ -150,8 +152,8 @@ bool j1UIScene::Start()
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
-		Button* music_slider_butt = App->gui->createButton(0, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(0, 0, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
+		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
@@ -159,7 +161,7 @@ bool j1UIScene::Start()
 		audio_text->setOutlined(true);
 
 		//FULLSCREEN
-		Button* full_switch = App->gui->createSwitch(0, 0, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
+		Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
 		settings_image->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
 
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
@@ -190,13 +192,27 @@ bool j1UIScene::Start()
 
 bool j1UIScene::PreUpdate()
 {
-
 	return true;
 }
 
 bool j1UIScene::Update(float dt)
 {
-	return true;
+	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (actual_menu == START_MENU)
+		{
+			ret = false;
+		}
+		else if (actual_menu == INGAME_MENU)
+		{
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU);
+			ret = true;
+		}
+		
+
+	return ret;
 }
 
 bool j1UIScene::PostUpdate(float dt)
@@ -234,6 +250,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
+			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
 			break;
 		}
