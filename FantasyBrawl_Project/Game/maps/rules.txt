@@ -1,2 +1,5 @@
-rules_collisions.tmx
 rules_beauty.tmx
+rules_shadows.tmx
+rules_walls.tmx
+rules_bushes.tmx
+rules_collisions.tmx

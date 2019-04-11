@@ -81,7 +81,9 @@ bool j1Scene::Start()
 
 	entity_info player_info;
 
+	player_info.position = { 200.0f,150.0f };
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
+	player_info.position = { 200.0f,200.0f };
 	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
 
 	return true;

@@ -81,7 +81,6 @@ public:
 	Playerdata player3info;
 	Playerdata player4info;
 	AnimationRanges animranges;
-	// add playerinfo2 ...
 };
 
 #endif // __J1ENTITYMANAGER_H__
