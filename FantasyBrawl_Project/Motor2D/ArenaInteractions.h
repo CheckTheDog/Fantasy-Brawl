@@ -5,9 +5,19 @@
 #include "SDL/include/SDL_rect.h"
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
+#include "p2Point.h"
 
 class j1Timer;
 class j1PerfTimer;
+
+
+enum class STORM_AREA
+{
+	ABOVE = 0,
+    BELOW,
+	LEFT,
+	RIGHT
+};
 
 class ArenaInteractions : public j1Module
 {
@@ -41,6 +51,11 @@ private: /// Variables
 	j1Timer storm_timer;
 	j1PerfTimer storm_update_ptimer;
 
+	// The 4 visual sides of the storm, ABOVE, BELOW, LEFT RIGHT
+	SDL_Rect storm_areas[4] = { {0,0,0,0} };
+
+	//We will use an iPoint, x for width and y for height
+	iPoint map_size;
 };
 
 
