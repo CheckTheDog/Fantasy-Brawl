@@ -14,6 +14,7 @@
 #include "j1Collision.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "ArenaInteractions.h"
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
@@ -32,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	coll = new j1Collision();
 	entities = new j1EntityManager();
+	arena_interactions = new ArenaInteractions();
 	pathfinding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
@@ -44,6 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(coll);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(arena_interactions);
 	AddModule(pathfinding);
 
 	// render last to swap buffer
