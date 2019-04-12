@@ -19,6 +19,7 @@ class j1PathFinding;
 class j1Collision;
 class j1EntityManager;
 class j1ParticleSystem;
+class j1Filesystem;
 
 class j1App
 {
@@ -93,6 +94,7 @@ public:
 	j1EntityManager*    entities = nullptr;
 	j1Collision*        coll = nullptr;
 	j1ParticleSystem*	particlesys = nullptr;
+	j1Filesystem*		filesys = nullptr;
 
 	int              framerate_cap;
 private:

@@ -15,6 +15,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1ParticleSystem.h"
+#include "j1FileSystem.h"
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
@@ -36,9 +37,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new j1EntityManager();
 	particlesys = new j1ParticleSystem();
 	pathfinding = new j1PathFinding();
+	filesys = new j1Filesystem();
 	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+	AddModule(filesys);
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);

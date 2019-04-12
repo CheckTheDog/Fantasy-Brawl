@@ -2,6 +2,7 @@
 #define _PARTICLE_EMITTER_H_
 
 #include "ParticleEmitter.h"
+#include "j1FileSystem.h"
 #include "j1Module.h"
 #include "j1App.h"
 #include "p2Defs.h"
@@ -10,14 +11,13 @@
 #include <time.h>
 
 
-ParticleEmitter::ParticleEmitter(fPoint pos, const char* configPath)
+ParticleEmitter::ParticleEmitter(fPoint pos, std::string configPath)
 {
 	initPos = pos;
 	emissionTimer.Start();
 	srand(time(NULL));
 
-	anim.PushBack({ 0,0,28,18 });
-	anim.loop = true;
+	loadParticle(configFile, config, configPath);
 
 	freq = config.child("frequency").attribute("value").as_float(10);
 	period = 1000 * (1 / freq);
@@ -53,50 +53,21 @@ void ParticleEmitter::Update(float dt)
 		isActive = false;
 }
 
-bool ParticleEmitter::loadParticle(const char* pPath, const char* pName)
+bool ParticleEmitter::loadParticle(pugi::xml_document& pFile, pugi::xml_node& pNode, std::string pPath)
 {
-	Animation* animation = new Animation();
+	char* buffer;
+	int size = App->filesys->Load(pPath.c_str(), &buffer);
+	pugi::xml_parse_result res = pFile.load_buffer(buffer, size);
+	if (size != 0)
+		RELEASE(buffer);
 
-	bool anim = false;
-
-	pugi::xml_document animationDocument;
-	pugi::xml_parse_result result = animationDocument.load_file(pPath);
-
-
-	if (result == NULL)
-	{
-		LOG("Issue loading animation");
+	if (res == NULL) {
+		LOG("Application : Could not load xml - %s", res.description());
+		return false;
 	}
-
-	pugi::xml_node objgroup;
-	for (objgroup = animationDocument.child("map").child("objectgroup"); objgroup; objgroup = objgroup.next_sibling("objectgroup"))
-	{
-		std::string name = objgroup.attribute("name").as_string();
-		if (name == pName)
-		{
-			
-			anim = true;
-			int x, y, h, w;
-
-			for (pugi::xml_node sprite = objgroup.child("object"); sprite; sprite = sprite.next_sibling("object"))
-			{
-				x = sprite.attribute("x").as_int();
-				y = sprite.attribute("y").as_int();
-				w = sprite.attribute("width").as_int();
-				h = sprite.attribute("height").as_int();
-
-				animation->PushBack({ x, y, w, h });
-			}
-
-			break;
-		}
-	}
-	if (anim = true)
-		return animation;
-	else
-	{
-		delete animation;
-		return nullptr;
+	else {
+		pNode = pFile.child("config");
+		return true;
 	}
 
 }

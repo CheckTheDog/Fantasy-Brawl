@@ -19,7 +19,7 @@ class ParticleEmitter
 {
 public:
 
-	ParticleEmitter(fPoint pos, const char* configPath);
+	ParticleEmitter(fPoint pos, std::string configPath);
 	~ParticleEmitter();
 
 	Particle* newParticle();
@@ -56,7 +56,7 @@ public:
 
 private:
 
-	bool loadParticle(const char* path, const char* name);
+	bool loadParticle(pugi::xml_document& pFile, pugi::xml_node& pNode, std::string pPath);
 	void particleConfig(ParticleInfo& data);
 
 private:

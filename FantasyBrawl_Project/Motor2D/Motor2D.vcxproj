@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="j1FileSystem.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -99,6 +100,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="j1FileSystem.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Entity.h" />
