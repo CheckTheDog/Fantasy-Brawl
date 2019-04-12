@@ -6,9 +6,9 @@
 	<audio />
 	<entities>
 		<Player>
-			<Playerx value="200" />
-			<Playery value="0" />
-			<Playery value="0" />
+			<Playerx value="-70" />
+			<Playery value="146" />
+			<Playery value="200" />
 		</Player>
 		<Player>
 			<Playerx value="200" />
