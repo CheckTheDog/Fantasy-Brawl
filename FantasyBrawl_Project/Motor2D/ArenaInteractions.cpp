@@ -14,21 +14,30 @@ ArenaInteractions::~ArenaInteractions()
 {
 }
 
+bool ArenaInteractions::Awake(pugi::xml_node & config)
+{
+	
+
+	for (pugi::xml_node phase = config.child("storm_phase"); phase != nullptr;
+		phase = phase.next_sibling("storm_phase"))
+	{
+		Uint16 waiting_time = phase.attribute("w_time").as_uint();
+		Uint8 tiles_advanced = phase.attribute("move_time").as_uint();
+
+		stormPhase* ph = new stormPhase(waiting_time, tiles_advanced);
+		storm_phases.push_back(ph);
+	}
+
+
+	return true;
+}
+
 bool ArenaInteractions::Start()
 {
 	StartStorm();
 	storm_timer.Start();
 
 	storm_speed = 5;
-
-	//This is hardcoded, must be loaded from xml
-	stormPhase* ph1 = new stormPhase(5,3);
-	stormPhase* ph2 = new stormPhase(10, 5);
-	stormPhase* ph3 = new stormPhase(5, 3);
-
-	storm_phases.push_back(ph1);
-	storm_phases.push_back(ph2);
-	storm_phases.push_back(ph3);
 
 	return true;
 }

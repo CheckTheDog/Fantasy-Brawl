@@ -58,5 +58,12 @@
     </player>
 
   </entities>
+  
+  <arena_interactions>
+
+    <storm_phase w_time="7" move_time="3"/>
+    <storm_phase w_time="5" move_time="5"/>
+    <storm_phase w_time="3" move_time="3"/>
+  </arena_interactions>
 
 </config>

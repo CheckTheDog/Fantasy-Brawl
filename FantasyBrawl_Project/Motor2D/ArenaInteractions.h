@@ -37,6 +37,8 @@ public: /// Functions
 	//Constructor and Destructor
 	ArenaInteractions();
 	virtual ~ArenaInteractions();
+
+	bool Awake(pugi::xml_node& config);
 	
 	bool Start();
 
