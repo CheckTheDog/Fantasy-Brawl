@@ -7,6 +7,7 @@
 #include <math.h>
 #include "j1Window.h"
 #include "j1Collision.h"
+#include "j1Viewport.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -60,7 +61,9 @@ void j1Map::Draw()
 				/*	if ((pos.x + data.tile_width)*App->win->GetScale() >= -App->render->camera.x && pos.x <= -App->render->camera.x + App->render->camera.w
 						&& (pos.y + data.tile_height)*App->win->GetScale() >= -App->render->camera.y && pos.y <= -App->render->camera.y + App->render->camera.h)
 					{*/
-						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						//App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
+						
 					//}
 				}
 			}

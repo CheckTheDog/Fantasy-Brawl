@@ -10,6 +10,7 @@
 #include "j1Window.h"
 #include "j1EntityManager.h"
 #include "j1Audio.h"
+#include "j1Viewport.h"
 
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
@@ -303,8 +304,8 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, &CurrentAnimation->GetCurrentFrame(dt));
-
+	//App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, &CurrentAnimation->GetCurrentFrame(dt));
+	App->view->PushQueue(2,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
 	return ret;
 }
 

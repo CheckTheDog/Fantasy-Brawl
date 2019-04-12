@@ -7,6 +7,7 @@
 #include "j1Window.h"
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Viewport.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
@@ -33,6 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	coll = new j1Collision();
 	entities = new j1EntityManager();
 	pathfinding = new j1PathFinding();
+	view = new j1Viewport();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +47,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(pathfinding);
+	AddModule(view);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -163,6 +166,9 @@ bool j1App::Update()
 
 	if(ret == true)
 		ret = PostUpdate();
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug_mode = !debug_mode;
 
 	FinishUpdate();
 	return ret;

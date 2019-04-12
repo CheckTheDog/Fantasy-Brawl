@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1EntityManager.h"
+#include "j1Viewport.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -81,7 +82,7 @@ bool j1Scene::Start()
 
 	entity_info player_info;
 
-	player_info.position = { 100.0f,100.0f };
+	player_info.position = { 200.0f,150.0f };
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
 	player_info.position = { 200.0f,200.0f };
 	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
@@ -96,27 +97,10 @@ bool j1Scene::PreUpdate()
 	BROFILER_CATEGORY("Scene_Pre_Update", Profiler::Color::BlanchedAlmond);
 
 	// debug pathfing ------------------
-	static iPoint origin;
-	static bool origin_selected = false;
-
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
-
-	/*if(App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if(origin_selected == true)
-		{
-			App->pathfinding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
-	}*/
 
 	return true;
 }
@@ -136,30 +120,55 @@ bool j1Scene::Update(float dt)
 		ChangeMap(1);
 
 	//Make the camera movement independent of framerate
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += ceil(150.0*dt);
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
+	{
+		App->view->ScreenMove(1, 0, ceil(150.0*dt));
+		App->view->ScreenMove(2, 0, ceil(150.0*dt));
+		App->view->ScreenMove(3, 0, ceil(150.0*dt));
+		App->view->ScreenMove(4, 0, ceil(150.0*dt));
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= ceil(150.0*dt);
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		App->view->ScreenMove(1, 0, -ceil(150.0*dt));
+		App->view->ScreenMove(2, 0, -ceil(150.0*dt));
+		App->view->ScreenMove(3, 0, -ceil(150.0*dt));
+		App->view->ScreenMove(4, 0, -ceil(150.0*dt));
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		App->view->ScreenMove(1, ceil(150.0*dt), 0);
+		App->view->ScreenMove(2, ceil(150.0*dt), 0);
+		App->view->ScreenMove(3, ceil(150.0*dt), 0);
+		App->view->ScreenMove(4, ceil(150.0*dt), 0);
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		App->view->ScreenMove(1, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(2, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(3, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(4, -ceil(150.0*dt), 0);
+	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += ceil(150.0*dt);
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= ceil(150.0*dt);
-
-	//Gamepad Test. Demonstration on how to use the functions for the gamepads
-	//if (IN_RANGE(App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY), -40000,-10000))
-	//	App->render->camera.y += ceil(150.0*dt);
-
-	//if (App->input->GetAxis(PLAYER::P1, SDL_CONTROLLER_AXIS_LEFTY) > 10000)
-	//	App->render->camera.y -= ceil(150.0*dt);
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
+		if (App->view->number_of_views == 4) 
+		{
+			App->view->number_of_views = 1;
+		}
+		else
+		{
+			App->view->number_of_views = 4;
+		}
+	}
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
-		App->render->camera.x += ceil(150.0*dt);
+		App->view->ScreenMove(1, ceil(150.0*dt), 0);
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
-		App->render->camera.x -= ceil(150.0*dt);
+		App->view->ScreenMove(1, -ceil(150.0*dt), 0);
 
 	//Testing Haptic features (Vibration)
 	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
@@ -208,32 +217,6 @@ bool j1Scene::Update(float dt)
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	/*std::string title;
-	title.assign("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.size(),
-					map_coordinates.x, map_coordinates.y);*/
-
-	//App->win->SetTitle(title.GetString());
-
-	// Debug pathfinding ------------------------------
-	//int x, y;
-	/*App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
-
-	App->render->Blit(debug_tex, p.x, p.y);
-
-	const std::vector<iPoint>* path = App->pathfinding->GetLastPath();
-
-	for(uint i = 0; i < path->size(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->at(i).x, path->at(i).y);
-		App->render->Blit(debug_tex, pos.x, pos.y);
-	}*/
-
 	return true;
 }
 
