@@ -104,6 +104,8 @@ public:
 	j1UIScene*			ui_scene = NULL;
 
 	int              framerate_cap;
+	bool on_GamePause = false;
+
 private:
 
 	std::list <j1Module*> modules;

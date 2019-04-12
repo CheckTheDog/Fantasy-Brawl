@@ -244,6 +244,7 @@ bool j1UIScene::Update(float dt)
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
 		if (actual_menu == START_MENU)
 		{
 			ret = false;
@@ -252,16 +253,19 @@ bool j1UIScene::Update(float dt)
 		{
 			actual_menu = PAUSE_MENU;
 			App->transition->menuTransition(PAUSE_MENU);
+			App->on_GamePause = true;
 			ret = true;
 
 		}
 		else if (actual_menu == PAUSE_MENU)
 		{
+			App->on_GamePause = false;
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU);
 			ret = true;
 
 		}
+	}
 		
 
 	return ret;
