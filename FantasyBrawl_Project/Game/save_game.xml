@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <game_state>
+	<filesys />
 	<input />
 	<window />
 	<textures />
@@ -7,8 +8,8 @@
 	<entities>
 		<Player>
 			<Playerx value="200" />
-			<Playery value="0" />
-			<Playery value="0" />
+			<Playery value="150" />
+			<Playery value="200" />
 		</Player>
 		<Player>
 			<Playerx value="200" />
@@ -17,6 +18,7 @@
 	<collision />
 	<map />
 	<scene />
+	<:anonymous />
 	<pathfinding />
 	<renderer>
 		<camera x="0" y="0" />

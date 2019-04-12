@@ -71,11 +71,12 @@ void j1ParticleSystem::updateParticles()
 void j1ParticleSystem::updateEmitters()
 {
 	std::list<ParticleEmitter*>::iterator it = pEmitters.begin();
-	while (it != pEmitters.end());
+	while (it != pEmitters.end())
 	{
-		if ((*it)->isActive == false)
-			pEmitters.erase(it++);
-
+		if (!(*it)->isActive)
+		{
+			pEmitters.erase(it++);  // alternatively, i = items.erase(i);
+		}
 		else
 		{
 			(*it)->Update(0);
