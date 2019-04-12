@@ -7,13 +7,14 @@
 	<entities>
 		<Player>
 			<Playerx value="200" />
-			<Playery value="0" />
-			<Playery value="0" />
+			<Playery value="100" />
+			<Playery value="100" />
 		</Player>
 		<Player>
 			<Playerx value="200" />
 		</Player>
 	</entities>
+	<BuffManager />
 	<collision />
 	<map />
 	<scene />

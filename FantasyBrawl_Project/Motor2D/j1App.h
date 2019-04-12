@@ -18,6 +18,7 @@ class j1Map;
 class j1PathFinding;
 class j1Collision;
 class j1EntityManager;
+class j1BuffManager;
 
 class j1App
 {
@@ -90,6 +91,7 @@ public:
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;
 	j1EntityManager*    entities = nullptr;
+	j1BuffManager*		buff = NULL;
 	j1Collision*        coll = nullptr;
 
 	int              framerate_cap;

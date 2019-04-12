@@ -52,6 +52,9 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1BuffManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Utilities ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1BuffManager.h">
+      <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
