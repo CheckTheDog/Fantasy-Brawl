@@ -91,7 +91,7 @@ bool j1UIScene::Start()
 
 		//CREDITS
 		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 0,613,160,100 }, { 0,613,160,100 }, { 0,613,160,100 }, this);
-		credits->function = CREDITS;
+		credits->function = WEBPAGE;
 
 
 
@@ -354,6 +354,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			break;
 		case WEBPAGE:
+
+			App->RequestBrowser("https://github.com/CheckTheDog/Fantasy-Brawl");
 
 			break;
 		}

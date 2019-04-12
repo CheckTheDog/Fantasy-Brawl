@@ -57,6 +57,7 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 	void GetSaveGames(std::list<std::string>& list_to_fill) const;
+	void RequestBrowser(const char * url) const;
 
 private:
 
@@ -81,6 +82,8 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
+
+	
 
 public:
 
