@@ -72,7 +72,7 @@ bool j1UIScene::Start()
 		new_game->appendChildAtCenter(new_text);
 
 		//CHAMPIONS
-		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 0,148,281,111 }, { 0,148,281,111 }, this);
 		continueButton->function = CONTINUE;
 
 
@@ -137,6 +137,8 @@ bool j1UIScene::Start()
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);
 	{
+		
+
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
 		UI_element* settings_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
@@ -168,7 +170,7 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);
 
 
-
+		
 		settingsMenu->elements.push_back(settings_image);
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
@@ -322,7 +324,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		break;
 		case SETTINGS:
 			actual_menu = SETTINGS_MENU;
-			App->transition->menuTransition(SETTINGS_MENU, 0.3);
+			App->transition->menuTransition(SETTINGS_MENU, 0.1);
 			break;
 		case CREDITS:
 
