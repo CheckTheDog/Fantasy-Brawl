@@ -71,8 +71,6 @@ bool j1Player::Start()
 	PlayerState = PSTATE::IDLE;
 
 	// --- Current Player Position ---
-	Entityinfo.position.x = 200;
-	Entityinfo.position.y = 100;
 	Future_position.x = Entityinfo.position.x;
 	Future_position.y = Entityinfo.position.y;
 
@@ -277,6 +275,7 @@ void j1Player::HandleInput()
 
 	LOG("direction_x: %f", LJdirection_x);
 	LOG("direction_y: %f", LJdirection_y);
+
 }
 
 bool j1Player::Update(float dt)

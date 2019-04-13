@@ -82,6 +82,9 @@
     <ClCompile Include="UI_Clock.cpp">
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="j1BuffManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="UI_Clock.h">
       <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1BuffManager.h">
+      <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

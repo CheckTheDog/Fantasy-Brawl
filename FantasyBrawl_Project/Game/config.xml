@@ -24,12 +24,12 @@
 
   <map>
     <folder>maps/</folder>
-    <colliders red="185" green="184" blue="183"/>
+    <colliders red="423" green="422" blue="421"/>
 
   </map>
 
   <scene>
-    <map_name path="Map2x.tmx"/>
+    <map_name path="Map2x_automap.tmx"/>
   </scene>
 
   <gui>
