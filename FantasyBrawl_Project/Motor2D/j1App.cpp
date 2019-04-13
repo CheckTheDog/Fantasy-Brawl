@@ -205,9 +205,8 @@ void j1App::PrepareUpdate()
 
 	if (on_GamePause == true)
 	{
-		
+		if(!App->transition->doingMenuTransition)
 		dt = 0.0f;
-
 	}
 	
 	frame_time.Start();

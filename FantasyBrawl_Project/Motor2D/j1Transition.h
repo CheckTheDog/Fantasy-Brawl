@@ -23,11 +23,11 @@ public:
 	void menuTransition(menu_id newMenuID, float time = 0.5f);
 	void sceneTransition(int newLvl, float time = 0.5f);
 
+	bool doingMenuTransition = false;
 private:
 
 	transition_state sceneState = UNACTIVE;
 	transition_state menuState = UNACTIVE;
-	bool doingMenuTransition = false;
 	bool doingSceneTransition = false;
 	menu_id newMenuID;
 	int newLvl;
