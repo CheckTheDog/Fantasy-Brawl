@@ -16,8 +16,16 @@ ArenaInteractions::~ArenaInteractions()
 
 bool ArenaInteractions::Awake(pugi::xml_node & config)
 {
-	
+	// RGB values of the storm color, Alpha on "Blink", Speed, Time between blinks,
+	r = config.child("r").attribute("value").as_uint();
+	g = config.child("g").attribute("value").as_uint();
+	b = config.child("b").attribute("value").as_uint();
+	a = config.child("maximum_opacity").attribute("value").as_float();
 
+	storm_speed = config.child("storm_speed").attribute("value").as_int();
+	s_between_blinks = config.child("seconds_between_blinks").attribute("value").as_uint();
+	
+	// Read and add the phases of the storm
 	for (pugi::xml_node phase = config.child("storm_phase"); phase != nullptr;
 		phase = phase.next_sibling("storm_phase"))
 	{
@@ -37,8 +45,6 @@ bool ArenaInteractions::Start()
 	StartStorm();
 	storm_timer.Start();
 
-	storm_speed = 5;
-
 	return true;
 }
 
@@ -56,11 +62,13 @@ bool ArenaInteractions::Update(float dt)
 
 	if (phase_iterator != storm_phases.end())
 	{
-		if (storm_timer.ReadSec() >= (*phase_iterator)->waiting_time && storm_moving == false)
+		// If the storm is STOPPED WAITING && it needs to move
+		if (storm_moving == false && storm_timer.ReadSec() >= (*phase_iterator)->waiting_time)
 		{
 			storm_moving = true;
 			storm_timer.Start();
 		}
+		// If the storm is MOVING -> it needs to move
 		else if (storm_moving == true && storm_timer.ReadSec() >= (*phase_iterator)->tiles_advanced)
 		{
 			storm_moving = false;
@@ -69,14 +77,12 @@ bool ArenaInteractions::Update(float dt)
 		}
 	}
 
-
-	DrawStorm();
-
 	return true;
 }
 
-bool ArenaInteractions::PostUpdate()
+bool ArenaInteractions::PostUpdate(float dt)
 {
+	DrawStorm();
 	return true;
 }
 
@@ -96,7 +102,7 @@ void ArenaInteractions::StartStorm()
 	storm_update_ptimer.Start();
 
 	//Start the visual blend
-	BlendStormStart(2.000);
+	BlendStormStart(s_between_blinks);
 }
 
 void ArenaInteractions::UpdateStorm()
@@ -140,18 +146,18 @@ void ArenaInteractions::DrawStorm()
 	//Iterate through the storm_areas and print them
 	
 	Uint32 now = SDL_GetTicks() - start_time;
-	float normalized = MIN(0.7f, (float)now / (float)total_time);
+	float normalized = MIN(0.5f, (float)now / (float)total_time);
 
 	normalized = 1.0f - normalized;
 
 
 	for (int i = 0; i < 4; ++i)
 	{
-		App->render->DrawQuad(storm_areas[i], 75, 0, 130, (Uint8)(normalized * a));
+		App->render->DrawQuad(storm_areas[i], r, g, b, (Uint8)(normalized * a));
 	}
 
 	if (now >= total_time)
-		BlendStormStart(3.000);
+		BlendStormStart(s_between_blinks);
 }
 
 void ArenaInteractions::BlendStormStart(float time)

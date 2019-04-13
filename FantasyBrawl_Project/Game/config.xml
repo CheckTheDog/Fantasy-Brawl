@@ -61,9 +61,21 @@
   
   <arena_interactions>
 
+    <!-- General adjustments of the storm -->
+    <storm_speed value="5"/>
+    
+    <r value="75"/>
+    <g value="0"/>
+    <b value="130"/>
+    
+    <maximum_opacity value="200.0f"/>
+    <seconds_between_blinks value="3"/>
+    
+    <!-- Here we create the amount of storm phases, adding the attributes of waiting time and move time-->
     <storm_phase w_time="7" move_time="3"/>
     <storm_phase w_time="5" move_time="5"/>
     <storm_phase w_time="3" move_time="3"/>
+    
   </arena_interactions>
 
 </config>
