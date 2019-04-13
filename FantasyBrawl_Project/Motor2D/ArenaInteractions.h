@@ -53,7 +53,7 @@ private: /// Functions
 	void StartStorm();
 
 	//For now this will update the size and position of the storm
-	void UpdateStorm();
+	void UpdateStorm(float dt);
 
 	//This function does the alpha blending and prints the areas of Storm with the correct alpha
 	void DrawStorm();
@@ -93,5 +93,8 @@ private: /// Variables
 	//List for the storm phases & current phase
 	std::list<stormPhase*> storm_phases;
 	Uint8 current_phase = 0;
+
+	//Accumulated Movement for normalized movement
+	float accumulated_movement = 0;
 };
 #endif

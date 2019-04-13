@@ -51,7 +51,7 @@ bool ArenaInteractions::Start()
 bool ArenaInteractions::Update(float dt)
 {
 	if(storm_moving == true)
-	UpdateStorm();
+	UpdateStorm(dt);
 
 	std::list<stormPhase*>::iterator phase_iterator = storm_phases.begin();
 
@@ -105,39 +105,45 @@ void ArenaInteractions::StartStorm()
 	BlendStormStart(s_between_blinks);
 }
 
-void ArenaInteractions::UpdateStorm()
+void ArenaInteractions::UpdateStorm(float dt)
 {
 	if(safe_area.w > 0 && safe_area.h > 0)
 	{
-		if (storm_update_ptimer.ReadMs() >= 100)
+		//Calculate normalized movement
+		int movement = 0;
+		accumulated_movement += storm_speed * dt;
+		if (accumulated_movement > 1)
 		{
-			//Update the safe area position
-			safe_area.x += storm_speed;
-			safe_area.y += storm_speed;
-			//Update safe area dimensions
-			safe_area.w -= storm_speed * 2;
-			safe_area.h -= storm_speed * 2;
-
-			//Update the storm area to fit everything outside the safe area
-			storm_areas[(int)STORM_AREA::ABOVE].h = safe_area.y;
-
-			storm_areas[(int)STORM_AREA::BELOW].y = safe_area.y + safe_area.h;
-			storm_areas[(int)STORM_AREA::BELOW].h = map_size.y - (safe_area.y + safe_area.h);
-
-			storm_areas[(int)STORM_AREA::LEFT].y = safe_area.y;
-			storm_areas[(int)STORM_AREA::LEFT].w = safe_area.x;
-			storm_areas[(int)STORM_AREA::LEFT].h = safe_area.h;
-
-			storm_areas[(int)STORM_AREA::RIGHT].x = safe_area.y;
-			storm_areas[(int)STORM_AREA::RIGHT].y = safe_area.y;
-			storm_areas[(int)STORM_AREA::RIGHT].w = safe_area.x;
-			storm_areas[(int)STORM_AREA::RIGHT].h = safe_area.h;
-
-			storm_areas[(int)STORM_AREA::RIGHT] = {safe_area.x + safe_area.w, safe_area.y,
-												   map_size.x - (safe_area.x + safe_area.w), safe_area.h};
-
-			storm_update_ptimer.Start();
+			movement = accumulated_movement;
+			accumulated_movement -= 1;
 		}
+
+		//Update the safe area position
+		safe_area.x += movement;
+		safe_area.y += movement;
+		//Update safe area dimensions
+		safe_area.w -= movement * 2;
+		safe_area.h -= movement * 2;
+
+		//Update the storm area to fit everything outside the safe area
+		storm_areas[(int)STORM_AREA::ABOVE].h = safe_area.y;
+
+		storm_areas[(int)STORM_AREA::BELOW].y = safe_area.y + safe_area.h;
+		storm_areas[(int)STORM_AREA::BELOW].h = map_size.y - (safe_area.y + safe_area.h);
+
+		storm_areas[(int)STORM_AREA::LEFT].y = safe_area.y;
+		storm_areas[(int)STORM_AREA::LEFT].w = safe_area.x;
+		storm_areas[(int)STORM_AREA::LEFT].h = safe_area.h;
+
+		storm_areas[(int)STORM_AREA::RIGHT].x = safe_area.y;
+		storm_areas[(int)STORM_AREA::RIGHT].y = safe_area.y;
+		storm_areas[(int)STORM_AREA::RIGHT].w = safe_area.x;
+		storm_areas[(int)STORM_AREA::RIGHT].h = safe_area.h;
+
+		storm_areas[(int)STORM_AREA::RIGHT] = {safe_area.x + safe_area.w, safe_area.y,
+												map_size.x - (safe_area.x + safe_area.w), safe_area.h};
+
+		storm_update_ptimer.Start();
 	}
 }
 

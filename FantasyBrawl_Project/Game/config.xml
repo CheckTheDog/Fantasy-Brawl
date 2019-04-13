@@ -62,7 +62,7 @@
   <arena_interactions>
 
     <!-- General adjustments of the storm -->
-    <storm_speed value="5"/>
+    <storm_speed value="50"/>
     
     <r value="75"/>
     <g value="0"/>
