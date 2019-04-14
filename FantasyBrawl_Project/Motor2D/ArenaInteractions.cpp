@@ -30,7 +30,7 @@ bool ArenaInteractions::Awake(pugi::xml_node & config)
 		phase = phase.next_sibling("storm_phase"))
 	{
 		Uint16 waiting_time = phase.attribute("w_time").as_uint();
-		Uint8 tiles_advanced = phase.attribute("move_time").as_uint();
+		Uint8 tiles_advanced = phase.attribute("tiles_to_advance").as_uint();
 
 		stormPhase* ph = new stormPhase(waiting_time, tiles_advanced);
 		storm_phases.push_back(ph);
@@ -50,9 +50,7 @@ bool ArenaInteractions::Start()
 
 bool ArenaInteractions::Update(float dt)
 {
-	if(storm_moving == true)
-	UpdateStorm(dt);
-
+	
 	std::list<stormPhase*>::iterator phase_iterator = storm_phases.begin();
 
 	for (int i = 0; i < current_phase; i++)
@@ -62,16 +60,23 @@ bool ArenaInteractions::Update(float dt)
 
 	if (phase_iterator != storm_phases.end())
 	{
+		if (storm_moving == true)
+			UpdateStorm(dt);
+
 		// If the storm is STOPPED WAITING && it needs to move
 		if (storm_moving == false && storm_timer.ReadSec() >= (*phase_iterator)->waiting_time)
 		{
 			storm_moving = true;
 			storm_timer.Start();
+			//Calculate how much time it will take us to reach the next stop
+			target_time = (uint)GetMovingTargetTime((*phase_iterator)->tiles_to_advance);
 		}
 		// If the storm is MOVING && reached destination -> stop
-		else if (storm_moving == true && storm_timer.ReadSec() >= (*phase_iterator)->tiles_advanced)
+		else if (storm_moving == true && 
+			px_moved >= (*phase_iterator)->tiles_to_advance * App->map->data.tile_width)
 		{
 			storm_moving = false;
+			px_moved = 0;
 			storm_timer.Start();
 			current_phase++;
 			target_time = (*phase_iterator)->waiting_time;
@@ -123,6 +128,8 @@ void ArenaInteractions::UpdateStorm(float dt)
 		{
 			movement = accumulated_movement;
 			accumulated_movement -= 1;
+
+			px_moved++;
 		}
 
 		//Update the safe area position
@@ -156,26 +163,35 @@ void ArenaInteractions::UpdateStorm(float dt)
 
 void ArenaInteractions::DrawStorm()
 {
-	//Iterate through the storm_areas and print them
-	
+	///Iterate through the storm_areas and print them
+	//Time calculations for the blend
 	Uint32 now = SDL_GetTicks() - start_time;
 	float normalized = MIN(0.5f, (float)now / (float)total_time);
 
 	normalized = 1.0f - normalized;
 
-
+	//Draw the 4 quads
 	for (int i = 0; i < 4; ++i)
 	{
+		// @JACOBO!!!! This DrawQuad will need to use the 4 screen DrawQuad function! nothing else,
+		// just use this values with whatever adaptation is needed! uwu
 		App->render->DrawQuad(storm_areas[i], r, g, b, (Uint8)(normalized * a));
 	}
 
+	//If the blend finished restart it
 	if (now >= total_time)
 		BlendStormStart(s_between_blinks);
 }
 
 void ArenaInteractions::BlendStormStart(float time)
 {
-
+	//Initialize necessary variables to do the blending
 	start_time = SDL_GetTicks();
 	total_time = (Uint32)(time * 0.5f * 1000.0f);
+}
+
+float ArenaInteractions::GetMovingTargetTime(int tiles_to_move)
+{
+	// Calculate the seconds it will take to move from one storm phase to the other
+	return ( (tiles_to_move * App->map->data.tile_width) / storm_speed);
 }

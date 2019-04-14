@@ -13,13 +13,13 @@ class j1PerfTimer;
 
 struct stormPhase
 {
-	stormPhase(Uint16 waiting_time, Uint8 tiles_advanced) :
+	stormPhase(Uint16 waiting_time, Uint8 tiles_to_advance) :
 		waiting_time(waiting_time),
-		tiles_advanced(tiles_advanced)
+		tiles_to_advance(tiles_to_advance)
 	{}
 
 	Uint16 waiting_time = 0;
-	Uint8 tiles_advanced = 0;
+	Uint8 tiles_to_advance = 0;
 };
 
 enum class STORM_AREA
@@ -60,6 +60,8 @@ private: /// Functions
 
 	void BlendStormStart(float time);
 
+	float GetMovingTargetTime(int tiles_to_move);
+
 public: /// Variables
 
 	// Amount of pixels the storm will move each 100 ms
@@ -77,11 +79,6 @@ public: /// Variables
 
 private: /// Variables
 	
-	SDL_Rect safe_area = {0,0,0,0};
-
-	// The 4 visual sides of the storm, ABOVE, BELOW, LEFT RIGHT
-	SDL_Rect storm_areas[4] = { {0,0,0,0} };
-
 	//Storm timers ------
 	j1Timer storm_timer;
 	j1PerfTimer storm_update_ptimer;
@@ -95,11 +92,18 @@ private: /// Variables
 	Uint32 total_time = 0;
 	uint s_between_blinks;
 
+	/// DAMAGE & STORM related data -----------------------------
+	SDL_Rect safe_area = { 0,0,0,0 };
+
+	// The 4 visual sides of the storm, ABOVE, BELOW, LEFT RIGHT
+	SDL_Rect storm_areas[4] = { {0,0,0,0} };
+
 	//List for the storm phases & current phase
 	std::list<stormPhase*> storm_phases;
 	Uint8 current_phase = 0;
 
 	//Accumulated Movement for normalized movement
 	float accumulated_movement = 0;
+	int px_moved = 0;
 };
 #endif

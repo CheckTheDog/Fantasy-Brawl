@@ -66,6 +66,7 @@
   <arena_interactions>
 
     <!-- General adjustments of the storm -->
+    <!--Speed in pixels per second-->
     <storm_speed value="50"/>
     
     <r value="75"/>
@@ -76,9 +77,9 @@
     <seconds_between_blinks value="3"/>
     
     <!-- Here we create the amount of storm phases, adding the attributes of waiting time and move time-->
-    <storm_phase w_time="7" move_time="3"/>
-    <storm_phase w_time="5" move_time="5"/>
-    <storm_phase w_time="3" move_time="3"/>
+    <storm_phase w_time="7" tiles_to_advance="3"/>
+    <storm_phase w_time="5" tiles_to_advance="5"/>
+    <storm_phase w_time="3" tiles_to_advance="3"/>
     
   </arena_interactions>
 
