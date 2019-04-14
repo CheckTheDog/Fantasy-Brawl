@@ -68,12 +68,19 @@ bool ArenaInteractions::Update(float dt)
 			storm_moving = true;
 			storm_timer.Start();
 		}
-		// If the storm is MOVING -> it needs to move
+		// If the storm is MOVING && reached destination -> stop
 		else if (storm_moving == true && storm_timer.ReadSec() >= (*phase_iterator)->tiles_advanced)
 		{
 			storm_moving = false;
 			storm_timer.Start();
 			current_phase++;
+			target_time = (*phase_iterator)->waiting_time;
+		}
+
+		if (storm_moving == false)
+		{
+			float test = storm_timer.ReadSec();
+			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
 		}
 	}
 

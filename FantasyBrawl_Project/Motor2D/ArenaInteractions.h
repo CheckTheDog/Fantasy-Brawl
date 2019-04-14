@@ -68,7 +68,12 @@ public: /// Variables
 	float a = 0.0f;
 	Uint8 r, g, b = 0;
 
+	//Bool determining if the storm is currently moving or not
 	bool storm_moving = false;
+
+	//Public stuff for timers that can be used by other modules.
+	uint target_time = 0;
+	float UI_storm_countdown = 0;
 
 private: /// Variables
 	
