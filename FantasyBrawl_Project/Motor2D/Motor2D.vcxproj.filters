@@ -158,7 +158,7 @@
     </ClInclude>
     <ClInclude Include="ArenaInteractions.h">
       <Filter>Development  ========\Modules</Filter>
-    </ClInclude> 
+    </ClInclude>
     <ClInclude Include="j1Gui.h">
       <Filter>Development  ========\Modules\UI</Filter>
     </ClInclude>
@@ -196,7 +196,6 @@
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
-  
   <ItemGroup>
     <Filter Include="Utilities ===========">
       <UniqueIdentifier>{a8bfab6a-5472-4969-943e-861a8b493f08}</UniqueIdentifier>
