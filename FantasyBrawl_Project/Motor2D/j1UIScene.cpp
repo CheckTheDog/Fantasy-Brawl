@@ -15,6 +15,7 @@
 #include "UI_Slider.h"
 #include "UI_Window.h"
 #include "UI_Clock.h"
+#include "j1EntityManager.h"
 
 
 
@@ -118,7 +119,9 @@ bool j1UIScene::Start()
 
 	menu* ingameMenu = new menu(INGAME_MENU);
 	{
+		UI_element* hp_bar = App->gui->createImageFromAtlas(App->scene->player1->Future_position.x, App->scene->player1->Future_position.y,  {424, 428, 209, 27}, this);
 
+		ingameMenu->elements.push_back(hp_bar);
 		menus.push_back(ingameMenu);
 
 	}
