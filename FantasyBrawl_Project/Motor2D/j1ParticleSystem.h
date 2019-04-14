@@ -1,52 +1,56 @@
-#ifndef  _j1PARTICLE_SYSTEM_H_
-#define _j1PARTICLE_SYSTEM_H_
+#ifndef _j1PARTICLESYSTEM_H_
+#define _j1PARTICLESYSTEM_H_
 
 #include "j1Module.h"
-#include "j1Textures.h"
-#include "Particle.h"
-#include "j1Timer.h"
+#include "Animation.h"
+#include "p2Defs.h"
 #include "p2Point.h"
-#include "p2Log.h"
-#include <iostream>
+#include "j1Collision.h"
 
-#include "SDL/include/SDL_rect.h"
+#define MAX_PARTICLES 500
 
-class ParticleEmitter;
+struct SDL_Texture;
 
-class j1ParticleSystem : public j1Module
+struct Particle
 {
+	Collider* pCol = nullptr;
+	Animation anim;
+	fPoint pos;
+	fPoint speed;
+	uint born = 0;
+	uint life;
+	uint delay = 0;
 
+	fPoint GetPos()const;
+	Particle();
+	Particle(const Particle& p);
+	~Particle();
+
+	bool Update(float dt);
+	bool toDelete = false;
+
+};
+
+class j1ParticleSystem :public j1Module
+{
 public:
 
 	j1ParticleSystem();
 	~j1ParticleSystem();
 
+	bool Start();
 	bool Update(float dt);
+	bool CleanUp();
 
-	Particle* newParticle(ParticleInfo data);
-	ParticleEmitter* newEmitter(fPoint pos, const char* configPath);
+	void OnCollision(Collider* c1, Collider* c2);
 
-	void updateParticles();
-	void updateEmitters();
-
-public:
-
-	int updateTime;
-	int particleCount = 0;
-	
+	void AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay);
 
 private:
-	
-	j1Timer debugPTimer;
 
-	static const int MAX_PARTICLES = 1000;
+	SDL_Texture * pSprites;
 
-	Particle particles[MAX_PARTICLES];
-
-	SDL_Texture* pSprites = nullptr;
-
-	std::list<ParticleEmitter*> pEmitters;
+	Particle* active[MAX_PARTICLES];
 
 };
-
-#endif // ! _j1PARTICLE_SYSTEM_H_
+#endif // ! _j1PARTICLESYSTEM_H_

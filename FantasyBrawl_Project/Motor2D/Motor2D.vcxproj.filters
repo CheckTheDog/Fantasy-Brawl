@@ -52,20 +52,11 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1ParticleSystem.cpp">
-      <Filter>Development  ========\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Development  ========\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEmitter.cpp">
-      <Filter>Development  ========\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Projectiles.cpp">
-      <Filter>Development  ========\Particles</Filter>
-    </ClCompile>
     <ClCompile Include="j1FileSystem.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="j1ParticleSystem.cpp">
+      <Filter>Development  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,20 +126,11 @@
     <ClInclude Include="Animation.h">
       <Filter>Utilities ===========</Filter>
     </ClInclude>
-    <ClInclude Include="j1ParticleSystem.h">
-      <Filter>Development  ========\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Development  ========\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEmitter.h">
-      <Filter>Development  ========\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Projectiles.h">
-      <Filter>Development  ========\Particles</Filter>
-    </ClInclude>
     <ClInclude Include="j1FileSystem.h">
       <Filter>Development  ========\Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ParticleSystem.h">
+      <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +160,6 @@
     </Filter>
     <Filter Include="Development  ========\Entities\Tools">
       <UniqueIdentifier>{5bd7ebd8-39cd-4afc-b5e2-f75654684368}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Development  ========\Particles">
-      <UniqueIdentifier>{1059fe8c-d7bb-4fe8-896e-3d581fbd89ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

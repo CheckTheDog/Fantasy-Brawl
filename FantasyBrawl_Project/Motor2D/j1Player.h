@@ -3,6 +3,7 @@
 
 #include "p2Point.h"
 #include "j1Entity.h"
+#include "j1ParticleSystem.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -144,6 +145,11 @@ public:
 	
 	// --- Collisions ---
 	SDL_Rect Intersection = { 0,0,0,0 };
+
+	// --- Particles ---
+
+	Particle basicDagger;
+	Animation* currAnim;
 };
 
 #endif // __j1Player_H__

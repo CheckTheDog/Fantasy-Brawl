@@ -9,11 +9,17 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1EntityManager.h"
+#include "j1ParticleSystem.h"
 #include "j1Audio.h"
 
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
+	basicDagger.anim.PushBack({ 0,0,28,18 });
+	basicDagger.anim.loop = true;
+	basicDagger.speed.y = 2.0f;
+	basicDagger.life = 1000;
+
 
 }
 
@@ -295,6 +301,14 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
+
+	fPoint pPos;
+	pPos.x = 0;
+	pPos.y = 0;
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
+	{
+		App->particlesys->AddParticle(basicDagger, pPos.x + 200, pPos.y +200, COLLIDER_TYPE::COLLIDER_PARTICLE, 0);
+	}
 
 	return true;
 }
