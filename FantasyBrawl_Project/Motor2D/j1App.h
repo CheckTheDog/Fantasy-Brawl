@@ -19,6 +19,11 @@ class j1PathFinding;
 class j1Collision;
 class j1EntityManager;
 class ArenaInteractions;
+class j1Fonts;
+class j1Gui;
+class j1Transition;
+class j1UIScene;
+class j1BuffManager;
 
 class j1App
 {
@@ -54,6 +59,7 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 	void GetSaveGames(std::list<std::string>& list_to_fill) const;
+	void RequestBrowser(const char * url) const;
 
 private:
 
@@ -79,6 +85,8 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+	
+
 public:
 
 	// Modules
@@ -92,9 +100,16 @@ public:
 	j1PathFinding*		pathfinding = NULL;
 	j1EntityManager*    entities = nullptr;
 	ArenaInteractions*  arena_interactions = nullptr;
+	j1BuffManager*		buff = NULL;
 	j1Collision*        coll = nullptr;
+	j1Gui*				gui = NULL;
+	j1Fonts*			fonts = NULL;
+	j1Transition*		transition = NULL;
+	j1UIScene*			ui_scene = NULL;
 
 	int              framerate_cap;
+	bool on_GamePause = false;
+
 private:
 
 	std::list <j1Module*> modules;

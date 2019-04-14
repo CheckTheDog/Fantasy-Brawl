@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1EntityManager.h"
+#include "j1UIScene.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -258,5 +259,11 @@ bool j1Scene::CleanUp()
 	std::vector<std::string*>().swap(StageList);
 
 	return true;
+}
+
+void j1Scene::LoadLvl(int num)
+{
+
+	App->ui_scene->loadMenu(START_MENU);
 }
 

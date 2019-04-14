@@ -275,6 +275,7 @@ void j1Player::HandleInput()
 
 	LOG("direction_x: %f", LJdirection_x);
 	LOG("direction_y: %f", LJdirection_y);
+
 }
 
 bool j1Player::Update(float dt)
