@@ -14,6 +14,20 @@ ArenaInteractions::~ArenaInteractions()
 {
 }
 
+bool ArenaInteractions::CleanUp()
+{
+	for (std::list<stormPhase*>::iterator item = storm_phases.begin();
+		item != storm_phases.end(); item++)
+	{
+		RELEASE((*item));
+	}
+
+	storm_phases.clear();
+
+
+	return true;
+}
+
 bool ArenaInteractions::Awake(pugi::xml_node & config)
 {
 	// RGB values of the storm color, Alpha on "Blink", Speed, Time between blinks,
@@ -31,8 +45,9 @@ bool ArenaInteractions::Awake(pugi::xml_node & config)
 	{
 		Uint16 waiting_time = phase.attribute("w_time").as_uint();
 		Uint8 tiles_advanced = phase.attribute("tiles_to_advance").as_uint();
+		uint damage_per_tick = phase.attribute("damage_per_tick").as_uint();
 
-		stormPhase* ph = new stormPhase(waiting_time, tiles_advanced);
+		stormPhase* ph = new stormPhase(waiting_time, tiles_advanced,damage_per_tick);
 		storm_phases.push_back(ph);
 	}
 

@@ -13,13 +13,15 @@ class j1PerfTimer;
 
 struct stormPhase
 {
-	stormPhase(Uint16 waiting_time, Uint8 tiles_to_advance) :
+	stormPhase(Uint16 waiting_time, Uint8 tiles_to_advance, uint damage_per_tick) :
 		waiting_time(waiting_time),
-		tiles_to_advance(tiles_to_advance)
+		tiles_to_advance(tiles_to_advance),
+		damage_per_tick(damage_per_tick)
 	{}
 
 	Uint16 waiting_time = 0;
 	Uint8 tiles_to_advance = 0;
+	uint damage_per_tick = 0;
 };
 
 enum class STORM_AREA
@@ -37,6 +39,8 @@ public: /// Functions
 	//Constructor and Destructor
 	ArenaInteractions();
 	virtual ~ArenaInteractions();
+
+	bool CleanUp();
 
 	bool Awake(pugi::xml_node& config);
 	
