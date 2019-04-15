@@ -8,6 +8,8 @@
 #include "p2Point.h"
 #include <list>
 
+#define ENTITIES_TO_HURT 4
+
 class j1Timer;
 class j1PerfTimer;
 
@@ -49,6 +51,9 @@ public: /// Functions
 	//Called each loop iteration
 	bool Update(float dt);
 	bool PostUpdate(float dt);
+
+	//Returns the damage received at the moment of the call
+	int GetStormDebuff(int ID);
 
 
 private: /// Functions
@@ -94,7 +99,7 @@ private: /// Variables
 	//Start and total time for storm areas color blending purposes
 	Uint32 start_time = 0;
 	Uint32 total_time = 0;
-	uint s_between_blinks;
+	float s_between_blinks;
 
 	/// DAMAGE & STORM related data -----------------------------
 	SDL_Rect safe_area = { 0,0,0,0 };
@@ -109,5 +114,8 @@ private: /// Variables
 	//Accumulated Movement for normalized movement
 	float accumulated_movement = 0;
 	int px_moved = 0;
+
+	//Entity damage management
+	bool damage_entity[ENTITIES_TO_HURT] = {false};
 };
 #endif

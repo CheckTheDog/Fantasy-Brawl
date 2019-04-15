@@ -37,7 +37,7 @@ bool ArenaInteractions::Awake(pugi::xml_node & config)
 	a = config.child("maximum_opacity").attribute("value").as_float();
 
 	storm_speed = config.child("storm_speed").attribute("value").as_int();
-	s_between_blinks = config.child("seconds_between_blinks").attribute("value").as_uint();
+	s_between_blinks = config.child("seconds_between_blinks").attribute("value").as_float();
 	
 	// Read and add the phases of the storm
 	for (pugi::xml_node phase = config.child("storm_phase"); phase != nullptr;
@@ -111,6 +111,27 @@ bool ArenaInteractions::PostUpdate(float dt)
 {
 	DrawStorm();
 	return true;
+}
+
+int ArenaInteractions::GetStormDebuff(int ID)
+{
+	//If we don't need to apply any debuff (most cases)
+	if (damage_entity[ID] == false)
+	{
+		return 0;
+	}
+	else // In case we need to apply a debuff
+	{
+		std::list<stormPhase*>::const_iterator phase = storm_phases.cbegin();
+		for (int i = 0; i < current_phase; i++)
+		{
+			phase++;
+		}
+
+		//We received damage so until next tick we should not receive any debuff/damage
+		damage_entity[ID] = false;
+		return  (*phase)->damage_per_tick;
+	}
 }
 
 void ArenaInteractions::StartStorm()
@@ -202,7 +223,12 @@ void ArenaInteractions::BlendStormStart(float time)
 {
 	//Initialize necessary variables to do the blending
 	start_time = SDL_GetTicks();
-	total_time = (Uint32)(time * 0.5f * 1000.0f);
+	total_time = (Uint32)(time * 1000.0f);
+
+	//Set all booleans to hurt players to true
+	for (int i = 0; i < ENTITIES_TO_HURT; ++i)
+		damage_entity[i] = true;
+
 }
 
 float ArenaInteractions::GetMovingTargetTime(int tiles_to_move)
