@@ -13,6 +13,8 @@
 class j1Timer;
 class j1PerfTimer;
 
+struct Collider;
+
 struct stormPhase
 {
 	stormPhase(Uint16 waiting_time, Uint8 tiles_to_advance, uint damage_per_tick) :
@@ -71,6 +73,8 @@ private: /// Functions
 
 	float GetMovingTargetTime(int tiles_to_move);
 
+	void UpdateStormColliders();
+
 public: /// Variables
 
 	// Amount of pixels the storm will move each 100 ms
@@ -117,5 +121,6 @@ private: /// Variables
 
 	//Entity damage management
 	bool damage_entity[ENTITIES_TO_HURT] = {false};
+	Collider* storm_colliders[4] = {nullptr};
 };
 #endif

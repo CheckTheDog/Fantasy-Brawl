@@ -4,6 +4,7 @@
 #include "j1PerfTimer.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1Collision.h"
 
 ArenaInteractions::ArenaInteractions() : j1Module()
 {
@@ -21,9 +22,16 @@ bool ArenaInteractions::CleanUp()
 	{
 		RELEASE((*item));
 	}
-
 	storm_phases.clear();
 
+	for (int i = 0; i < 4; ++i)
+	{
+		if (storm_colliders[i] != nullptr)
+		{
+			storm_colliders[i]->to_delete = true;
+			storm_colliders[i] = nullptr;
+		}
+	}
 
 	return true;
 }
@@ -59,6 +67,11 @@ bool ArenaInteractions::Start()
 {
 	StartStorm();
 	storm_timer.Start();
+
+	for (int i = 0; i < 4; ++i)
+	{
+		storm_colliders[i] = App->coll->AddCollider({0,0,0,0},COLLIDER_TYPE::COLLIDER_STORM);
+	}
 
 	return true;
 }
@@ -194,6 +207,8 @@ void ArenaInteractions::UpdateStorm(float dt)
 												map_size.x - (safe_area.x + safe_area.w), safe_area.h};
 
 		storm_update_ptimer.Start();
+
+		UpdateStormColliders();
 	}
 }
 
@@ -235,4 +250,13 @@ float ArenaInteractions::GetMovingTargetTime(int tiles_to_move)
 {
 	// Calculate the seconds it will take to move from one storm phase to the other
 	return ( (tiles_to_move * App->map->data.tile_width) / storm_speed);
+}
+
+void ArenaInteractions::UpdateStormColliders()
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		if(storm_colliders[i] != nullptr)
+		storm_colliders[i]->rect = storm_areas[i];
+	}
 }
