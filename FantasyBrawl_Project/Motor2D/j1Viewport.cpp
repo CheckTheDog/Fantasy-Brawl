@@ -275,19 +275,47 @@ void j1Viewport::PushQueue(int layer, SDL_Texture * texture, int x, int y, const
 
 	if (viewport == 0 || viewport == 1)
 	{
-		layer_list1.push(lblit);
+		if(number_of_views == 1)
+		{
+			if (lblit.x > - 60 && lblit.y > - 60 && lblit.x < win_w + (screen_1.x)*(-1) && lblit.y < win_h + (screen_1.y)*(-1))
+			{
+				layer_list1.push(lblit);
+			}
+		}
+		else if (number_of_views == 4)
+		{
+			SDL_Rect rect = GetScreenRect(1);
+			if (lblit.x > rect.x - 60 && lblit.y > rect.y - 60 && lblit.x < rect.w + (screen_1.x)*(-1) && lblit.y < rect.h + (screen_1.y)*(-1))
+			{
+				layer_list1.push(lblit);
+			}
+		}
+		
 	}
 	if ((viewport == 0 || viewport == 2) && number_of_views >= 2)
 	{
-		layer_list2.push(lblit);
+		SDL_Rect rect = GetScreenRect(2);
+		if (lblit.x > rect.x - 60 && lblit.y > rect.y - 60 && lblit.x < rect.w + (screen_2.x)*(-1) && lblit.y < rect.h + (screen_2.y)*(-1))
+		{
+			layer_list2.push(lblit);
+		}
 	}
 	if ((viewport == 0 || viewport == 3) && number_of_views >= 4)
 	{
-		layer_list3.push(lblit);
+		SDL_Rect rect = GetScreenRect(3);
+		if (lblit.x > rect.x - 60 && lblit.y > rect.y - 60 && lblit.x < rect.w + (screen_3.x)*(-1) && lblit.y < rect.h + (screen_3.y)*(-1))
+		{
+			layer_list3.push(lblit);
+		}
+		
 	}
 	if ((viewport == 0 || viewport == 4) && number_of_views >= 4)
 	{
+		SDL_Rect rect = GetScreenRect(4);
+		if (lblit.x > rect.x - 60 && lblit.y > rect.y - 60 && lblit.x < rect.w + (screen_4.x)*(-1) && lblit.y < rect.h + (screen_4.y)*(-1))
+		{
 		layer_list4.push(lblit);
+		}
 	}
 }
 
