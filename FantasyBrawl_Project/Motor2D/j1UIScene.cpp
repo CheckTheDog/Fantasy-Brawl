@@ -294,6 +294,7 @@ bool j1UIScene::PostUpdate(float dt)
 bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 {
 	bool ret = true;
+	uint count = 0;
 	
 	if (event_type == MOUSE_ENTER)
 	{
@@ -307,6 +308,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	}
 	else if (event_type == MOUSE_LEFT_CLICK)
 	{
+		/*count++;*/
+		count += 1;
 		element->state = CLICKED;
 
 		if (element->element_type == SWITCH)
@@ -314,6 +317,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			Button* tmp = (Button*)element;
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
+		}
+		if (element->element_type == BUTTON && count >= 1)
+		{
+			ui_id1 = true;
+			/*count += 1;*/
+		}
+		if (element->element_type == BUTTON && count >= 2)
+		{
+			ui_id2 = true;
 		}
 
 
@@ -327,8 +339,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		case INGAME:
 		{
-			actual_menu = INGAME_MENU;
-			App->transition->menuTransition(INGAME_MENU, 0.3);
+			if (ui_id1 == true && ui_id2 == true)
+			{
+				actual_menu = INGAME_MENU;
+				App->transition->menuTransition(INGAME_MENU, 0.3);
+			}
 			break;
 		}
 		case RESTART:

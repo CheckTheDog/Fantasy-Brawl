@@ -16,6 +16,8 @@
 #include "j1UIScene.h"
 #include "UI_Slider.h"
 #include "UI_Clock.h"
+#include "j1Entity.h"
+#include "j1EntityManager.h"
 
 
 
@@ -309,6 +311,28 @@ Clock * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color, 
 {
 	Clock* ret = new Clock(x, y, STOPWATCH, font, color, callback);
 	ret->solid = false;
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+Button* j1Gui::createInteractiveButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, uint id, j1Module* callback)
+{
+	id = App->entities->playerid;
+	if (id == 0)
+	{
+		SDL_Rect box;
+		int scale = App->win->GetScale();
+		box.x = standby.x * scale;
+		box.y = standby.y * scale;
+		box.w = standby.w * scale;
+		box.h = standby.h * scale;
+		App->render->DrawQuad(box, 255, 0, 0, 255, false, false);
+	}
+
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	Button* ret = new Button(x, y, usingTexture, standby, OnMouse, OnClick, callback);
 	UI_elements.push_back(ret);
 
 	return ret;
