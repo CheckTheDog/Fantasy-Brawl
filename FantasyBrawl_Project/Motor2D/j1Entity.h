@@ -7,6 +7,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1EntityManager;
+class j1Entity;
 struct Collider;
 struct SDL_Texture;
 
@@ -25,6 +26,9 @@ struct entity_info
 	float			health = 300;
 	float			strength = 1;
 	float	og_health, og_speed, og_strength;
+
+	//Pointer to the j1Entity belonging to the entity
+	j1Entity* my_j1Entity = nullptr;
 
 	// HEALING EFFECT
 	j1Timer		healing;
