@@ -119,7 +119,7 @@ bool j1UIScene::Start()
 
 	menu* ingameMenu = new menu(INGAME_MENU);
 	{
-		UI_element* hp_bar = App->gui->createImageFromAtlas(App->scene->player1->Future_position.x, App->scene->player1->Future_position.y,  {424, 428, 209, 27}, this);
+		UI_element* hp_bar = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 428, 209, 27}, this);
 
 		ingameMenu->elements.push_back(hp_bar);
 		menus.push_back(ingameMenu);
@@ -283,6 +283,9 @@ bool j1UIScene::Update(float dt)
 	}
 		
 
+
+	
+
 	return ret;
 }
 
@@ -308,8 +311,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	}
 	else if (event_type == MOUSE_LEFT_CLICK)
 	{
-		/*count++;*/
-		count += 1;
+		/*count++;
+		count += 1;*/
 		element->state = CLICKED;
 
 		if (element->element_type == SWITCH)
@@ -318,15 +321,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
 		}
-		if (element->element_type == BUTTON && count >= 1)
-		{
-			ui_id1 = true;
-			/*count += 1;*/
-		}
-		if (element->element_type == BUTTON && count >= 2)
-		{
-			ui_id2 = true;
-		}
+		//if (element->element_type == BUTTON && count >= 1)
+		//{
+		//	ui_id1 = true;
+		//	/*count += 1;*/
+		//}
+		//if (element->element_type == BUTTON && count >= 2)
+		//{
+		//	ui_id2 = true;
+		//}
 
 
 		switch (element->function)
@@ -339,11 +342,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		case INGAME:
 		{
-			if (ui_id1 == true && ui_id2 == true)
-			{
-				actual_menu = INGAME_MENU;
-				App->transition->menuTransition(INGAME_MENU, 0.3);
-			}
+			/*if (ui_id1 == true && ui_id2 == true)*/
+			
+			actual_menu = INGAME_MENU;
+			App->transition->menuTransition(INGAME_MENU, 0.3);
+			
 			break;
 		}
 		case RESTART:
