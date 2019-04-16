@@ -27,6 +27,7 @@ enum element_function
 {
 	NONE,
 	NEW_GAME,
+	INGAME,
 	CONTINUE,
 	SETTINGS,
 	CREDITS,

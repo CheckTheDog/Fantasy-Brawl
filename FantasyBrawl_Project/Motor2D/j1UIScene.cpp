@@ -128,13 +128,17 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		UI_element* selection_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
-		UI_element* settings_text = App->gui->createText("CHAMPION SELECTION", 425, 120, big_buttons_font, brown_color);
-		settings_text->setOutlined(true);
+		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 275, 60, big_buttons_font, brown_color);
+		selection_text->setOutlined(true);
+
+		UI_element* champion_button = App->gui->createButton(300 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
+		champion_button->function = INGAME;
 
 
-
-		championSelection->elements.push_back(selection_window);
+		championSelection->elements.push_back(selection_image);
+		championSelection->elements.push_back(selection_text);
+		championSelection->elements.push_back(champion_button);
 		menus.push_back(championSelection);
 	}
 
@@ -258,7 +262,7 @@ bool j1UIScene::Update(float dt)
 		{
 			App->on_GamePause = true;
 			actual_menu = PAUSE_MENU;
-			App->transition->menuTransition(PAUSE_MENU);
+			App->transition->menuTransition(PAUSE_MENU, 0.3f);
 			ret = true;
 
 		}
@@ -266,9 +270,15 @@ bool j1UIScene::Update(float dt)
 		{
 			App->on_GamePause = false;
 			actual_menu = INGAME_MENU;
-			App->transition->menuTransition(INGAME_MENU);
+			App->transition->menuTransition(INGAME_MENU, 0.3f);
 			ret = true;
 
+		}
+		else if (actual_menu == SELECTION_MENU)
+		{
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU, 0.3f);
+			ret = true;
 		}
 	}
 		
@@ -310,6 +320,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		switch (element->function)
 		{
 		case NEW_GAME:
+		{
+			actual_menu = SELECTION_MENU;
+			App->transition->menuTransition(SELECTION_MENU, 0.3);
+			break;
+		}
+		case INGAME:
 		{
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
