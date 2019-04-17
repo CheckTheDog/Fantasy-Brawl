@@ -240,13 +240,6 @@ void j1App::FinishUpdate()
 
 	float avg_fps = float(frame_count) / startup_time.ReadSec();
 
-	//Small test DELETE later
-	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
-		startup_time.Stop();
-
-	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-		startup_time.Continue();
-
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
