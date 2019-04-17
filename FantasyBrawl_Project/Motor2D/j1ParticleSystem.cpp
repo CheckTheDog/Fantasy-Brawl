@@ -5,6 +5,7 @@
 #include "j1Collision.h"
 #include "p2Log.h"
 #include "j1Player.h"
+#include "j1Viewport.h"
 
 #include "SDL/include//SDL_timer.h"
 
@@ -70,7 +71,7 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			App->render->Blit(pSprites, p->pos.x, p->pos.y, &(p->anim.GetCurrentFrame(dt)));
+			App->view->PushQueue(4,pSprites, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt));
 			App->coll->QueryCollisions(*p->pCol);
 		}
 	}

@@ -7,6 +7,7 @@
 #include "j1Window.h"
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Viewport.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
@@ -15,6 +16,11 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1ParticleSystem.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
+#include "j1Transition.h"
+#include "j1UIScene.h"
+#include "j1BuffManager.h"
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
@@ -34,9 +40,15 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	coll = new j1Collision();
 	entities = new j1EntityManager();
+	buff = new j1BuffManager();
 	pathfinding = new j1PathFinding();
 	particlesys = new j1ParticleSystem();
-	
+	view = new j1Viewport();
+	fonts = new j1Fonts();
+	gui = new j1Gui();
+	transition = new j1Transition();
+	ui_scene = new j1UIScene();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -44,12 +56,19 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(entities);
+	AddModule(buff);
 	AddModule(coll);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(particlesys);
 	AddModule(pathfinding);
 	
+	AddModule(view);
+	AddModule(fonts);
+	AddModule(gui);
+	AddModule(transition);
+	AddModule(ui_scene);
+
 
 	// render last to swap buffer
 	AddModule(render);
@@ -169,6 +188,9 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PostUpdate();
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug_mode = !debug_mode;
+
 	FinishUpdate();
 	return ret;
 }
@@ -195,6 +217,13 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	dt = frame_time.ReadSec();
+
+	if (on_GamePause == true)
+	{
+		if(!App->transition->doingMenuTransition)
+		dt = 0.0f;
+	}
+	
 	frame_time.Start();
 }
 
@@ -445,4 +474,9 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+
+void j1App::RequestBrowser(const char * url) const
+{
+	ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 }

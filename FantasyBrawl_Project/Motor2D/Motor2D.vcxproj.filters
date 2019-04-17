@@ -54,6 +54,42 @@
     </ClCompile>
     <ClCompile Include="j1ParticleSystem.cpp">
       <Filter>Development  ========\Entities\Tools</Filter>
+   </ClCompile>
+    <ClCompile Include="j1Viewport.cpp">
+      <Filter>Development  ========\Modules\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Development  ========\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Transition.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1UIScene.cpp">
+      <Filter>Development  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Image.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Text.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Button.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Window.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Slider.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Clock.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1BuffManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +162,45 @@
     <ClInclude Include="j1ParticleSystem.h">
       <Filter>Development  ========\Entities\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="j1Viewport.h">
+      <Filter>Development  ========\Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Development  ========\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_element.h">
+      <Filter>Development  ========\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Transition.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1UIScene.h">
+      <Filter>Development  ========\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Image.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Text.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Button.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Window.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Slider.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Clock.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1BuffManager.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities ===========">
@@ -154,6 +229,12 @@
     </Filter>
     <Filter Include="Development  ========\Entities\Tools">
       <UniqueIdentifier>{5bd7ebd8-39cd-4afc-b5e2-f75654684368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development  ========\Modules\UI">
+      <UniqueIdentifier>{a933b1d1-8b7b-4065-8f79-4b7201708de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development  ========\Modules\UI\Elements">
+      <UniqueIdentifier>{19c05384-48fa-4272-af3b-c4e75023b798}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
