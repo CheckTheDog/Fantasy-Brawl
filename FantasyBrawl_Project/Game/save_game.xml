@@ -7,8 +7,8 @@
 	<entities>
 		<Player>
 			<Playerx value="200" />
-			<Playery value="100" />
-			<Playery value="100" />
+			<Playery value="150" />
+			<Playery value="200" />
 		</Player>
 		<Player>
 			<Playerx value="200" />
@@ -19,6 +19,7 @@
 	<map />
 	<scene />
 	<pathfinding />
+	<viewports />
 	<fonts />
 	<gui />
 	<:anonymous />
