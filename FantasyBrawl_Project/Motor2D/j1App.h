@@ -22,6 +22,7 @@ class j1ParticleSystem;
 class j1Viewport;
 class j1Fonts;
 class j1Gui;
+class j1Transition;
 class j1UIScene;
 class j1BuffManager;
 
