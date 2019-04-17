@@ -405,6 +405,9 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
 		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
+		break;
 	}
 }
 
@@ -416,6 +419,9 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
+		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
 		break;
 	}
 }
@@ -429,6 +435,9 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
 		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
+		break;
 	}
 }
 
@@ -440,6 +449,9 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
+		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
 		break;
 	}
 
