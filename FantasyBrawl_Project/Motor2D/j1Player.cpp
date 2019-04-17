@@ -283,6 +283,27 @@ void j1Player::HandleInput()
 	LOG("direction_y: %f", LJdirection_y);
 }
 
+void j1Player::HandleAttacks(PLAYER ID)
+{
+	switch (ID)
+	{
+	case PLAYER::P1:
+
+		break;
+	case PLAYER::P2:
+
+		break;
+	case PLAYER::P3:
+
+		break;
+	case PLAYER::P4:
+		break;
+	default:
+		break;
+	}
+
+}
+
 bool j1Player::Update(float dt)
 {
 	HandleInput();
@@ -302,12 +323,12 @@ bool j1Player::Update(float dt)
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
 
-	fPoint pPos;
-	pPos.x = 0;
-	pPos.y = 0;
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
+	basicDagger.speed.x = RJdirection_x * 300;
+	basicDagger.speed.y = RJdirection_y * 300;
+
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_DOWN))
 	{
-		App->particlesys->AddParticle(basicDagger, pPos.x + 200, pPos.y +200, COLLIDER_TYPE::COLLIDER_PARTICLE, 0);
+		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0);
 	}
 
 	return true;
@@ -421,6 +442,7 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	}
 
 }
+
 
 bool j1Player::Load(pugi::xml_node &config)
 {

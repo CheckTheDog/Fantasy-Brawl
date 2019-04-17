@@ -116,6 +116,10 @@ public:
 
 	void Down_Collision(Collider* entitycollider, const Collider* to_check);
 
+	// --- Entity Attacks ---
+
+	void HandleAttacks(PLAYER ID);
+
 public:
 
 	// --- Basic Stuff ---

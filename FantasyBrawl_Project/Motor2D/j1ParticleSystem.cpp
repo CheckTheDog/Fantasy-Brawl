@@ -155,8 +155,8 @@ bool Particle::Update(float dt)
 			ret = false;
 		}
 		else {
-			pos.x += speed.x;
-			pos.y += speed.y;
+			pos.x += speed.x*dt;
+			pos.y += speed.y*dt;
 		}
 
 	}
