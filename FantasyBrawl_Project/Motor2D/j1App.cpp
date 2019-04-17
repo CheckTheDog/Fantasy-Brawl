@@ -16,6 +16,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1ArenaInteractions.h"
+#include "j1ParticleSystem.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
 #include "j1Transition.h"
@@ -24,6 +25,7 @@
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
+
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -42,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	arena_interactions = new j1ArenaInteractions();
 	buff = new j1BuffManager();
 	pathfinding = new j1PathFinding();
+	particlesys = new j1ParticleSystem();
 	view = new j1Viewport();
 	fonts = new j1Fonts();
 	gui = new j1Gui();
@@ -60,12 +63,16 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(arena_interactions);
+
+	AddModule(particlesys);
 	AddModule(pathfinding);
+	
 	AddModule(view);
 	AddModule(fonts);
 	AddModule(gui);
 	AddModule(transition);
 	AddModule(ui_scene);
+
 
 	// render last to swap buffer
 	AddModule(render);

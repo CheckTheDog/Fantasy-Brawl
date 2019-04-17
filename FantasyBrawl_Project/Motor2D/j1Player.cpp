@@ -9,6 +9,7 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1EntityManager.h"
+#include "j1ParticleSystem.h"
 #include "j1Audio.h"
 #include "j1BuffManager.h"
 #include "j1ArenaInteractions.h"
@@ -16,7 +17,9 @@
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
-
+	basicDagger.anim.PushBack({ 0,0,28,18 });
+	basicDagger.anim.loop = true;
+	basicDagger.life = 2500;
 }
 
 j1Player::~j1Player()
@@ -275,8 +278,38 @@ void j1Player::HandleInput()
 
 	//--------------
 
-	LOG("direction_x: %f", LJdirection_x);
-	LOG("direction_y: %f", LJdirection_y);
+	// --- Assign here all particles
+	basicDagger.speed.x = RJdirection_x * 300;
+	basicDagger.speed.y = RJdirection_y * 300;
+
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
+	{
+		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+	}
+
+	/*LOG("direction_x: %f", LJdirection_x);
+	LOG("direction_y: %f", LJdirection_y);*/
+}
+
+void j1Player::HandleAttacks(PLAYER ID)
+{
+	switch (ID)
+	{
+	case PLAYER::P1:
+
+		break;
+	case PLAYER::P2:
+
+		break;
+	case PLAYER::P3:
+
+		break;
+	case PLAYER::P4:
+
+		break;
+	default:
+		break;
+	}
 
 }
 
@@ -296,6 +329,8 @@ bool j1Player::Update(float dt)
 
 	MoveY(dt);
 
+	// --- Check Particles Collision ---
+
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
 
@@ -309,6 +344,7 @@ bool j1Player::PostUpdate(float dt)
 	App->view->PushQueue(4,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
 	return ret;
 }
+
 
 void j1Player::CheckCollision()
 {
@@ -376,6 +412,9 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
 		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
+		break;
 	}
 }
 
@@ -387,6 +426,9 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
+		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
 		break;
 	}
 }
@@ -400,6 +442,9 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
 		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
+		break;
 	}
 }
 
@@ -412,9 +457,13 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
 		break;
+	case COLLIDER_TYPE::COLLIDER_PARTICLE:
+
+		break;
 	}
 
 }
+
 
 bool j1Player::Load(pugi::xml_node &config)
 {

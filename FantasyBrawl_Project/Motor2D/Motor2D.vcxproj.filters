@@ -52,6 +52,9 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1ParticleSystem.cpp">
+      <Filter>Development  ========\Entities\Tools</Filter>
+   </ClCompile>
     <ClCompile Include="j1Viewport.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
     </ClCompile>
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Utilities ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ParticleSystem.h">
+      <Filter>Development  ========\Entities\Tools</Filter>
     </ClInclude>
     <ClInclude Include="j1Viewport.h">
       <Filter>Development  ========\Modules\Core</Filter>
