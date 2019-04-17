@@ -91,6 +91,8 @@ Aitor:
 - Player Movement
 - Player Aim
 - Character animations (implementation)
+- Player particle shooting
+- Particle system improvements (put to work)
 
 Didac:
 
@@ -104,3 +106,14 @@ Pol:
 Vladislav: 
 
 - Character animations in Tiled 
+- Basic Particle System (rough)
+
+Jacobo:
+
+- Initial Sprite Ordering implementation
+
+Oscar:
+
+- Main menus, working UI workflow
+- Pause menu
+- Placeholders (temporal art)
