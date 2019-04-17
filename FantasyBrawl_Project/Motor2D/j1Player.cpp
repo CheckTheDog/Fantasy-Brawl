@@ -360,7 +360,7 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		if (to_check->type == COLLIDER_TYPE::COLLIDER_STORM)
 		{
 			float damage = (float)App->arena_interactions->GetStormDebuff(int(ID));
-			App->buff->ApplyEffect(&App->buff->effects[3],this->Entityinfo.my_j1Entity,damage);
+			App->buff->ApplyEffect(&App->buff->effects[STORM],this->Entityinfo.my_j1Entity,damage);
 		}
 
 		Future_position.x = entitycollider->rect.x;

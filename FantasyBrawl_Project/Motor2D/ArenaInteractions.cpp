@@ -59,19 +59,13 @@ bool ArenaInteractions::Awake(pugi::xml_node & config)
 		storm_phases.push_back(ph);
 	}
 
+	active = false;
 
 	return true;
 }
 
 bool ArenaInteractions::Start()
 {
-	StartStorm();
-	storm_timer.Start();
-
-	for (int i = 0; i < 4; ++i)
-	{
-		storm_colliders[i] = App->coll->AddCollider({0,0,0,0},COLLIDER_TYPE::COLLIDER_STORM);
-	}
 
 	return true;
 }
@@ -136,8 +130,10 @@ int ArenaInteractions::GetStormDebuff(int ID)
 	else // In case we need to apply a debuff
 	{
 		std::list<stormPhase*>::const_iterator phase = storm_phases.cbegin();
+		
 		for (int i = 0; i < current_phase; i++)
 		{
+			if(current_phase < storm_phases.size())
 			phase++;
 		}
 
@@ -149,6 +145,8 @@ int ArenaInteractions::GetStormDebuff(int ID)
 
 void ArenaInteractions::StartStorm()
 {
+	//Activate the module!
+	active = true;
 	//Set position, width and height of the safe area (AKA eye of the storm)
 	safe_area.x = safe_area.y = 0;
 	map_size.x = safe_area.h = App->map->data.height * App->map->data.tile_height;
@@ -158,12 +156,35 @@ void ArenaInteractions::StartStorm()
 	storm_areas[(int)STORM_AREA::ABOVE].w = map_size.x;
 	storm_areas[(int)STORM_AREA::BELOW].w = map_size.x;
 
-	//Start the timers
+	//Create the colliders for the storm areas
+	for (int i = 0; i < 4; ++i)
+		storm_colliders[i] = App->coll->AddCollider({ 0,0,0,0 }, COLLIDER_TYPE::COLLIDER_STORM);
+	
+	//Start the timer
 	storm_timer.Start();
-	storm_update_ptimer.Start();
 
-	//Start the visual blend
+	//Start the ticks
 	BlendStormStart(s_between_blinks);
+}
+
+void ArenaInteractions::DestroyStorm()
+{
+	//Deactivate module Update and PostUpdate
+	active = false;
+
+	//Delete colliders
+	for (int i = 0; i < 4; ++i)
+	{
+		if (storm_colliders[i] != nullptr)
+		{
+			storm_colliders[i]->to_delete = true;
+			storm_colliders[i] = nullptr;
+		}
+
+		storm_areas[i] = { 0,0,0,0 };
+	}
+
+	current_phase = 0;
 }
 
 void ArenaInteractions::UpdateStorm(float dt)
@@ -205,8 +226,6 @@ void ArenaInteractions::UpdateStorm(float dt)
 
 		storm_areas[(int)STORM_AREA::RIGHT] = {safe_area.x + safe_area.w, safe_area.y,
 												map_size.x - (safe_area.x + safe_area.w), safe_area.h};
-
-		storm_update_ptimer.Start();
 
 		UpdateStormColliders();
 	}

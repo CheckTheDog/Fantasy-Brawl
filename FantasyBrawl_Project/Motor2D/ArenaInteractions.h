@@ -54,14 +54,15 @@ public: /// Functions
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
+	//This functions initializes and destroy the Storm
+	void StartStorm();
+	void DestroyStorm();
+
 	//Returns the damage received at the moment of the call
 	int GetStormDebuff(int ID);
 
 
 private: /// Functions
-
-	//This function initializes the Storm
-	void StartStorm();
 
 	//For now this will update the size and position of the storm
 	void UpdateStorm(float dt);
@@ -94,7 +95,6 @@ private: /// Variables
 	
 	//Storm timers ------
 	j1Timer storm_timer;
-	j1PerfTimer storm_update_ptimer;
 	//------
 	
 	//We will use an iPoint, x for width and y for height
