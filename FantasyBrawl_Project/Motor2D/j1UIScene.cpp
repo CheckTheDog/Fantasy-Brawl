@@ -144,17 +144,24 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/vs.png"), this);
 		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 275, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
-		UI_element* champion_button = App->gui->createButton(300 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
-		champion_button->function = INGAME;
+		UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
+		champion_button1->function = INGAME;
+
+		UI_element* champion_button2 = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 740,507,180,180 }, { 740,507,180,180 }, { 740,507,180,180 }, this);
+		UI_element* champion_button3 = App->gui->createButton(300 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 560,696,180,180 }, { 560,696,180,180 }, { 560,696,180,180 }, this);
+		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);
 
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
-		championSelection->elements.push_back(champion_button);
+		championSelection->elements.push_back(champion_button1);
+		championSelection->elements.push_back(champion_button2);
+		championSelection->elements.push_back(champion_button3);
+		championSelection->elements.push_back(champion_button4);
 		menus.push_back(championSelection);
 	}
 
@@ -296,6 +303,25 @@ bool j1UIScene::Update(float dt)
 			App->transition->menuTransition(START_MENU, 0.3f);
 			ret = true;
 		}
+	}
+
+
+	//PAUSING GAME WHILE ON MENUS
+	if (actual_menu == START_MENU)
+	{
+		App->on_GamePause = true;
+	}
+	else if (actual_menu == SETTINGS_MENU)
+	{
+		App->on_GamePause = true;
+	}
+	else if (actual_menu == SELECTION_MENU)
+	{
+		App->on_GamePause = true;
+	}
+	else if (actual_menu == INGAME_MENU)
+	{
+		App->on_GamePause = false;
 	}
 		
 	//UPDATING HP BARS POSITION
