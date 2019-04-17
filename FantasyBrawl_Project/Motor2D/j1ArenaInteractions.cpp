@@ -1,4 +1,4 @@
-#include "ArenaInteractions.h"
+#include "j1ArenaInteractions.h"
 #include "j1Render.h"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
@@ -6,16 +6,16 @@
 #include "j1App.h"
 #include "j1Collision.h"
 
-ArenaInteractions::ArenaInteractions() : j1Module()
+j1ArenaInteractions::j1ArenaInteractions() : j1Module()
 {
 	name.assign("arena_interactions");
 }
 
-ArenaInteractions::~ArenaInteractions()
+j1ArenaInteractions::~j1ArenaInteractions()
 {
 }
 
-bool ArenaInteractions::CleanUp()
+bool j1ArenaInteractions::CleanUp()
 {
 	for (std::list<stormPhase*>::iterator item = storm_phases.begin();
 		item != storm_phases.end(); item++)
@@ -36,7 +36,7 @@ bool ArenaInteractions::CleanUp()
 	return true;
 }
 
-bool ArenaInteractions::Awake(pugi::xml_node & config)
+bool j1ArenaInteractions::Awake(pugi::xml_node & config)
 {
 	// RGB values of the storm color, Alpha on "Blink", Speed, Time between blinks,
 	r = config.child("r").attribute("value").as_uint();
@@ -64,13 +64,13 @@ bool ArenaInteractions::Awake(pugi::xml_node & config)
 	return true;
 }
 
-bool ArenaInteractions::Start()
+bool j1ArenaInteractions::Start()
 {
 
 	return true;
 }
 
-bool ArenaInteractions::Update(float dt)
+bool j1ArenaInteractions::Update(float dt)
 {
 	
 	std::list<stormPhase*>::iterator phase_iterator = storm_phases.begin();
@@ -114,13 +114,13 @@ bool ArenaInteractions::Update(float dt)
 	return true;
 }
 
-bool ArenaInteractions::PostUpdate(float dt)
+bool j1ArenaInteractions::PostUpdate(float dt)
 {
 	DrawStorm();
 	return true;
 }
 
-int ArenaInteractions::GetStormDebuff(int ID)
+int j1ArenaInteractions::GetStormDamage(int ID)
 {
 	//If we don't need to apply any debuff (most cases)
 	if (damage_entity[ID] == false)
@@ -143,7 +143,7 @@ int ArenaInteractions::GetStormDebuff(int ID)
 	}
 }
 
-void ArenaInteractions::StartStorm()
+void j1ArenaInteractions::StartStorm()
 {
 	//Activate the module!
 	active = true;
@@ -164,10 +164,10 @@ void ArenaInteractions::StartStorm()
 	storm_timer.Start();
 
 	//Start the ticks
-	BlendStormStart(s_between_blinks);
+	StartStormTick(s_between_blinks);
 }
 
-void ArenaInteractions::DestroyStorm()
+void j1ArenaInteractions::DestroyStorm()
 {
 	//Deactivate module Update and PostUpdate
 	active = false;
@@ -191,19 +191,19 @@ void ArenaInteractions::DestroyStorm()
 	current_phase = 0;
 }
 
-void ArenaInteractions::PauseStorm()
+void j1ArenaInteractions::PauseStorm()
 {
 	storm_timer.Stop();
 	ticks_timer.Stop();
 }
 
-void ArenaInteractions::ContinueStorm()
+void j1ArenaInteractions::ContinueStorm()
 {
 	storm_timer.Continue();
 	ticks_timer.Continue();
 }
 
-void ArenaInteractions::UpdateStorm(float dt)
+void j1ArenaInteractions::UpdateStorm(float dt)
 {
 	if(safe_area.w > 0 && safe_area.h > 0)
 	{
@@ -215,7 +215,10 @@ void ArenaInteractions::UpdateStorm(float dt)
 			movement = accumulated_movement;
 			accumulated_movement -= 1;
 
-			px_moved++;
+			px_moved += movement;
+			
+			while (accumulated_movement > 1)
+				accumulated_movement -= 1;
 		}
 
 		//Update the safe area position
@@ -247,7 +250,7 @@ void ArenaInteractions::UpdateStorm(float dt)
 	}
 }
 
-void ArenaInteractions::DrawStorm()
+void j1ArenaInteractions::DrawStorm()
 {
 	///Iterate through the storm_areas and print them
 	//Time calculations for the blend
@@ -266,10 +269,10 @@ void ArenaInteractions::DrawStorm()
 
 	//If the blend finished restart it
 	if (now >= total_time)
-		BlendStormStart(s_between_blinks);
+		StartStormTick(s_between_blinks);
 }
 
-void ArenaInteractions::BlendStormStart(float time)
+void j1ArenaInteractions::StartStormTick(float time)
 {
 	//Initialize necessary variables to do the blending
 	ticks_timer.Start();
@@ -282,13 +285,13 @@ void ArenaInteractions::BlendStormStart(float time)
 
 }
 
-float ArenaInteractions::GetMovingTargetTime(int tiles_to_move)
+float j1ArenaInteractions::GetMovingTargetTime(int tiles_to_move)
 {
 	// Calculate the seconds it will take to move from one storm phase to the other
 	return ( (tiles_to_move * App->map->data.tile_width) / storm_speed);
 }
 
-void ArenaInteractions::UpdateStormColliders()
+void j1ArenaInteractions::UpdateStormColliders()
 {
 	for (int i = 0; i < 4; ++i)
 	{

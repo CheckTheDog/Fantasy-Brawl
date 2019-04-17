@@ -52,9 +52,6 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ArenaInteractions.cpp">
-      <Filter>Development  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClCompile>
     <ClCompile Include="j1BuffManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1ArenaInteractions.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,9 +156,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Utilities ===========</Filter>
     </ClInclude>
-    <ClInclude Include="ArenaInteractions.h">
-      <Filter>Development  ========\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="j1Gui.h">
       <Filter>Development  ========\Modules\UI</Filter>
     </ClInclude>
@@ -193,6 +190,9 @@
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClInclude>
     <ClInclude Include="j1BuffManager.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ArenaInteractions.h">
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>

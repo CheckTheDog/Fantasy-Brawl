@@ -1,5 +1,5 @@
-#ifndef __ARENAINTERACTIONS_H__
-#define __ARENAINTERACTIONS_H__
+#ifndef __j1ArenaInteractions_H__
+#define __j1ArenaInteractions_H__
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
@@ -36,13 +36,13 @@ enum class STORM_AREA
 	RIGHT
 };
 
-class ArenaInteractions : public j1Module
+class j1ArenaInteractions : public j1Module
 {
 public: /// Functions
 
 	//Constructor and Destructor
-	ArenaInteractions();
-	virtual ~ArenaInteractions();
+	j1ArenaInteractions();
+	virtual ~j1ArenaInteractions();
 
 	bool CleanUp();
 
@@ -60,7 +60,7 @@ public: /// Functions
 	void PauseStorm();
 	void ContinueStorm();
 	//Returns the damage received at the moment of the call
-	int GetStormDebuff(int ID);
+	int GetStormDamage(int ID);
 
 
 private: /// Functions
@@ -71,7 +71,7 @@ private: /// Functions
 	//This function does the alpha blending and prints the areas of Storm with the correct alpha
 	void DrawStorm();
 
-	void BlendStormStart(float time);
+	void StartStormTick(float time);
 
 	float GetMovingTargetTime(int tiles_to_move);
 
@@ -79,7 +79,7 @@ private: /// Functions
 
 public: /// Variables
 
-	// Amount of pixels the storm will move each 100 ms
+	// Amount of pixels the storm will move each second
 	int storm_speed;
 
 	float a = 0.0f;

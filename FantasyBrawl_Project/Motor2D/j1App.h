@@ -18,7 +18,7 @@ class j1Map;
 class j1PathFinding;
 class j1Collision;
 class j1EntityManager;
-class ArenaInteractions;
+class j1ArenaInteractions;
 class j1Fonts;
 class j1Gui;
 class j1Transition;
@@ -99,7 +99,7 @@ public:
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;
 	j1EntityManager*    entities = nullptr;
-	ArenaInteractions*  arena_interactions = nullptr;
+	j1ArenaInteractions*  arena_interactions = nullptr;
 	j1BuffManager*		buff = NULL;
 	j1Collision*        coll = nullptr;
 	j1Gui*				gui = NULL;

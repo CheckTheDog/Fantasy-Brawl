@@ -6,7 +6,7 @@
 #include "j1Render.h"
 #include "j1Audio.h"
 #include "j1Window.h"
-#include "ArenaInteractions.h"
+#include "j1ArenaInteractions.h"
 #include "p2Log.h"
 #include "j1Transition.h"
 #include "j1Input.h"
