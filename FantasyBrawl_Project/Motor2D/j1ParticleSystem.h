@@ -10,6 +10,7 @@
 #define MAX_PARTICLES 500
 
 struct SDL_Texture;
+class j1Player;
 
 struct Particle
 {
@@ -20,6 +21,7 @@ struct Particle
 	uint born = 0;
 	uint life;
 	uint delay = 0;
+	j1Player* originplayer;
 
 	fPoint GetPos()const;
 	Particle();
@@ -44,7 +46,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay);
+	void AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay, j1Player* porigin = nullptr);
 
 private:
 

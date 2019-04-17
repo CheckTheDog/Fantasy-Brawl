@@ -17,10 +17,7 @@ j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(
 {
 	basicDagger.anim.PushBack({ 0,0,28,18 });
 	basicDagger.anim.loop = true;
-	basicDagger.speed.y = 2.0f;
-	basicDagger.life = 1000;
-
-
+	basicDagger.life = 2500;
 }
 
 j1Player::~j1Player()
@@ -279,8 +276,17 @@ void j1Player::HandleInput()
 
 	//--------------
 
-	LOG("direction_x: %f", LJdirection_x);
-	LOG("direction_y: %f", LJdirection_y);
+	// --- Assign here all particles
+	basicDagger.speed.x = RJdirection_x * 300;
+	basicDagger.speed.y = RJdirection_y * 300;
+
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
+	{
+		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+	}
+
+	/*LOG("direction_x: %f", LJdirection_x);
+	LOG("direction_y: %f", LJdirection_y);*/
 }
 
 void j1Player::HandleAttacks(PLAYER ID)
@@ -297,6 +303,7 @@ void j1Player::HandleAttacks(PLAYER ID)
 
 		break;
 	case PLAYER::P4:
+
 		break;
 	default:
 		break;
@@ -320,16 +327,10 @@ bool j1Player::Update(float dt)
 
 	MoveY(dt);
 
+	// --- Check Particles Collision ---
+
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
-
-	basicDagger.speed.x = RJdirection_x * 300;
-	basicDagger.speed.y = RJdirection_y * 300;
-
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_DOWN))
-	{
-		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0);
-	}
 
 	return true;
 }
@@ -342,6 +343,7 @@ bool j1Player::PostUpdate(float dt)
 
 	return ret;
 }
+
 
 void j1Player::CheckCollision()
 {
