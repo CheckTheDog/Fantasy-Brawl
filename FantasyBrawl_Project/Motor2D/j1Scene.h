@@ -42,6 +42,13 @@ public:
 	// Change current map
 	bool ChangeMap(int destination_map_id);
 
+	void LoadLvl(int num = 0);
+
+public:
+
+	bool load_lvl = false;
+	int newLvl = 0;
+
 private:
 	SDL_Texture* debug_tex;
 
