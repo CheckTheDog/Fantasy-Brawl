@@ -4,6 +4,7 @@
 #include "j1PerfTimer.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1Viewport.h"
 #include "j1Collision.h"
 
 j1ArenaInteractions::j1ArenaInteractions() : j1Module()
@@ -264,7 +265,9 @@ void j1ArenaInteractions::DrawStorm()
 	{
 		// @JACOBO!!!! This DrawQuad will need to use the 4 screen DrawQuad function! nothing else,
 		// just use this values with whatever adaptation is needed! uwu
-		App->render->DrawQuad(storm_areas[i], r, g, b, (Uint8)(normalized * a));
+		//App->render->DrawQuad(storm_areas[i], r, g, b, (Uint8)(normalized * a));
+
+		App->view->LayerDrawQuad(storm_areas[i], r, g, b, (uint)(normalized * a), true);
 	}
 
 	//If the blend finished restart it
