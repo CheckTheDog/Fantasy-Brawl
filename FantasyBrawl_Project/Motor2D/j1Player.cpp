@@ -305,7 +305,6 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	//App->render->Blit(spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, &CurrentAnimation->GetCurrentFrame(dt));
 	App->view->PushQueue(4,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
 	return ret;
 }

@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Viewport.h"
+#include "j1Player.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -76,7 +77,7 @@ void j1Map::Draw()
 					}
 					else
 					{
-						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(7, tileset->texture, pos.x, pos.y, r);
 					}
 						
 
