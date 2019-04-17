@@ -78,5 +78,10 @@ public:
 	menu_id actual_menu = START_MENU;
 	bool ui_id1 = false;
 	bool ui_id2 = false;
+
+	UI_element* hp_bar1 = nullptr;
+	UI_element* hp_bar2 = nullptr;
+	UI_element* hp_bar3 = nullptr;
+	UI_element* hp_bar4 = nullptr;
 };
 #endif // !__j1UISCENE_H__ 

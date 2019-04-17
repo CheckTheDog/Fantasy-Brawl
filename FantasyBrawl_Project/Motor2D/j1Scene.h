@@ -52,6 +52,7 @@ public:
 	j1Player* player1 = nullptr;
 	j1Player* player2 = nullptr;
 
+
 private:
 	SDL_Texture* debug_tex;
 

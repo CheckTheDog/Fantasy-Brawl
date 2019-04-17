@@ -119,9 +119,22 @@ bool j1UIScene::Start()
 
 	menu* ingameMenu = new menu(INGAME_MENU);
 	{
-		UI_element* hp_bar = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 428, 209, 27}, this);
+		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 428, 209, 27}, this);
+		hp_bar1 = hp_bar_player1;
 
-		ingameMenu->elements.push_back(hp_bar);
+		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		hp_bar2 = hp_bar_player2;
+
+		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		hp_bar3 = hp_bar_player3;
+
+		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		hp_bar4 = hp_bar_player4;
+
+		ingameMenu->elements.push_back(hp_bar_player1);
+		ingameMenu->elements.push_back(hp_bar_player2);
+		ingameMenu->elements.push_back(hp_bar_player3);
+		ingameMenu->elements.push_back(hp_bar_player4);
 		menus.push_back(ingameMenu);
 
 	}
@@ -282,7 +295,15 @@ bool j1UIScene::Update(float dt)
 		}
 	}
 		
-
+	//UPDATING HP BARS POSITION
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
+	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;
+	/*hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
+	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;*/
 
 	
 
