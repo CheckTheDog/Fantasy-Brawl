@@ -58,13 +58,28 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-				/*	if ((pos.x + data.tile_width)*App->win->GetScale() >= -App->render->camera.x && pos.x <= -App->render->camera.x + App->render->camera.w
-						&& (pos.y + data.tile_height)*App->win->GetScale() >= -App->render->camera.y && pos.y <= -App->render->camera.y + App->render->camera.h)
-					{*/
-						//App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					if (layer->name == "ground")
+					{
 						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layer->name == "beauty_1" || layer->name == "beauty_2")
+					{
+						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layer->name == "shadows_1")
+					{
+						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layer->name == "walls")
+					{
+						App->view->PushQueue(5, tileset->texture, pos.x, pos.y, r);
+					}
+					else
+					{
+						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
+					}
 						
-					//}
+
 				}
 			}
 		}
