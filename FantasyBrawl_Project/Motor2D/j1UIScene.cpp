@@ -313,7 +313,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
-			App->arena_interactions->StartStorm();
+			//App->arena_interactions->StartStorm();
 			break;
 		}
 		case RESTART:
@@ -354,7 +354,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (actual_menu == PAUSE_MENU)
 			{
 				App->on_GamePause = false;
-				App->arena_interactions->DestroyStorm();
+				//App->arena_interactions->DestroyStorm();
 				App->transition->menuTransition(START_MENU, 0.3);
 				actual_menu = START_MENU;
 			}
