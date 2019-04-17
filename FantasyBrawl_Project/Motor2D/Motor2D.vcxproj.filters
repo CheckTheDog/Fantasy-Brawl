@@ -53,7 +53,7 @@
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1ParticleSystem.cpp">
-      <Filter>Development  ========\Modules</Filter>
+      <Filter>Development  ========\Entities\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +124,7 @@
       <Filter>Utilities ===========</Filter>
     </ClInclude>
     <ClInclude Include="j1ParticleSystem.h">
-      <Filter>Development  ========\Modules</Filter>
+      <Filter>Development  ========\Entities\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
