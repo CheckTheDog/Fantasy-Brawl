@@ -54,10 +54,11 @@ public: /// Functions
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
-	//This functions initializes and destroy the Storm
+	//This functions initialize, halt and destroy the Storm
 	void StartStorm();
 	void DestroyStorm();
-
+	void PauseStorm();
+	void ContinueStorm();
 	//Returns the damage received at the moment of the call
 	int GetStormDebuff(int ID);
 
@@ -95,14 +96,15 @@ private: /// Variables
 	
 	//Storm timers ------
 	j1Timer storm_timer;
+	j1Timer ticks_timer;
 	//------
 	
 	//We will use an iPoint, x for width and y for height
 	iPoint map_size;
 
 	//Start and total time for storm areas color blending purposes
-	Uint32 start_time = 0;
-	Uint32 total_time = 0;
+	float start_time = 0;
+	float total_time = 0;
 	float s_between_blinks;
 
 	/// DAMAGE & STORM related data -----------------------------

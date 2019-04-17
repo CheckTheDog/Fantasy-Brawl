@@ -184,7 +184,23 @@ void ArenaInteractions::DestroyStorm()
 		storm_areas[i] = { 0,0,0,0 };
 	}
 
+	//In case the storm was stopped
+	ticks_timer.Continue();
+	storm_timer.Continue();
+
 	current_phase = 0;
+}
+
+void ArenaInteractions::PauseStorm()
+{
+	storm_timer.Stop();
+	ticks_timer.Stop();
+}
+
+void ArenaInteractions::ContinueStorm()
+{
+	storm_timer.Continue();
+	ticks_timer.Continue();
 }
 
 void ArenaInteractions::UpdateStorm(float dt)
@@ -235,8 +251,8 @@ void ArenaInteractions::DrawStorm()
 {
 	///Iterate through the storm_areas and print them
 	//Time calculations for the blend
-	Uint32 now = SDL_GetTicks() - start_time;
-	float normalized = MIN(0.5f, (float)now / (float)total_time);
+	float now = ticks_timer.ReadSec() - start_time;
+	float normalized = MIN(0.5f, now / (float)total_time);
 
 	normalized = 1.0f - normalized;
 
@@ -256,8 +272,9 @@ void ArenaInteractions::DrawStorm()
 void ArenaInteractions::BlendStormStart(float time)
 {
 	//Initialize necessary variables to do the blending
-	start_time = SDL_GetTicks();
-	total_time = (Uint32)(time * 1000.0f);
+	ticks_timer.Start();
+	start_time = ticks_timer.ReadSec();
+	total_time = time;
 
 	//Set all booleans to hurt players to true
 	for (int i = 0; i < ENTITIES_TO_HURT; ++i)

@@ -257,6 +257,7 @@ bool j1UIScene::Update(float dt)
 			App->on_GamePause = true;
 			actual_menu = PAUSE_MENU;
 			App->transition->menuTransition(PAUSE_MENU);
+			App->arena_interactions->PauseStorm();
 			ret = true;
 
 		}
@@ -265,6 +266,7 @@ bool j1UIScene::Update(float dt)
 			App->on_GamePause = false;
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU);
+			App->arena_interactions->ContinueStorm();
 			ret = true;
 
 		}
