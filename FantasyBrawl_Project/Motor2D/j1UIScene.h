@@ -79,9 +79,15 @@ public:
 	bool ui_id1 = false;
 	bool ui_id2 = false;
 
+	//PLAYER BARS
 	UI_element* hp_bar1 = nullptr;
 	UI_element* hp_bar2 = nullptr;
 	UI_element* hp_bar3 = nullptr;
 	UI_element* hp_bar4 = nullptr;
+
+	UI_element* sp_bar1 = nullptr;
+	UI_element* sp_bar2 = nullptr;
+	UI_element* sp_bar3 = nullptr;
+	UI_element* sp_bar4 = nullptr;
 };
 #endif // !__j1UISCENE_H__ 
