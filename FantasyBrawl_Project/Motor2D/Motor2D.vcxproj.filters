@@ -54,6 +54,7 @@
     </ClCompile>
     <ClCompile Include="j1Viewport.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
+    </ClCompile>
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
@@ -157,6 +158,7 @@
     </ClInclude>
     <ClInclude Include="j1Viewport.h">
       <Filter>Development  ========\Modules\Core</Filter>
+    </ClInclude>
     <ClInclude Include="j1Gui.h">
       <Filter>Development  ========\Modules\UI</Filter>
     </ClInclude>
