@@ -24,6 +24,7 @@ struct Particle
 	uint delay = 0;
 	j1Player* originplayer;
 	Effect* particle_effect = nullptr;
+	float angle = 0.0f;
 
 	fPoint GetPos()const;
 	Particle();

@@ -91,6 +91,12 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	player1info.playerrect = { x,y,w,h };
 
+	// --- P1 Particles ---
+	player1info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
+	player1info.characterdata.basic_attack.anim.loop = true;
+	player1info.characterdata.basic_attack.life = 2500;
+	player1info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+
 	// --------------------
 
 	// --- Player 2 Awake ---

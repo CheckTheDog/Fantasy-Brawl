@@ -72,7 +72,8 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			App->view->PushQueue(4,pSprites, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt));
+			App->view->PushQueue(4,pSprites, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt),0,0,p->angle);
+			LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
 		}
 	}
@@ -93,6 +94,7 @@ void j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TY
 			p->delay = delay;
 			p->originplayer = porigin;
 			p->particle_effect = &App->buff->effects[3];
+			p->angle = particle.angle - 180.0f;
 
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);

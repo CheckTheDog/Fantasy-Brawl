@@ -82,11 +82,11 @@ bool j1Player::Start()
 	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
 	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
-	// --- P1 Particles ---
-	basicDagger.anim.PushBack({ 0,0,28,18 });
-	basicDagger.anim.loop = true;
-	basicDagger.life = 2500;
-	basicDagger.particle_effect = &App->buff->effects[3];
+	//// --- P1 Particles ---
+	//playerinfo.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
+	//playerinfo.characterdata.basic_attack.anim.loop = true;
+	//playerinfo.characterdata.basic_attack.life = 2500;
+	//playerinfo.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
 
 	return true;
 }
@@ -255,10 +255,6 @@ void j1Player::HandleInput()
 	else
 		LJdirection_y = (LJAxisy_value) / AXISMAX;
 
-	//if (abs(LJdirection_x) < multipliermin)
-	//	LJdirection_x = 0.0f;
-	//if (abs(LJdirection_y) < multipliermin)
-	//	LJdirection_y = 0.0f;
 
 	// --- LOGIC: Right Joystick ---
 
@@ -275,16 +271,14 @@ void j1Player::HandleInput()
 	else
 		RJdirection_y = (RJAxisy_value) / AXISMAX;
 
-	//if (abs(RJdirection_x) < multipliermin)
-	//	RJdirection_x = 0.0f;
-	//if (abs(RJdirection_y) < multipliermin)
-	//	RJdirection_y = 0.0f;
-
 	//--------------
 
-	// --- Assign here all particles
-	basicDagger.speed.x = RJdirection_x * 300;
-	basicDagger.speed.y = RJdirection_y * 300;
+	// --- Assign speed to all particles ---
+	playerinfo.characterdata.basic_attack.speed.x = RJdirection_x * 300;
+	playerinfo.characterdata.basic_attack.speed.y = RJdirection_y * 300;
+	playerinfo.characterdata.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI);
+
+	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
 
 	/*LOG("direction_x: %f", LJdirection_x);
 	LOG("direction_y: %f", LJdirection_y);*/
@@ -501,7 +495,7 @@ void j1Player::LogicUpdate(float dt)
 
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
 	{
-		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 	}
 
 	PlayerState = PSTATE::IDLE;

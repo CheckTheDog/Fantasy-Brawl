@@ -11,6 +11,12 @@ enum class PLAYER;
 
 #define JOYSTICK_DEAD_ZONE 8000
 
+struct CharacterData
+{
+	Particle basic_attack;
+	Particle super_attack;
+};
+
 struct Playerdata {
 
 	Animation* idleRight = nullptr;
@@ -44,6 +50,9 @@ struct Playerdata {
 	std::string Texture;
 
 	SDL_Rect playerrect = { 0,0,0,0 };
+
+	// --- Characters ---
+	CharacterData characterdata;
 };
 
 enum class MOVEMENT
@@ -151,9 +160,6 @@ public:
 	
 	// --- Collisions ---
 	SDL_Rect Intersection = { 0,0,0,0 };
-
-	// --- Particles ---
-	Particle basicDagger;
 
 };
 
