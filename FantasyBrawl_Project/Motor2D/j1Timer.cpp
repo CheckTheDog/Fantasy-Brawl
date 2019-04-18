@@ -27,5 +27,20 @@ uint32 j1Timer::Read() const
 // ---------------------------------------------
 float j1Timer::ReadSec() const
 {
-	return float(SDL_GetTicks() - started_at) / 1000.0f;
+	if (stopped == false)
+		return float(SDL_GetTicks() - started_at) / 1000.0f;
+	else
+		return stopped_read / 1000.0f;
+}
+
+void j1Timer::Stop()
+{
+	stopped = true;
+	stopped_read = SDL_GetTicks() - started_at;
+}
+
+void j1Timer::Continue()
+{
+	stopped = false;
+	started_at = SDL_GetTicks() - stopped_read;
 }
