@@ -116,6 +116,8 @@ public:
 
 	void Down_Collision(Collider* entitycollider, const Collider* to_check);
 
+	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
+
 	// --- Entity Attacks ---
 
 	void HandleAttacks(PLAYER ID);
@@ -151,9 +153,8 @@ public:
 	SDL_Rect Intersection = { 0,0,0,0 };
 
 	// --- Particles ---
-
 	Particle basicDagger;
-	Animation* currAnim;
+
 };
 
 #endif // __j1Player_H__

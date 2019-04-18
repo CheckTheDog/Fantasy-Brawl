@@ -12,13 +12,12 @@
 #include "j1ParticleSystem.h"
 #include "j1Audio.h"
 #include "j1Viewport.h"
+#include "j1BuffManager.h"
 
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
-	basicDagger.anim.PushBack({ 0,0,28,18 });
-	basicDagger.anim.loop = true;
-	basicDagger.life = 2500;
+
 }
 
 j1Player::~j1Player()
@@ -83,6 +82,12 @@ bool j1Player::Start()
 	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
 	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
+	// --- P1 Particles ---
+	basicDagger.anim.PushBack({ 0,0,28,18 });
+	basicDagger.anim.loop = true;
+	basicDagger.life = 2500;
+	basicDagger.particle_effect = &App->buff->effects[3];
+
 	return true;
 }
 
@@ -124,7 +129,7 @@ void j1Player::GetAttackAnimation()
 		CurrentAnimation = playerinfo.attackRight;
 
 	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
-		|| InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_start2, manager->animranges.AnimationRangeLeft_end2))
+		|| InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
 		CurrentAnimation = playerinfo.attackLeft;
 
 	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
@@ -152,7 +157,7 @@ void j1Player::GetMovementAnimation()
 		CurrentAnimation = playerinfo.moveRight;
 
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
-		|| InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_start2, manager->animranges.AnimationRangeLeft_end2))
+		|| InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
 		 	CurrentAnimation = playerinfo.moveLeft;
 		 
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
@@ -281,11 +286,6 @@ void j1Player::HandleInput()
 	basicDagger.speed.x = RJdirection_x * 300;
 	basicDagger.speed.y = RJdirection_y * 300;
 
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
-	{
-		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	}
-
 	/*LOG("direction_x: %f", LJdirection_x);
 	LOG("direction_y: %f", LJdirection_y);*/
 }
@@ -319,16 +319,17 @@ bool j1Player::Update(float dt)
 	if (abs(LJAxisx_value) > JOYSTICK_DEAD_ZONE 
 		|| abs(LJAxisy_value) > JOYSTICK_DEAD_ZONE
 		|| abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
-		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE)
+		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE
+		)
 		HandleAnimations();
-	else
+	
+	if (PlayerState == PSTATE::IDLE)
 		GetIdleAnimation();
 
 	MoveX(dt);
 
 	MoveY(dt);
 
-	// --- Check Particles Collision ---
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
@@ -374,7 +375,6 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			EntityMovement = MOVEMENT::UPWARDS;
 		break;
 	}
-
 	
 		switch (EntityMovement)
 		{
@@ -392,6 +392,9 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			break;
 		}
 
+		if (to_check->type == COLLIDER_TYPE::COLLIDER_PARTICLE)
+			CheckParticleCollision(entitycollider, to_check);
+
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
 }
@@ -405,9 +408,6 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
-		break;
 	}
 }
 
@@ -419,9 +419,6 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
-		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
 		break;
 	}
 }
@@ -435,9 +432,6 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
-		break;
 	}
 }
 
@@ -450,11 +444,19 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
-		break;
 	}
 
+}
+
+void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider * to_check)
+{
+	Particle* pcollided = App->particlesys->GetCollidedParticle(entitycollider,to_check);
+
+	if (pcollided && pcollided->originplayer != this)
+	{
+		App->buff->ApplyEffect(pcollided->particle_effect, this);
+		LOG("player life: %f", this->Entityinfo.health);
+	}
 }
 
 
@@ -496,6 +498,13 @@ void j1Player::LogicUpdate(float dt)
 	// --- Update we may not do every frame ---
 
 	EntityMovement = MOVEMENT::STATIC;
+
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
+	{
+		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+	}
+
+	PlayerState = PSTATE::IDLE;
 
 	Update(dt);
 }

@@ -27,11 +27,12 @@ enum Attribute // All the attributes that entities have
 	SPEED
 };
 
-enum Effects  // Enum of all the current existing EFFECTS
+enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML (ID'S MUST MATCH)
 {
 	HEAL,
 	POISON,
-	WAR_CRY
+	WAR_CRY,
+	HURT
 };
 
 

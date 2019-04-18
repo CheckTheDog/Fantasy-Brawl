@@ -7,6 +7,7 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
+#include "j1BuffManager.h"
 
 j1EntityManager::j1EntityManager() : j1Module()
 {

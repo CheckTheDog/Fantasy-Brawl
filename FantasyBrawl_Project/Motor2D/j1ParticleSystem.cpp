@@ -6,6 +6,7 @@
 #include "p2Log.h"
 #include "j1Player.h"
 #include "j1Viewport.h"
+#include "j1BuffManager.h"
 
 #include "SDL/include//SDL_timer.h"
 
@@ -91,6 +92,8 @@ void j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TY
 			p->pos.y = y;
 			p->delay = delay;
 			p->originplayer = porigin;
+			p->particle_effect = &App->buff->effects[3];
+
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
 				active[i] = p;
@@ -99,6 +102,34 @@ void j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TY
 		}
 	}
 	
+}
+
+Particle * j1ParticleSystem::GetCollidedParticle(Collider* entitycollider, const Collider * particlecollider)
+{
+	Particle* to_return = nullptr;
+
+	for (uint i = 0; i < MAX_PARTICLES; ++i)
+	{
+		if (active[i] != nullptr)
+		{
+			if (active[i]->pCol == particlecollider)
+			{
+				to_return = active[i];
+				break;
+			}
+		}
+	}
+
+	if (to_return && to_return->originplayer != nullptr)
+	{
+		if (entitycollider != to_return->originplayer->Entityinfo.entitycoll)
+		{
+			to_return->toDelete = true;
+		}
+	}
+
+
+	return to_return;
 }
 
 void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
@@ -114,17 +145,17 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 				//AddParticle(explosion, active[i]->position.x, active[i]->position.y);
 				/*delete active[i];
 				active[i] = nullptr;*/
-			if (active[i]->originplayer != nullptr)
-			{
-				if (c2 != active[i]->originplayer->Entityinfo.entitycoll)
-				{
-					active[i]->toDelete = true;
-				}
-			}
-			else
-			{
-				active[i]->toDelete = true;
-			}
+			//if (active[i]->originplayer != nullptr)
+			//{
+			//	if (c2 != active[i]->originplayer->Entityinfo.entitycoll)
+			//	{
+			//		active[i]->toDelete = true;
+			//	}
+			//}
+			
+			if(c2->type != COLLIDER_TYPE::COLLIDER_PLAYER)
+			active[i]->toDelete = true;
+			
 
 			if (active[i]->toDelete) {
 				active[i]->pCol->to_delete = true;
@@ -189,6 +220,9 @@ bool Particle::Update(float dt)
 	if (pCol != nullptr) {
 		pCol->SetPos(pos.x, pos.y);
 	}
+
+	if (this->toDelete)
+		ret = false;
 
 	return ret;
 }

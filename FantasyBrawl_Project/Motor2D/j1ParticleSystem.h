@@ -11,6 +11,7 @@
 
 struct SDL_Texture;
 class j1Player;
+struct Effect;
 
 struct Particle
 {
@@ -22,6 +23,7 @@ struct Particle
 	uint life;
 	uint delay = 0;
 	j1Player* originplayer;
+	Effect* particle_effect = nullptr;
 
 	fPoint GetPos()const;
 	Particle();
@@ -47,6 +49,8 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	void AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay, j1Player* porigin = nullptr);
+
+	Particle* GetCollidedParticle(Collider* entitycollider, const Collider* particlecollider);
 
 private:
 
