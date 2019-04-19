@@ -11,9 +11,10 @@
 #include "j1EntityManager.h"
 #include "j1ParticleSystem.h"
 #include "j1Audio.h"
+#include "j1BuffManager.h"
+#include "j1ArenaInteractions.h"
 #include "j1Viewport.h"
 #include "j1BuffManager.h"
-
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -409,6 +410,12 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 
 		if (to_check->type == COLLIDER_TYPE::COLLIDER_PARTICLE)
 			CheckParticleCollision(entitycollider, to_check);
+
+		if (to_check->type == COLLIDER_TYPE::COLLIDER_STORM)
+		{
+			float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
+			App->buff->ApplyEffect(&App->buff->effects[STORM],this->Entityinfo.my_j1Entity,damage);
+		}
 
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;

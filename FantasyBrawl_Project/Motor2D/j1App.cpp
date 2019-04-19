@@ -15,6 +15,7 @@
 #include "j1Collision.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1ArenaInteractions.h"
 #include "j1ParticleSystem.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
@@ -40,6 +41,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	coll = new j1Collision();
 	entities = new j1EntityManager();
+	arena_interactions = new j1ArenaInteractions();
 	buff = new j1BuffManager();
 	pathfinding = new j1PathFinding();
 	particlesys = new j1ParticleSystem();
@@ -60,6 +62,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(coll);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(arena_interactions);
+
 	AddModule(particlesys);
 	AddModule(pathfinding);
 	
@@ -248,12 +252,13 @@ void j1App::FinishUpdate()
 	}
 
 	float avg_fps = float(frame_count) / startup_time.ReadSec();
+
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu",
 		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 

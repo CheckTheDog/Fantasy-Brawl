@@ -347,6 +347,7 @@ j1Entity* const j1EntityManager::CreateEntity(entity_type entitytype, entity_inf
 	}
 
 	entity->Init(this);
+	entity->Entityinfo.my_j1Entity = entity; // Assign our own j1Entity for buff manager purposes
 	entity->Start();
 	entities.push_back(entity);
 	return(entity);

@@ -32,7 +32,8 @@ enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML
 	HEAL,
 	POISON,
 	WAR_CRY,
-	HURT
+	HURT,
+	STORM
 };
 
 
@@ -91,6 +92,7 @@ public:
 	bool CleanUp();
 
 	void ApplyEffect(Effect* effect, j1Entity *entity);
+	void ApplyEffect(Effect* effect, j1Entity *entity, float edited_bonus);
 
 	void DoMath(float &att_value, float bonus, EffectMethod method, EffectType eff_type);
 	void RestartAttribute(Effect* effect, j1Entity *entity);

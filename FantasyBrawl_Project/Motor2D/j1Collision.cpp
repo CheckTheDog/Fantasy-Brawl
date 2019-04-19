@@ -15,17 +15,24 @@ j1Collision::j1Collision()
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
-
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
-	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = true;
 
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
+
 }
 
 j1Collision::~j1Collision()
@@ -126,6 +133,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_TYPE::COLLIDER_PLAYER: // green
 			App->render->DrawQuad((*item)->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_TYPE::COLLIDER_STORM: // green
+			App->render->DrawQuad((*item)->rect, 255, 255, 0, alpha);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PARTICLE:
 			App->render->DrawQuad((*item)->rect, 0, 0, 255, alpha);

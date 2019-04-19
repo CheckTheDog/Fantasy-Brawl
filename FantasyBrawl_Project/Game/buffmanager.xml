@@ -8,4 +8,6 @@
 
   <effect id ="3" name="hurt" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="20" duration_value="0"></effect>
   
+  <effect id ="3" name="storm" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="0" duration_value ="0" />
+  
 </buff_manager>

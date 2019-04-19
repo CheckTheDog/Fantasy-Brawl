@@ -154,6 +154,55 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 
 }
 
+void j1BuffManager::ApplyEffect(Effect * effect, j1Entity * entity, float edited_bonus)
+{
+	if (effect->duration_type == PERMANENT)
+	{
+		switch (effect->attribute_to_change)
+		{
+		case HEALTH:
+			DoMath(entity->Entityinfo.health, edited_bonus, effect->method, effect->type);
+			DoMath(entity->Entityinfo.og_health, edited_bonus, effect->method, effect->type);
+			break;
+
+		case STRENGTH:
+			DoMath(entity->Entityinfo.strength, edited_bonus, effect->method, effect->type);
+			DoMath(entity->Entityinfo.og_strength, edited_bonus, effect->method, effect->type);
+			break;
+		}
+	}
+	else if (effect->duration_type == TEMPORARY) // we have to put manually every NEW EFFECT that has a TIMER (and create the timer in entity.h or in this case in Player.h)
+	{
+		switch (effect->attribute_to_change)
+		{
+		case HEALTH:
+			if (effect->name == effects[HEAL].name)
+			{
+				if (entity->Entityinfo.heal_active == false)
+				{
+					DoMath(entity->Entityinfo.health, edited_bonus, effect->method, effect->type);
+					entity->Entityinfo.heal_active = true;
+				}
+				entity->Entityinfo.healing.Start(); // timer starts
+			}
+			break;
+
+		case STRENGTH:
+
+			if (effect->name == effects[WAR_CRY].name)
+			{
+				if (entity->Entityinfo.war_cry_active == false)
+				{
+					DoMath(entity->Entityinfo.strength, edited_bonus, effect->method, effect->type);
+					entity->Entityinfo.war_cry_active = true;
+				}
+				entity->Entityinfo.war_cry.Start();
+			}
+			break;
+		}
+	}
+}
+
 void j1BuffManager::DoMath(float &att_value, float bonus, EffectMethod method, EffectType eff_type)
 {
 	if (eff_type == BUFF)
