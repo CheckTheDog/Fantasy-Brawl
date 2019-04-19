@@ -4,12 +4,18 @@
 #include "p2Point.h"
 #include "j1Entity.h"
 #include "j1ParticleSystem.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
 
 #define JOYSTICK_DEAD_ZONE 8000
+
+struct CharacterData
+{
+	Particle basic_attack;
+};
 
 struct Playerdata {
 
@@ -44,6 +50,9 @@ struct Playerdata {
 	std::string Texture;
 
 	SDL_Rect playerrect = { 0,0,0,0 };
+
+	// --- Characters ---
+	CharacterData characterdata;
 };
 
 enum class MOVEMENT
@@ -116,9 +125,12 @@ public:
 
 	void Down_Collision(Collider* entitycollider, const Collider* to_check);
 
+	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
+
 	// --- Entity Attacks ---
 
-	void HandleAttacks(PLAYER ID);
+	void HandleSuperAttacks(PLAYER ID);
+	void Launch1stSuper();
 
 public:
 
@@ -150,10 +162,11 @@ public:
 	// --- Collisions ---
 	SDL_Rect Intersection = { 0,0,0,0 };
 
-	// --- Particles ---
-
-	Particle basicDagger;
-	Animation* currAnim;
+	// --- Timers ---
+	j1Timer superTimer;
+	j1Timer shieldTimer;
+	j1Timer shieldDuration;
+	bool shieldON = false;
 };
 
 #endif // __j1Player_H__

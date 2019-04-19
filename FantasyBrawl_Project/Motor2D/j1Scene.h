@@ -44,19 +44,30 @@ public:
 
 	void LoadLvl(int num = 0);
 
+	// --- Reset everything for new game ---
+	void ResetAll();
+
 public:
 
 	bool load_lvl = false;
 	int newLvl = 0;
 
+	// --- Players ---
+	j1Player* player1 = nullptr;
+	j1Player* player2 = nullptr;
+	j1Player* player3 = nullptr;
+	j1Player* player4 = nullptr;
+
+	fPoint initialposP1 = { 0.0f,0.0f };
+	fPoint initialposP2 = { 0.0f,0.0f };
+	fPoint initialposP3 = { 0.0f,0.0f };
+	fPoint initialposP4 = { 0.0f,0.0f };
+
+
 private:
 	SDL_Texture* debug_tex;
 
 	std::vector <std::string*> StageList;
-
-	// --- Player pointers ---
-	j1Player* player1 = nullptr;
-	j1Player* player2 = nullptr;
 };
 
 #endif // __j1SCENE_H__

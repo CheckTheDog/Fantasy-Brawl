@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 #include <vector>
+#include "j1Map.h"
 
 j1Viewport::j1Viewport()
 {
@@ -26,7 +27,7 @@ bool j1Viewport::Start()
 {
 	bool ret = true;
 
-	number_of_views = 1;
+	number_of_views = 4;
 	scale = 2.0f;
 
 	App->win->GetWindowSize(win_w, win_h);
@@ -238,6 +239,61 @@ void j1Viewport::ResetScreens()
 
 	screen_4.x = 0;
 	screen_4.y = 0;
+}
+
+void j1Viewport::KeepCameraOnBounds(int id)
+{
+
+	switch (id)
+	{
+	case 1:
+		if (-screen_1.x < 0)
+			screen_1.x = 0;
+		else if (-screen_1.x > App->map->data.width*App->map->data.tile_width - win_w/2)
+			screen_1.x = (float)-App->map->data.width*App->map->data.tile_width + win_w/2;
+
+		if (-screen_1.y < 0)
+			screen_1.y = 0;
+		else if (-screen_1.y > App->map->data.height*App->map->data.tile_height - win_h / 2)
+			screen_1.y = (float)-App->map->data.height*App->map->data.tile_height + win_h / 2;
+		break;
+
+	case 2:
+		if (-screen_2.x < 0)
+			screen_2.x = 0;
+		else if (-screen_2.x > (App->map->data.width)*App->map->data.tile_width - win_w / 2)
+			screen_2.x = (float)-App->map->data.width*App->map->data.tile_width + win_w / 2;
+
+		if (-screen_2.y < 0)
+			screen_2.y = 0;
+		else if (-screen_2.y > App->map->data.height*App->map->data.tile_height - win_h / 2)
+			screen_2.y = (float)-App->map->data.height*App->map->data.tile_height + win_h / 2;
+		break;
+
+	case 3:
+		if (-screen_3.x < 0)
+			screen_3.x = 0;
+		else if (-screen_3.x > App->map->data.width*App->map->data.tile_width - win_w / 2)
+			screen_3.x = (float)-App->map->data.width*App->map->data.tile_width + win_w / 2;
+
+		if (-screen_3.y < 0)
+			screen_3.y = 0;
+		else if (-screen_3.y > App->map->data.height*App->map->data.tile_height - win_h / 2)
+			screen_3.y = (float)-App->map->data.height*App->map->data.tile_height + win_h / 2;
+		break;
+
+	case 4:
+		if (-screen_4.x < 0)
+			screen_4.x = 0;
+		else if (-screen_4.x > App->map->data.width*App->map->data.tile_width - win_w / 2)
+			screen_4.x = (float)-App->map->data.width*App->map->data.tile_width + win_w / 2;
+
+		if (-screen_4.y < 0)
+			screen_4.y = 0;
+		else if (-screen_4.y > App->map->data.height*App->map->data.tile_height - win_h / 2)
+			screen_4.y = (float)-App->map->data.height*App->map->data.tile_height + win_h / 2;
+		break;
+	}
 }
 
 iPoint j1Viewport::GetScreenPosition(uint id)

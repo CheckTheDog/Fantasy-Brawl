@@ -5,7 +5,9 @@
   <effect id="1" name="shield" type="BUFF" duration_type="TEMPORARY" method="ADD" att_to_change="HEALTH" bonus="10" duration_value="10"></effect>
 
   <effect id ="2" name="war_cry" type="BUFF" duration_type="TEMPORARY" method="ADD" att_to_change="STRENGTH" bonus="50" duration_value="10"></effect>
+
+  <effect id ="3" name="hurt" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="20" duration_value="0"></effect>
   
-  <effect id ="3" name="storm" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="0" duration_value ="0" />
+  <effect id ="4" name="storm" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="0" duration_value ="0" />
   
 </buff_manager>

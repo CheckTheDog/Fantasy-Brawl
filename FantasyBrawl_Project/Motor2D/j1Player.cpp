@@ -14,12 +14,11 @@
 #include "j1BuffManager.h"
 #include "j1ArenaInteractions.h"
 #include "j1Viewport.h"
+#include "j1BuffManager.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
-	basicDagger.anim.PushBack({ 0,0,28,18 });
-	basicDagger.anim.loop = true;
-	basicDagger.life = 2500;
+
 }
 
 j1Player::~j1Player()
@@ -84,6 +83,15 @@ bool j1Player::Start()
 	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
 	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
+	//// --- P1 Particles ---
+	//playerinfo.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
+	//playerinfo.characterdata.basic_attack.anim.loop = true;
+	//playerinfo.characterdata.basic_attack.life = 2500;
+	//playerinfo.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+
+	superTimer.Start();
+	shieldTimer.Start();
+
 	return true;
 }
 
@@ -125,7 +133,7 @@ void j1Player::GetAttackAnimation()
 		CurrentAnimation = playerinfo.attackRight;
 
 	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
-		|| InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_start2, manager->animranges.AnimationRangeLeft_end2))
+		|| InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
 		CurrentAnimation = playerinfo.attackLeft;
 
 	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
@@ -153,7 +161,7 @@ void j1Player::GetMovementAnimation()
 		CurrentAnimation = playerinfo.moveRight;
 
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
-		|| InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_start2, manager->animranges.AnimationRangeLeft_end2))
+		|| InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
 		 	CurrentAnimation = playerinfo.moveLeft;
 		 
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
@@ -251,10 +259,6 @@ void j1Player::HandleInput()
 	else
 		LJdirection_y = (LJAxisy_value) / AXISMAX;
 
-	//if (abs(LJdirection_x) < multipliermin)
-	//	LJdirection_x = 0.0f;
-	//if (abs(LJdirection_y) < multipliermin)
-	//	LJdirection_y = 0.0f;
 
 	// --- LOGIC: Right Joystick ---
 
@@ -271,44 +275,54 @@ void j1Player::HandleInput()
 	else
 		RJdirection_y = (RJAxisy_value) / AXISMAX;
 
-	//if (abs(RJdirection_x) < multipliermin)
-	//	RJdirection_x = 0.0f;
-	//if (abs(RJdirection_y) < multipliermin)
-	//	RJdirection_y = 0.0f;
-
 	//--------------
 
-	// --- Assign here all particles
-	basicDagger.speed.x = RJdirection_x * 300;
-	basicDagger.speed.y = RJdirection_y * 300;
+	// --- Fill in particle info ---
+	//playerinfo.characterdata.basic_attack.speed.x = RJdirection_x * 300;
+	//playerinfo.characterdata.basic_attack.speed.y = RJdirection_y * 300;
+	playerinfo.characterdata.basic_attack.direction.x = RJdirection_x;
+	playerinfo.characterdata.basic_attack.direction.y = RJdirection_y;
+	playerinfo.characterdata.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) /** (180.0f / M_PI)*/;
 
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
-	{
-		App->particlesys->AddParticle(basicDagger, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	}
+	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
 
-	/*LOG("direction_x: %f", LJdirection_x);
-	LOG("direction_y: %f", LJdirection_y);*/
+	//LOG("direction_x: %f", RJdirection_x);
+	//LOG("direction_y: %f", RJdirection_y);
 }
 
-void j1Player::HandleAttacks(PLAYER ID)
+void j1Player::HandleSuperAttacks(PLAYER ID)
 {
+	superTimer.Start();
+
+	// --- To be changed for enum class Character ---
+
 	switch (ID)
 	{
 	case PLAYER::P1:
-
+		Launch1stSuper();
 		break;
 	case PLAYER::P2:
-
+		Launch1stSuper();
 		break;
 	case PLAYER::P3:
-
+		Launch1stSuper();
 		break;
 	case PLAYER::P4:
-
+		Launch1stSuper();
 		break;
 	default:
 		break;
+	}
+
+}
+
+void j1Player::Launch1stSuper()
+{
+
+	for (int i = 1; i < 17; ++i)
+	{
+		playerinfo.characterdata.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 	}
 
 }
@@ -320,19 +334,22 @@ bool j1Player::Update(float dt)
 	if (abs(LJAxisx_value) > JOYSTICK_DEAD_ZONE 
 		|| abs(LJAxisy_value) > JOYSTICK_DEAD_ZONE
 		|| abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
-		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE)
+		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE
+		)
 		HandleAnimations();
-	else
+	
+	if (PlayerState == PSTATE::IDLE)
 		GetIdleAnimation();
 
 	MoveX(dt);
 
 	MoveY(dt);
 
-	// --- Check Particles Collision ---
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
+	//LOG("PLAYER MOVING",App->scene->player1->Entityinfo.position.x);
+
 
 	return true;
 }
@@ -342,6 +359,10 @@ bool j1Player::PostUpdate(float dt)
 	bool ret = true;
 
 	App->view->PushQueue(4,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+
+	if(shieldON)
+		App->view->PushQueue(5, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
+
 	return ret;
 }
 
@@ -375,7 +396,6 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			EntityMovement = MOVEMENT::UPWARDS;
 		break;
 	}
-
 	
 		switch (EntityMovement)
 		{
@@ -393,10 +413,18 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			break;
 		}
 
-		if (to_check->type == COLLIDER_TYPE::COLLIDER_STORM)
+		if (!shieldON)
 		{
-			float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
-			App->buff->ApplyEffect(&App->buff->effects[STORM],this->Entityinfo.my_j1Entity,damage);
+			switch (to_check->type)
+			{
+			case COLLIDER_TYPE::COLLIDER_PARTICLE:
+				CheckParticleCollision(entitycollider, to_check);
+				break;
+			case COLLIDER_TYPE::COLLIDER_STORM:
+				float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
+				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
+				break;
+			}
 		}
 
 		Future_position.x = entitycollider->rect.x;
@@ -412,8 +440,8 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
+	case COLLIDER_TYPE::COLLIDER_WATER:
+		entitycollider->rect.x -= Intersection.w;
 		break;
 	}
 }
@@ -427,8 +455,8 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
+	case COLLIDER_TYPE::COLLIDER_WATER:
+		entitycollider->rect.x += Intersection.w;
 		break;
 	}
 }
@@ -442,8 +470,8 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
+	case COLLIDER_TYPE::COLLIDER_WATER:
+		entitycollider->rect.y += Intersection.h;
 		break;
 	}
 }
@@ -457,11 +485,31 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
 		break;
-	case COLLIDER_TYPE::COLLIDER_PARTICLE:
-
+	case COLLIDER_TYPE::COLLIDER_WATER:
+		entitycollider->rect.y -= Intersection.h;
 		break;
 	}
 
+}
+
+void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider * to_check)
+{
+	Particle* pcollided = App->particlesys->GetCollidedParticle(entitycollider,to_check);
+
+	if (pcollided && pcollided->originplayer != this)
+	{
+		App->buff->ApplyEffect(pcollided->particle_effect, this);
+		App->buff->LimitAttributes(this);
+		LOG("player life: %f", this->Entityinfo.health);
+
+		if (this->Entityinfo.health == 0.0f)
+		{
+			this->active = false;
+			this->Entityinfo.entitycoll->rect.x = 0;
+			this->Entityinfo.entitycoll->rect.y = 0;
+		}
+
+	}
 }
 
 
@@ -504,6 +552,35 @@ void j1Player::LogicUpdate(float dt)
 
 	EntityMovement = MOVEMENT::STATIC;
 
+	// --- Attack according to input ---
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
+		HandleSuperAttacks(ID);
+
+	// --- Shield according to input ---
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	{
+		shieldTimer.Start();
+		shieldDuration.Start();
+		shieldON = true;
+		LOG("shield on");
+	}
+	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldON)
+	{
+		LOG("shield off");
+		shieldON = false;
+	}
+	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
+	{
+		LOG("shield off");
+		shieldON = false;
+	}
+
+	PlayerState = PSTATE::IDLE;
+
+	if(!shieldON)
 	Update(dt);
 }
 

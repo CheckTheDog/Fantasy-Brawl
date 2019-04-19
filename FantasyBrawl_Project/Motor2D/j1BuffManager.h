@@ -6,7 +6,7 @@
 
 #define MAX_EFFECTS 10
 
-#define MAX_HEALTH 1000
+#define MAX_HEALTH 300
 #define MAX_STRENGTH 500
 #define MAX_ARMOR 300
 #define MAX_SPEED 20
@@ -27,11 +27,12 @@ enum Attribute // All the attributes that entities have
 	SPEED
 };
 
-enum Effects  // Enum of all the current existing EFFECTS
+enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML (ID'S MUST MATCH)
 {
 	HEAL,
 	POISON,
 	WAR_CRY,
+	HURT,
 	STORM
 };
 
@@ -98,6 +99,8 @@ public:
 	void ApplyEachTick(Effect* effect, j1Entity *entity);
 
 	void LimitAttributes(j1Entity *entity);
+
+	const int GetMaxHealth();
 
 private:
 

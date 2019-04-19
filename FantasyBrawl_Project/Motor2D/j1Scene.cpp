@@ -13,6 +13,7 @@
 #include "j1EntityManager.h"
 #include "j1Viewport.h"
 #include "j1UIScene.h"
+#include "j1BuffManager.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -36,6 +37,18 @@ bool j1Scene::Awake(pugi::xml_node& config)
 		std::string* StageName = new std::string(stage.attribute("path").as_string());
 		StageList.push_back(StageName);
 	}
+
+	initialposP1.x = config.child("initialposP1").attribute("x").as_float();
+	initialposP1.y = config.child("initialposP1").attribute("y").as_float();
+
+	initialposP2.x = config.child("initialposP2").attribute("x").as_float();
+	initialposP2.y = config.child("initialposP2").attribute("y").as_float();
+
+	initialposP3.x = config.child("initialposP3").attribute("x").as_float();
+	initialposP3.y = config.child("initialposP3").attribute("y").as_float();
+
+	initialposP4.x = config.child("initialposP4").attribute("x").as_float();
+	initialposP4.y = config.child("initialposP4").attribute("y").as_float();
 
 	return ret;
 }
@@ -83,12 +96,65 @@ bool j1Scene::Start()
 
 	entity_info player_info;
 
-	player_info.position = { 200.0f,150.0f };
+	player_info.position = initialposP1;
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
-	player_info.position = { 200.0f,200.0f };
-	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
+	player_info.position = initialposP2;
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player2info);
+	player_info.position = initialposP3;
+	player3 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player3info);
+	player_info.position = initialposP4;
+	player4 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player4info);
 
 	return true;
+}
+
+void j1Scene::ResetAll()
+{
+	// --- Activate all players ---
+	player1->active = true;
+	player2->active = true;
+	player3->active = true;
+	player4->active = true;
+
+	// --- Reset all players attributes ---
+	player1->Entityinfo.health = App->buff->GetMaxHealth();
+	player2->Entityinfo.health = App->buff->GetMaxHealth();
+	player3->Entityinfo.health = App->buff->GetMaxHealth();
+	player4->Entityinfo.health = App->buff->GetMaxHealth();
+
+	// --- Put players back to initial position ---
+	player1->Future_position = initialposP1;
+	player2->Future_position = initialposP2;
+	player3->Future_position = initialposP3;
+	player4->Future_position = initialposP4;
+
+	// --- Put player's colliders back to initial position ---
+	player1->Entityinfo.entitycoll->rect.x = initialposP1.x;
+	player2->Entityinfo.entitycoll->rect.x = initialposP2.x;
+	player3->Entityinfo.entitycoll->rect.x = initialposP3.x;
+	player4->Entityinfo.entitycoll->rect.x = initialposP4.x;
+
+	player1->Entityinfo.entitycoll->rect.y = initialposP1.y;
+	player2->Entityinfo.entitycoll->rect.y = initialposP2.y;
+	player3->Entityinfo.entitycoll->rect.y = initialposP3.y;
+	player4->Entityinfo.entitycoll->rect.y = initialposP4.y;
+
+	// --- Put all players to idleDown animation ---
+	player1->CurrentAnimation = player1->playerinfo.idleDown;
+	player2->CurrentAnimation = player2->playerinfo.idleDown;
+	player3->CurrentAnimation = player3->playerinfo.idleDown;
+	player4->CurrentAnimation = player4->playerinfo.idleDown;
+
+	// --- Reset Players State and Movement status ---
+	player1->EntityMovement = MOVEMENT::STATIC;
+	player2->EntityMovement = MOVEMENT::STATIC;
+	player3->EntityMovement = MOVEMENT::STATIC;
+	player4->EntityMovement = MOVEMENT::STATIC;
+
+	player1->PlayerState = PSTATE::IDLE;
+	player2->PlayerState = PSTATE::IDLE;
+	player3->PlayerState = PSTATE::IDLE;
+	player4->PlayerState = PSTATE::IDLE;
 }
 
 // Called each loop iteration
@@ -103,6 +169,18 @@ bool j1Scene::PreUpdate()
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
 
+	// --- Center Cameras on respective player ---
+	App->view->CenterScreen(1, player1->Entityinfo.position.x + player1->Entityinfo.entitycoll->rect.w / 2, player1->Entityinfo.position.y);
+	App->view->CenterScreen(2, player2->Entityinfo.position.x + player2->Entityinfo.entitycoll->rect.w / 2, player2->Entityinfo.position.y);
+	App->view->CenterScreen(3, player3->Entityinfo.position.x + player3->Entityinfo.entitycoll->rect.w / 2, player3->Entityinfo.position.y);
+	App->view->CenterScreen(4, player4->Entityinfo.position.x + player4->Entityinfo.entitycoll->rect.w / 2, player4->Entityinfo.position.y);
+
+	// --- Prevent cameras from leaving map boundaries --- 
+	App->view->KeepCameraOnBounds(1);
+	App->view->KeepCameraOnBounds(2);
+	App->view->KeepCameraOnBounds(3);
+	App->view->KeepCameraOnBounds(4);
+
 	return true;
 }
 
@@ -111,47 +189,52 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene_Update", Profiler::Color::Crimson);
 
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
+	//if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	//	App->LoadGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+	//if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	//	App->SaveGame("save_game.xml");
 
 	/*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		ChangeMap(1);*/
 
 	//Make the camera movement independent of framerate
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
-	{
-		App->view->ScreenMove(1, 0, ceil(150.0*dt));
-		App->view->ScreenMove(2, 0, ceil(150.0*dt));
-		App->view->ScreenMove(3, 0, ceil(150.0*dt));
-		App->view->ScreenMove(4, 0, ceil(150.0*dt));
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
+	//{
+	//	App->view->ScreenMove(1, 0, ceil(150.0*dt));
+	//	App->view->ScreenMove(2, 0, ceil(150.0*dt));
+	//	App->view->ScreenMove(3, 0, ceil(150.0*dt));
+	//	App->view->ScreenMove(4, 0, ceil(150.0*dt));
+	//}
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		App->view->ScreenMove(1, 0, -ceil(150.0*dt));
-		App->view->ScreenMove(2, 0, -ceil(150.0*dt));
-		App->view->ScreenMove(3, 0, -ceil(150.0*dt));
-		App->view->ScreenMove(4, 0, -ceil(150.0*dt));
-	}
-		
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		App->view->ScreenMove(1, ceil(150.0*dt), 0);
-		App->view->ScreenMove(2, ceil(150.0*dt), 0);
-		App->view->ScreenMove(3, ceil(150.0*dt), 0);
-		App->view->ScreenMove(4, ceil(150.0*dt), 0);
-	}
-		
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		App->view->ScreenMove(1, -ceil(150.0*dt), 0);
-		App->view->ScreenMove(2, -ceil(150.0*dt), 0);
-		App->view->ScreenMove(3, -ceil(150.0*dt), 0);
-		App->view->ScreenMove(4, -ceil(150.0*dt), 0);
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//{
+	//	App->view->ScreenMove(1, 0, -ceil(150.0*dt));
+	//	App->view->ScreenMove(2, 0, -ceil(150.0*dt));
+	//	App->view->ScreenMove(3, 0, -ceil(150.0*dt));
+	//	App->view->ScreenMove(4, 0, -ceil(150.0*dt));
+	//}
+	//	
+	//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//{
+	//	App->view->ScreenMove(1, ceil(150.0*dt), 0);
+	//	App->view->ScreenMove(2, ceil(150.0*dt), 0);
+	//	App->view->ScreenMove(3, ceil(150.0*dt), 0);
+	//	App->view->ScreenMove(4, ceil(150.0*dt), 0);
+	//}
+	//	
+	//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//{
+	//	App->view->ScreenMove(1, -ceil(150.0*dt), 0);
+	//	App->view->ScreenMove(2, -ceil(150.0*dt), 0);
+	//	App->view->ScreenMove(3, -ceil(150.0*dt), 0);
+	//	App->view->ScreenMove(4, -ceil(150.0*dt), 0);
+	//}
+
+	/*App->view->ScreenPosition(1, player1->Entityinfo.position.x + player1->Entityinfo.entitycoll->rect.w/2 - App->view., player1->Entityinfo.position.y);
+	App->view->ScreenPosition(2, player2->Entityinfo.position.x, player2->Entityinfo.position.y);
+	App->view->ScreenPosition(3, player3->Entityinfo.position.x, player3->Entityinfo.position.y);
+	App->view->ScreenPosition(4, player4->Entityinfo.position.x, player4->Entityinfo.position.y);*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
@@ -165,11 +248,11 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
+	/*if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 		App->view->ScreenMove(1, ceil(150.0*dt), 0);
 
 	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
-		App->view->ScreenMove(1, -ceil(150.0*dt), 0);
+		App->view->ScreenMove(1, -ceil(150.0*dt), 0);*/
 
 	//Testing Haptic features (Vibration)
 	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)

@@ -66,6 +66,7 @@ public:
 	Image* createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	Button* createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, j1Module* callback = nullptr);
+	Button* createInteractiveButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, uint id, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	Button* createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standbyUnactive, SDL_Rect OnMouseUnactive, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback = nullptr);
 

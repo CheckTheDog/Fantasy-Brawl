@@ -14,8 +14,18 @@ j1Transition::~j1Transition()
 }
 bool j1Transition::Update(float dt)
 {
+
 	if (doingMenuTransition)
 	{
+		if (App->ui_scene->actual_menu != menu_id::PAUSE_MENU
+			&& App->ui_scene->actual_menu != menu_id::INGAME_MENU)
+		{
+			uint w, h;
+			App->win->GetWindowSize(w, h);
+			SDL_Rect tmp = { 0,0,w,h };
+			App->render->DrawQuad(tmp, 0, 0, 0, 255);
+		}
+
 		float Dalpha = 255 / (total_time / dt);
 		if (menuState == GIN)
 		{
@@ -24,6 +34,7 @@ bool j1Transition::Update(float dt)
 			{
 				App->gui->alpha_value = 0;
 				menuState = GOUT;
+
 				App->ui_scene->loadMenu(newMenuID);
 			}
 		}

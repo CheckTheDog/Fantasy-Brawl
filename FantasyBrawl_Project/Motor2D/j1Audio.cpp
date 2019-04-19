@@ -50,6 +50,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	LoadAudio(config);
+
 	return ret;
 }
 
@@ -173,4 +175,230 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+void j1Audio::LoadAudio(pugi::xml_node& config)
+{
+	//FX Loads
+	fxfolder = config.child("fx").child_value("folder");
+
+	pugi::xml_node sound_node = config.child("fx").child("sound");
+
+	pathCursor = sound_node.attribute("cursor").as_string();
+	std::string cursorSound = fxfolder + pathCursor;
+	fxCursor = LoadFx(cursorSound.data());
+
+	pathConfirm = sound_node.attribute("confirm").as_string();
+	std::string confirmSound = fxfolder + pathConfirm;
+	fxConfirm = LoadFx(confirmSound.data());
+
+	pathCancel = sound_node.attribute("cancel").as_string();
+	std::string cancelSound = fxfolder + pathCancel;
+	fxCancel = LoadFx(cancelSound.data());
+
+	pathScroll = sound_node.attribute("scroll").as_string();
+	std::string scrollSound = fxfolder + pathScroll;
+	fxScroll = LoadFx(scrollSound.data());
+
+	pathCursor2 = sound_node.attribute("cursor2").as_string();
+	std::string cursor2Sound = fxfolder + pathCursor2;
+	fxCursor2 = LoadFx(cursor2Sound.data());
+
+	pathConfirmChamp = sound_node.attribute("confirmchamp").as_string();
+	std::string confirmchampSound = fxfolder + pathConfirmChamp;
+	fxConfirmChamp = LoadFx(confirmchampSound.data());
+
+	pathCancelChamp = sound_node.attribute("cancelchamp").as_string();
+	std::string cancelchampSound = fxfolder + pathCancelChamp;
+	fxCancelChamp = LoadFx(cancelchampSound.data());
+
+	pathCountdown = sound_node.attribute("countdown").as_string();
+	std::string countdownSound = fxfolder + pathCountdown;
+	fxCountdown = LoadFx(countdownSound.data());
+
+	pathBrawlStart = sound_node.attribute("brawlstart").as_string();
+	std::string brawlstartSound = fxfolder + pathBrawlStart;
+	fxBrawlStart = LoadFx(brawlstartSound.data());
+
+	pathTraktBasic = sound_node.attribute("traktbasic").as_string();
+	std::string traktbasicSound = fxfolder + pathTraktBasic;
+	fxTraktBasic = LoadFx(traktbasicSound.data());
+
+	pathTraktSpecial = sound_node.attribute("traktspecial").as_string();
+	std::string traktspecialSound = fxfolder + pathTraktSpecial;
+	fxTraktSpecial = LoadFx(traktspecialSound.data());
+
+	pathTraktDeath = sound_node.attribute("traktdeath").as_string();
+	std::string traktdeathSound = fxfolder + pathTraktDeath;
+	fxTraktDeath = LoadFx(traktdeathSound.data());
+
+	pathWendolinBasic = sound_node.attribute("wendolinbasic").as_string();
+	std::string wendolinbasicSound = fxfolder + pathWendolinBasic;
+	fxWendolinBasic = LoadFx(wendolinbasicSound.data());
+
+	pathWendolinSpecial = sound_node.attribute("wendolinspecial").as_string();
+	std::string wendolinspecialSound = fxfolder + pathWendolinSpecial;
+	fxWendolinSpecial = LoadFx(wendolinspecialSound.data());
+
+	pathWendolinDeath = sound_node.attribute("wendolindeath").as_string();
+	std::string wendolindeathSound = fxfolder + pathWendolinDeath;
+	fxWendolinDeath = LoadFx(wendolindeathSound.data());
+
+	pathSimonBasic = sound_node.attribute("simonbasic").as_string();
+	std::string simonbasicSound = fxfolder + pathSimonBasic;
+	fxSimonBasic = LoadFx(simonbasicSound.data());
+
+	pathSimonSpecial = sound_node.attribute("simonspecial").as_string();
+	std::string simonspecialSound = fxfolder + pathSimonSpecial;
+	fxSimonSpecial = LoadFx(simonspecialSound.data());
+
+	pathSimonDeath = sound_node.attribute("simondeath").as_string();
+	std::string simondeathSound = fxfolder + pathSimonDeath;
+	fxSimonDeath = LoadFx(simondeathSound.data());
+
+	pathMeliadoulBasic = sound_node.attribute("meliadoulbasic").as_string();
+	std::string meliadoulbasicSound = fxfolder + pathMeliadoulBasic;
+	fxMeliadoulBasic = LoadFx(meliadoulbasicSound.data());
+
+	pathMeliadoulSpecial = sound_node.attribute("meliadoulspecial").as_string();
+	std::string meliadoulspecialSound = fxfolder + pathMeliadoulSpecial;
+	fxMeliadoulSpecial = LoadFx(meliadoulspecialSound.data());
+
+	pathMeliadoulDeath = sound_node.attribute("meliadouldeath").as_string();
+	std::string meliadouldeathSound = fxfolder + pathMeliadoulDeath;
+	fxMeliadoulDeath = LoadFx(meliadouldeathSound.data());
+
+	pathSpecialAvailable = sound_node.attribute("specialavailable").as_string();
+	std::string specialavailableSound = fxfolder + pathSpecialAvailable;
+	fxSpecialAvailable = LoadFx(specialavailableSound.data());
+
+	pathHit1 = sound_node.attribute("hit1").as_string();
+	std::string hit1Sound = fxfolder + pathHit1;
+	fxHit1 = LoadFx(hit1Sound.data());
+
+	pathHit2 = sound_node.attribute("hit2").as_string();
+	std::string hit2Sound = fxfolder + pathHit2;
+	fxHit2 = LoadFx(hit2Sound.data());
+
+	pathHit3 = sound_node.attribute("hit3").as_string();
+	std::string hit3Sound = fxfolder + pathHit3;
+	fxHit3 = LoadFx(hit3Sound.data());
+
+	pathShieldHit1 = sound_node.attribute("shieldhit1").as_string();
+	std::string shieldhit1Sound = fxfolder + pathShieldHit1;
+	fxShieldHit1 = LoadFx(shieldhit1Sound.data());
+
+	pathShieldHit2 = sound_node.attribute("shieldhit2").as_string();
+	std::string shieldhit2Sound = fxfolder + pathShieldHit2;
+	fxShieldHit2 = LoadFx(shieldhit2Sound.data());
+
+	pathPowerUpAppear1 = sound_node.attribute("powerup1").as_string();
+	std::string powerupappear1Sound = fxfolder + pathPowerUpAppear1;
+	fxPowerUpAppear1 = LoadFx(powerupappear1Sound.data());
+
+	pathPowerUpAppear2 = sound_node.attribute("powerup2").as_string();
+	std::string powerupappear2Sound = fxfolder + pathPowerUpAppear2;
+	fxPowerUpAppear2 = LoadFx(powerupappear2Sound.data());
+
+	pathPowerUpAppear3 = sound_node.attribute("powerup3").as_string();
+	std::string powerupappear3Sound = fxfolder + pathPowerUpAppear3;
+	fxPowerUpAppear3 = LoadFx(powerupappear3Sound.data());
+
+	pathPowerUpPick = sound_node.attribute("poweruppick").as_string();
+	std::string poweruppickSound = fxfolder + pathPowerUpPick;
+	fxPowerUpPick = LoadFx(poweruppickSound.data());
+
+	pathPowerUpActivate = sound_node.attribute("powerupactivation").as_string();
+	std::string powerupactivateSound = fxfolder + pathPowerUpActivate;
+	fxPowerUpActivate = LoadFx(powerupactivateSound.data());
+
+	pathStormCloseCount = sound_node.attribute("stormcount").as_string();
+	std::string stormclosecountSound = fxfolder + pathStormCloseCount;
+	fxStormCloseCount = LoadFx(stormclosecountSound.data());
+
+	pathStormClose = sound_node.attribute("stormclose").as_string();
+	std::string stormcloseSound = fxfolder + pathStormClose;
+	fxStormClose = LoadFx(stormcloseSound.data());
+
+	pathPause = sound_node.attribute("pause").as_string();
+	std::string pauseSound = fxfolder + pathPause;
+	fxPause = LoadFx(pauseSound.data());
+
+	pathRoundEnd = sound_node.attribute("roundend").as_string();
+	std::string roundendSound = fxfolder + pathRoundEnd;
+	fxRoundEnd = LoadFx(roundendSound.data());
+
+	pathMatchEnd = sound_node.attribute("matchend").as_string();
+	std::string matchendSound = fxfolder + pathMatchEnd;
+	fxMatchEnd = LoadFx(matchendSound.data());
+
+	//Music Loads
+	musicfolder = config.child("music").child_value("folder");
+
+	pugi::xml_node music_node = config.child("music").child("song");
+
+	pathIntro = music_node.attribute("name").as_string();
+	pathIntro = musicfolder + pathIntro;
+	music_node = music_node.next_sibling();
+
+	pathMainMenu1 = music_node.attribute("name").as_string();
+	pathMainMenu1 = musicfolder + pathMainMenu1;
+	music_node = music_node.next_sibling();
+
+	pathMainMenu2 = music_node.attribute("name").as_string();
+	pathMainMenu2 = musicfolder + pathMainMenu2;
+	music_node = music_node.next_sibling();
+
+	pathChampSelect = music_node.attribute("name").as_string();
+	pathChampSelect = musicfolder + pathChampSelect;
+	music_node = music_node.next_sibling();
+
+	pathGallery = music_node.attribute("name").as_string();
+	pathGallery = musicfolder + pathGallery;
+	music_node = music_node.next_sibling();
+
+	pathOptions = music_node.attribute("name").as_string();
+	pathOptions = musicfolder + pathOptions;
+	music_node = music_node.next_sibling();
+
+	pathLoadScreen1 = music_node.attribute("name").as_string();
+	pathLoadScreen1 = musicfolder + pathLoadScreen1;
+	music_node = music_node.next_sibling();
+
+	pathLoadScreen2 = music_node.attribute("name").as_string();
+	pathLoadScreen2 = musicfolder + pathLoadScreen2;
+	music_node = music_node.next_sibling();
+
+	pathLoadScreen3 = music_node.attribute("name").as_string();
+	pathLoadScreen3 = musicfolder + pathLoadScreen3;
+	music_node = music_node.next_sibling();
+
+	pathLoadScreen4 = music_node.attribute("name").as_string();
+	pathLoadScreen4 = musicfolder + pathLoadScreen4;
+	music_node = music_node.next_sibling();
+
+	pathMap1 = music_node.attribute("name").as_string();
+	pathMap1 = musicfolder + pathMap1;
+	music_node = music_node.next_sibling();
+
+	pathMap2_1 = music_node.attribute("name").as_string();
+	pathMap2_1 = musicfolder + pathMap2_1;
+	music_node = music_node.next_sibling();
+
+	pathMap2_2 = music_node.attribute("name").as_string();
+	pathMap2_2 = musicfolder + pathMap2_2;
+	music_node = music_node.next_sibling();
+
+	pathMap3 = music_node.attribute("name").as_string();
+	pathMap3 = musicfolder + pathMap3;
+	music_node = music_node.next_sibling();
+
+	pathMap4 = music_node.attribute("name").as_string();
+	pathMap4 = musicfolder + pathMap4;
+	music_node = music_node.next_sibling();
+
+	pathLeaderBoard = music_node.attribute("name").as_string();
+	pathLeaderBoard = musicfolder + pathLeaderBoard;
+	music_node = music_node.next_sibling();
+
 }

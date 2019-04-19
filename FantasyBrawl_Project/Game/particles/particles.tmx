@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="28" height="18" tilewidth="1" tileheight="1" infinite="0" nextlayerid="4" nextobjectid="2">
- <imagelayer id="2" name="sprites">
-  <image source="../textures/Wendolin Red Dagger.png" width="28" height="18"/>
- </imagelayer>
- <objectgroup id="3" name="dagger">
-  <object id="1" x="0" y="0" width="28" height="18"/>
- </objectgroup>
-</map>
