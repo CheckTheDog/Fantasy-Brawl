@@ -348,6 +348,7 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
+	LOG("PLAYER MOVING",App->scene->player1->Entityinfo.position.x);
 
 
 	return true;

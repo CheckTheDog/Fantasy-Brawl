@@ -49,14 +49,18 @@ public:
 	bool load_lvl = false;
 	int newLvl = 0;
 
+	j1Player* player1 = nullptr;
+	j1Player* player2 = nullptr;
+
+
 private:
 	SDL_Texture* debug_tex;
 
 	std::vector <std::string*> StageList;
 
 	// --- Player pointers ---
-	j1Player* player1 = nullptr;
-	j1Player* player2 = nullptr;
+	/*j1Player* player1 = nullptr;
+	j1Player* player2 = nullptr;*/
 };
 
 #endif // __j1SCENE_H__
