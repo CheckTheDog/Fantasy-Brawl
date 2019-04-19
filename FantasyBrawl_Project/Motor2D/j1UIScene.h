@@ -89,5 +89,12 @@ public:
 	UI_element* sp_bar2 = nullptr;
 	UI_element* sp_bar3 = nullptr;
 	UI_element* sp_bar4 = nullptr;
+
+	UI_element* mark1 = nullptr;
+	
+
+	//SELECTION BOOLS
+	bool player1_select = false;
+	bool all_select = false;
 };
 #endif // !__j1UISCENE_H__ 

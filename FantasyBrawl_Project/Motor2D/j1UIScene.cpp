@@ -148,13 +148,25 @@ bool j1UIScene::Start()
 		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 275, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
-		UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
-		champion_button1->function = INGAME;
+		UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 175 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
+		champion_button1->function = SELECTING;
 
-		UI_element* champion_button2 = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 740,507,180,180 }, { 740,507,180,180 }, { 740,507,180,180 }, this);
-		UI_element* champion_button3 = App->gui->createButton(300 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 560,696,180,180 }, { 560,696,180,180 }, { 560,696,180,180 }, this);
-		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);
+		UI_element* champion_button2 = App->gui->createButton(500 * App->gui->UI_scale, 175* App->gui->UI_scale, NULL, { 740,507,180,180 }, { 740,507,180,180 }, { 740,507,180,180 }, this);
+		UI_element* champion_button3 = App->gui->createButton(300 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 560,696,180,180 }, { 560,696,180,180 }, { 560,696,180,180 }, this);
+		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);
 
+		//PLAYER QUADS
+		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 580, { 18, 904,200,180 }, this);
+
+		//PLAYER IMAGE
+		mark1 = App->gui->createImageFromAtlas(20, 580, { 740,507,180,180 }, this);
+		/*if (OnUIEvent(champion_button1, MOUSE_LEFT_CLICK) == true)
+		{
+			mark1 = App->gui->createImageFromAtlas(20, 580, { 571, 518, 157,159 }, this);
+			
+		}*/
+
+		
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
@@ -162,6 +174,8 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(champion_button2);
 		championSelection->elements.push_back(champion_button3);
 		championSelection->elements.push_back(champion_button4);
+		championSelection->elements.push_back(player1_quad);
+		championSelection->elements.push_back(mark1);
 		menus.push_back(championSelection);
 	}
 
@@ -337,8 +351,11 @@ bool j1UIScene::Update(float dt)
 	//UPDATING SP BARS POSITION
 	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
 	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;
-
 	
+	if (player1_select == true)
+	{
+		mark1->section = { 571, 518, 157,159 };
+	}
 
 	return ret;
 }
@@ -351,7 +368,8 @@ bool j1UIScene::PostUpdate(float dt)
 bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 {
 	bool ret = true;
-	uint count = 0;
+
+	
 	
 	if (event_type == MOUSE_ENTER)
 	{
@@ -365,8 +383,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	}
 	else if (event_type == MOUSE_LEFT_CLICK)
 	{
-		/*count++;
-		count += 1;*/
+		
 		element->state = CLICKED;
 
 		if (element->element_type == SWITCH)
@@ -375,14 +392,18 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
 		}
-		//if (element->element_type == BUTTON && count >= 1)
+		
+		//if (element->element_type == BUTTON)
 		//{
-		//	ui_id1 = true;
-		//	/*count += 1;*/
-		//}
-		//if (element->element_type == BUTTON && count >= 2)
-		//{
-		//	ui_id2 = true;
+		//	uint count = 1;
+		//	
+		//	/*all_select = true;*/
+		//	
+		//	if (count == 1)
+		//	{
+		//		player1_select = true;
+		//		
+		//	}
 		//}
 
 
@@ -396,11 +417,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		case INGAME:
 		{
-			/*if (ui_id1 == true && ui_id2 == true)*/
-			
+						
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
 			
+			break;
+		}
+		case SELECTING:
+		{
+			player1_select = true;
 			break;
 		}
 		case RESTART:
