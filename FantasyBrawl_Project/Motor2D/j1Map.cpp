@@ -562,7 +562,7 @@ bool j1Map::ColliderDrawer()
 							else if (tile_id == greenCollider)
 								LOG("");
 							else if (tile_id == blueCollider)
-								LOG("");
+								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
 
 						}
 					}

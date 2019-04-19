@@ -348,7 +348,7 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
-	LOG("PLAYER MOVING",App->scene->player1->Entityinfo.position.x);
+	//LOG("PLAYER MOVING",App->scene->player1->Entityinfo.position.x);
 
 
 	return true;
@@ -431,6 +431,9 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
 		break;
+	case COLLIDER_TYPE::COLLIDER_WATER:
+		entitycollider->rect.x -= Intersection.w;
+		break;
 	}
 }
 
@@ -441,6 +444,9 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	switch (to_check->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
+		entitycollider->rect.x += Intersection.w;
+		break;
+	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x += Intersection.w;
 		break;
 	}
@@ -455,6 +461,9 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
 		break;
+	case COLLIDER_TYPE::COLLIDER_WATER:
+		entitycollider->rect.y += Intersection.h;
+		break;
 	}
 }
 
@@ -465,6 +474,9 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	switch (to_check->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
+		entitycollider->rect.y -= Intersection.h;
+		break;
+	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y -= Intersection.h;
 		break;
 	}
