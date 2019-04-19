@@ -148,6 +148,7 @@ public:
 	void ScreenPosition(int id, int x, int y);
 	void CenterScreen(int id, float x, float y);
 	void ResetScreens();
+	void KeepCameraOnBounds(int id);
 
 	// Blit Functions and control
 	void PushQueue(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section = { 0,0 }, int viewport = 0, float speed = 0.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
