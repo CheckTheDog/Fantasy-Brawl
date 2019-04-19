@@ -168,8 +168,8 @@ bool j1UIScene::Start()
 		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);
 
 		//READY BUTTON
-		ready = App->gui->createButton(700 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-				
+		ready = App->gui->createButton(700 * App->gui->UI_scale, 330 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready_text = App->gui->createText("READY", 780, 340, big_buttons_font, black_color);
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
@@ -186,6 +186,7 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(mark3);
 		championSelection->elements.push_back(mark4);
 		championSelection->elements.push_back(ready);
+		championSelection->elements.push_back(ready_text);
 		menus.push_back(championSelection);
 	}
 
@@ -217,11 +218,11 @@ bool j1UIScene::Start()
 		audio_text->setOutlined(true);
 
 		//FULLSCREEN
-		Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
+		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
 		settings_image->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
 
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
-		fullscreen_text->setOutlined(true);
+		fullscreen_text->setOutlined(true);*/
 
 
 		
@@ -232,8 +233,8 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(music_slider_butt);
 		settingsMenu->elements.push_back(music_slider);
 		settingsMenu->elements.push_back(audio_text);
-		settingsMenu->elements.push_back(full_switch);
-		settingsMenu->elements.push_back(fullscreen_text);
+		/*settingsMenu->elements.push_back(full_switch);
+		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
 	}
 
@@ -262,11 +263,11 @@ bool j1UIScene::Start()
 		audio_text->setOutlined(true);
 
 		//FULLSCREEN
-		Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
+		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
 		
 
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 330, 400, mid_buttons_font, brown_color);
-		fullscreen_text->setOutlined(true);
+		fullscreen_text->setOutlined(true);*/
 
 
 
@@ -277,8 +278,8 @@ bool j1UIScene::Start()
 		pauseMenu->elements.push_back(music_slider_butt);
 		pauseMenu->elements.push_back(music_slider);
 		pauseMenu->elements.push_back(audio_text);
-		pauseMenu->elements.push_back(full_switch);
-		pauseMenu->elements.push_back(fullscreen_text);
+		/*pauseMenu->elements.push_back(full_switch);
+		pauseMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(pauseMenu);
 	}
 
@@ -400,8 +401,13 @@ bool j1UIScene::Update(float dt)
 
 	if (player1_select == true && player2_select == true && player3_select == true && player4_select == true)
 	{
+		ready->section = { 281,148,281,111 };
 		ready->function = INGAME;
 		
+	}
+	else
+	{
+		ready->section = { 0,28,278,105 };
 	}
 
 	return ret;

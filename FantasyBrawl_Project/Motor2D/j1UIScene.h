@@ -96,7 +96,10 @@ public:
 	UI_element* mark2 = nullptr;
 	UI_element* mark3 = nullptr;
 	UI_element* mark4 = nullptr;
+
+	//READY
 	UI_element* ready = nullptr;
+	UI_element* ready_text = nullptr;
 
 	//SELECTION BOOLS
 	int counter = 0;
