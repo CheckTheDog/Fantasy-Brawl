@@ -157,16 +157,17 @@ bool j1UIScene::Start()
 
 		//PLAYER QUADS
 		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 580, { 18, 904,200,180 }, this);
+		UI_element* player2_quad = App->gui->createImageFromAtlas(280, 580, { 232, 904,200,180 }, this);
+		UI_element* player3_quad = App->gui->createImageFromAtlas(540, 580, { 447, 904,200,180 }, this);
+		UI_element* player4_quad = App->gui->createImageFromAtlas(800, 580, { 666, 904,200,180 }, this);
 
-		//PLAYER IMAGE
-		mark1 = App->gui->createImageFromAtlas(20, 580, { 740,507,180,180 }, this);
-		/*if (OnUIEvent(champion_button1, MOUSE_LEFT_CLICK) == true)
-		{
-			mark1 = App->gui->createImageFromAtlas(20, 580, { 571, 518, 157,159 }, this);
-			
-		}*/
+		//PLAYER IMAGE(?)
+		mark1 = App->gui->createImageFromAtlas(35, 591, { 33, 1107, 169,122 }, this);
+		mark2 = App->gui->createImageFromAtlas(293, 591, { 33, 1107, 169,122 }, this);
+		mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
+		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);
 
-		
+				
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
@@ -175,7 +176,13 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(champion_button3);
 		championSelection->elements.push_back(champion_button4);
 		championSelection->elements.push_back(player1_quad);
+		championSelection->elements.push_back(player2_quad);
+		championSelection->elements.push_back(player3_quad);
+		championSelection->elements.push_back(player4_quad);
 		championSelection->elements.push_back(mark1);
+		championSelection->elements.push_back(mark2);
+		championSelection->elements.push_back(mark3);
+		championSelection->elements.push_back(mark4);
 		menus.push_back(championSelection);
 	}
 
@@ -354,7 +361,7 @@ bool j1UIScene::Update(float dt)
 	
 	if (player1_select == true)
 	{
-		mark1->section = { 571, 518, 157,159 };
+		mark1->section = { 243, 1107, 169,122 };
 	}
 
 	return ret;

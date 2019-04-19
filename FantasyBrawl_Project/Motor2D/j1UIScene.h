@@ -79,18 +79,23 @@ public:
 	bool ui_id1 = false;
 	bool ui_id2 = false;
 
-	//PLAYER BARS
+	//PLAYER HP BARS
 	UI_element* hp_bar1 = nullptr;
 	UI_element* hp_bar2 = nullptr;
 	UI_element* hp_bar3 = nullptr;
 	UI_element* hp_bar4 = nullptr;
 
+	//PLAYER SP BARS
 	UI_element* sp_bar1 = nullptr;
 	UI_element* sp_bar2 = nullptr;
 	UI_element* sp_bar3 = nullptr;
 	UI_element* sp_bar4 = nullptr;
 
+	//PLAYER MARKS(?)
 	UI_element* mark1 = nullptr;
+	UI_element* mark2 = nullptr;
+	UI_element* mark3 = nullptr;
+	UI_element* mark4 = nullptr;
 	
 
 	//SELECTION BOOLS
