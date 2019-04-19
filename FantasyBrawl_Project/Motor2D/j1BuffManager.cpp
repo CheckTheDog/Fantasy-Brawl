@@ -326,6 +326,11 @@ void j1BuffManager::LimitAttributes(j1Entity * entity)
 			entity->Entityinfo.speed = MIN_SPEED;*/
 }
 
+const int j1BuffManager::GetMaxHealth()
+{
+	return MAX_HEALTH;
+}
+
 void j1BuffManager::LoadEffects(pugi::xml_node & data)
 {
 	pugi::xml_node iterator;

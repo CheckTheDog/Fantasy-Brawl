@@ -26,7 +26,7 @@ bool j1Viewport::Start()
 {
 	bool ret = true;
 
-	number_of_views = 1;
+	number_of_views = 4;
 	scale = 2.0f;
 
 	App->win->GetWindowSize(win_w, win_h);

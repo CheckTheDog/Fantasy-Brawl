@@ -134,11 +134,11 @@ bool j1UIScene::Start()
 		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar4 = hp_bar_player4;
 
-		ingameMenu->elements.push_back(hp_bar_player1);
-		ingameMenu->elements.push_back(hp_bar_player2);
+		//ingameMenu->elements.push_back(hp_bar_player1);
+		//ingameMenu->elements.push_back(hp_bar_player2);
 		/*ingameMenu->elements.push_back(hp_bar_player3);
 		ingameMenu->elements.push_back(hp_bar_player4);*/
-		ingameMenu->elements.push_back(sp_bar_player1);
+		//ingameMenu->elements.push_back(sp_bar_player1);
 		menus.push_back(ingameMenu);
 
 	}
@@ -462,6 +462,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player3_select = false;
 			player4_select = false;
 
+			// --- Reset everything ---
+			App->scene->ResetAll();
+
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
 			break;
@@ -493,6 +496,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			{
 				player4_select = true;
 			}
+
+
 
 			//App->arena_interactions->StartStorm();
 			break;

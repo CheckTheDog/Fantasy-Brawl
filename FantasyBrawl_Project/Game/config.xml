@@ -30,6 +30,10 @@
 
   <scene>
     <map_name path="Map2x_automap.tmx"/>
+    <initialposP1 x="200" y="150"/>
+    <initialposP2 x="3300" y="200"/>
+    <initialposP3 x="250" y="3450"/>
+    <initialposP4 x="3400" y="3350"/>
   </scene>
 
   <gui>

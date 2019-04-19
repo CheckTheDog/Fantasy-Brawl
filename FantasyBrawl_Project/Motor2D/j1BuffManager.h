@@ -100,6 +100,8 @@ public:
 
 	void LimitAttributes(j1Entity *entity);
 
+	const int GetMaxHealth();
+
 private:
 
 
