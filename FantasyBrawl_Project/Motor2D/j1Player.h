@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "j1Entity.h"
 #include "j1ParticleSystem.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -14,7 +15,6 @@ enum class PLAYER;
 struct CharacterData
 {
 	Particle basic_attack;
-	Particle super_attack;
 };
 
 struct Playerdata {
@@ -129,7 +129,8 @@ public:
 
 	// --- Entity Attacks ---
 
-	void HandleAttacks(PLAYER ID);
+	void HandleSuperAttacks(PLAYER ID);
+	void Launch1stSuper();
 
 public:
 
@@ -161,6 +162,8 @@ public:
 	// --- Collisions ---
 	SDL_Rect Intersection = { 0,0,0,0 };
 
+	// --- Timers ---
+	j1Timer superTimer;
 };
 
 #endif // __j1Player_H__
