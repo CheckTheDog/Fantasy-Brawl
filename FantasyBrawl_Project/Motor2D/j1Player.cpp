@@ -473,7 +473,16 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 	if (pcollided && pcollided->originplayer != this)
 	{
 		App->buff->ApplyEffect(pcollided->particle_effect, this);
+		App->buff->LimitAttributes(this);
 		LOG("player life: %f", this->Entityinfo.health);
+
+		if (this->Entityinfo.health == 0.0f)
+		{
+			this->active = false;
+			this->Entityinfo.entitycoll->rect.x = 0;
+			this->Entityinfo.entitycoll->rect.y = 0;
+		}
+
 	}
 }
 

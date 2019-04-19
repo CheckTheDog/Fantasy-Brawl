@@ -263,6 +263,7 @@ void j1EntityManager::UpdateEntity(float dt)
 
 	while (entity != entities.end())
 	{
+		if((*entity)->active)
 		(*entity)->LogicUpdate(dt);
 
 		++entity;
@@ -277,6 +278,7 @@ bool j1EntityManager::PostUpdate(float dt)
 
 	while (entity != entities.end())
 	{
+		if ((*entity)->active)
 		(*entity)->FixedUpdate(dt);
 
 		++entity;
