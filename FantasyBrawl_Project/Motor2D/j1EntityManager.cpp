@@ -8,6 +8,7 @@
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 #include "j1BuffManager.h"
+#include "j1Textures.h"
 
 j1EntityManager::j1EntityManager() : j1Module()
 {
@@ -35,6 +36,8 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	int y = playernode.child("collider").attribute("y").as_int();
 	int w = playernode.child("collider").attribute("width").as_int();
 	int h = playernode.child("collider").attribute("height").as_int();
+
+	shield_texturepath = playernode.child("shield").child_value();
 
 	// --- Animation Ranges --- 
 	animranges.AnimationRangeRight_start = playernode.child("AnimationRangeRight").attribute("range_start").as_float();
@@ -236,6 +239,9 @@ bool j1EntityManager::Start()
 {
 	LOG("start j1EntityManager");
 	bool ret = true;
+
+	shield_texture = App->tex->Load(shield_texturepath.data());
+
 	return ret;
 }
 

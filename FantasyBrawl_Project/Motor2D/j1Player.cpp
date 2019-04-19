@@ -359,6 +359,10 @@ bool j1Player::PostUpdate(float dt)
 	bool ret = true;
 
 	App->view->PushQueue(4,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+
+	if(shieldON)
+		App->view->PushQueue(5, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
+
 	return ret;
 }
 
@@ -409,13 +413,18 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			break;
 		}
 
-		if (to_check->type == COLLIDER_TYPE::COLLIDER_PARTICLE)
-			CheckParticleCollision(entitycollider, to_check);
-
-		if (to_check->type == COLLIDER_TYPE::COLLIDER_STORM)
+		if (!shieldON)
 		{
-			float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
-			App->buff->ApplyEffect(&App->buff->effects[STORM],this->Entityinfo.my_j1Entity,damage);
+			switch (to_check->type)
+			{
+			case COLLIDER_TYPE::COLLIDER_PARTICLE:
+				CheckParticleCollision(entitycollider, to_check);
+				break;
+			case COLLIDER_TYPE::COLLIDER_STORM:
+				float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
+				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
+				break;
+			}
 		}
 
 		Future_position.x = entitycollider->rect.x;
@@ -551,18 +560,21 @@ void j1Player::LogicUpdate(float dt)
 		HandleSuperAttacks(ID);
 
 	// --- Shield according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldTimer.ReadSec() > 1.0f)
 	{
 		shieldTimer.Start();
 		shieldDuration.Start();
 		shieldON = true;
+		LOG("shield on");
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldON)
 	{
+		LOG("shield off");
 		shieldON = false;
 	}
 	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
 	{
+		LOG("shield off");
 		shieldON = false;
 	}
 

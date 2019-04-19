@@ -81,6 +81,9 @@ public:
 	Playerdata player3info;
 	Playerdata player4info;
 	AnimationRanges animranges;
+
+	SDL_Texture* shield_texture = nullptr;
+	std::string shield_texturepath;
 };
 
 #endif // __J1ENTITYMANAGER_H__

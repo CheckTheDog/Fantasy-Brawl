@@ -48,6 +48,7 @@
       <texture3>textures/Wendolin Red Sprite 3x.png</texture3>
       <texture4>textures/Wendolin Red Sprite 3x.png</texture4>
       <collider x="0" y="0" width="70" height="30"/>
+      <shield>textures/Shield_Red_2x.png</shield>
       
       <AnimationRangeRight range_start="-22.5f" range_end="22.5f" />
       <AnimationRangeLeft range_start="157.5f" range_end="180.0f" />
