@@ -96,10 +96,14 @@ public:
 	UI_element* mark2 = nullptr;
 	UI_element* mark3 = nullptr;
 	UI_element* mark4 = nullptr;
-	
+	UI_element* ready = nullptr;
 
 	//SELECTION BOOLS
+	int counter = 0;
 	bool player1_select = false;
-	bool all_select = false;
+	bool player2_select = false;
+	bool player3_select = false;
+	bool player4_select = false;
+	
 };
 #endif // !__j1UISCENE_H__ 

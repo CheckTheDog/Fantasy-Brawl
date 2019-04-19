@@ -167,6 +167,8 @@ bool j1UIScene::Start()
 		mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
 		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);
 
+		//READY BUTTON
+		ready = App->gui->createButton(700 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
 				
 
 		championSelection->elements.push_back(selection_image);
@@ -183,6 +185,7 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(mark2);
 		championSelection->elements.push_back(mark3);
 		championSelection->elements.push_back(mark4);
+		championSelection->elements.push_back(ready);
 		menus.push_back(championSelection);
 	}
 
@@ -363,6 +366,43 @@ bool j1UIScene::Update(float dt)
 	{
 		mark1->section = { 243, 1107, 169,122 };
 	}
+	else if (player1_select == false)
+	{
+		mark1->section = { 33, 1107, 169,122 };
+	}
+
+	if (player2_select == true)
+	{
+		mark2->section = { 243, 1107, 169,122 };
+	}
+	else if (player2_select == false)
+	{
+		mark2->section = { 33, 1107, 169,122 };
+	}
+
+	if (player3_select == true)
+	{
+		mark3->section = { 243, 1107, 169,122 };
+	}
+	else if (player3_select == false)
+	{
+		mark3->section = { 33, 1107, 169,122 };
+	}
+
+	if (player4_select == true)
+	{
+		mark4->section = { 243, 1107, 169,122 };
+	}
+	else if (player4_select == false)
+	{
+		mark4->section = { 33, 1107, 169,122 };
+	}
+
+	if (player1_select == true && player2_select == true && player3_select == true && player4_select == true)
+	{
+		ready->function = INGAME;
+		
+	}
 
 	return ret;
 }
@@ -400,24 +440,18 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			newValues.fullscreen = tmp->active;
 		}
 		
-		//if (element->element_type == BUTTON)
-		//{
-		//	uint count = 1;
-		//	
-		//	/*all_select = true;*/
-		//	
-		//	if (count == 1)
-		//	{
-		//		player1_select = true;
-		//		
-		//	}
-		//}
-
-
+	
 		switch (element->function)
 		{
 		case NEW_GAME:
 		{
+			//RESET SELECTION BOOLS && COUNTER
+			counter = 0;
+			player1_select = false;
+			player2_select = false;
+			player3_select = false;
+			player4_select = false;
+
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
 			break;
@@ -426,13 +460,31 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 						
 			actual_menu = INGAME_MENU;
-			App->transition->menuTransition(INGAME_MENU, 0.3);
+			App->transition->menuTransition(INGAME_MENU, 0.3);			
 			
 			break;
 		}
 		case SELECTING:
 		{
-			player1_select = true;
+
+			counter++;
+			if (counter == 1)
+			{
+				player1_select = true;
+			}
+			if (counter == 2)
+			{
+				player2_select = true;
+			}
+			if (counter == 3)
+			{
+				player3_select = true;
+			}
+			if (counter == 4)
+			{
+				player4_select = true;
+			}
+
 			break;
 		}
 		case RESTART:
