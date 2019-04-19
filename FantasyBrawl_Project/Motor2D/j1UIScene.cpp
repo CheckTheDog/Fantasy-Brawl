@@ -324,7 +324,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		break;
 		case SETTINGS:
 			actual_menu = SETTINGS_MENU;
-			App->transition->menuTransition(SETTINGS_MENU, 0.1);
+			App->transition->menuTransition(SETTINGS_MENU, 0.3);
 			break;
 		case CREDITS:
 

@@ -164,6 +164,9 @@ public:
 
 	// --- Timers ---
 	j1Timer superTimer;
+	j1Timer shieldTimer;
+	j1Timer shieldDuration;
+	bool shieldON = false;
 };
 
 #endif // __j1Player_H__

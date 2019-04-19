@@ -180,6 +180,7 @@ public:
 	uint				 number_of_views = 1;
 
 private:
+
 	// Layer Blit list
 	std::priority_queue<view_line, std::vector<view_line>, view_line> line_list1;
 	std::priority_queue<view_line, std::vector<view_line>, view_line> line_list2;

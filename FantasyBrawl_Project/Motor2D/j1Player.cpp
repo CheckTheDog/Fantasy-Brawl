@@ -89,6 +89,7 @@ bool j1Player::Start()
 	//playerinfo.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
 
 	superTimer.Start();
+	shieldTimer.Start();
 
 	return true;
 }
@@ -316,18 +317,13 @@ void j1Player::HandleSuperAttacks(PLAYER ID)
 
 void j1Player::Launch1stSuper()
 {
-	playerinfo.characterdata.basic_attack.angle = 45;
-	App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	playerinfo.characterdata.basic_attack.angle = 90;
-	App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	playerinfo.characterdata.basic_attack.angle = 135;
-	App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	playerinfo.characterdata.basic_attack.angle = 180;
-	App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	playerinfo.characterdata.basic_attack.angle = 225;
-	App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	playerinfo.characterdata.basic_attack.angle = 270;
-	App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+
+	for (int i = 1; i < 17; ++i)
+	{
+		playerinfo.characterdata.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+	}
+
 }
 
 bool j1Player::Update(float dt)
@@ -351,6 +347,7 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
+
 
 	return true;
 }
@@ -530,12 +527,28 @@ void j1Player::LogicUpdate(float dt)
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
 		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 0.0f)
 		HandleSuperAttacks(ID);
-	
+
+	// --- Shield according to input ---
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	{
+		shieldTimer.Start();
+		shieldDuration.Start();
+		shieldON = true;
+	}
+	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldON)
+	{
+		shieldON = false;
+	}
+	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
+	{
+		shieldON = false;
+	}
 
 	PlayerState = PSTATE::IDLE;
 
+	if(!shieldON)
 	Update(dt);
 }
 

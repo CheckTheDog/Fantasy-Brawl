@@ -222,8 +222,8 @@ bool Particle::Update(float dt)
 			LOG("sin: %f", sinf(this->angle));
 			LOG("angle: %f", angle);*/
 
-			pos.x += cos(this->angle)*speed.x*dt;
-			pos.y += sin(this->angle)*speed.y*dt;
+			pos.x += cosf(this->angle)*speed.x*dt;
+			pos.y += sinf(this->angle)*speed.y*dt;
 			
 		}
 
