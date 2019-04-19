@@ -16,7 +16,11 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 
 - Player Attack (Gamepad Exclusive):
 
-  - Aim & Attack: Right Joystick, aim at any direction while pressing RIGHT TRIGGER, release to shoot. 
+  - Aim & Basic Attack: Right Joystick, aim at any direction while pressing RIGHT TRIGGER, release to shoot. 
+  - Super Attack: Press LEFT TRIGGER
+  - Shield: Press RIGHT JOYSTICK
+
+- ESC opens pause menu (to be changed in future versions of the game)
 
 ### AUTHORS: CheckTheDog
 
@@ -93,6 +97,14 @@ Aitor:
 - Character animations (implementation)
 - Player particle shooting
 - Particle system improvements (put to work)
+- Player basic attack
+- Player super attack
+- Player Shield
+- Particles launched in all directions with rotated sprite
+- Particle collisions and damage, player death
+- Cameras inside map bounds and fixed to players
+- Players spawning position and full reset at new game
+- UI transition improvement (black quad at the back of the screen)
 
 Didac:
 
@@ -102,6 +114,7 @@ Pol:
 
 - Character animations (creation)
 - First Map
+- Player Shield Texture, added collider water in Tiled
 
 Vladislav: 
 
@@ -111,9 +124,12 @@ Vladislav:
 Jacobo:
 
 - Initial Sprite Ordering implementation
+- 4 camera system
+- Camera culling
 
 Oscar:
 
 - Main menus, working UI workflow
 - Pause menu
 - Placeholders (temporal art)
+- Character Selection Menu
