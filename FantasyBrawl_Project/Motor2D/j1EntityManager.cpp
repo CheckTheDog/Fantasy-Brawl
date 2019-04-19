@@ -92,9 +92,11 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player1info.playerrect = { x,y,w,h };
 
 	// --- P1 Particles ---
+	fPoint particle_speed = { 250.0f, 250.0f };
 	player1info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
 	player1info.characterdata.basic_attack.anim.loop = true;
 	player1info.characterdata.basic_attack.life = 2500;
+	player1info.characterdata.basic_attack.speed = particle_speed;
 	player1info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
 
 	// --------------------
@@ -131,6 +133,14 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player2info.attackDownleft = LoadAnimation(player2info.folder.data(), "attackDownleft");
 
 	player2info.playerrect = { x,y,w,h };
+
+	// --- P2 Particles ---
+	player2info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
+	player2info.characterdata.basic_attack.anim.loop = true;
+	player2info.characterdata.basic_attack.life = 2500;
+	player2info.characterdata.basic_attack.speed = particle_speed;
+	player2info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+
 	// --------------------
 
 	// --- Player 3 Awake ---
@@ -165,6 +175,15 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player3info.attackDownleft = LoadAnimation(player3info.folder.data(), "attackDownleft");
 		  
 	player3info.playerrect = { x,y,w,h };
+
+	// --- P3 Particles ---
+	player3info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
+	player3info.characterdata.basic_attack.anim.loop = true;
+	player3info.characterdata.basic_attack.life = 2500;
+	player3info.characterdata.basic_attack.speed = particle_speed;
+	player3info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+
+
 	// --------------------
 
 	// --- Player 4 Awake ---
@@ -199,6 +218,14 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player4info.attackDownleft = LoadAnimation(player4info.folder.data(), "attackDownleft");
 		  
 	player4info.playerrect = { x,y,w,h };
+
+	// --- P4 Particles ---
+	player4info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
+	player4info.characterdata.basic_attack.anim.loop = true;
+	player4info.characterdata.basic_attack.life = 2500;
+	player4info.characterdata.basic_attack.speed = particle_speed;
+	player4info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+
 	// --------------------
 
 	return ret;

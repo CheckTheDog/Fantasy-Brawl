@@ -274,14 +274,16 @@ void j1Player::HandleInput()
 	//--------------
 
 	// --- Assign speed to all particles ---
-	playerinfo.characterdata.basic_attack.speed.x = RJdirection_x * 300;
-	playerinfo.characterdata.basic_attack.speed.y = RJdirection_y * 300;
-	playerinfo.characterdata.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI);
+	//playerinfo.characterdata.basic_attack.speed.x = RJdirection_x * 300;
+	//playerinfo.characterdata.basic_attack.speed.y = RJdirection_y * 300;
+	playerinfo.characterdata.basic_attack.direction.x = RJdirection_x;
+	playerinfo.characterdata.basic_attack.direction.y = RJdirection_y;
+	playerinfo.characterdata.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) /** (180.0f / M_PI)*/;
 
 	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
 
-	/*LOG("direction_x: %f", LJdirection_x);
-	LOG("direction_y: %f", LJdirection_y);*/
+	//LOG("direction_x: %f", RJdirection_x);
+	//LOG("direction_y: %f", RJdirection_y);
 }
 
 void j1Player::HandleAttacks(PLAYER ID)

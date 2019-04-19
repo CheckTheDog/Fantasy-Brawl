@@ -72,8 +72,8 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			App->view->PushQueue(4,pSprites, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt),0,0,p->angle);
-			LOG("p.angle: %f", p->angle);
+			App->view->PushQueue(4,pSprites, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt),0,0,p->angle*(180.0f / M_PI) - 180.0f);
+			//LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
 		}
 	}
@@ -94,7 +94,13 @@ void j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TY
 			p->delay = delay;
 			p->originplayer = porigin;
 			p->particle_effect = &App->buff->effects[3];
-			p->angle = particle.angle - 180.0f;
+			p->angle = particle.angle;
+			p->speed.x = particle.speed.x;
+			p->speed.y = particle.speed.y;
+			p->direction.x = particle.direction.x;
+			p->direction.y = particle.direction.y;
+			p->direction.x *= p->speed.x;
+			p->direction.y *= p->speed.y;
 
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
@@ -207,8 +213,18 @@ bool Particle::Update(float dt)
 			ret = false;
 		}
 		else {
-			pos.x += speed.x*dt;
-			pos.y += speed.y*dt;
+			/*direction.x *= speed.x*dt;
+			direction.y *= speed.y*dt;*/
+		/*	pos.x += direction.x*dt;
+			pos.y += direction.y*dt;*/
+
+			/*LOG("cos: %f", cosf(this->angle));
+			LOG("sin: %f", sinf(this->angle));
+			LOG("angle: %f", angle);*/
+
+			pos.x += cos(this->angle)*speed.x*dt;
+			pos.y += sin(this->angle)*speed.y*dt;
+			
 		}
 
 	}

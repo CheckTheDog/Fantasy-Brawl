@@ -17,12 +17,13 @@ struct Particle
 {
 	Collider* pCol = nullptr;
 	Animation anim;
-	fPoint pos;
-	fPoint speed;
+	fPoint pos = { 0.0f,0.0f };
+	fPoint speed = { 0.0f,0.0f };
+	fPoint direction = { 0.0f,0.0f };
 	uint born = 0;
-	uint life;
+	uint life = 0;
 	uint delay = 0;
-	j1Player* originplayer;
+	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
 	float angle = 0.0f;
 
