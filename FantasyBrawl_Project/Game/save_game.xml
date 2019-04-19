@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <game_state>
+	<filesys />
 	<input />
 	<window />
 	<textures />
@@ -18,7 +19,9 @@
 	<collision />
 	<map />
 	<scene />
+	<:anonymous />
 	<pathfinding />
+	<viewports />
 	<fonts />
 	<gui />
 	<:anonymous />

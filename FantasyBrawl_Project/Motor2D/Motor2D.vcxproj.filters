@@ -52,6 +52,12 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1ParticleSystem.cpp">
+      <Filter>Development  ========\Entities\Tools</Filter>
+   </ClCompile>
+    <ClCompile Include="j1Viewport.cpp">
+      <Filter>Development  ========\Modules\Core</Filter>
+    </ClCompile>
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
@@ -83,6 +89,9 @@
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClCompile>
     <ClCompile Include="j1BuffManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1ArenaInteractions.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -153,6 +162,12 @@
     <ClInclude Include="Animation.h">
       <Filter>Utilities ===========</Filter>
     </ClInclude>
+    <ClInclude Include="j1ParticleSystem.h">
+      <Filter>Development  ========\Entities\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Viewport.h">
+      <Filter>Development  ========\Modules\Core</Filter>
+    </ClInclude>
     <ClInclude Include="j1Gui.h">
       <Filter>Development  ========\Modules\UI</Filter>
     </ClInclude>
@@ -187,6 +202,9 @@
       <Filter>Development  ========\Modules\UI\Elements</Filter>
     </ClInclude>
     <ClInclude Include="j1BuffManager.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ArenaInteractions.h">
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
