@@ -8,6 +8,8 @@
 class UI_element;
 class Clock;
 class Button;
+class j1Player;
+struct _TTF_Font;
 
 
 enum menu_id
@@ -65,6 +67,7 @@ public:
 	void playClock();
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	void CreateScoreBoard(int num);
 
 public:
 	std::list <menu*> menus;
@@ -107,6 +110,19 @@ public:
 	bool player2_select = false;
 	bool player3_select = false;
 	bool player4_select = false;
+
+	//PLAYER FOR SCOREBOARD
+	j1Player* player_winner = nullptr;
+	menu* finalMenu = nullptr;
+	UI_element* win_text = nullptr;
+	bool scoreboard = false;
+
+	UI_element* final_image = nullptr;
+
+	//FONTS
+	_TTF_Font* small_texts_font = nullptr;
+	_TTF_Font* big_buttons_font = nullptr;
+	_TTF_Font* mid_buttons_font = nullptr;
 	
 };
 #endif // !__j1UISCENE_H__ 

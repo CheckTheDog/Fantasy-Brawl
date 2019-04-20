@@ -17,6 +17,7 @@
 #include "UI_Window.h"
 #include "UI_Clock.h"
 #include "j1EntityManager.h"
+#include "j1Player.h"
 
 
 
@@ -37,13 +38,18 @@ bool j1UIScene::Awake()
 
 bool j1UIScene::Start()
 {
-	_TTF_Font* big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 80);
-	_TTF_Font* mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
+
+	
+	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 80);
+	
 	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
-	_TTF_Font* small_texts_font = App->fonts->Load("fonts/finalf.ttf", 15);
+	
 	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
 	_TTF_Font* special_text_font = App->fonts->Load("fonts/finalf.ttf", 55);
+	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 80);
+	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
+	
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color white_color = { 255, 255, 255, 0 };
@@ -51,6 +57,7 @@ bool j1UIScene::Start()
 	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
 	SDL_Color brown_color = { 139,69,19 };
+	
 
 
 	
@@ -136,16 +143,8 @@ bool j1UIScene::Start()
 		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar4 = hp_bar_player4;
 
-		//test scoreboard button
-		UI_element* ingame_button = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-		ingame_button->function = SCORES;
+		
 
-		UI_element* ingame_text = App->gui->createText("TEST", 200, 200, big_buttons_font, brown_color);
-		ingame_text->setOutlined(true);
-		ingame_button->appendChildAtCenter(ingame_text);
-
-		ingameMenu->elements.push_back(ingame_button);
-		ingameMenu->elements.push_back(ingame_text);
 		ingameMenu->elements.push_back(hp_bar_player1);
 		/*ingameMenu->elements.push_back(hp_bar_player2);
 		ingameMenu->elements.push_back(hp_bar_player3);
@@ -296,30 +295,29 @@ bool j1UIScene::Start()
 		menus.push_back(pauseMenu);
 	}
 
-	menu* finalMenu = new menu(FINAL_MENU);
+	finalMenu = new menu(FINAL_MENU);
 	{
-		//WINDOW
-		UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
-		UI_element* final_text = App->gui->createText("SCOREBOARD", 425, 60, big_buttons_font, brown_color);
-		final_text->setOutlined(true);
 
-		//SCOREBOARD INFO
+		/*CreateScoreBoard(2);*/
 
-		//END BUTTON
-		UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-		end_button->function = RESTART;
-		UI_element* end_text = App->gui->createText("END", 300, 300, mid_buttons_font, brown_color);
-		end_text->setOutlined(true);
-		end_button->appendChildAtCenter(end_text);
+		/*player_winner = App->scene->GetWinner();
 
-
-		finalMenu->elements.push_back(final_image);
-		finalMenu->elements.push_back(final_text);
-		finalMenu->elements.push_back(end_button);
-		finalMenu->elements.push_back(end_text);
-		menus.push_back(finalMenu);
+		if (player_winner != nullptr)
+		{
+			if(player_winner == App->scene->player1)
+				CreateScoreBoard(1);
+			else if(player_winner == App->scene->player2)
+				CreateScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateScoreBoard(4);
+		}*/
 
 	}
+
+	
+
 
 
 	current_menu = startMenu;
@@ -461,6 +459,29 @@ bool j1UIScene::Update(float dt)
 		ready->section = { 0,28,278,105 };
 	}
 
+
+	//GET TO SCOREBOARD SCREEN
+
+	player_winner = App->scene->GetWinner();
+
+	if (player_winner != nullptr && scoreboard == false)
+	{
+		scoreboard = true;
+		actual_menu = FINAL_MENU;
+		App->transition->menuTransition(FINAL_MENU, 0.3);
+		if (player_winner == App->scene->player1)
+			CreateScoreBoard(1);
+		else if (player_winner == App->scene->player2)
+			CreateScoreBoard(2);
+		else if (player_winner == App->scene->player3)
+			CreateScoreBoard(3);
+		else if (player_winner == App->scene->player4)
+			CreateScoreBoard(4);
+	}
+
+	
+
+
 	return ret;
 }
 
@@ -513,6 +534,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			// --- Reset everything ---
 			App->scene->ResetAll();
 			
+			scoreboard = false;
 
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
@@ -668,6 +690,7 @@ bool j1UIScene::CleanUp()
 
 	menus.clear();
 	current_menu = nullptr;
+	
 
 	return true;
 }
@@ -789,4 +812,76 @@ void j1UIScene::playClock()
 				clock->counter.Play();*/
 		}
 	}
+}
+
+void j1UIScene::CreateScoreBoard(int num)
+{
+	
+	SDL_Color brown_color = { 139,69,19 };
+
+	//WINDOW
+	
+	if (final_image != nullptr)
+	{
+		App->tex->UnLoad(final_image->texture);
+	}
+	final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+
+	UI_element* final_text = App->gui->createText("SCOREBOARD", 400, 60, big_buttons_font, brown_color);
+	final_text->setOutlined(true);
+
+	//SCOREBOARD INFO
+	UI_element* winner_text = App->gui->createText("WINNER:", 260, 230, big_buttons_font, brown_color);
+	winner_text->setOutlined(true);
+
+
+	switch (num)
+	{
+		case 1:
+		{
+			win_text = App->gui->createText("PLAYER 1", 500, 230, small_texts_font, brown_color);
+			win_text->setOutlined(true);
+			break;
+		}
+		case 2:
+		{
+			win_text = App->gui->createText("PLAYER 2", 500, 230, small_texts_font, brown_color);
+			win_text->setOutlined(true);
+			break;
+		}
+		case 3:
+		{
+			win_text = App->gui->createText("PLAYER 3", 500, 230, small_texts_font, brown_color);
+			win_text->setOutlined(true);
+			break;
+		}
+		case 4:
+		{
+			win_text = App->gui->createText("PLAYER 4", 500, 230, small_texts_font, brown_color);
+			win_text->setOutlined(true);
+			break;
+		}
+	}
+	
+	
+
+	//END BUTTON
+	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+	end_button->function = RESTART;
+	UI_element* end_text = App->gui->createText("END", 300, 300, mid_buttons_font, brown_color);
+	end_text->setOutlined(true);
+	end_button->appendChildAtCenter(end_text);
+
+
+
+
+	finalMenu->elements.push_back(final_image);
+	finalMenu->elements.push_back(final_text);
+	finalMenu->elements.push_back(winner_text);
+	finalMenu->elements.push_back(win_text);
+	finalMenu->elements.push_back(end_button);
+	finalMenu->elements.push_back(end_text);
+	menus.push_back(finalMenu);
+
+
 }
