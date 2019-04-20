@@ -427,6 +427,15 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			}
 		}
 
+		// --- On player death, deactivate it ---
+		if (this->Entityinfo.health == 0.0f)
+		{
+			P_rank = RANK::LOSER;
+			this->active = false;
+			this->Entityinfo.entitycoll->rect.x = 0;
+			this->Entityinfo.entitycoll->rect.y = 0;
+		}
+
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
 }
@@ -505,10 +514,6 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 		if (this->Entityinfo.health == 0.0f)
 		{
 			pcollided->originplayer->kills++;
-			P_rank = RANK::LOSER;
-			this->active = false;
-			this->Entityinfo.entitycoll->rect.x = 0;
-			this->Entityinfo.entitycoll->rect.y = 0;
 		}
 
 	}
