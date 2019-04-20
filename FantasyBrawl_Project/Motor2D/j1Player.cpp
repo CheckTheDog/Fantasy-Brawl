@@ -554,7 +554,7 @@ void j1Player::LogicUpdate(float dt)
 
 	// --- Attack according to input ---
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
 		HandleSuperAttacks(ID);
@@ -566,6 +566,7 @@ void j1Player::LogicUpdate(float dt)
 		shieldDuration.Start();
 		shieldON = true;
 		LOG("shield on");
+		GetIdleAnimation();
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldON)
 	{
