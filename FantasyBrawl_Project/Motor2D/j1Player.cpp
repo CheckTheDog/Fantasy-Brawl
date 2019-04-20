@@ -508,12 +508,14 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 	if (pcollided && pcollided->originplayer != this)
 	{
 		App->buff->ApplyEffect(pcollided->particle_effect, this);
+		App->input->ShakeController(ID, 0.5, 100);
 		App->buff->LimitAttributes(this);
 		LOG("player life: %f", this->Entityinfo.health);
 
-		if (this->Entityinfo.health == 0.0f)
+		if (this->Entityinfo.health <= 0.0f)
 		{
 			pcollided->originplayer->kills++;
+			App->input->ShakeController(ID, 1.0, 1000);
 		}
 
 	}
