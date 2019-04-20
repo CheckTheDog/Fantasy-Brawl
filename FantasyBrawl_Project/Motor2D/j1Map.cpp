@@ -63,21 +63,25 @@ void j1Map::Draw()
 					{
 						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "beauty_1" || layer->name == "beauty_2")
+					else if (layer->name == "beauty_1")
 					{
 						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "shadows_1")
+					else if (layer->name == "beauty_2")
 					{
 						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
 					}
+					else if (layer->name == "shadows_1")
+					{
+						App->view->PushQueue(4, tileset->texture, pos.x, pos.y, r);
+					}
 					else if (layer->name == "walls")
 					{
-						App->view->PushQueue(5, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
 					}
 					else
 					{
-						App->view->PushQueue(7, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
 					}
 						
 

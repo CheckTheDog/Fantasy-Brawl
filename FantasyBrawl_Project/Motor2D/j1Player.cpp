@@ -358,10 +358,10 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->view->PushQueue(4,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+	App->view->PushQueue(5,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
 
 	if(shieldON)
-		App->view->PushQueue(5, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
+		App->view->PushQueue(6, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
 
 	return ret;
 }
