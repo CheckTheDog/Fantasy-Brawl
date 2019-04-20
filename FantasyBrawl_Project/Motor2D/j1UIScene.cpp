@@ -17,6 +17,7 @@
 #include "UI_Window.h"
 #include "UI_Clock.h"
 #include "j1EntityManager.h"
+#include "SDL_mixer\include\SDL_mixer.h"
 
 
 
@@ -287,7 +288,7 @@ bool j1UIScene::Start()
 
 	current_menu = startMenu;
 
-	
+	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 
 	return true;
 }
@@ -312,6 +313,7 @@ bool j1UIScene::Update(float dt)
 			App->on_GamePause = true;
 			actual_menu = PAUSE_MENU;
 
+			Mix_PauseMusic();
 			App->transition->menuTransition(PAUSE_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
 			ret = true;
@@ -321,6 +323,7 @@ bool j1UIScene::Update(float dt)
 			App->on_GamePause = false;
 			actual_menu = INGAME_MENU;
 
+			Mix_ResumeMusic();
 			App->transition->menuTransition(INGAME_MENU, 0.3f);
 			App->arena_interactions->ContinueStorm();
 			ret = true;
@@ -467,16 +470,19 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
+
+			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
 		}
 		case INGAME:
 		{			
 			actual_menu = INGAME_MENU;
-			App->transition->menuTransition(INGAME_MENU, 0.3);				
+			App->transition->menuTransition(INGAME_MENU, 0.3);
+			App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
 			break;
 		}
 		case SELECTING:
-		{
+		{		
 
 			counter++;
 
@@ -515,6 +521,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case SETTINGS:
 			actual_menu = SETTINGS_MENU;
 			App->transition->menuTransition(SETTINGS_MENU, 0.3);
+			App->audio->PlayMusic(App->audio->pathOptions.data(), 0);
+
 			break;
 		case CREDITS:
 
@@ -536,6 +544,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			{
 				App->transition->menuTransition(previous_menu, 0.3);
 				actual_menu = START_MENU;
+				App->audio->PlayMusic(App->audio->pathMainMenu1.data(),0);
 			}
 			if (actual_menu == PAUSE_MENU)
 			{
@@ -543,6 +552,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->arena_interactions->DestroyStorm();
 				App->transition->menuTransition(START_MENU, 0.3);
 				actual_menu = START_MENU;
+				App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 			}
 			break;
 		case RESTORE:

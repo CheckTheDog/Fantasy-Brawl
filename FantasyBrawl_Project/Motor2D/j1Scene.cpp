@@ -306,45 +306,45 @@ bool j1Scene::Update(float dt)
 		App->view->ScreenMove(1, -ceil(150.0*dt), 0);*/
 
 	//Testing Haptic features (Vibration)
-	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P1,1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P1,1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P1);
-	}
+	//if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P1);
+	//}
 
-	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P2, 1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P2, 1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P2);
-	}
+	//if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P2);
+	//}
 
-	if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P3, 1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P3, 1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P3);
-	}
+	//if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P3);
+	//}
 
-	if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P4, 1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P4, 1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P4);
-	}
+	//if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P4);
+	//}
 	
 
 	App->map->Draw();
