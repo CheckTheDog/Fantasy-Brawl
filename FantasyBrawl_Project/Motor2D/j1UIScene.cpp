@@ -55,8 +55,7 @@ bool j1UIScene::Start()
 
 	
 
-	float music_progress = (float)App->audio->getMusicVolume() / 128;
-	float fx_progress = (float)App->audio->getFxVolume() / 128;
+	
 
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
@@ -224,7 +223,7 @@ bool j1UIScene::Start()
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color,music_progress);
+		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
@@ -325,9 +324,7 @@ bool j1UIScene::Start()
 
 	current_menu = startMenu;
 
-	defaultValues.fx = fx_progress;
-	defaultValues.music = music_progress;
-	newValues = defaultValues;
+	
 	
 
 	return true;
@@ -400,7 +397,7 @@ bool j1UIScene::Update(float dt)
 	}
 	else if (actual_menu == FINAL_MENU)
 	{
-		App->on_GamePause = false;
+		App->on_GamePause = true;
 	}
 		
 	//UPDATING HP BARS POSITION
@@ -742,8 +739,6 @@ void j1UIScene::applySettings(settings_values values)
 		flag = SDL_WINDOW_FULLSCREEN;
 	SDL_SetWindowFullscreen(App->win->window, flag);
 
-	App->audio->setMusicVolume(values.music);
-	App->audio->setFxVolume(values.fx);
 
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
