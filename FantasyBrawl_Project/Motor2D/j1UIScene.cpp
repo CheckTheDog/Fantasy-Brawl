@@ -317,9 +317,6 @@ bool j1UIScene::Start()
 	}
 
 	
-
-
-
 	current_menu = startMenu;
 
 	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);

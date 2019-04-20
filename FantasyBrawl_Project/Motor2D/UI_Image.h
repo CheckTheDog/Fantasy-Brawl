@@ -12,12 +12,21 @@ public:
 	{}
 
 	Image(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback) : UI_element(x, y, element_type::IMAGE, section, callback, texture)
-	{}
+	{
+		tmp_section.x = section.y;
+		tmp_section.y = section.y;
+		tmp_section.h = section.h;
+	}
 
 	~Image()
 	{}
 
 	void BlitElement();
+
+
+	float multiplier;
+	int player_hp = 300;
+	SDL_Rect tmp_section = {0,0,0,0};
 };
 
 #endif 
