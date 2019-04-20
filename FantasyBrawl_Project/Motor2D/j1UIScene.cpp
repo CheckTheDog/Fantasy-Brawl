@@ -55,6 +55,9 @@ bool j1UIScene::Start()
 
 	
 
+	float music_progress = (float)App->audio->getMusicVolume() / 128;
+	float fx_progress = (float)App->audio->getFxVolume() / 128;
+
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
 		
@@ -134,11 +137,21 @@ bool j1UIScene::Start()
 		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar4 = hp_bar_player4;
 
-		//ingameMenu->elements.push_back(hp_bar_player1);
-		//ingameMenu->elements.push_back(hp_bar_player2);
-		/*ingameMenu->elements.push_back(hp_bar_player3);
+		//test scoreboard button
+		UI_element* ingame_button = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		ingame_button->function = SCORES;
+
+		UI_element* ingame_text = App->gui->createText("TEST", 200, 200, big_buttons_font, brown_color);
+		ingame_text->setOutlined(true);
+		ingame_button->appendChildAtCenter(ingame_text);
+
+		ingameMenu->elements.push_back(ingame_button);
+		ingameMenu->elements.push_back(ingame_text);
+		ingameMenu->elements.push_back(hp_bar_player1);
+		/*ingameMenu->elements.push_back(hp_bar_player2);
+		ingameMenu->elements.push_back(hp_bar_player3);
 		ingameMenu->elements.push_back(hp_bar_player4);*/
-		//ingameMenu->elements.push_back(sp_bar_player1);
+		ingameMenu->elements.push_back(sp_bar_player1);
 		menus.push_back(ingameMenu);
 
 	}
@@ -211,7 +224,7 @@ bool j1UIScene::Start()
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
+		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color,music_progress);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
@@ -284,9 +297,37 @@ bool j1UIScene::Start()
 		menus.push_back(pauseMenu);
 	}
 
+	menu* finalMenu = new menu(FINAL_MENU);
+	{
+		//WINDOW
+		UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+		UI_element* final_text = App->gui->createText("SCOREBOARD", 425, 60, big_buttons_font, brown_color);
+		final_text->setOutlined(true);
+
+		//SCOREBOARD INFO
+
+		//END BUTTON
+		UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		end_button->function = RESTART;
+		UI_element* end_text = App->gui->createText("END", 300, 300, mid_buttons_font, brown_color);
+		end_text->setOutlined(true);
+		end_button->appendChildAtCenter(end_text);
+
+
+		finalMenu->elements.push_back(final_image);
+		finalMenu->elements.push_back(final_text);
+		finalMenu->elements.push_back(end_button);
+		finalMenu->elements.push_back(end_text);
+		menus.push_back(finalMenu);
+
+	}
+
 
 	current_menu = startMenu;
 
+	defaultValues.fx = fx_progress;
+	defaultValues.music = music_progress;
+	newValues = defaultValues;
 	
 
 	return true;
@@ -300,6 +341,8 @@ bool j1UIScene::PreUpdate()
 bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
+
+	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -338,10 +381,13 @@ bool j1UIScene::Update(float dt)
 	//PAUSING GAME WHILE ON MENUS
 	if (actual_menu == START_MENU)
 	{
+		
 		App->on_GamePause = true;
+		
 	}
 	else if (actual_menu == SETTINGS_MENU)
 	{
+		
 		App->on_GamePause = true;
 	}
 	else if (actual_menu == SELECTION_MENU)
@@ -352,12 +398,16 @@ bool j1UIScene::Update(float dt)
 	{
 		App->on_GamePause = false;
 	}
+	else if (actual_menu == FINAL_MENU)
+	{
+		App->on_GamePause = false;
+	}
 		
 	//UPDATING HP BARS POSITION
 	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
 	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;
+	/*hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;*/
 	/*hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
 	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
 	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
@@ -455,6 +505,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
+			
 			//RESET SELECTION BOOLS && COUNTER
 			counter = 0;
 			player1_select = false;
@@ -464,6 +515,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			// --- Reset everything ---
 			App->scene->ResetAll();
+			
 
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
@@ -502,9 +554,19 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			//App->arena_interactions->StartStorm();
 			break;
 		}
+		case SCORES:
+		{
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 0.3);
+			break;
+			
+		}
 		case RESTART:
 		{
-
+			App->scene->ResetAll();
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU, 0.3);
+			break;
 		}
 		break;
 		case CONTINUE:
@@ -680,6 +742,8 @@ void j1UIScene::applySettings(settings_values values)
 		flag = SDL_WINDOW_FULLSCREEN;
 	SDL_SetWindowFullscreen(App->win->window, flag);
 
+	App->audio->setMusicVolume(values.music);
+	App->audio->setFxVolume(values.fx);
 
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
