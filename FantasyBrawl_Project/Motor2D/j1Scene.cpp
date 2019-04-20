@@ -155,7 +155,58 @@ void j1Scene::ResetAll()
 	player2->PlayerState = PSTATE::IDLE;
 	player3->PlayerState = PSTATE::IDLE;
 	player4->PlayerState = PSTATE::IDLE;
+
+	// --- Reset Players Scores ---
+	player1->kills = 0;
+	player2->kills = 0;
+	player3->kills = 0;
+	player4->kills = 0;
+
+	player1->P_rank = RANK::CONTENDER;
+	player2->P_rank = RANK::CONTENDER;
+	player3->P_rank = RANK::CONTENDER;
+	player4->P_rank = RANK::CONTENDER;
 }
+
+j1Player* j1Scene::GetWinner()
+{
+	j1Player* winner = nullptr;
+
+	if (player1->P_rank == RANK::CONTENDER)
+	{
+		if (player2->P_rank == RANK::LOSER
+			&& player3->P_rank == RANK::LOSER
+			&& player4->P_rank == RANK::LOSER)
+			winner = player1;
+	}
+
+	else if (player2->P_rank == RANK::CONTENDER)
+	{
+		if (player1->P_rank == RANK::LOSER
+			&& player3->P_rank == RANK::LOSER
+			&& player4->P_rank == RANK::LOSER)
+			winner = player2;
+	}
+
+	else if (player3->P_rank == RANK::CONTENDER)
+	{
+		if (player1->P_rank == RANK::LOSER
+			&& player2->P_rank == RANK::LOSER
+			&& player4->P_rank == RANK::LOSER)
+			winner = player3;
+	}
+
+	else if (player4->P_rank == RANK::CONTENDER)
+	{
+		if (player1->P_rank == RANK::LOSER
+			&& player2->P_rank == RANK::LOSER
+			&& player3->P_rank == RANK::LOSER)
+			winner = player4;
+	}
+
+	return winner;
+}
+
 
 // Called each loop iteration
 bool j1Scene::PreUpdate()

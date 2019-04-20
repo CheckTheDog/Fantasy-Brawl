@@ -348,7 +348,6 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
-	//LOG("PLAYER MOVING",App->scene->player1->Entityinfo.position.x);
 
 
 	return true;
@@ -504,6 +503,8 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 
 		if (this->Entityinfo.health == 0.0f)
 		{
+			pcollided->originplayer->kills++;
+			P_rank = RANK::LOSER;
 			this->active = false;
 			this->Entityinfo.entitycoll->rect.x = 0;
 			this->Entityinfo.entitycoll->rect.y = 0;
@@ -583,5 +584,7 @@ void j1Player::LogicUpdate(float dt)
 
 	if(!shieldON)
 	Update(dt);
+
+
 }
 
