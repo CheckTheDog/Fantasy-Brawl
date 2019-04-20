@@ -91,6 +91,7 @@ bool j1Player::Start()
 
 	superTimer.Start();
 	shieldTimer.Start();
+	basicTimer.Start();
 
 	return true;
 }
@@ -348,7 +349,6 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
-	//LOG("PLAYER MOVING",App->scene->player1->Entityinfo.position.x);
 
 
 	return true;
@@ -425,6 +425,15 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
 				break;
 			}
+		}
+
+		// --- On player death, deactivate it ---
+		if (this->Entityinfo.health == 0.0f)
+		{
+			P_rank = RANK::LOSER;
+			this->active = false;
+			this->Entityinfo.entitycoll->rect.x = 0;
+			this->Entityinfo.entitycoll->rect.y = 0;
 		}
 
 		Future_position.x = entitycollider->rect.x;
@@ -505,10 +514,6 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 		if (this->Entityinfo.health == 0.0f)
 		{
 			pcollided->originplayer->kills++;
-			P_rank = RANK::LOSER;
-			this->active = false;
-			this->Entityinfo.entitycoll->rect.x = 0;
-			this->Entityinfo.entitycoll->rect.y = 0;
 		}
 
 	}
@@ -555,9 +560,12 @@ void j1Player::LogicUpdate(float dt)
 	EntityMovement = MOVEMENT::STATIC;
 
 	// --- Attack according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING
+		&& basicTimer.ReadSec() > 0.5f)
+	{
+		basicTimer.Start();
 		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-
+	}
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
 		HandleSuperAttacks(ID);
 
@@ -585,5 +593,7 @@ void j1Player::LogicUpdate(float dt)
 
 	if(!shieldON)
 	Update(dt);
+
+
 }
 
