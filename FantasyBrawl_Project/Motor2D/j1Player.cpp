@@ -428,7 +428,7 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		}
 
 		// --- On player death, deactivate it ---
-		if (this->Entityinfo.health == 0.0f)
+		if (this->Entityinfo.health <= 0.0f)
 		{
 			P_rank = RANK::LOSER;
 			this->active = false;
