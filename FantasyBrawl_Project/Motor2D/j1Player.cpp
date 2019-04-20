@@ -91,6 +91,7 @@ bool j1Player::Start()
 
 	superTimer.Start();
 	shieldTimer.Start();
+	basicTimer.Start();
 
 	return true;
 }
@@ -554,9 +555,12 @@ void j1Player::LogicUpdate(float dt)
 	EntityMovement = MOVEMENT::STATIC;
 
 	// --- Attack according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING
+		&& basicTimer.ReadSec() > 0.5f)
+	{
+		basicTimer.Start();
 		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-
+	}
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
 		HandleSuperAttacks(ID);
 

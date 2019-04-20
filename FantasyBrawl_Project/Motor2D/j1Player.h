@@ -172,6 +172,7 @@ public:
 	j1Timer superTimer;
 	j1Timer shieldTimer;
 	j1Timer shieldDuration;
+	j1Timer basicTimer;
 	bool shieldON = false;
 
 	// --- Score ---
