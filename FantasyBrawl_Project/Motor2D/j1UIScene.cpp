@@ -156,10 +156,13 @@ bool j1UIScene::Start()
 		
 
 		ingameMenu->elements.push_back(hp_bar_player1);
-		/*ingameMenu->elements.push_back(hp_bar_player2);*/
-		/*ingameMenu->elements.push_back(hp_bar_player3);
-		ingameMenu->elements.push_back(hp_bar_player4);*/
+		ingameMenu->elements.push_back(hp_bar_player2);
+		ingameMenu->elements.push_back(hp_bar_player3);
+		ingameMenu->elements.push_back(hp_bar_player4);
 		ingameMenu->elements.push_back(sp_bar_player1);
+		ingameMenu->elements.push_back(sp_bar_player2);
+		ingameMenu->elements.push_back(sp_bar_player3);
+		ingameMenu->elements.push_back(sp_bar_player4);
 		menus.push_back(ingameMenu);
 
 	}
@@ -409,16 +412,22 @@ bool j1UIScene::Update(float dt)
 	//UPDATING HP BARS POSITION
 	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
 	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;
-	/*hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;*/
-	/*hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
 	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
 	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
-	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;*/
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;
 
 	//UPDATING SP BARS POSITION
 	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
 	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;
+	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
+	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;
+	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
+	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
+	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
+	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;
 	
 	if (player1_select == true)
 	{
@@ -880,7 +889,7 @@ void j1UIScene::CreateScoreBoard(int num)
 		}
 	}
 	
-	//PLAYER KILLS
+	//PLAYER1 KILLS
 
 	UI_element* player1kills = App->gui->createText("PLAYER 1 kills:" ,260, 300, small_texts_font, brown_color);
 	player1kills->setOutlined(true);
@@ -889,6 +898,33 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	UI_element* p1_kills = App->gui->createText(p1kills.data(), 600, 300, small_texts_font, black_color);
 	p1_kills->setOutlined(true);
+
+	//PLAYER2 KILLS
+	UI_element* player2kills = App->gui->createText("PLAYER 2 kills:", 260, 370, small_texts_font, brown_color);
+	player2kills->setOutlined(true);
+
+	std::string p2kills = std::to_string(App->scene->player2->kills);
+
+	UI_element* p2_kills = App->gui->createText(p2kills.data(), 600, 370, small_texts_font, black_color);
+	p2_kills->setOutlined(true);
+
+	//PLAYER3 KILLS
+	UI_element* player3kills = App->gui->createText("PLAYER 3 kills:", 260, 440, small_texts_font, brown_color);
+	player3kills->setOutlined(true);
+
+	std::string p3kills = std::to_string(App->scene->player3->kills);
+
+	UI_element* p3_kills = App->gui->createText(p3kills.data(), 600, 440, small_texts_font, black_color);
+	p3_kills->setOutlined(true);
+
+	//PLAYER4 KILLS
+	UI_element* player4kills = App->gui->createText("PLAYER 4 kills:", 260, 510, small_texts_font, brown_color);
+	player4kills->setOutlined(true);
+
+	std::string p4kills = std::to_string(App->scene->player4->kills);
+
+	UI_element* p4_kills = App->gui->createText(p4kills.data(), 600, 510, small_texts_font, black_color);
+	p4_kills->setOutlined(true);
 	
 
 	//END BUTTON
@@ -909,6 +945,12 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(end_text);
 	finalMenu->elements.push_back(player1kills);
 	finalMenu->elements.push_back(p1_kills);
+	finalMenu->elements.push_back(player2kills);
+	finalMenu->elements.push_back(p2_kills);
+	finalMenu->elements.push_back(player3kills);
+	finalMenu->elements.push_back(p3_kills);
+	finalMenu->elements.push_back(player4kills);
+	finalMenu->elements.push_back(p4_kills);
 	menus.push_back(finalMenu);
 
 	
