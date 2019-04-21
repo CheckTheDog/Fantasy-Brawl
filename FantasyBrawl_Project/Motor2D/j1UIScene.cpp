@@ -346,7 +346,6 @@ bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
 
-	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -952,6 +951,7 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(player4kills);
 	finalMenu->elements.push_back(p4_kills);
 	menus.push_back(finalMenu);
+	LOG("%i", finalMenu->elements.size());
 
 	
 }
