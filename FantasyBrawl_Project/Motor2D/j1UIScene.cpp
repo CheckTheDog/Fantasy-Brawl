@@ -47,7 +47,7 @@ bool j1UIScene::Start()
 	
 	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
 	_TTF_Font* special_text_font = App->fonts->Load("fonts/finalf.ttf", 55);
-	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 80);
+	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
 	
 
@@ -75,13 +75,12 @@ bool j1UIScene::Start()
 
 
 		//PLAY
-		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		new_game->function = NEW_GAME;
 
-		UI_element* new_text = App->gui->createText("PLAY", 200, 200, big_buttons_font, brown_color);
+		UI_element* new_text = App->gui->createText("PLAY", 460, 270, big_buttons_font, brown_color);
 		new_text->setOutlined(true);
-		new_game->appendChildAtCenter(new_text);
-
+		
 		//CHAMPIONS
 		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 0,148,281,111 }, { 0,148,281,111 }, this);
 		continueButton->function = CONTINUE;
@@ -92,7 +91,7 @@ bool j1UIScene::Start()
 		continueButton->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 
 		exit_game->function = EXIT;
 
@@ -182,7 +181,7 @@ bool j1UIScene::Start()
 
 		//READY BUTTON
 		ready = App->gui->createButton(700 * App->gui->UI_scale, 330 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
-		ready_text = App->gui->createText("READY", 780, 340, big_buttons_font, black_color);
+		ready_text = App->gui->createText("READY", 780, 350, big_buttons_font, black_color);
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
@@ -215,7 +214,7 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		back_button->function = BACK;
 		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
@@ -260,7 +259,7 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		back_button->function = BACK;
 		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
@@ -872,7 +871,7 @@ void j1UIScene::CreateScoreBoard(int num)
 	
 
 	//END BUTTON
-	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 	end_button->function = RESTART;
 	UI_element* end_text = App->gui->createText("END", 300, 300, mid_buttons_font, brown_color);
 	end_text->setOutlined(true);
