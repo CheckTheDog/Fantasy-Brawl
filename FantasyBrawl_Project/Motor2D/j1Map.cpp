@@ -49,6 +49,9 @@ void j1Map::Draw()
 
 		iPoint playerpos1map = WorldToMap(App->scene->player1->Entityinfo.entitycoll->rect.x, App->scene->player1->Entityinfo.entitycoll->rect.y);
 		int playerpos1 = layerr->Get(playerpos1map.x, playerpos1map.y);
+		int playerpos1_left = layerr->Get(playerpos1map.x - 1, playerpos1map.y);
+		int playerpos1_right = layerr->Get(playerpos1map.x + 1, playerpos1map.y);
+		int playerpos1_top = layerr->Get(playerpos1map.x, playerpos1map.y - 1);
 
 		for(int y = 0; y < data.height; ++y)
 		{
@@ -81,14 +84,16 @@ void j1Map::Draw()
 					}
 					else if (layerr->name == "walls")
 					{
-						if (playerpos1 > 0)
+						if (playerpos1 > 0 || playerpos1_left > 0 || playerpos1_right > 0)
 						{
-
+							if(playerpos1_top > 0)
 							App->scene->player1->PlayerPrintOnTop = true;
+							else
+							App->scene->player1->PlayerPrintOnTop = false;
  						}
 						else
 						{
-							App->scene->player1->PlayerPrintOnTop = false;
+							App->scene->player1->PlayerPrintOnTop = true;
 						}
 							
 						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
