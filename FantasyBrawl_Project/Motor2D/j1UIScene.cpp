@@ -40,7 +40,7 @@ bool j1UIScene::Start()
 {
 
 	
-	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 80);
+	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 50);
 	
 	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
@@ -134,20 +134,30 @@ bool j1UIScene::Start()
 		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
 		sp_bar1 = sp_bar_player1;
 
-		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar2 = hp_bar_player2;
 
-		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		sp_bar2 = sp_bar_player2;
+
+
+		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar3 = hp_bar_player3;
 
-		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		sp_bar3 = sp_bar_player3;
+
+		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar4 = hp_bar_player4;
+
+		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		sp_bar4 = sp_bar_player4;
 
 		
 
-		ingameMenu->elements.push_back(hp_bar_player1);
-		/*ingameMenu->elements.push_back(hp_bar_player2);
-		ingameMenu->elements.push_back(hp_bar_player3);
+		/*ingameMenu->elements.push_back(hp_bar_player1);*/
+		ingameMenu->elements.push_back(hp_bar_player2);
+		/*ingameMenu->elements.push_back(hp_bar_player3);
 		ingameMenu->elements.push_back(hp_bar_player4);*/
 		ingameMenu->elements.push_back(sp_bar_player1);
 		menus.push_back(ingameMenu);
@@ -399,8 +409,8 @@ bool j1UIScene::Update(float dt)
 	//UPDATING HP BARS POSITION
 	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
 	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;
-	/*hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;*/
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;
 	/*hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
 	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
 	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
@@ -455,6 +465,7 @@ bool j1UIScene::Update(float dt)
 	else
 	{
 		ready->section = { 0,28,278,105 };
+		ready->function = NONE;
 	}
 
 
@@ -823,6 +834,7 @@ void j1UIScene::CreateScoreBoard(int num)
 {
 	
 	SDL_Color brown_color = { 139,69,19 };
+	SDL_Color black_color = { 0, 0, 0, 255 };
 
 	//WINDOW
 	
@@ -844,30 +856,42 @@ void j1UIScene::CreateScoreBoard(int num)
 	{
 		case 1:
 		{
-			win_text = App->gui->createText("PLAYER 1", 500, 230, small_texts_font, brown_color);
+			win_text = App->gui->createText("PLAYER 1", 500, 240, small_texts_font, brown_color);
 			win_text->setOutlined(true);
 			break;
 		}
 		case 2:
 		{
-			win_text = App->gui->createText("PLAYER 2", 500, 230, small_texts_font, brown_color);
+			win_text = App->gui->createText("PLAYER 2", 500, 240, small_texts_font, brown_color);
 			win_text->setOutlined(true);
 			break;
 		}
 		case 3:
 		{
-			win_text = App->gui->createText("PLAYER 3", 500, 230, small_texts_font, brown_color);
+			win_text = App->gui->createText("PLAYER 3", 500, 240, small_texts_font, brown_color);
 			win_text->setOutlined(true);
 			break;
 		}
 		case 4:
 		{
-			win_text = App->gui->createText("PLAYER 4", 500, 230, small_texts_font, brown_color);
+			win_text = App->gui->createText("PLAYER 4", 500, 240, small_texts_font, brown_color);
 			win_text->setOutlined(true);
 			break;
 		}
 	}
 	
+	//PLAYER KILLS
+
+	//UI_element* player1kills = App->gui->createText("PLAYER 1 kills:" ,260, 300, small_texts_font, brown_color);
+	//player1kills->setOutlined(true);
+
+	//char p1kills[10];
+	//uinttochar(p1kills, App->scene->player1->kills);//using function to convert the uint kills into a char* to create the Text
+
+	///*std::string p1kills  = std::to_string(App->scene->player1->kills);*/
+
+	//UI_element* p1_kills = App->gui->createText(p1kills, 600, 300, small_texts_font, black_color);
+	//p1_kills->setOutlined(true);
 	
 
 	//END BUTTON
@@ -886,7 +910,34 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(win_text);
 	finalMenu->elements.push_back(end_button);
 	finalMenu->elements.push_back(end_text);
+	/*finalMenu->elements.push_back(player1kills);
+	finalMenu->elements.push_back(p1_kills);*/
 	menus.push_back(finalMenu);
 
+	/*delete[] p1kills;*/
+}
 
+void j1UIScene::uinttochar(char* a, unsigned int n)
+{
+	if (n == 0)
+	{
+		*a = '0';
+		*(a + 1) = '\0';
+		return;
+	}
+
+	char aux[20];
+	aux[19] = '\0';
+	char* auxp = aux + 19;
+
+	int c = 1;
+	while (n != 0)
+	{
+		int mod = n % 10;
+		*(--auxp) = mod | 0x30;
+		n /= 10;
+		c++;
+	}
+
+	memcpy(a, auxp, c);
 }
