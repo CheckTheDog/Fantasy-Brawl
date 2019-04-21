@@ -127,6 +127,8 @@ public:
 
 	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
 
+	//bool PlayerLayerOrder();
+
 	// --- Entity Attacks ---
 
 	void HandleSuperAttacks(PLAYER ID);
@@ -159,6 +161,8 @@ public:
 	float RJdirection_x = 0.0f;
 	float RJdirection_y = 0.0f;
 	
+	bool PlayerPrintOnTop = false;
+
 	// --- Collisions ---
 	SDL_Rect Intersection = { 0,0,0,0 };
 
@@ -167,6 +171,7 @@ public:
 	j1Timer shieldTimer;
 	j1Timer shieldDuration;
 	bool shieldON = false;
+
 };
 
 #endif // __j1Player_H__

@@ -124,7 +124,7 @@ public:
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 	bool ColliderDrawer();
 
-private:
+public:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
@@ -137,6 +137,7 @@ private:
 public:
 
 	MapData data;
+	MapLayer* layerr;
 
 private:
 

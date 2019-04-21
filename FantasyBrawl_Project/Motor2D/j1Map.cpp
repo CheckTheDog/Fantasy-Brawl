@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Viewport.h"
-#include "j1Player.h"
+#include "j1Scene.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -42,16 +42,20 @@ void j1Map::Draw()
 
 	for(; item != data.layers.end(); ++item)
 	{
-		MapLayer* layer = *item;
+		layerr = *item;
 
-		if(layer->properties.Get("Nodraw") != 0)
+		if(layerr->properties.Get("Nodraw") != 0)
 			continue;
+
+		iPoint playerpos1map = WorldToMap(App->scene->player1->Entityinfo.entitycoll->rect.x, App->scene->player1->Entityinfo.entitycoll->rect.y);
+		int playerpos1 = layerr->Get(playerpos1map.x, playerpos1map.y);
 
 		for(int y = 0; y < data.height; ++y)
 		{
 			for(int x = 0; x < data.width; ++x)
 			{
-				int tile_id = layer->Get(x, y);
+			
+				int tile_id = layerr->Get(x, y);
 				if(tile_id > 0)
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
@@ -59,25 +63,36 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					if (layer->name == "ground")
+					if (layerr->name == "ground")
 					{
 						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "beauty_1")
+					else if (layerr->name == "beauty_1")
 					{
 						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "beauty_2")
+					else if (layerr->name == "beauty_2")
 					{
 						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "shadows_1")
+					else if (layerr->name == "shadows_1")
 					{
 						App->view->PushQueue(4, tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "walls")
+					else if (layerr->name == "walls")
 					{
+						if (playerpos1 > 0)
+						{
+
+							App->scene->player1->PlayerPrintOnTop = true;
+ 						}
+						else
+						{
+							App->scene->player1->PlayerPrintOnTop = false;
+						}
+							
 						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
+
 					}
 					else
 					{
