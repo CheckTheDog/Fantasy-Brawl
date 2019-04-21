@@ -211,7 +211,7 @@ const SDL_Texture* j1Gui::GetAtlas() const
 	return atlas;
 }
 
-Text* j1Gui::createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
+Text* j1Gui::createText(const char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
 {
 	Text* ret = new Text(text, x, y, font, color, callback);
 	ret->solid = false;

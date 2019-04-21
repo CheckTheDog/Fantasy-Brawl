@@ -4,6 +4,7 @@
 #include "Brofiler\Brofiler.h"
 #include "j1UIScene.h"
 #include "j1Scene.h"
+#include "j1Viewport.h"
 
 void Image::BlitElement()
 {
@@ -17,7 +18,9 @@ void Image::BlitElement()
 	{
 		multiplier = (App->scene->player1->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
-		App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);
+		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+		App->view->PushQueue(10, texture, globalPos.x, globalPos.y, tmp_section);
+		
 	}
 
 	else if (this == App->ui_scene->hp_bar2)
@@ -52,7 +55,8 @@ void Image::BlitElement()
 
 		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
-		App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);
+		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+		App->view->PushQueue(10, texture, globalPos.x, globalPos.y, tmp_section);
 	}
 
 	else

@@ -155,8 +155,8 @@ bool j1UIScene::Start()
 
 		
 
-		/*ingameMenu->elements.push_back(hp_bar_player1);*/
-		ingameMenu->elements.push_back(hp_bar_player2);
+		ingameMenu->elements.push_back(hp_bar_player1);
+		/*ingameMenu->elements.push_back(hp_bar_player2);*/
 		/*ingameMenu->elements.push_back(hp_bar_player3);
 		ingameMenu->elements.push_back(hp_bar_player4);*/
 		ingameMenu->elements.push_back(sp_bar_player1);
@@ -409,8 +409,8 @@ bool j1UIScene::Update(float dt)
 	//UPDATING HP BARS POSITION
 	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
 	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;
+	/*hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;*/
 	/*hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
 	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
 	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
@@ -882,16 +882,13 @@ void j1UIScene::CreateScoreBoard(int num)
 	
 	//PLAYER KILLS
 
-	//UI_element* player1kills = App->gui->createText("PLAYER 1 kills:" ,260, 300, small_texts_font, brown_color);
-	//player1kills->setOutlined(true);
+	UI_element* player1kills = App->gui->createText("PLAYER 1 kills:" ,260, 300, small_texts_font, brown_color);
+	player1kills->setOutlined(true);
 
-	//char p1kills[10];
-	//uinttochar(p1kills, App->scene->player1->kills);//using function to convert the uint kills into a char* to create the Text
+	std::string p1kills  = std::to_string(App->scene->player1->kills);
 
-	///*std::string p1kills  = std::to_string(App->scene->player1->kills);*/
-
-	//UI_element* p1_kills = App->gui->createText(p1kills, 600, 300, small_texts_font, black_color);
-	//p1_kills->setOutlined(true);
+	UI_element* p1_kills = App->gui->createText(p1kills.data(), 600, 300, small_texts_font, black_color);
+	p1_kills->setOutlined(true);
 	
 
 	//END BUTTON
@@ -910,34 +907,10 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(win_text);
 	finalMenu->elements.push_back(end_button);
 	finalMenu->elements.push_back(end_text);
-	/*finalMenu->elements.push_back(player1kills);
-	finalMenu->elements.push_back(p1_kills);*/
+	finalMenu->elements.push_back(player1kills);
+	finalMenu->elements.push_back(p1_kills);
 	menus.push_back(finalMenu);
 
-	/*delete[] p1kills;*/
+	
 }
 
-void j1UIScene::uinttochar(char* a, unsigned int n)
-{
-	if (n == 0)
-	{
-		*a = '0';
-		*(a + 1) = '\0';
-		return;
-	}
-
-	char aux[20];
-	aux[19] = '\0';
-	char* auxp = aux + 19;
-
-	int c = 1;
-	while (n != 0)
-	{
-		int mod = n % 10;
-		*(--auxp) = mod | 0x30;
-		n /= 10;
-		c++;
-	}
-
-	memcpy(a, auxp, c);
-}

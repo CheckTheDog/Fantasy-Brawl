@@ -69,7 +69,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void CreateScoreBoard(int num);
-	void uinttochar(char* a, unsigned int n);
+	
 
 public:
 	std::list <menu*> menus;

@@ -59,7 +59,7 @@ public:
 	void UIDebugDraw();
 	// Gui creation functions
 	const SDL_Texture* GetAtlas() const;
-	Text* createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color = { 255, 255, 255, 255 }, j1Module* callback = nullptr);
+	Text* createText(const char* text, int x, int y, _TTF_Font* font, SDL_Color color = { 255, 255, 255, 255 }, j1Module* callback = nullptr);
 	Clock* createTimer(int x, int y, int initial_value, _TTF_Font* font, SDL_Color color, j1Module* callback = nullptr);
 	Clock* createStopWatch(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback = nullptr);
 	Image* createImage(int x, int y, SDL_Texture* texture, j1Module* callback = nullptr);
