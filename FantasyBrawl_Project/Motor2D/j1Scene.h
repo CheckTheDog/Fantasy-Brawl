@@ -67,7 +67,7 @@ public:
 
 
 private:
-	SDL_Texture* debug_tex;
+	//SDL_Texture* debug_tex;
 
 	std::vector <std::string*> StageList;
 };

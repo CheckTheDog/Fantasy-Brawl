@@ -89,7 +89,7 @@ bool j1Scene::Start()
 		SetWalkabilityMap();
 	}
 
-	debug_tex = App->tex->Load("maps/path2.png");
+	//debug_tex = App->tex->Load("maps/path2.png");
 	App->map->ColliderDrawer();
 
 	// --- Creating entities ---

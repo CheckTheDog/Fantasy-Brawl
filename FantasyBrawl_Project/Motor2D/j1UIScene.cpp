@@ -326,7 +326,7 @@ bool j1UIScene::Start()
 			else if (player_winner == App->scene->player4)
 				CreateScoreBoard(4);
 		}*/
-
+		menus.push_back(finalMenu);
 	}
 
 	
@@ -844,10 +844,24 @@ void j1UIScene::CreateScoreBoard(int num)
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
 
+	std::list <UI_element*>::iterator item = finalMenu->elements.begin();
+
+	while (item != finalMenu->elements.end())
+	{
+		if(App->gui->GetAtlas() != (*item)->texture)
+		App->tex->UnLoad((*item)->texture);
+
+		delete *item;
+		item++;
+	}
+
+	finalMenu->elements.clear();
+
 	//WINDOW
 	
 	if (final_image != nullptr)
 	{
+
 		App->tex->UnLoad(final_image->texture);
 	}
 	final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
@@ -950,9 +964,7 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(p3_kills);
 	finalMenu->elements.push_back(player4kills);
 	finalMenu->elements.push_back(p4_kills);
-	menus.push_back(finalMenu);
 	LOG("%i", finalMenu->elements.size());
 
-	
 }
 
