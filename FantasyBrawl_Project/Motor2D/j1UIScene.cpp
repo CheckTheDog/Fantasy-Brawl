@@ -316,6 +316,7 @@ bool j1UIScene::Update(float dt)
 			Mix_PauseMusic();
 			App->transition->menuTransition(PAUSE_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
+			App->audio->PlayFx(App->audio->fxPause);
 			ret = true;
 		}
 		else if (actual_menu == PAUSE_MENU)
@@ -434,7 +435,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	if (event_type == MOUSE_ENTER)
 	{
 		element->state = MOUSEOVER;
-
+		App->audio->PlayFx(App->audio->fxCursor);
 	}
 	else if (event_type == MOUSE_LEAVE)
 	{
@@ -458,6 +459,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
+			App->audio->PlayFx(App->audio->fxConfirm);
 			//RESET SELECTION BOOLS && COUNTER
 			counter = 0;
 			player1_select = false;
@@ -479,11 +481,14 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
 			App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+			App->audio->PlayFx(App->audio->fxConfirm);
+			App->audio->PlayFx(App->audio->fxBrawlStart);
+			App->arena_interactions->StartStorm();
+		
 			break;
 		}
 		case SELECTING:
-		{		
-
+		{	
 			counter++;
 
 			if (counter == 1)
@@ -503,9 +508,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				player4_select = true;
 			}
 
+			if (counter <= 4)
+				App->audio->PlayFx(App->audio->fxConfirmChamp);
 
-
-			App->arena_interactions->StartStorm();
 			break;
 		}
 		case RESTART:
@@ -519,19 +524,20 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		break;
 		case SETTINGS:
+			App->audio->PlayFx(App->audio->fxConfirm);
 			actual_menu = SETTINGS_MENU;
 			App->transition->menuTransition(SETTINGS_MENU, 0.3);
 			App->audio->PlayMusic(App->audio->pathOptions.data(), 0);
 
 			break;
 		case CREDITS:
-
+			App->audio->PlayFx(App->audio->fxConfirm);
 			break;
 		case EXIT:
 			ret = false;
 			break;
 		case PAUSE:
-			
+
 			break;
 		case APPLY:
 
@@ -545,6 +551,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->transition->menuTransition(previous_menu, 0.3);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(),0);
+				App->audio->PlayFx(App->audio->fxCancel);
 			}
 			if (actual_menu == PAUSE_MENU)
 			{
@@ -553,6 +560,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->transition->menuTransition(START_MENU, 0.3);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
+				App->audio->PlayFx(App->audio->fxCancel);
 			}
 			break;
 		case RESTORE:
@@ -564,7 +572,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case WEBPAGE:
 
 			App->RequestBrowser("https://github.com/CheckTheDog/Fantasy-Brawl");
-
+			App->audio->PlayFx(App->audio->fxConfirm);
 			break;
 		}
 	}
