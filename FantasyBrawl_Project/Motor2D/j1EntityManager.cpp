@@ -257,7 +257,7 @@ bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityManager_Update", Profiler::Color::Chocolate);
 
-	if (dt<update_ms_cycle*1.25f && dt > 0.0f)
+	//if (dt<update_ms_cycle*1.25f && dt > 0.0f)
 		UpdateEntity(dt);
 
 	return true;

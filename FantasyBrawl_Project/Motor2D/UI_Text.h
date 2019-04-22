@@ -13,7 +13,7 @@ public:
 	Text()
 	{}
 
-	Text(char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback) : UI_element(x, y, element_type::TEXT, { 0, 0, 0, 0 }, callback, nullptr),
+	Text(const char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback) : UI_element(x, y, element_type::TEXT, { 0, 0, 0, 0 }, callback, nullptr),
 		text(text),
 		font(font),
 		color(color)

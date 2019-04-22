@@ -35,6 +35,7 @@ enum element_function
 	EXIT,
 	PAUSE,
 	RESTART,
+	SCORES,
 	RESTORE,
 	BACK,
 	CANCEL,
