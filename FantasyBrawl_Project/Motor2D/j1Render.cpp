@@ -50,6 +50,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.y = 0;
 	}
 
+
 	return ret;
 }
 

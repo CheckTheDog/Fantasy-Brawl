@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include <vector>
 #include "j1Player.h"
+#include <queue>
 
 struct SDL_Texture;
 
@@ -46,6 +47,7 @@ public:
 
 	// --- Reset everything for new game ---
 	void ResetAll();
+	j1Player* GetWinner();
 
 public:
 

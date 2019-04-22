@@ -72,10 +72,10 @@
 
   <scene>
     <map_name path="Map2x_automap.tmx"/>
-    <initialposP1 x="200" y="150"/>
-    <initialposP2 x="3300" y="200"/>
-    <initialposP3 x="250" y="3450"/>
-    <initialposP4 x="3400" y="3350"/>
+    <initialposP1 x="450" y="450"/>
+    <initialposP2 x="3440" y="460"/>
+    <initialposP3 x="460" y="3440"/>
+    <initialposP4 x="3440" y="3440"/>
   </scene>
 
   <gui>
@@ -124,9 +124,11 @@
     <seconds_between_blinks value="1.5"/>
     
     <!-- Here we create the amount of storm phases, adding the attributes of waiting time and move time-->
-    <storm_phase w_time="7" tiles_to_advance="3" damage_per_tick="20"/>
-    <storm_phase w_time="5" tiles_to_advance="5" damage_per_tick="30"/>
-    <storm_phase w_time="3" tiles_to_advance="3" damage_per_tick="40"/>
+    <storm_phase w_time="40" tiles_to_advance="12" damage_per_tick="4"/>
+    <storm_phase w_time="30" tiles_to_advance="8" damage_per_tick="8"/>
+    <storm_phase w_time="20" tiles_to_advance="6" damage_per_tick="15"/>
+    <storm_phase w_time="15" tiles_to_advance="4" damage_per_tick="30"/>
+    <storm_phase w_time="30" tiles_to_advance="6" damage_per_tick="50"/>
     
   </arena_interactions>
 

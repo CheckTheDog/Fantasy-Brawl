@@ -155,7 +155,58 @@ void j1Scene::ResetAll()
 	player2->PlayerState = PSTATE::IDLE;
 	player3->PlayerState = PSTATE::IDLE;
 	player4->PlayerState = PSTATE::IDLE;
+
+	// --- Reset Players Scores ---
+	player1->kills = 0;
+	player2->kills = 0;
+	player3->kills = 0;
+	player4->kills = 0;
+
+	player1->P_rank = RANK::CONTENDER;
+	player2->P_rank = RANK::CONTENDER;
+	player3->P_rank = RANK::CONTENDER;
+	player4->P_rank = RANK::CONTENDER;
 }
+
+j1Player* j1Scene::GetWinner()
+{
+	j1Player* winner = nullptr;
+
+	if (player1->P_rank == RANK::CONTENDER)
+	{
+		if (player2->P_rank == RANK::LOSER
+			&& player3->P_rank == RANK::LOSER
+			&& player4->P_rank == RANK::LOSER)
+			winner = player1;
+	}
+
+	else if (player2->P_rank == RANK::CONTENDER)
+	{
+		if (player1->P_rank == RANK::LOSER
+			&& player3->P_rank == RANK::LOSER
+			&& player4->P_rank == RANK::LOSER)
+			winner = player2;
+	}
+
+	else if (player3->P_rank == RANK::CONTENDER)
+	{
+		if (player1->P_rank == RANK::LOSER
+			&& player2->P_rank == RANK::LOSER
+			&& player4->P_rank == RANK::LOSER)
+			winner = player3;
+	}
+
+	else if (player4->P_rank == RANK::CONTENDER)
+	{
+		if (player1->P_rank == RANK::LOSER
+			&& player2->P_rank == RANK::LOSER
+			&& player3->P_rank == RANK::LOSER)
+			winner = player4;
+	}
+
+	return winner;
+}
+
 
 // Called each loop iteration
 bool j1Scene::PreUpdate()
@@ -255,45 +306,45 @@ bool j1Scene::Update(float dt)
 		App->view->ScreenMove(1, -ceil(150.0*dt), 0);*/
 
 	//Testing Haptic features (Vibration)
-	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P1,1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P1,1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P1);
-	}
+	//if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P1);
+	//}
 
-	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P2, 1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P2, 1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P2);
-	}
+	//if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P2);
+	//}
 
-	if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P3, 1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P3, 1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P3);
-	}
+	//if (App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P3);
+	//}
 
-	if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-	{
-		App->input->ShakeController(PLAYER::P4, 1.0, 3000);
-	}
+	//if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+	//{
+	//	App->input->ShakeController(PLAYER::P4, 1.0, 3000);
+	//}
 
-	if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
-	{
-		App->input->StopControllerShake(PLAYER::P4);
-	}
+	//if (App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+	//{
+	//	App->input->StopControllerShake(PLAYER::P4);
+	//}
 	
 
 	App->map->Draw();

@@ -78,6 +78,12 @@ enum class PSTATE
 	IDLE
 };
 
+enum class RANK
+{
+	LOSER,
+	CONTENDER
+};
+
 class j1Player :public j1Entity
 {
 public:
@@ -170,8 +176,12 @@ public:
 	j1Timer superTimer;
 	j1Timer shieldTimer;
 	j1Timer shieldDuration;
+	j1Timer basicTimer;
 	bool shieldON = false;
 
+	// --- Score ---
+	uint kills = 0;
+	RANK P_rank = RANK::CONTENDER;
 };
 
 #endif // __j1Player_H__

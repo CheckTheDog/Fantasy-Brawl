@@ -7,6 +7,7 @@
 #include "j1Window.h"
 #include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
+#include "j1Viewport.h"
 
 
 j1Collision::j1Collision()
@@ -136,22 +137,40 @@ void j1Collision::DebugDraw()
 		switch ((*item)->type)
 		{
 		case COLLIDER_TYPE::COLLIDER_NONE: // white
-			App->render->DrawQuad((*item)->rect, 255, 255, 255, alpha);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true,0,1);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true,0,2);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true,0,3);
 			break;
 		case COLLIDER_TYPE::COLLIDER_FLOOR: // red
-			App->render->DrawQuad((*item)->rect, 255, 0, 0, alpha);
+			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true);
+			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true, 0, 1);
+			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true, 0, 2);
+			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true, 0, 3);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PLAYER: // green
-			App->render->DrawQuad((*item)->rect, 0, 255, 0, alpha);
+			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true);
+			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 0, 1);
+			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 0, 2);
+			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 0, 3);
 			break;
 		case COLLIDER_TYPE::COLLIDER_STORM: // green
-			App->render->DrawQuad((*item)->rect, 255, 255, 0, alpha);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 0, 1);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 0, 2);
+			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 0, 3);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PARTICLE:
-			App->render->DrawQuad((*item)->rect, 0, 125, 125, alpha);
+			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125,alpha, true);
+			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 0, 1);
+			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 0, 2);
+			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 0, 3);
 			break;
 		case COLLIDER_TYPE::COLLIDER_WATER:
-			App->render->DrawQuad((*item)->rect, 0, 0, 255, alpha);
+			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255,alpha, true);
+			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 0, 1);
+			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 0, 2);
+			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 0, 3);
 			break;
 		}
 		item++;
