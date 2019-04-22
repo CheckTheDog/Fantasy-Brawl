@@ -414,9 +414,9 @@ bool j1UIScene::Update(float dt)
 	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
 	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;
 	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
-	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
+	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 125;
 	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
-	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 125;
 
 	//UPDATING SP BARS POSITION
 	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
