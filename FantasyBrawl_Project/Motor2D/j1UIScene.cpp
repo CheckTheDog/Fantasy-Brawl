@@ -500,6 +500,7 @@ bool j1UIScene::Update(float dt)
 		//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
 		//from the previous game when we play again
 		App->arena_interactions->DestroyStorm();
+		App->arena_interactions->PauseStorm();
 	}
 
 	
@@ -574,6 +575,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxConfirm);
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
+			App->arena_interactions->ContinueStorm();
 		
 			break;
 		}
