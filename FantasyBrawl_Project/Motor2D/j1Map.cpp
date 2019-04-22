@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Viewport.h"
-#include "j1Player.h"
+#include "j1Scene.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -42,16 +42,41 @@ void j1Map::Draw()
 
 	for(; item != data.layers.end(); ++item)
 	{
-		MapLayer* layer = *item;
+		layerr = *item;
 
-		if(layer->properties.Get("Nodraw") != 0)
+		if(layerr->properties.Get("Nodraw") != 0)
 			continue;
+
+		iPoint playerpos1map = WorldToMap(App->scene->player1->Entityinfo.entitycoll->rect.x, App->scene->player1->Entityinfo.entitycoll->rect.y);
+		int playerpos1 = layerr->Get(playerpos1map.x, playerpos1map.y);
+		int playerpos1_left = layerr->Get(playerpos1map.x - 1, playerpos1map.y);
+		int playerpos1_right = layerr->Get(playerpos1map.x + 1, playerpos1map.y);
+		int playerpos1_top = layerr->Get(playerpos1map.x, playerpos1map.y - 1);
+
+		iPoint playerpos2map = WorldToMap(App->scene->player2->Entityinfo.entitycoll->rect.x, App->scene->player2->Entityinfo.entitycoll->rect.y);
+		int playerpos2 = layerr->Get(playerpos2map.x, playerpos2map.y);
+		int playerpos2_left = layerr->Get(playerpos2map.x - 1, playerpos2map.y);
+		int playerpos2_right = layerr->Get(playerpos2map.x + 1, playerpos2map.y);
+		int playerpos2_top = layerr->Get(playerpos2map.x, playerpos2map.y - 1);
+
+		iPoint playerpos3map = WorldToMap(App->scene->player3->Entityinfo.entitycoll->rect.x, App->scene->player3->Entityinfo.entitycoll->rect.y);
+		int playerpos3 = layerr->Get(playerpos3map.x, playerpos3map.y);
+		int playerpos3_left = layerr->Get(playerpos3map.x - 1, playerpos3map.y);
+		int playerpos3_right = layerr->Get(playerpos3map.x + 1, playerpos3map.y);
+		int playerpos3_top = layerr->Get(playerpos3map.x, playerpos3map.y - 1);
+
+		iPoint playerpos4map = WorldToMap(App->scene->player4->Entityinfo.entitycoll->rect.x, App->scene->player4->Entityinfo.entitycoll->rect.y);
+		int playerpos4 = layerr->Get(playerpos4map.x, playerpos4map.y);
+		int playerpos4_left = layerr->Get(playerpos4map.x - 1, playerpos4map.y);
+		int playerpos4_right = layerr->Get(playerpos4map.x + 1, playerpos4map.y);
+		int playerpos4_top = layerr->Get(playerpos4map.x, playerpos4map.y - 1);
 
 		for(int y = 0; y < data.height; ++y)
 		{
 			for(int x = 0; x < data.width; ++x)
 			{
-				int tile_id = layer->Get(x, y);
+			
+				int tile_id = layerr->Get(x, y);
 				if(tile_id > 0)
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
@@ -59,25 +84,78 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					if (layer->name == "ground")
+					if (layerr->name == "ground")
 					{
 						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "beauty_1" || layer->name == "beauty_2")
+					else if (layerr->name == "beauty_1")
 					{
 						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "shadows_1")
+					else if (layerr->name == "beauty_2")
 					{
 						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
 					}
-					else if (layer->name == "walls")
+					else if (layerr->name == "shadows_1")
 					{
-						App->view->PushQueue(5, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(4, tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layerr->name == "walls")
+					{
+						if (playerpos1 > 0 || playerpos1_left > 0 || playerpos1_right > 0)
+						{
+							if(playerpos1_top > 0)
+							App->scene->player1->PlayerPrintOnTop = true;
+							else
+							App->scene->player1->PlayerPrintOnTop = false;
+ 						}
+						else
+						{
+							App->scene->player1->PlayerPrintOnTop = true;
+						}
+						
+						if (playerpos2 > 0 || playerpos2_left > 0 || playerpos2_right > 0)
+						{
+							if (playerpos2_top > 0)
+								App->scene->player2->PlayerPrintOnTop = true;
+							else
+								App->scene->player2->PlayerPrintOnTop = false;
+						}
+						else
+						{
+							App->scene->player2->PlayerPrintOnTop = true;
+						}
+
+						if (playerpos3 > 0 || playerpos3_left > 0 || playerpos3_right > 0)
+						{
+							if (playerpos3_top > 0)
+								App->scene->player3->PlayerPrintOnTop = true;
+							else
+								App->scene->player3->PlayerPrintOnTop = false;
+						}
+						else
+						{
+							App->scene->player3->PlayerPrintOnTop = true;
+						}
+
+						if (playerpos4 > 0 || playerpos4_left > 0 || playerpos4_right > 0)
+						{
+							if (playerpos1_top > 0)
+								App->scene->player4->PlayerPrintOnTop = true;
+							else
+								App->scene->player4->PlayerPrintOnTop = false;
+						}
+						else
+						{
+							App->scene->player4->PlayerPrintOnTop = true;
+						}
+
+						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
+
 					}
 					else
 					{
-						App->view->PushQueue(7, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
 					}
 						
 

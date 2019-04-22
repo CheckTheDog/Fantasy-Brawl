@@ -15,6 +15,7 @@
 #include "j1ArenaInteractions.h"
 #include "j1Viewport.h"
 #include "j1BuffManager.h"
+#include "j1Map.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -358,10 +359,24 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	App->view->PushQueue(4,spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+	//if (PlayerLayerOrder() == true)
+	//{
+	//	App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+	//}
+	//else
+	//{
+	if (PlayerPrintOnTop == true)
+	{
+		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+	}
+	else
+	{
+		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+	}
+	//}
 
 	if(shieldON)
-		App->view->PushQueue(5, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
+		App->view->PushQueue(6, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
 
 	return ret;
 }
@@ -428,7 +443,7 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		}
 
 		// --- On player death, deactivate it ---
-		if (this->Entityinfo.health == 0.0f)
+		if (this->Entityinfo.health <= 0.0f)
 		{
 			P_rank = RANK::LOSER;
 			this->active = false;
@@ -508,12 +523,14 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 	if (pcollided && pcollided->originplayer != this)
 	{
 		App->buff->ApplyEffect(pcollided->particle_effect, this);
+		App->input->ShakeController(ID, 0.5, 100);
 		App->buff->LimitAttributes(this);
 		LOG("player life: %f", this->Entityinfo.health);
 
-		if (this->Entityinfo.health == 0.0f)
+		if (this->Entityinfo.health <= 0.0f)
 		{
 			pcollided->originplayer->kills++;
+			App->input->ShakeController(ID, 1.0, 1000);
 		}
 
 	}
@@ -597,3 +614,47 @@ void j1Player::LogicUpdate(float dt)
 
 }
 
+//bool j1Player::PlayerLayerOrder()
+//{
+//	std::list<MapLayer*>::const_iterator item = App->map->data.layers.begin();
+//
+//	bool ret = false;
+//
+//	for (; item != App->map->data.layers.end(); ++item)
+//	{
+//		App->map->layerr = *item;
+//
+//		uint counter = 0;
+//
+//		for (int y = 0; y < App->map->data.height; ++y)
+//		{
+//			for (int x = 0; x < App->map->data.width; ++x)
+//			{
+//				int tile_id = App->map->layerr->Get(x, y);
+//				if (tile_id > 0)
+//				{
+//					iPoint pos = App->map->MapToWorld(x, y);
+//
+//
+//					if (App->map->layerr->name == "walls" && (App->map->layerr->data[counter] == 19 || App->map->layerr->data[counter] == 20 || App->map->layerr->data[counter] == 21 ||
+//						App->map->layerr->data[counter] == 47 || App->map->layerr->data[counter] == 48 || App->map->layerr->data[counter] == 49 || 
+//						App->map->layerr->data[counter] == 75 || App->map->layerr->data[counter] == 76 || App->map->layerr->data[counter] == 77 ||
+//						App->map->layerr->data[counter] == 103 || App->map->layerr->data[counter] == 104 || App->map->layerr->data[counter] == 105 || 
+//						App->map->layerr->data[counter] == 131 || App->map->layerr->data[counter] == 132 || App->map->layerr->data[counter] == 133 ||
+//						App->map->layerr->data[counter] == 159 || App->map->layerr->data[counter] == 160 || App->map->layerr->data[counter] == 161 ||
+//						App->map->layerr->data[counter] == 187 || App->map->layerr->data[counter] == 188 || App->map->layerr->data[counter] == 189 ||
+//						App->map->layerr->data[counter] == 215 || App->map->layerr->data[counter] == 216 || App->map->layerr->data[counter] == 217 ))
+//					{
+//						if (pos.y < Entityinfo.entitycoll->rect.y)
+//						{
+//							ret = true;
+//						}
+//					}
+//	
+//				}
+//				counter++;
+//			}
+//		}
+//	}
+//	return ret;
+//}
