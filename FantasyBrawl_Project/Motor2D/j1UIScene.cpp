@@ -485,6 +485,7 @@ bool j1UIScene::Update(float dt)
 	if (player_winner != nullptr && scoreboard == false)
 	{
 		scoreboard = true;
+		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 		actual_menu = FINAL_MENU;
 		App->transition->menuTransition(FINAL_MENU, 0.3);
 		if (player_winner == App->scene->player1)
@@ -594,16 +595,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->arena_interactions->StartStorm();
 			break;
 		}
-		case SCORES:
-		{
-			actual_menu = FINAL_MENU;
-			App->transition->menuTransition(FINAL_MENU, 0.3);
-			break;
-			
-		}
 		case RESTART:
 		{
-			App->scene->ResetAll();
+			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3);
 			break;
