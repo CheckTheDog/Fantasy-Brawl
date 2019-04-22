@@ -316,6 +316,9 @@ void j1Player::HandleSuperAttacks(PLAYER ID)
 		break;
 	}
 
+	// ALPHA_FIX this is hardcoded since we don't have the data to determine which character is selected for each player
+	// this effect should be under an if statement determined by the switch above, taking into account the character each player is using
+	App->audio->PlayFx(App->audio->fxWendolinSpecial);
 }
 
 void j1Player::Launch1stSuper()
@@ -441,6 +444,19 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 				break;
 			}
 		}
+		else
+		{
+			int shield_fx = rand() % 2 +1;
+			switch (shield_fx)
+			{
+			case 1:
+				App->audio->PlayFx(App->audio->fxShieldHit1);
+				break;
+			case 2:
+				App->audio->PlayFx(App->audio->fxShieldHit2);
+				break;
+			}
+		}
 
 		// --- On player death, deactivate it ---
 		if (this->Entityinfo.health <= 0.0f)
@@ -449,6 +465,10 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			this->active = false;
 			this->Entityinfo.entitycoll->rect.x = 0;
 			this->Entityinfo.entitycoll->rect.y = 0;
+
+			// ALPHA_FIX This is hardcoded for now sincewe only have 1 character and basically selctions screen is a 
+			// placebo because we don't store the info oon which character was selected
+			App->audio->PlayFx(App->audio->fxWendolinDeath);
 		}
 
 		Future_position.x = entitycollider->rect.x;
@@ -527,6 +547,22 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 		App->buff->LimitAttributes(this);
 		LOG("player life: %f", this->Entityinfo.health);
 
+		// Play a random hurt effect
+		int hurt_effect = rand() % 3 + 1;
+
+		switch (hurt_effect)
+		{
+		case 1:
+			App->audio->PlayFx(App->audio->fxHit1);
+			break;
+		case 2:
+			App->audio->PlayFx(App->audio->fxHit2);
+			break;
+		case 3:
+			App->audio->PlayFx(App->audio->fxHit3);
+			break;
+		}
+
 		if (this->Entityinfo.health <= 0.0f)
 		{
 			pcollided->originplayer->kills++;
@@ -582,6 +618,8 @@ void j1Player::LogicUpdate(float dt)
 	{
 		basicTimer.Start();
 		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		// ALPHA_FIX same hardcode as before, no player data means there's still no condition to change the sound accordingly
+		App->audio->PlayFx(App->audio->fxWendolinBasic);
 	}
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
 		HandleSuperAttacks(ID);

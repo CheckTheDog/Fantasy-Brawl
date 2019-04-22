@@ -6,6 +6,7 @@
 #include "j1App.h"
 #include "j1Viewport.h"
 #include "j1Collision.h"
+#include "j1Audio.h"
 
 j1ArenaInteractions::j1ArenaInteractions() : j1Module()
 {
@@ -93,6 +94,8 @@ bool j1ArenaInteractions::Update(float dt)
 			storm_timer.Start();
 			//Calculate how much time it will take us to reach the next stop
 			target_time = (uint)GetMovingTargetTime((*phase_iterator)->tiles_to_advance);
+			alarm_hasplayed = false;
+			App->audio->PlayFx(App->audio->fxStormClose);
 		}
 		// If the storm is MOVING && reached destination -> stop
 		else if (storm_moving == true && 
@@ -109,6 +112,12 @@ bool j1ArenaInteractions::Update(float dt)
 		{
 			float test = storm_timer.ReadSec();
 			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
+
+			if ( alarm_hasplayed == false && UI_storm_countdown < 6)
+			{
+				App->audio->PlayFx(App->audio->fxStormCloseCount);
+				alarm_hasplayed = true;
+			}
 		}
 	}
 

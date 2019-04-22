@@ -124,5 +124,8 @@ private: /// Variables
 	//Entity damage management
 	bool damage_entity[ENTITIES_TO_HURT] = {false};
 	Collider* storm_colliders[4] = {nullptr};
+
+	// Audio bool
+	bool alarm_hasplayed = false;
 };
 #endif

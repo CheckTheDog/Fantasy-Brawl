@@ -497,6 +497,9 @@ bool j1UIScene::Update(float dt)
 			CreateScoreBoard(3);
 		else if (player_winner == App->scene->player4)
 			CreateScoreBoard(4);
+		//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+		//from the previous game when we play again
+		App->arena_interactions->DestroyStorm();
 	}
 
 	
