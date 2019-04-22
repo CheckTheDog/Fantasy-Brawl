@@ -34,6 +34,8 @@ class j1Gui : public j1Module
 {
 public:
 
+	friend class j1UIScene;
+
 	j1Gui();
 
 	// Destructor

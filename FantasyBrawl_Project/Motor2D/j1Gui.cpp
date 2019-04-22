@@ -183,6 +183,7 @@ bool j1Gui::CleanUp()
 
 	while (item != UI_elements.end())
 	{
+		if(*item)
 		delete *item;
 		item++;
 	}

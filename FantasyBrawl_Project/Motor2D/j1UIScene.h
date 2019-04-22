@@ -119,7 +119,6 @@ public:
 	UI_element* win_text = nullptr;
 	bool scoreboard = false;
 
-	UI_element* final_image = nullptr;
 
 	//FONTS
 	_TTF_Font* small_texts_font = nullptr;

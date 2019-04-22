@@ -19,6 +19,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "SDL_mixer\include\SDL_mixer.h"
+#include "j1Gui.h"
 
 
 j1UIScene::j1UIScene()
@@ -844,27 +845,32 @@ void j1UIScene::CreateScoreBoard(int num)
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
 
-	std::list <UI_element*>::iterator item = finalMenu->elements.begin();
+	std::list <UI_element*>::iterator item = App->gui->UI_elements.begin();
 
-	while (item != finalMenu->elements.end())
+	std::list <UI_element*>::iterator item_finalmenu = finalMenu->elements.begin();
+
+	while (item != App->gui->UI_elements.end())
 	{
-		if(App->gui->GetAtlas() != (*item)->texture)
-		App->tex->UnLoad((*item)->texture);
+		if (*item == *item_finalmenu)
+		{
+			if (App->gui->GetAtlas() != (*item)->texture)
+				App->tex->UnLoad((*item)->texture);
 
-		delete *item;
+			delete *item;
+			App->gui->UI_elements.erase(item);
+			finalMenu->elements.erase(item_finalmenu);
+			
+			item_finalmenu++;
+		}
+
 		item++;
 	}
 
 	finalMenu->elements.clear();
 
 	//WINDOW
-	
-	if (final_image != nullptr)
-	{
 
-		App->tex->UnLoad(final_image->texture);
-	}
-	final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
 
 	UI_element* final_text = App->gui->createText("SCOREBOARD", 400, 60, big_buttons_font, brown_color);
 	final_text->setOutlined(true);
@@ -954,8 +960,6 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(final_text);
 	finalMenu->elements.push_back(winner_text);
 	finalMenu->elements.push_back(win_text);
-	finalMenu->elements.push_back(end_button);
-	finalMenu->elements.push_back(end_text);
 	finalMenu->elements.push_back(player1kills);
 	finalMenu->elements.push_back(p1_kills);
 	finalMenu->elements.push_back(player2kills);
@@ -964,6 +968,9 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(p3_kills);
 	finalMenu->elements.push_back(player4kills);
 	finalMenu->elements.push_back(p4_kills);
+	finalMenu->elements.push_back(end_button);
+	finalMenu->elements.push_back(end_text);
+
 	LOG("%i", finalMenu->elements.size());
 
 }
