@@ -234,13 +234,13 @@ bool j1UIScene::Start()
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
-		/*Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
-		audio_text->setOutlined(true);*/
+		audio_text->setOutlined(true);
 
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
@@ -255,9 +255,9 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
 		settingsMenu->elements.push_back(back_text);
-		/*settingsMenu->elements.push_back(music_slider_butt);
+		settingsMenu->elements.push_back(music_slider_butt);
 		settingsMenu->elements.push_back(music_slider);
-		settingsMenu->elements.push_back(audio_text);*/
+		settingsMenu->elements.push_back(audio_text);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
@@ -279,13 +279,13 @@ bool j1UIScene::Start()
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
-		/*Button* music_slider_butt = App->gui->createButton(500, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Button* music_slider_butt = App->gui->createButton(500, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* music_slider = App->gui->createSlider(420, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
 		music_slider->modify = MUSIC;
 		
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 330, 240, mid_buttons_font, brown_color);
-		audio_text->setOutlined(true);*/
+		audio_text->setOutlined(true);
 
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
@@ -300,9 +300,9 @@ bool j1UIScene::Start()
 		pauseMenu->elements.push_back(pause_text);
 		pauseMenu->elements.push_back(back_button);
 		pauseMenu->elements.push_back(back_text);
-		/*pauseMenu->elements.push_back(music_slider_butt);
+		pauseMenu->elements.push_back(music_slider_butt);
 		pauseMenu->elements.push_back(music_slider);
-		pauseMenu->elements.push_back(audio_text);*/
+		pauseMenu->elements.push_back(audio_text);
 		/*pauseMenu->elements.push_back(full_switch);
 		pauseMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(pauseMenu);
