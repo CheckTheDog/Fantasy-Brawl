@@ -16,6 +16,7 @@ j1Timer::j1Timer()
 void j1Timer::Start()
 {
 	started_at = SDL_GetTicks();
+	stopped = false;
 }
 
 // ---------------------------------------------
@@ -41,6 +42,9 @@ void j1Timer::Stop()
 
 void j1Timer::Continue()
 {
-	stopped = false;
-	started_at = SDL_GetTicks() - stopped_read;
+	if (stopped == true)
+	{
+		stopped = false;
+		started_at = SDL_GetTicks() - stopped_read;
+	}
 }

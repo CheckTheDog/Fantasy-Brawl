@@ -170,8 +170,14 @@ void j1ArenaInteractions::StartStorm()
 	for (int i = 0; i < 4; ++i)
 		storm_colliders[i] = App->coll->AddCollider({ 0,0,0,0 }, COLLIDER_TYPE::COLLIDER_STORM);
 	
+	//In case the storm was stopped
+	/*ticks_timer.Continue();
+	storm_timer.Continue();*/
+
 	//Start the timer
 	storm_timer.Start();
+
+	current_phase = 0;
 
 	//Start the ticks
 	StartStormTick(s_between_blinks);
@@ -195,8 +201,8 @@ void j1ArenaInteractions::DestroyStorm()
 	}
 
 	//In case the storm was stopped
-	ticks_timer.Continue();
-	storm_timer.Continue();
+	ticks_timer.Stop();
+	storm_timer.Stop();
 
 	current_phase = 0;
 }
