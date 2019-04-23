@@ -132,26 +132,26 @@ bool j1UIScene::Start()
 		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 428, 209, 27}, this);
 		hp_bar1 = hp_bar_player1;
 
-		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
 		sp_bar1 = sp_bar_player1;
 
 		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar2 = hp_bar_player2;
 
-		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
 		sp_bar2 = sp_bar_player2;
 
 
 		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar3 = hp_bar_player3;
 
-		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
 		sp_bar3 = sp_bar_player3;
 
 		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
 		hp_bar4 = hp_bar_player4;
 
-		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 639, 428, 209, 27 }, this);
+		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
 		sp_bar4 = sp_bar_player4;
 
 		
@@ -411,23 +411,23 @@ bool j1UIScene::Update(float dt)
 	}
 		
 	//UPDATING HP BARS POSITION
-	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
-	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;
-	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
-	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 125;
-	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
-	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 125;
-
-	//UPDATING SP BARS POSITION
-	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - 25;
-	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;
-	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - 25;
-	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;
-	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - 25;
-	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;
-	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - 25;
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - hp_bar1->section.w / 3;
+	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;				 
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - hp_bar2->section.w / 3;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;				 
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - hp_bar3->section.w / 3;
+	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 125;				 
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - hp_bar4->section.w / 3;
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 125;				 
+																								 
+	//UPDATING SP BARS POSITION																	 
+	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - sp_bar1->section.w / 3 + 1;
+	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;				 
+	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - sp_bar2->section.w / 3 + 1;
+	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;				 
+	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - sp_bar3->section.w / 3 + 1;
+	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;				 
+	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - sp_bar4->section.w / 3 + 1;
 	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;
 	
 	if (player1_select == true)

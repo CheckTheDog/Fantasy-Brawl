@@ -379,7 +379,7 @@ bool j1Player::PostUpdate(float dt)
 	//}
 
 	if(shieldON)
-		App->view->PushQueue(6, manager->shield_texture, this->Entityinfo.position.x - 85, this->Entityinfo.position.y - 140, SDL_Rect{0,0,46,50});
+		App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x + 12, this->Entityinfo.position.y - 15, SDL_Rect{0,0,46,50});
 
 	return ret;
 }
