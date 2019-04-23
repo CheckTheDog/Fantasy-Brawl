@@ -105,10 +105,18 @@ Aitor:
 - Cameras inside map bounds and fixed to players
 - Players spawning position and full reset at new game
 - UI transition improvement (black quad at the back of the screen)
+- Scores (kills + winner) in code
+- Music Plays
+- Improved Sprite Ordering
+- In-game UI (code behaviour)
+- Camera fix to players, does not go out of map bounds
 
 Didac:
 
 - Gamepad Input management (all buttons, joysticks and haptic features)
+- Storm
+- Fx plays
+- Gamepad Vibration
 
 Pol:
 
@@ -126,6 +134,7 @@ Jacobo:
 - Initial Sprite Ordering implementation
 - 4 camera system
 - Camera culling
+- Improved Sprite Ordering
 
 Oscar:
 
@@ -133,3 +142,5 @@ Oscar:
 - Pause menu
 - Placeholders (temporal art)
 - Character Selection Menu
+- Scoreboard Menu
+- In game UI (HP Bar + Super Attack Bar)
