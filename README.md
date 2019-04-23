@@ -55,7 +55,7 @@ and effectively towards our goal, making this game a reality! Know the team!
 
 ### SOCIAL
 
-Caught your interest? Follow us on twitter! Weekly updates on the game's development are on their way!
+Caught your interest? Follow us on twitter! Updates on the game's development are on their way!
 
 Our Twitter account: [Our Twitter](https://twitter.com/dog_check?lang=es)
 
