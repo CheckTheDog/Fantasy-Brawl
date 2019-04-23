@@ -378,6 +378,7 @@ bool j1UIScene::Update(float dt)
 		}
 		else if (actual_menu == SELECTION_MENU)
 		{
+			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
 			ret = true;
