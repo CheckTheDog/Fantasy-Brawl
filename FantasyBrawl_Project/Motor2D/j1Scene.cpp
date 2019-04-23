@@ -221,9 +221,13 @@ bool j1Scene::PreUpdate()
 	p = App->map->WorldToMap(p.x, p.y);
 
 	// --- Center Cameras on respective player ---
+	if(player1->Entityinfo.position.x != 0 && player1->Entityinfo.position.y != 0)
 	App->view->CenterScreen(1, player1->Entityinfo.position.x + player1->Entityinfo.entitycoll->rect.w / 2, player1->Entityinfo.position.y);
+	if (player2->Entityinfo.position.x != 0 && player2->Entityinfo.position.y != 0)
 	App->view->CenterScreen(2, player2->Entityinfo.position.x + player2->Entityinfo.entitycoll->rect.w / 2, player2->Entityinfo.position.y);
+	if (player3->Entityinfo.position.x != 0 && player3->Entityinfo.position.y != 0)
 	App->view->CenterScreen(3, player3->Entityinfo.position.x + player3->Entityinfo.entitycoll->rect.w / 2, player3->Entityinfo.position.y);
+	if (player4->Entityinfo.position.x != 0 && player4->Entityinfo.position.y != 0)
 	App->view->CenterScreen(4, player4->Entityinfo.position.x + player4->Entityinfo.entitycoll->rect.w / 2, player4->Entityinfo.position.y);
 
 	// --- Prevent cameras from leaving map boundaries --- 
