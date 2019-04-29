@@ -14,14 +14,24 @@ j1FowManager::j1FowManager()
 j1FowManager::~j1FowManager()
 {
 	//Delete all 2D Fog data containers
-	if (visibility_map != nullptr && visibility_map != debug_map)
+	for (int i = 0; i < 4; ++i)
 	{
-		delete[] visibility_map;
-		visibility_debug_holder = nullptr;
+		if (visibility_map[i] != nullptr && visibility_map[i] != debug_map)
+		{
+				delete[] visibility_map[i];
+				
+				if (visibility_debug_holder[i] != nullptr)
+				{
+					delete[] visibility_debug_holder[i];
+					visibility_debug_holder[i] = nullptr;
+				}
+		}
+		else if (visibility_debug_holder[i] != nullptr)
+		{
+			delete[] visibility_debug_holder[i];
+			visibility_debug_holder[i] = nullptr;
+		}
 	}
-	else if (visibility_debug_holder != nullptr)
-		delete[] visibility_debug_holder;
-	
 	
 	if (debug_map != nullptr)
 		delete[] debug_map;
@@ -35,6 +45,8 @@ bool j1FowManager::Awake(pugi::xml_node& config)
 bool j1FowManager::Start()
 {
 	meta_FOW = App->tex->Load("maps/FOW_meta_sheet.png");
+
+	SetVisibilityMap(App->map->data.width, App->map->data.height);
 
 	return true;
 }
@@ -60,12 +72,16 @@ bool j1FowManager::Update(float dt)
 		if (debug == true)
 		{
 			//To keep the pointer to the visibility map we use our debug_holder;
-			visibility_debug_holder = visibility_map;
-			visibility_map = debug_map;
+			for (int i = 0; i < 4; ++i)
+			{
+				visibility_debug_holder[i] = visibility_map[i];
+				visibility_map[i] = debug_map;
+			}
 		}
 		else // Debug == false
 		{
-			visibility_map = visibility_debug_holder;
+			for (int i = 0; i < 4; ++i)
+			visibility_map[i] = visibility_debug_holder[i];
 		}
 	}
 
@@ -88,7 +104,7 @@ bool j1FowManager::CleanUp()
 }
 
 //Create and add a FOW_Data to the list of fow_entities
-FOW_Data * j1FowManager::CreateFOWEntity(iPoint position, bool provides_visibility)
+FOW_Data * j1FowManager::CreateFOWData(iPoint position, bool provides_visibility)
 {
 	FOW_Data* ret = nullptr;
 
@@ -101,7 +117,7 @@ FOW_Data * j1FowManager::CreateFOWEntity(iPoint position, bool provides_visibili
 }
 
 //Delete and remove a FOW_Data to the list of fow_entities
-bool j1FowManager::DestroyFOWEntity(FOW_Data* to_destroy)
+bool j1FowManager::DestroyFOWData(FOW_Data* to_destroy)
 {
 	bool ret = false;
 
@@ -122,22 +138,33 @@ bool j1FowManager::DestroyFOWEntity(FOW_Data* to_destroy)
 //Set the visibility map
 void j1FowManager::SetVisibilityMap(uint w, uint h)
 {
-	if (visibility_map != nullptr)
+	for (int v_map = 0; v_map < 4; ++v_map)
 	{
-		if (visibility_debug_holder == visibility_map)
+		if (visibility_map[v_map] != nullptr)
 		{
-			visibility_debug_holder = nullptr;
-		}
-		else
-		{
-			delete[] visibility_debug_holder;
-			visibility_debug_holder = nullptr;
-		}
+			if (visibility_debug_holder == visibility_map)
+			{
+				for (int i = 0; i < 4; ++i)
+					visibility_debug_holder[i] = nullptr;
+			}
+			else
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					delete[] visibility_debug_holder[i];
+					visibility_debug_holder[i] = nullptr;
+				}
+			}
 
-		if (visibility_map != debug_map)
-		{
-			delete[] visibility_map;
-			visibility_map = nullptr;
+			for (int i = 0; i < 4; ++i)
+				if (visibility_map[i] != debug_map)
+				{
+					for (int j = 0; j < 4; ++j)
+					{
+						delete[] visibility_map[j];
+						visibility_map[j] = nullptr;
+					}
+				}
 		}
 	}
 
@@ -151,19 +178,23 @@ void j1FowManager::SetVisibilityMap(uint w, uint h)
 	height = h;
 
 	//Visibility map will contain the 3 basic states of logic in FOW
-	visibility_map = new int8_t [width*height];
-	memset(visibility_map, 0,width*height);
+	for (int i = 0; i < 4; ++i)
+	{
+		visibility_map[i] = new int8_t[width*height];
+		memset(visibility_map[i], 255, width*height);
+	}
+	
 
 	// Keep a totally clear map for debug purposes
 	debug_map = new int8_t[width*height];
 	memset(debug_map, 255, width*height);
 }
 
-int8_t j1FowManager::GetVisibilityTileAt(const iPoint& pos) const
+int8_t j1FowManager::GetVisibilityTileAt(const iPoint& pos, uint viewport) const
 {
 	// Utility: return the visibility value of a tile
 	if (CheckBoundaries(pos)) // Since both maps will have the same size we can check with the main one
-			return visibility_map[(pos.y * width) + pos.x];
+			return visibility_map[viewport][(pos.y * width) + pos.x];
 	else
 		return 0;
 }
@@ -184,10 +215,10 @@ SDL_Rect& j1FowManager::GetFOWMetaRect(FOW_TileState state)
 	return ret;
 }
 
-void j1FowManager::SetVisibilityTile(iPoint pos, FOW_TileState state)
+void j1FowManager::SetVisibilityTile(iPoint pos, FOW_TileState state, uint viewport)
 {
 	if (CheckBoundaries(pos))
-			visibility_map[(pos.y * width) + pos.x] = (int8_t)state;
+			visibility_map[viewport][(pos.y * width) + pos.x] = (int8_t)state;
 }
 
 // We will manage the bool is_visible in the fow_entities, entities from the entity manager should check this value of
@@ -196,14 +227,27 @@ void j1FowManager::ManageEntitiesVisibility()
 {
 	for (std::list<FOW_Data*>::iterator item = fow_entities.begin(); item != fow_entities.end(); ++item)
 	{
-		int8_t st = GetVisibilityTileAt((*item)->position);
-		// If the tile isn't visible or a smoothing tile from black to Fogged
-		if (st != (int8_t)FOW_TileState::UNVISITED)
+		int visible_views = 0;
+
+		for (int i = 1; i < 5; ++i)
 		{
-			(*item)->is_visible = true;
-		} else {
-			(*item)->is_visible = false;
+			int8_t st = GetVisibilityTileAt((*item)->position,i);
+			// If the tile isn't visible
+			if (st != (int8_t)FOW_TileState::UNVISITED)
+			{
+				(*item)->is_visible[i] = true;
+				visible_views++;
+			}
+			else {
+				(*item)->is_visible[i] = false;
+			}
 		}
+		//This thing below is just for performance improvement, we determine this is visible in all views is_visble[0]
+		// So later on when printing entities we can do 1 call to all viewports instead of 4 individual ones.
+		if (visible_views == 4)
+			(*item)->is_visible[0] = true;
+		else
+			(*item)->is_visible[0] = false;
 	}
 }
 
@@ -218,19 +262,15 @@ void j1FowManager::ManageEntitiesFOWManipulation()
 			//We store the LOS of the current entity, since the LOS will change this will be our previous LOS
 			std::list<iPoint> prev_LOS = (*item)->LOS;
 
-			//Since the Entity moved, we update the LOS position and make the tiles contained inside it visible 
-			for (std::list<iPoint>::iterator tile = (*item)->LOS.begin(); tile != (*item)->LOS.end(); tile++)
+			for (int i = 0; i < 4; ++i)
 			{
-				// TODO 3.5 Since we moved we needupdate the position of the tiles in the LOS (Line of Sight), 
-				// effectively moving all the LOS area to the current position we are in.
-				// Remember that each time an entity moves from one tile to another its variable motion is updated with
-				// the total movement in tile distance
-				(*tile) += (*item)->motion;
+				//Since the Entity moved, we update the LOS position and make the tiles contained inside it visible 
+				for (std::list<iPoint>::iterator tile = (*item)->LOS.begin(); tile != (*item)->LOS.end(); tile++)
+				{
+					(*tile) += (*item)->motion;
 
-				// TODO 3.5 Set The Visibility of the tile we just moved. We need to go to the SAME
-				// tile in the VISIBILITY MAP and make it VISIBLE. Look at the header and search which 
-				// private function will allow you to do so
-				SetVisibilityTile((*tile),FOW_TileState::VISIBLE);
+					SetVisibilityTile((*tile), FOW_TileState::VISIBLE,i);
+				}
 			}
 
 			(*item)->moved_in_map = false;
@@ -238,12 +278,14 @@ void j1FowManager::ManageEntitiesFOWManipulation()
 			//Now iterate the tiles that the entity left behind to determine its state 
 			//(fogged or unvisited depending of in if we leave a scouting trail)
 			
-			//TODO 4 UNCOMMENT FROM HERE: --------------------------------------------------------
-			for (std::list<iPoint>::const_iterator tile = prev_LOS.cbegin(); tile != prev_LOS.end(); tile++)
+			for (int i = 0; i < 4; ++i)
 			{
-				if (TileInsideList((*tile), (*item)->LOS) == false)
+				for (std::list<iPoint>::const_iterator tile = prev_LOS.cbegin(); tile != prev_LOS.end(); tile++)
 				{
-						SetVisibilityTile((*tile), FOW_TileState::UNVISITED);
+					if (TileInsideList((*tile), (*item)->LOS) == false)
+					{
+						SetVisibilityTile((*tile), FOW_TileState::UNVISITED, i);
+					}
 				}
 			}
 		}

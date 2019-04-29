@@ -24,7 +24,7 @@ struct FOW_Data
 	iPoint motion = { 0,0 };
 
 	// Bools for checks
-	bool is_visible;
+	bool is_visible[5] = {false};
 	bool provides_visibility;
 	bool moved_in_map = false; // This boolean stipulates if we moved in map coordinates
 
@@ -64,10 +64,10 @@ public: // Functions
 
 	// Create a Fog of War Entity (Abstraction of an entity that will be managed
 	// by the j1FowManager)
-	FOW_Data* CreateFOWEntity(iPoint position, bool provides_visibility);
+	FOW_Data* CreateFOWData(iPoint position, bool provides_visibility);
 
 	//Destroy a Fog of War Entity and take it out of the list
-	bool DestroyFOWEntity(FOW_Data* to_destroy);
+	bool DestroyFOWData(FOW_Data* to_destroy);
 
 	// Set Visibility Map
 	void SetVisibilityMap(uint width, uint height);
@@ -75,7 +75,7 @@ public: // Functions
 	void ResetVisibilityMap();
 
 	//Get the value of a tile within the Visibility Map
-	int8_t GetVisibilityTileAt(const iPoint& pos) const;
+	int8_t GetVisibilityTileAt(const iPoint& pos, uint viewport) const;
 
 	//Get the Rect to blit the correspondant tile state
 	SDL_Rect& GetFOWMetaRect(FOW_TileState state);
@@ -92,7 +92,7 @@ public: // Functions
 private: // Functions
 
 	// Set the state of a tile in the visibility map
-	void SetVisibilityTile(iPoint pos, FOW_TileState state);
+	void SetVisibilityTile(iPoint pos, FOW_TileState state, uint viewport);
 
 	// Manage visibility of entities
 	void ManageEntitiesVisibility();
@@ -121,7 +121,7 @@ private: //Variables
 
 	uint width, height;
 
-	int8_t* visibility_map = nullptr;
+	int8_t* visibility_map[4] = { nullptr };
 	int8_t* bush_meta_map = nullptr;
 
 	// List of all FOW Entities
@@ -129,7 +129,7 @@ private: //Variables
 
 	//---- This 2 pointers are for debug purpose only
 	int8_t* debug_map = nullptr;
-	int8_t* visibility_debug_holder = nullptr;
+	int8_t* visibility_debug_holder[4] = { nullptr };
 	//----
 
 };
