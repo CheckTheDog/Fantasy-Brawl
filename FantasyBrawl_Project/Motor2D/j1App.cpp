@@ -22,6 +22,7 @@
 #include "j1Transition.h"
 #include "j1UIScene.h"
 #include "j1BuffManager.h"
+#include "j1FowManager.h"
 #include "j1App.h"
 
 #include "Brofiler/Brofiler.h"
@@ -41,6 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	coll = new j1Collision();
 	entities = new j1EntityManager();
+	fow_manager = new j1FowManager();
 	arena_interactions = new j1ArenaInteractions();
 	buff = new j1BuffManager();
 	pathfinding = new j1PathFinding();
@@ -50,6 +52,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	gui = new j1Gui();
 	transition = new j1Transition();
 	ui_scene = new j1UIScene();
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -58,6 +61,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(entities);
+	AddModule(fow_manager);
 	AddModule(buff);
 	AddModule(coll);
 	AddModule(map);

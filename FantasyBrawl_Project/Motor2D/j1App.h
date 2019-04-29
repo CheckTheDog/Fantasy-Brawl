@@ -26,6 +26,7 @@ class j1Gui;
 class j1Transition;
 class j1UIScene;
 class j1BuffManager;
+class j1FowManager;
 
 
 class j1App
@@ -106,6 +107,7 @@ public:
 	j1BuffManager*		buff = NULL;
 	j1Collision*        coll = nullptr;
 	j1ParticleSystem*	particlesys = nullptr;
+	j1FowManager*		fow_manager = nullptr;
 	j1Viewport*			view = NULL;
 
 	int              framerate_cap;
