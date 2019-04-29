@@ -97,13 +97,24 @@ bool j1Scene::Start()
 	entity_info player_info;
 
 	player_info.position = initialposP1;
-	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Trakt);
+	player1->character = CHARACTER::TRAKT;
+	player1->AssignCharacter();
+
 	player_info.position = initialposP2;
-	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player2info);
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Simon);
+	player2->character = CHARACTER::SIMON;
+	player2->AssignCharacter();
+
 	player_info.position = initialposP3;
-	player3 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player3info);
+	player3 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Trakt);
+	player3->character = CHARACTER::TRAKT;
+	player3->AssignCharacter();
+
 	player_info.position = initialposP4;
-	player4 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player4info);
+	player4 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Meliadoul);
+	player4->character = CHARACTER::MELIADOUL;
+	player4->AssignCharacter();
 
 	return true;
 }

@@ -76,14 +76,20 @@ public:
 	float				update_ms_cycle = 0;
 	uint playerid = 0;
 	// --- Player ---
-	Playerdata player1info;
-	Playerdata player2info;
-	Playerdata player3info;
-	Playerdata player4info;
+	Playerdata Wendolin;
+	Playerdata Simon;
+	Playerdata Trakt;
+	Playerdata Meliadoul;
 	AnimationRanges animranges;
 
 	SDL_Texture* shield_texture = nullptr;
+
 	std::string shield_texturepath;
+
+	SDL_Texture * Dagger_texture;
+	SDL_Texture * budu_texture;
+	SDL_Texture * axe_texture;
+	SDL_Texture * inkball_texture;
 };
 
 #endif // __J1ENTITYMANAGER_H__

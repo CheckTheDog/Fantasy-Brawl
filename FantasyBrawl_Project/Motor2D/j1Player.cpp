@@ -45,28 +45,28 @@ bool j1Player::Start()
 
 	manager->playerid++;
 
-	switch (ID)
+	/*switch (ID)
 	{
 	case PLAYER::P1:
-		playerinfo = manager->player1info;
+		playerinfo = manager->Wendolin;
 		break;
 
 	case PLAYER::P2:
-		playerinfo = manager->player2info;
+		playerinfo = manager->Simon;
 		break;
 
 	case PLAYER::P3:
-		playerinfo = manager->player3info;
+		playerinfo = manager->Trakt;
 		break;
 
 	case PLAYER::P4:
-		playerinfo = manager->player4info;
+		playerinfo = manager->Meliadoul;
 		break;
-	}
+	}*/
 
-	// --- Entity Spritesheet ---
-	if (spritesheet == nullptr)
-		spritesheet = App->tex->Load(playerinfo.Texture.data());
+	//// --- Entity Spritesheet ---
+	//if (spritesheet == nullptr)
+	//	spritesheet = App->tex->Load(playerinfo.Texture.data());
 
 	// --- Animations ---
 	CurrentAnimation = playerinfo.idleDown;
@@ -282,9 +282,9 @@ void j1Player::HandleInput()
 	// --- Fill in particle info ---
 	//playerinfo.characterdata.basic_attack.speed.x = RJdirection_x * 300;
 	//playerinfo.characterdata.basic_attack.speed.y = RJdirection_y * 300;
-	playerinfo.characterdata.basic_attack.direction.x = RJdirection_x;
-	playerinfo.characterdata.basic_attack.direction.y = RJdirection_y;
-	playerinfo.characterdata.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) /** (180.0f / M_PI)*/;
+	playerinfo.basic_attack.direction.x = RJdirection_x;
+	playerinfo.basic_attack.direction.y = RJdirection_y;
+	playerinfo.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) /** (180.0f / M_PI)*/;
 
 	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
 
@@ -326,8 +326,8 @@ void j1Player::Launch1stSuper()
 
 	for (int i = 1; i < 17; ++i)
 	{
-		playerinfo.characterdata.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 	}
 
 }
@@ -370,11 +370,11 @@ bool j1Player::PostUpdate(float dt)
 	//{
 	if (PlayerPrintOnTop == true)
 	{
-		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
 	}
 	else
 	{
-		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
 	}
 	//}
 
@@ -589,6 +589,29 @@ bool j1Player::Save(pugi::xml_node &config) const
 	return true;
 }
 
+void j1Player::AssignCharacter()
+{
+	// --- Add fx info (uint in character data) ---
+
+	switch (this->character)
+	{
+	case CHARACTER::WENDOLIN:
+		this->playerinfo = manager->Wendolin;
+		break;
+	case CHARACTER::MELIADOUL:
+		this->playerinfo = manager->Meliadoul;
+		break;
+	case CHARACTER::SIMON:
+		this->playerinfo = manager->Simon;
+		break;
+	case CHARACTER::TRAKT:
+		this->playerinfo = manager->Trakt;
+		break;
+	default:
+		break;
+	}
+}
+
 bool j1Player::CleanUp()
 {
 	/*App->tex->UnLoad(spritesheet);*/
@@ -617,7 +640,7 @@ void j1Player::LogicUpdate(float dt)
 		&& basicTimer.ReadSec() > 0.5f)
 	{
 		basicTimer.Start();
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		// ALPHA_FIX same hardcode as before, no player data means there's still no condition to change the sound accordingly
 		App->audio->PlayFx(App->audio->fxWendolinBasic);
 	}

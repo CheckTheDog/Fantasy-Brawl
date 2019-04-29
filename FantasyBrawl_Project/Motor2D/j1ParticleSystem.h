@@ -25,6 +25,7 @@ struct Particle
 	uint delay = 0;
 	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
+	SDL_Texture* tex = nullptr;
 	float angle = 0.0f;
 
 	fPoint GetPos()const;
@@ -55,8 +56,6 @@ public:
 	Particle* GetCollidedParticle(Collider* entitycollider, const Collider* particlecollider);
 
 private:
-
-	SDL_Texture * pSprites;
 
 	Particle* active[MAX_PARTICLES];
 

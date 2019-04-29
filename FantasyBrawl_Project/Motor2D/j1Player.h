@@ -12,9 +12,13 @@ enum class PLAYER;
 
 #define JOYSTICK_DEAD_ZONE 8000
 
-struct CharacterData
+enum class CHARACTER
 {
-	Particle basic_attack;
+	WENDOLIN,
+	MELIADOUL,
+	SIMON,
+	TRAKT,
+	NONE
 };
 
 struct Playerdata {
@@ -48,11 +52,12 @@ struct Playerdata {
 
 	std::string folder;
 	std::string Texture;
+	SDL_Texture* tex = nullptr;
+
+	Particle basic_attack;
+	uint basic_fx = 0;
 
 	SDL_Rect playerrect = { 0,0,0,0 };
-
-	// --- Characters ---
-	CharacterData characterdata;
 };
 
 enum class MOVEMENT
@@ -117,6 +122,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	// --- Character ---
+	void AssignCharacter();
+
 	// --- Collisions Handling ---
 
 	void OnCollision(Collider* c1, Collider* c2);
@@ -146,6 +154,7 @@ public:
 	PLAYER ID;
 	Playerdata playerinfo;
 	PSTATE PlayerState;
+	CHARACTER character = CHARACTER::NONE;
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };

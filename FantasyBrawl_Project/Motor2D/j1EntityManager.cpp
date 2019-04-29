@@ -61,173 +61,173 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	animranges.AnimationRangeDownleft_start = playernode.child("AnimationRangeDownleft").attribute("range_start").as_float();
 	animranges.AnimationRangeDownleft_end = playernode.child("AnimationRangeDownleft").attribute("range_end").as_float();
 
-	// --- Player 1 Awake ---
-	player1info.folder.assign(playernode.child("folder1").child_value());
-	player1info.Texture.assign(playernode.child("texture1").child_value());
+	// --- Wendolin Awake ---
+	Wendolin.folder.assign(playernode.child("folder1").child_value());
+	Wendolin.Texture.assign(playernode.child("texture1").child_value());
 
-	player1info.idleRight = LoadAnimation(player1info.folder.data(), "idleRight");
-	player1info.idleLeft = LoadAnimation(player1info.folder.data(), "idleLeft");
-	player1info.idleUp = LoadAnimation(player1info.folder.data(), "idleUp");
-	player1info.idleDown = LoadAnimation(player1info.folder.data(), "idleDown");
-	player1info.idleUpright = LoadAnimation(player1info.folder.data(), "idleUpright");
-	player1info.idleUpleft = LoadAnimation(player1info.folder.data(), "idleUpleft");
-	player1info.idleDownright = LoadAnimation(player1info.folder.data(), "idleDownright");
-	player1info.idleDownleft = LoadAnimation(player1info.folder.data(), "idleDownleft");
+	Wendolin.idleRight = LoadAnimation(Wendolin.folder.data(), "idleRight");
+	Wendolin.idleLeft = LoadAnimation(Wendolin.folder.data(), "idleLeft");
+	Wendolin.idleUp = LoadAnimation(Wendolin.folder.data(), "idleUp");
+	Wendolin.idleDown = LoadAnimation(Wendolin.folder.data(), "idleDown");
+	Wendolin.idleUpright = LoadAnimation(Wendolin.folder.data(), "idleUpright");
+	Wendolin.idleUpleft = LoadAnimation(Wendolin.folder.data(), "idleUpleft");
+	Wendolin.idleDownright = LoadAnimation(Wendolin.folder.data(), "idleDownright");
+	Wendolin.idleDownleft = LoadAnimation(Wendolin.folder.data(), "idleDownleft");
 
-	player1info.moveRight = LoadAnimation(player1info.folder.data(), "moveRight");
-	player1info.moveLeft = LoadAnimation(player1info.folder.data(), "moveLeft");
-	player1info.moveUp = LoadAnimation(player1info.folder.data(), "moveUp");
-	player1info.moveDown = LoadAnimation(player1info.folder.data(), "moveDown");
-	player1info.moveUpright = LoadAnimation(player1info.folder.data(), "moveUpright");
-	player1info.moveUpleft = LoadAnimation(player1info.folder.data(), "moveUpleft");
-	player1info.moveDownright = LoadAnimation(player1info.folder.data(), "moveDownright");
-	player1info.moveDownleft = LoadAnimation(player1info.folder.data(), "moveDownleft");
+	Wendolin.moveRight = LoadAnimation(Wendolin.folder.data(), "moveRight");
+	Wendolin.moveLeft = LoadAnimation(Wendolin.folder.data(), "moveLeft");
+	Wendolin.moveUp = LoadAnimation(Wendolin.folder.data(), "moveUp");
+	Wendolin.moveDown = LoadAnimation(Wendolin.folder.data(), "moveDown");
+	Wendolin.moveUpright = LoadAnimation(Wendolin.folder.data(), "moveUpright");
+	Wendolin.moveUpleft = LoadAnimation(Wendolin.folder.data(), "moveUpleft");
+	Wendolin.moveDownright = LoadAnimation(Wendolin.folder.data(), "moveDownright");
+	Wendolin.moveDownleft = LoadAnimation(Wendolin.folder.data(), "moveDownleft");
 
-	player1info.attackRight = LoadAnimation(player1info.folder.data(), "attackRight");
-	player1info.attackLeft = LoadAnimation(player1info.folder.data(), "attackLeft");
-	player1info.attackUp = LoadAnimation(player1info.folder.data(), "attackUp");
-	player1info.attackDown = LoadAnimation(player1info.folder.data(), "attackDown");
-	player1info.attackUpright = LoadAnimation(player1info.folder.data(), "attackUpright");
-	player1info.attackUpleft = LoadAnimation(player1info.folder.data(), "attackUpleft");
-	player1info.attackDownright = LoadAnimation(player1info.folder.data(), "attackDownright");
-	player1info.attackDownleft = LoadAnimation(player1info.folder.data(), "attackDownleft");
+	Wendolin.attackRight = LoadAnimation(Wendolin.folder.data(), "attackRight");
+	Wendolin.attackLeft = LoadAnimation(Wendolin.folder.data(), "attackLeft");
+	Wendolin.attackUp = LoadAnimation(Wendolin.folder.data(), "attackUp");
+	Wendolin.attackDown = LoadAnimation(Wendolin.folder.data(), "attackDown");
+	Wendolin.attackUpright = LoadAnimation(Wendolin.folder.data(), "attackUpright");
+	Wendolin.attackUpleft = LoadAnimation(Wendolin.folder.data(), "attackUpleft");
+	Wendolin.attackDownright = LoadAnimation(Wendolin.folder.data(), "attackDownright");
+	Wendolin.attackDownleft = LoadAnimation(Wendolin.folder.data(), "attackDownleft");
 
-	player1info.playerrect = { x,y,w,h };
+	Wendolin.playerrect = { x,y,w,h };
 
-	// --- P1 Particles ---
+	// --- Wendolin Particles ---
 	fPoint particle_speed = { 250.0f, 250.0f };
-	player1info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
-	player1info.characterdata.basic_attack.anim.loop = true;
-	player1info.characterdata.basic_attack.life = 2500;
-	player1info.characterdata.basic_attack.speed = particle_speed;
-	player1info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+	Wendolin.basic_attack.anim.PushBack({ 0,0,28,18 });
+	Wendolin.basic_attack.anim.loop = true;
+	Wendolin.basic_attack.life = 2500;
+	Wendolin.basic_attack.speed = particle_speed;
+	Wendolin.basic_attack.particle_effect = &App->buff->effects[3];
 
 	// --------------------
 
-	// --- Player 2 Awake ---
-	player2info.folder.assign(playernode.child("folder2").child_value());
-	player2info.Texture.assign(playernode.child("texture2").child_value());
+	// --- Simon Awake ---
+	Simon.folder.assign(playernode.child("folder2").child_value());
+	Simon.Texture.assign(playernode.child("texture2").child_value());
 		  
-	player2info.idleRight = LoadAnimation(player2info.folder.data(), "idleRight");
-	player2info.idleLeft = LoadAnimation(player2info.folder.data(), "idleLeft");
-	player2info.idleUp = LoadAnimation(player2info.folder.data(), "idleUp");
-	player2info.idleDown = LoadAnimation(player2info.folder.data(), "idleDown");
-	player2info.idleUpright = LoadAnimation(player2info.folder.data(), "idleUpright");
-	player2info.idleUpleft = LoadAnimation(player2info.folder.data(), "idleUpleft");
-	player2info.idleDownright = LoadAnimation(player2info.folder.data(), "idleDownright");
-	player2info.idleDownleft = LoadAnimation(player2info.folder.data(), "idleDownleft");
+	Simon.idleRight = LoadAnimation(Simon.folder.data(), "idleRight");
+	Simon.idleLeft = LoadAnimation(Simon.folder.data(), "idleLeft");
+	Simon.idleUp = LoadAnimation(Simon.folder.data(), "idleUp");
+	Simon.idleDown = LoadAnimation(Simon.folder.data(), "idleDown");
+	Simon.idleUpright = LoadAnimation(Simon.folder.data(), "idleUpright");
+	Simon.idleUpleft = LoadAnimation(Simon.folder.data(), "idleUpleft");
+	Simon.idleDownright = LoadAnimation(Simon.folder.data(), "idleDownright");
+	Simon.idleDownleft = LoadAnimation(Simon.folder.data(), "idleDownleft");
 		  
-	player2info.moveRight = LoadAnimation(player2info.folder.data(), "moveRight");
-	player2info.moveLeft = LoadAnimation(player2info.folder.data(), "moveLeft");
-	player2info.moveUp = LoadAnimation(player2info.folder.data(), "moveUp");
-	player2info.moveDown = LoadAnimation(player2info.folder.data(), "moveDown");
-	player2info.moveUpright = LoadAnimation(player2info.folder.data(), "moveUpright");
-	player2info.moveUpleft = LoadAnimation(player2info.folder.data(), "moveUpleft");
-	player2info.moveDownright = LoadAnimation(player2info.folder.data(), "moveDownright");
-	player2info.moveDownleft = LoadAnimation(player2info.folder.data(), "moveDownleft");
+	Simon.moveRight = LoadAnimation(Simon.folder.data(), "moveRight");
+	Simon.moveLeft = LoadAnimation(Simon.folder.data(), "moveLeft");
+	Simon.moveUp = LoadAnimation(Simon.folder.data(), "moveUp");
+	Simon.moveDown = LoadAnimation(Simon.folder.data(), "moveDown");
+	Simon.moveUpright = LoadAnimation(Simon.folder.data(), "moveUpright");
+	Simon.moveUpleft = LoadAnimation(Simon.folder.data(), "moveUpleft");
+	Simon.moveDownright = LoadAnimation(Simon.folder.data(), "moveDownright");
+	Simon.moveDownleft = LoadAnimation(Simon.folder.data(), "moveDownleft");
 		  
-	player2info.attackRight = LoadAnimation(player2info.folder.data(), "attackRight");
-	player2info.attackLeft = LoadAnimation(player2info.folder.data(), "attackLeft");
-	player2info.attackUp = LoadAnimation(player2info.folder.data(), "attackUp");
-	player2info.attackDown = LoadAnimation(player2info.folder.data(), "attackDown");
-	player2info.attackUpright = LoadAnimation(player2info.folder.data(), "attackUpright");
-	player2info.attackUpleft = LoadAnimation(player2info.folder.data(), "attackUpleft");
-	player2info.attackDownright = LoadAnimation(player2info.folder.data(), "attackDownright");
-	player2info.attackDownleft = LoadAnimation(player2info.folder.data(), "attackDownleft");
+	Simon.attackRight = LoadAnimation(Simon.folder.data(), "attackRight");
+	Simon.attackLeft = LoadAnimation(Simon.folder.data(), "attackLeft");
+	Simon.attackUp = LoadAnimation(Simon.folder.data(), "attackUp");
+	Simon.attackDown = LoadAnimation(Simon.folder.data(), "attackDown");
+	Simon.attackUpright = LoadAnimation(Simon.folder.data(), "attackUpright");
+	Simon.attackUpleft = LoadAnimation(Simon.folder.data(), "attackUpleft");
+	Simon.attackDownright = LoadAnimation(Simon.folder.data(), "attackDownright");
+	Simon.attackDownleft = LoadAnimation(Simon.folder.data(), "attackDownleft");
 
-	player2info.playerrect = { x,y,w,h };
+	Simon.playerrect = { x,y,w,h };
 
-	// --- P2 Particles ---
-	player2info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
-	player2info.characterdata.basic_attack.anim.loop = true;
-	player2info.characterdata.basic_attack.life = 2500;
-	player2info.characterdata.basic_attack.speed = particle_speed;
-	player2info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
-
-	// --------------------
-
-	// --- Player 3 Awake ---
-	player3info.folder.assign(playernode.child("folder3").child_value());
-	player3info.Texture.assign(playernode.child("texture3").child_value());
-		  
-	player3info.idleRight = LoadAnimation(player3info.folder.data(), "idleRight");
-	player3info.idleLeft = LoadAnimation(player3info.folder.data(), "idleLeft");
-	player3info.idleUp = LoadAnimation(player3info.folder.data(), "idleUp");
-	player3info.idleDown = LoadAnimation(player3info.folder.data(), "idleDown");
-	player3info.idleUpright = LoadAnimation(player3info.folder.data(), "idleUpright");
-	player3info.idleUpleft = LoadAnimation(player3info.folder.data(), "idleUpleft");
-	player3info.idleDownright = LoadAnimation(player3info.folder.data(), "idleDownright");
-	player3info.idleDownleft = LoadAnimation(player3info.folder.data(), "idleDownleft");
-		  
-	player3info.moveRight = LoadAnimation(player3info.folder.data(), "moveRight");
-	player3info.moveLeft = LoadAnimation(player3info.folder.data(), "moveLeft");
-	player3info.moveUp = LoadAnimation(player3info.folder.data(), "moveUp");
-	player3info.moveDown = LoadAnimation(player3info.folder.data(), "moveDown");
-	player3info.moveUpright = LoadAnimation(player3info.folder.data(), "moveUpright");
-	player3info.moveUpleft = LoadAnimation(player3info.folder.data(), "moveUpleft");
-	player3info.moveDownright = LoadAnimation(player3info.folder.data(), "moveDownright");
-	player3info.moveDownleft = LoadAnimation(player3info.folder.data(), "moveDownleft");
-		  
-	player3info.attackRight = LoadAnimation(player3info.folder.data(), "attackRight");
-	player3info.attackLeft = LoadAnimation(player3info.folder.data(), "attackLeft");
-	player3info.attackUp = LoadAnimation(player3info.folder.data(), "attackUp");
-	player3info.attackDown = LoadAnimation(player3info.folder.data(), "attackDown");
-	player3info.attackUpright = LoadAnimation(player3info.folder.data(), "attackUpright");
-	player3info.attackUpleft = LoadAnimation(player3info.folder.data(), "attackUpleft");
-	player3info.attackDownright = LoadAnimation(player3info.folder.data(), "attackDownright");
-	player3info.attackDownleft = LoadAnimation(player3info.folder.data(), "attackDownleft");
-		  
-	player3info.playerrect = { x,y,w,h };
-
-	// --- P3 Particles ---
-	player3info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
-	player3info.characterdata.basic_attack.anim.loop = true;
-	player3info.characterdata.basic_attack.life = 2500;
-	player3info.characterdata.basic_attack.speed = particle_speed;
-	player3info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
-
+	// --- Simon Particles ---
+	Simon.basic_attack.anim.PushBack({ 0,0,24,36 });
+	Simon.basic_attack.anim.loop = true;
+	Simon.basic_attack.life = 2500;
+	Simon.basic_attack.speed = particle_speed;
+	Simon.basic_attack.particle_effect = &App->buff->effects[3];
 
 	// --------------------
 
-	// --- Player 4 Awake ---
-	player4info.folder.assign(playernode.child("folder4").child_value());
-	player4info.Texture.assign(playernode.child("texture4").child_value());
+	// --- Trakt Awake ---
+	Trakt.folder.assign(playernode.child("folder3").child_value());
+	Trakt.Texture.assign(playernode.child("texture3").child_value());
 		  
-	player4info.idleRight = LoadAnimation(player4info.folder.data(), "idleRight");
-	player4info.idleLeft = LoadAnimation(player4info.folder.data(), "idleLeft");
-	player4info.idleUp = LoadAnimation(player4info.folder.data(), "idleUp");
-	player4info.idleDown = LoadAnimation(player4info.folder.data(), "idleDown");
-	player4info.idleUpright = LoadAnimation(player4info.folder.data(), "idleUpright");
-	player4info.idleUpleft = LoadAnimation(player4info.folder.data(), "idleUpleft");
-	player4info.idleDownright = LoadAnimation(player4info.folder.data(), "idleDownright");
-	player4info.idleDownleft = LoadAnimation(player4info.folder.data(), "idleDownleft");
+	Trakt.idleRight = LoadAnimation(Trakt.folder.data(), "idleRight");
+	Trakt.idleLeft = LoadAnimation(Trakt.folder.data(), "idleLeft");
+	Trakt.idleUp = LoadAnimation(Trakt.folder.data(), "idleUp");
+	Trakt.idleDown = LoadAnimation(Trakt.folder.data(), "idleDown");
+	Trakt.idleUpright = LoadAnimation(Trakt.folder.data(), "idleUpright");
+	Trakt.idleUpleft = LoadAnimation(Trakt.folder.data(), "idleUpleft");
+	Trakt.idleDownright = LoadAnimation(Trakt.folder.data(), "idleDownright");
+	Trakt.idleDownleft = LoadAnimation(Trakt.folder.data(), "idleDownleft");
 		  
-	player4info.moveRight = LoadAnimation(player4info.folder.data(), "moveRight");
-	player4info.moveLeft = LoadAnimation(player4info.folder.data(), "moveLeft");
-	player4info.moveUp = LoadAnimation(player4info.folder.data(), "moveUp");
-	player4info.moveDown = LoadAnimation(player4info.folder.data(), "moveDown");
-	player4info.moveUpright = LoadAnimation(player4info.folder.data(), "moveUpright");
-	player4info.moveUpleft = LoadAnimation(player4info.folder.data(), "moveUpleft");
-	player4info.moveDownright = LoadAnimation(player4info.folder.data(), "moveDownright");
-	player4info.moveDownleft = LoadAnimation(player4info.folder.data(), "moveDownleft");
+	Trakt.moveRight = LoadAnimation(Trakt.folder.data(), "moveRight");
+	Trakt.moveLeft = LoadAnimation(Trakt.folder.data(), "moveLeft");
+	Trakt.moveUp = LoadAnimation(Trakt.folder.data(), "moveUp");
+	Trakt.moveDown = LoadAnimation(Trakt.folder.data(), "moveDown");
+	Trakt.moveUpright = LoadAnimation(Trakt.folder.data(), "moveUpright");
+	Trakt.moveUpleft = LoadAnimation(Trakt.folder.data(), "moveUpleft");
+	Trakt.moveDownright = LoadAnimation(Trakt.folder.data(), "moveDownright");
+	Trakt.moveDownleft = LoadAnimation(Trakt.folder.data(), "moveDownleft");
 		  
-	player4info.attackRight = LoadAnimation(player4info.folder.data(), "attackRight");
-	player4info.attackLeft = LoadAnimation(player4info.folder.data(), "attackLeft");
-	player4info.attackUp = LoadAnimation(player4info.folder.data(), "attackUp");
-	player4info.attackDown = LoadAnimation(player4info.folder.data(), "attackDown");
-	player4info.attackUpright = LoadAnimation(player4info.folder.data(), "attackUpright");
-	player4info.attackUpleft = LoadAnimation(player4info.folder.data(), "attackUpleft");
-	player4info.attackDownright = LoadAnimation(player4info.folder.data(), "attackDownright");
-	player4info.attackDownleft = LoadAnimation(player4info.folder.data(), "attackDownleft");
+	Trakt.attackRight = LoadAnimation(Trakt.folder.data(), "attackRight");
+	Trakt.attackLeft = LoadAnimation(Trakt.folder.data(), "attackLeft");
+	Trakt.attackUp = LoadAnimation(Trakt.folder.data(), "attackUp");
+	Trakt.attackDown = LoadAnimation(Trakt.folder.data(), "attackDown");
+	Trakt.attackUpright = LoadAnimation(Trakt.folder.data(), "attackUpright");
+	Trakt.attackUpleft = LoadAnimation(Trakt.folder.data(), "attackUpleft");
+	Trakt.attackDownright = LoadAnimation(Trakt.folder.data(), "attackDownright");
+	Trakt.attackDownleft = LoadAnimation(Trakt.folder.data(), "attackDownleft");
 		  
-	player4info.playerrect = { x,y,w,h };
+	Trakt.playerrect = { x,y,w,h };
 
-	// --- P4 Particles ---
-	player4info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
-	player4info.characterdata.basic_attack.anim.loop = true;
-	player4info.characterdata.basic_attack.life = 2500;
-	player4info.characterdata.basic_attack.speed = particle_speed;
-	player4info.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+	// --- Trakt Particles ---
+	Trakt.basic_attack.anim.PushBack({ 0,0,30,30 });
+	Trakt.basic_attack.anim.loop = true;
+	Trakt.basic_attack.life = 2500;
+	Trakt.basic_attack.speed = particle_speed;
+	Trakt.basic_attack.particle_effect = &App->buff->effects[3];
+
+
+	// --------------------
+
+	// --- Meliadoul Awake ---
+	Meliadoul.folder.assign(playernode.child("folder4").child_value());
+	Meliadoul.Texture.assign(playernode.child("texture4").child_value());
+		  
+	Meliadoul.idleRight = LoadAnimation(Meliadoul.folder.data(), "idleRight");
+	Meliadoul.idleLeft = LoadAnimation(Meliadoul.folder.data(), "idleLeft");
+	Meliadoul.idleUp = LoadAnimation(Meliadoul.folder.data(), "idleUp");
+	Meliadoul.idleDown = LoadAnimation(Meliadoul.folder.data(), "idleDown");
+	Meliadoul.idleUpright = LoadAnimation(Meliadoul.folder.data(), "idleUpright");
+	Meliadoul.idleUpleft = LoadAnimation(Meliadoul.folder.data(), "idleUpleft");
+	Meliadoul.idleDownright = LoadAnimation(Meliadoul.folder.data(), "idleDownright");
+	Meliadoul.idleDownleft = LoadAnimation(Meliadoul.folder.data(), "idleDownleft");
+		  
+	Meliadoul.moveRight = LoadAnimation(Meliadoul.folder.data(), "moveRight");
+	Meliadoul.moveLeft = LoadAnimation(Meliadoul.folder.data(), "moveLeft");
+	Meliadoul.moveUp = LoadAnimation(Meliadoul.folder.data(), "moveUp");
+	Meliadoul.moveDown = LoadAnimation(Meliadoul.folder.data(), "moveDown");
+	Meliadoul.moveUpright = LoadAnimation(Meliadoul.folder.data(), "moveUpright");
+	Meliadoul.moveUpleft = LoadAnimation(Meliadoul.folder.data(), "moveUpleft");
+	Meliadoul.moveDownright = LoadAnimation(Meliadoul.folder.data(), "moveDownright");
+	Meliadoul.moveDownleft = LoadAnimation(Meliadoul.folder.data(), "moveDownleft");
+		  
+	Meliadoul.attackRight = LoadAnimation(Meliadoul.folder.data(), "attackRight");
+	Meliadoul.attackLeft = LoadAnimation(Meliadoul.folder.data(), "attackLeft");
+	Meliadoul.attackUp = LoadAnimation(Meliadoul.folder.data(), "attackUp");
+	Meliadoul.attackDown = LoadAnimation(Meliadoul.folder.data(), "attackDown");
+	Meliadoul.attackUpright = LoadAnimation(Meliadoul.folder.data(), "attackUpright");
+	Meliadoul.attackUpleft = LoadAnimation(Meliadoul.folder.data(), "attackUpleft");
+	Meliadoul.attackDownright = LoadAnimation(Meliadoul.folder.data(), "attackDownright");
+	Meliadoul.attackDownleft = LoadAnimation(Meliadoul.folder.data(), "attackDownleft");
+		  
+	Meliadoul.playerrect = { x,y,w,h };
+
+	// --- Meliadoul Particles ---
+	Meliadoul.basic_attack.anim.PushBack({ 0,0,40,34 });
+	Meliadoul.basic_attack.anim.loop = true;
+	Meliadoul.basic_attack.life = 2500;
+	Meliadoul.basic_attack.speed = particle_speed;
+	Meliadoul.basic_attack.particle_effect = &App->buff->effects[3];
 
 	// --------------------
 
@@ -240,7 +240,26 @@ bool j1EntityManager::Start()
 	LOG("start j1EntityManager");
 	bool ret = true;
 
+	// --- Loadint Particle Textures ---
+	Dagger_texture = App->tex->Load("particles/Wendolin Red Dagger.png");
+	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
+	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
+	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
+
 	shield_texture = App->tex->Load(shield_texturepath.data());
+
+	// --- Loading Character Specific Textures ---
+	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
+	Wendolin.basic_attack.tex = Dagger_texture;
+
+	Simon.tex = App->tex->Load(Simon.Texture.data());
+	Simon.basic_attack.tex = budu_texture;
+
+	Trakt.tex = App->tex->Load(Trakt.Texture.data());
+	Trakt.basic_attack.tex = inkball_texture;
+
+	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
+	Meliadoul.basic_attack.tex = axe_texture;
 
 	return ret;
 }
