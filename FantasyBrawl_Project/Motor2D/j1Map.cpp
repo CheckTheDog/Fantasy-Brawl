@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Viewport.h"
+#include "j1FowManager.h"
 #include "j1Scene.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -374,6 +375,8 @@ bool j1Map::Load(const char* file_name)
 	}
 
 	map_loaded = ret;
+
+	App->fow_manager->CollectBushData();
 
 	return ret;
 }

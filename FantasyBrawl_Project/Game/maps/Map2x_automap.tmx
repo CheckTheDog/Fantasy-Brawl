@@ -40370,6 +40370,9 @@
   </data>
  </layer>
  <layer name="bushes" width="71" height="71">
+  <properties>
+   <property name="isBush" type="int" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>

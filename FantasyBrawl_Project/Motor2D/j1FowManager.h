@@ -54,7 +54,7 @@ public: // Functions
 	virtual ~j1FowManager();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 	// Called before the first frame
 	bool Start();
 	// Called each loop iteration
@@ -86,6 +86,8 @@ public: // Functions
 	// Fill a given Frontier to return a LOS (Line of Sight)
 	std::list<iPoint> FillFrontier(const std::list<iPoint>& frontier);
 
+	// Collect the bush Meta data
+	bool CollectBushData();
 
 private: // Functions
 
@@ -120,6 +122,7 @@ private: //Variables
 	uint width, height;
 
 	int8_t* visibility_map = nullptr;
+	int8_t* bush_meta_map = nullptr;
 
 	// List of all FOW Entities
 	std::list<FOW_Data*> fow_entities;

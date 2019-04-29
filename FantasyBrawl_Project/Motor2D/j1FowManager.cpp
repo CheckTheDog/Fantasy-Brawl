@@ -27,7 +27,7 @@ j1FowManager::~j1FowManager()
 		delete[] debug_map;
 }
 
-bool j1FowManager::Awake()
+bool j1FowManager::Awake(pugi::xml_node& config)
 {
 	return true;
 }
@@ -355,4 +355,58 @@ void FOW_Data::SetPos(iPoint new_pos)
 		position = new_pos;
 
 	}
+}
+
+bool j1FowManager::CollectBushData()
+{
+	bool ret = true;
+
+	MapData data = App->map->data;
+	std::list<MapLayer*>::const_iterator layer = data.layers.begin();
+
+	// Initiallize the bush meta data map
+	if (bush_meta_map != nullptr)
+	{
+		delete bush_meta_map;
+		bush_meta_map = nullptr;
+	}
+	uint w = (*layer)->width;
+	uint h = (*layer)->height;
+	
+	bush_meta_map = new int8_t[w*h];
+	memset(bush_meta_map, 0, w*h);
+	//Iterate layers
+	for (; layer != data.layers.end(); ++layer)
+	{
+		if ((*layer)->properties.Get("isBush") == 1)
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tile_id = (*layer)->Get(x, y);
+
+					if (tile_id > 0)
+					{
+						TileSet* tileset = App->map->GetTilesetFromTileId(tile_id);
+
+						if (tile_id > tileset->firstgid)
+						{
+							int i = (y*(*layer)->width) + x;
+
+							TileSet* tileset = (tile_id > 0) ? App->map->GetTilesetFromTileId(tile_id) : NULL;
+
+							if (tileset != NULL)
+							{
+								bush_meta_map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
+							}
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return ret;
 }
