@@ -9,6 +9,7 @@
 class j1EntityManager;
 class j1Entity;
 struct Collider;
+struct FOW_Data;
 struct SDL_Texture;
 
 enum class entity_type
@@ -46,6 +47,9 @@ struct entity_info
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;
 	SDL_Rect entitycollrect = { 0,0,0,0 };
+
+	// --- Fog of War (bushes) data ---
+	FOW_Data* fow_data = nullptr;
 };
 
 

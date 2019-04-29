@@ -46,8 +46,6 @@ bool j1FowManager::Start()
 {
 	meta_FOW = App->tex->Load("maps/FOW_meta_sheet.png");
 
-	SetVisibilityMap(App->map->data.width, App->map->data.height);
-
 	return true;
 }
 
@@ -229,17 +227,17 @@ void j1FowManager::ManageEntitiesVisibility()
 	{
 		int visible_views = 0;
 
-		for (int i = 1; i < 5; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			int8_t st = GetVisibilityTileAt((*item)->position,i);
 			// If the tile isn't visible
 			if (st != (int8_t)FOW_TileState::UNVISITED)
 			{
-				(*item)->is_visible[i] = true;
+				(*item)->is_visible[i+1] = true;
 				visible_views++;
 			}
 			else {
-				(*item)->is_visible[i] = false;
+				(*item)->is_visible[i+1] = false;
 			}
 		}
 		//This thing below is just for performance improvement, we determine this is visible in all views is_visble[0]

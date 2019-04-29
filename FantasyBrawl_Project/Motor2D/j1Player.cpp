@@ -15,6 +15,7 @@
 #include "j1ArenaInteractions.h"
 #include "j1Viewport.h"
 #include "j1BuffManager.h"
+#include "j1FowManager.h"
 #include "j1Map.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
@@ -93,6 +94,9 @@ bool j1Player::Start()
 	superTimer.Start();
 	shieldTimer.Start();
 	basicTimer.Start();
+
+	// Create Fog of war data
+	Entityinfo.fow_data = App->fow_manager->CreateFOWData({int(Entityinfo.position.x), int(Entityinfo.position.y)}, true);
 
 	return true;
 }
@@ -350,10 +354,11 @@ bool j1Player::Update(float dt)
 
 	MoveY(dt);
 
-
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
 
+	//Update our Fow_Data
+	Entityinfo.fow_data->SetPos({ int(Entityinfo.position.x), int(Entityinfo.position.y) });
 
 	return true;
 }
@@ -368,14 +373,24 @@ bool j1Player::PostUpdate(float dt)
 	//}
 	//else
 	//{
-	if (PlayerPrintOnTop == true)
+	
+	for (int i = 0; i < 5; ++i)
 	{
-		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+		if (Entityinfo.fow_data->is_visible[i])
+		{
+			if (PlayerPrintOnTop == true)
+			{
+				App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt),i);
+			}
+			else
+			{
+				App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt),i);
+			}
+			if (i == 0)
+				break;
+		}
 	}
-	else
-	{
-		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
-	}
+	
 	//}
 
 	if(shieldON)

@@ -73,7 +73,7 @@
   <scene>
     <map_name path="Map2x_automap.tmx"/>
     <initialposP1 x="450" y="450"/>
-    <initialposP2 x="3440" y="460"/>
+    <initialposP2 x="450" y="410"/>
     <initialposP3 x="460" y="3440"/>
     <initialposP4 x="3440" y="3440"/>
   </scene>

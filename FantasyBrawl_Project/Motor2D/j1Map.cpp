@@ -58,7 +58,7 @@ void j1Map::Draw()
 		int playerpos2 = layerr->Get(playerpos2map.x, playerpos2map.y);
 		int playerpos2_left = layerr->Get(playerpos2map.x - 1, playerpos2map.y);
 		int playerpos2_right = layerr->Get(playerpos2map.x + 1, playerpos2map.y);
-		int playerpos2_top = layerr->Get(playerpos2map.x, playerpos2map.y - 1);
+		int playerpos2_top = layerr->Get(playerpos2map.x, playerpos2map.y - 1); // Why is there a -1 here? it will crash the function it is calling whenever playerpos2map.y = 0!
 
 		iPoint playerpos3map = WorldToMap(App->scene->player3->Entityinfo.entitycoll->rect.x, App->scene->player3->Entityinfo.entitycoll->rect.y);
 		int playerpos3 = layerr->Get(playerpos3map.x, playerpos3map.y);
@@ -443,6 +443,8 @@ bool j1Map::LoadMap()
 			data.type = MAPTYPE_UNKNOWN;
 		}
 	}
+
+	App->fow_manager->SetVisibilityMap(data.width, data.height);
 
 	return ret;
 }
