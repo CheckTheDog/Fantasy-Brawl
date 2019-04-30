@@ -9,6 +9,7 @@
 #include "Brofiler/Brofiler.h"
 #include "j1BuffManager.h"
 #include "j1Textures.h"
+#include "j1Audio.h"
 
 j1EntityManager::j1EntityManager() : j1Module()
 {
@@ -186,7 +187,6 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Trakt.basic_attack.speed = particle_speed;
 	Trakt.basic_attack.particle_effect = &App->buff->effects[3];
 
-
 	// --------------------
 
 	// --- Meliadoul Awake ---
@@ -260,6 +260,12 @@ bool j1EntityManager::Start()
 
 	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
 	Meliadoul.basic_attack.tex = axe_texture;
+
+	// --- Loading Character Specific FX ---
+	Wendolin.basic_fx = App->audio->fxWendolinBasic;
+	Meliadoul.basic_fx = App->audio->fxMeliadoulBasic;
+	Trakt.basic_fx = App->audio->fxTraktBasic;
+	Simon.basic_fx = App->audio->fxSimonBasic;
 
 	return ret;
 }

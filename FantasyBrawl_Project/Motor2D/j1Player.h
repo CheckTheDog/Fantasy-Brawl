@@ -186,6 +186,7 @@ public:
 	j1Timer shieldTimer;
 	j1Timer shieldDuration;
 	j1Timer basicTimer;
+	j1Timer attackanimTimer;
 	bool shieldON = false;
 
 	// --- Score ---

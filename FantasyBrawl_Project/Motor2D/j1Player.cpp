@@ -99,8 +99,10 @@ bool j1Player::Start()
 
 void j1Player::HandleAnimations()
 {
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
+	if (((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT) 
+		&& basicTimer.ReadSec() > 0.5f
 		&& (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin))
+		|| attackanimTimer.ReadSec() < 0.2)
 		PlayerState = PSTATE::ATTACKING;
 	else if ((abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin))
 		PlayerState = PSTATE::MOVING;
@@ -636,34 +638,37 @@ void j1Player::LogicUpdate(float dt)
 	EntityMovement = MOVEMENT::STATIC;
 
 	// --- Attack according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT) && PlayerState == PSTATE::ATTACKING
 		&& basicTimer.ReadSec() > 0.5f)
 	{
+		// --- We reset the basic attack timer and the attack animation timer ---
+		attackanimTimer.Start();
 		basicTimer.Start();
+
+		// --- Firing the particle and playing character specific fx ---
 		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-		// ALPHA_FIX same hardcode as before, no player data means there's still no condition to change the sound accordingly
-		App->audio->PlayFx(App->audio->fxWendolinBasic);
+		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
 		HandleSuperAttacks(ID);
 
 	// --- Shield according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
 	{
 		shieldTimer.Start();
 		shieldDuration.Start();
 		shieldON = true;
-		LOG("shield on");
+		//LOG("shield on");
 		GetIdleAnimation();
 	}
-	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldON)
+	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
 	{
-		LOG("shield off");
+		//LOG("shield off");
 		shieldON = false;
 	}
 	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
 	{
-		LOG("shield off");
+		//LOG("shield off");
 		shieldON = false;
 	}
 
