@@ -98,7 +98,7 @@ bool j1Scene::Start()
 
 	player_info.position = initialposP1;
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Wendolin);
-	player1->character = CHARACTER::SIMON;
+	player1->character = CHARACTER::MELIADOUL;
 	player1->AssignCharacter();
 
 	player_info.position = initialposP2;

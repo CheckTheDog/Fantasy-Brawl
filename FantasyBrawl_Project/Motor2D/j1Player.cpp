@@ -298,7 +298,7 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN))
 		HandleSuperAttacks();
 }
 
@@ -348,40 +348,46 @@ void j1Player::HandleSuperAttacks()
 
 void j1Player::Launch1stSuper()
 {
-	for (int i = 1; i < 17; ++i)
+	if (superTimer.ReadSec() > 5.0f)
 	{
-		playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-	}
+		for (int i = 1; i < 17; ++i)
+		{
+			playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		}
 
-	superTimer.Start();
-	App->audio->PlayFx(this->playerinfo.super_fx);
+		superTimer.Start();
+		App->audio->PlayFx(this->playerinfo.super_fx);
+	}
 }
 
 void j1Player::Launch2ndSuper()
 {
-	float damage_radius = 150.0f;
-
-	if (last_particle != nullptr && last_particle->toDelete != true)
+	if (superTimer.ReadSec() > 5.0f)
 	{
-		superTimer.Start();
-		App->audio->PlayFx(this->playerinfo.super_fx);
-		this->Future_position.x = last_particle->pos.x;
-		this->Future_position.y = last_particle->pos.y;
+		float damage_radius = 150.0f;
 
-		ComputeDistance2players();
+		if (last_particle != nullptr && last_particle->toDelete != true)
+		{
+			superTimer.Start();
+			App->audio->PlayFx(this->playerinfo.super_fx);
+			this->Future_position.x = last_particle->pos.x;
+			this->Future_position.y = last_particle->pos.y;
 
-		if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
-			App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
+			ComputeDistance2players();
 
-		if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
-			App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
+			if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
 
-		if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
-			App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
+			if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
 
-		if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
-			App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+			if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
+
+			if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+		}
 	}
 }
 
@@ -393,8 +399,36 @@ void j1Player::Launch3rdSuper()
 
 void j1Player::Launch4thSuper()
 {
-	superTimer.Start();
-	App->audio->PlayFx(this->playerinfo.super_fx);
+	if ((abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
+		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE)
+		&& superTimer.ReadSec() > 5.0f)
+	{
+		superTimer.Start();
+		thirdSuper2ndround.Start();
+		App->audio->PlayFx(this->playerinfo.super_fx);
+
+		float angle = std::atan2(RJdirection_y, RJdirection_x) - 45.0f;
+
+		 // --- First round of axes ---
+		for (int i = 1; i < 4; ++i)
+		{
+			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		}
+
+		// --- 2nd round of axes ---
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
+
+		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
+	}
 }
 
 bool j1Player::Update(float dt)
