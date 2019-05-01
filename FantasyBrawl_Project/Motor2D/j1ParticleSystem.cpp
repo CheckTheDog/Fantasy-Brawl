@@ -76,7 +76,7 @@ bool j1ParticleSystem::Update(float dt)
 	return true;
 }
 
-void j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE collider_type, uint delay, j1Player* porigin)
+Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE collider_type, uint delay, j1Player* porigin)
 {
 	for (uint i = 0; i < MAX_PARTICLES; ++i)
 	{
@@ -97,11 +97,16 @@ void j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLIDER_TY
 			p->direction.x *= p->speed.x;
 			p->direction.y *= p->speed.y;
 			p->tex = particle.tex;
+			p->ghost = particle.ghost;
 
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
+
+				if (p->ghost)
+					p->pCol->ghost = true;
+
 				active[i] = p;
-				break;
+				return p;
 			}
 		}
 	}
@@ -140,31 +145,20 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_PARTICLES; ++i)
 	{
-		// Always destroy particles that collide (except bombs )
 		if (active[i] != nullptr && active[i]->pCol == c1)
 		{
-			/*if (c1->type == COLLIDER_TYPE::COLLIDER_PARTICLE) {}*/
-
 		
-				//AddParticle(explosion, active[i]->position.x, active[i]->position.y);
-				/*delete active[i];
-				active[i] = nullptr;*/
-			//if (active[i]->originplayer != nullptr)
-			//{
-			//	if (c2 != active[i]->originplayer->Entityinfo.entitycoll)
-			//	{
-			//		active[i]->toDelete = true;
-			//	}
-			//}
-			
-			if(c2->type != COLLIDER_TYPE::COLLIDER_PLAYER)
-			active[i]->toDelete = true;
-			
+			if (!c1->ghost)
+			{
+				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER)
+					active[i]->toDelete = true;
 
-			if (active[i]->toDelete) {
-				active[i]->pCol->to_delete = true;
-				delete active[i];
-				active[i] = nullptr;
+
+				if (active[i]->toDelete) {
+					active[i]->pCol->to_delete = true;
+					delete active[i];
+					active[i] = nullptr;
+				}
 			}
 
 				break;

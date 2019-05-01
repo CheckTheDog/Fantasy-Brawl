@@ -33,7 +33,8 @@ enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML
 	POISON,
 	WAR_CRY,
 	HURT,
-	STORM
+	STORM,
+	SIMON_SUPER,
 };
 
 

@@ -23,32 +23,32 @@ enum class CHARACTER
 
 struct Playerdata {
 
-	Animation* idleRight = nullptr;
-	Animation* idleLeft = nullptr;
-	Animation* idleUp = nullptr;
-	Animation* idleUpright = nullptr;
-	Animation* idleUpleft = nullptr;
-	Animation* idleDown = nullptr;
-	Animation* idleDownright = nullptr;
-	Animation* idleDownleft = nullptr;
+	Animation idleRight;
+	Animation idleLeft;
+	Animation idleUp;
+	Animation idleUpright;
+	Animation idleUpleft;
+	Animation idleDown;
+	Animation idleDownright;
+	Animation idleDownleft;
 
-	Animation* moveRight = nullptr;
-	Animation* moveLeft = nullptr;
-	Animation* moveUp = nullptr;
-	Animation* moveUpright = nullptr;
-	Animation* moveUpleft = nullptr;
-	Animation* moveDown = nullptr;
-	Animation* moveDownright = nullptr;
-	Animation* moveDownleft = nullptr;
+	Animation moveRight;
+	Animation moveLeft;
+	Animation moveUp;
+	Animation moveUpright;
+	Animation moveUpleft;
+	Animation moveDown;
+	Animation moveDownright;
+	Animation moveDownleft;
 
-	Animation* attackRight = nullptr;
-	Animation* attackLeft = nullptr;
-	Animation* attackUp = nullptr;
-	Animation* attackUpright = nullptr;
-	Animation* attackUpleft = nullptr;
-	Animation* attackDown = nullptr;
-	Animation* attackDownright = nullptr;
-	Animation* attackDownleft = nullptr;
+	Animation attackRight;
+	Animation attackLeft;
+	Animation attackUp;
+	Animation attackUpright;
+	Animation attackUpleft;
+	Animation attackDown;
+	Animation attackDownright;
+	Animation attackDownleft;
 
 	std::string folder;
 	std::string Texture;
@@ -56,6 +56,7 @@ struct Playerdata {
 
 	Particle basic_attack;
 	uint basic_fx = 0;
+	uint super_fx = 0;
 
 	SDL_Rect playerrect = { 0,0,0,0 };
 };
@@ -126,6 +127,7 @@ public:
 	// --- Character && Player ---
 	void AssignCharacter();
 	const fPoint GetNearestPlayerDirection();
+	void ComputeDistance2players();
 
 	// --- Collisions Handling ---
 
@@ -148,8 +150,13 @@ public:
 	// --- Entity Attacks ---
 	void HandleAttacks();
 	void HandleShield();
-	void HandleSuperAttacks(PLAYER ID);
+	void HandleSuperAttacks();
+
+	// --- Character Specific Super Attacks ---
 	void Launch1stSuper();
+	void Launch2ndSuper();
+	void Launch3rdSuper();
+	void Launch4thSuper();
 
 public:
 
@@ -198,6 +205,20 @@ public:
 
 	// --- Auto aim ---
 	float Aim_Radius = 300.0f;
+
+	// --- Particles ---
+	Particle * last_particle = nullptr;
+
+	// --- Distances to players ---
+	float absoluteDistanceP1 = 0.0f;
+	float absoluteDistanceP2 = 0.0f;
+	float absoluteDistanceP3 = 0.0f;
+	float absoluteDistanceP4 = 0.0f;
+
+	fPoint directionP1 = { 0.0f,0.0f };
+	fPoint directionP2 = { 0.0f,0.0f };
+	fPoint directionP3 = { 0.0f,0.0f };
+	fPoint directionP4 = { 0.0f,0.0f };
 };
 
 #endif // __j1Player_H__

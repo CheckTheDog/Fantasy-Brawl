@@ -23,10 +23,12 @@ struct Particle
 	uint born = 0;
 	uint life = 0;
 	uint delay = 0;
+
 	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
 	SDL_Texture* tex = nullptr;
 	float angle = 0.0f;
+	bool ghost = false;
 
 	fPoint GetPos()const;
 	Particle();
@@ -51,7 +53,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay, j1Player* porigin = nullptr);
+	Particle* AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay, j1Player* porigin = nullptr);
 
 	Particle* GetCollidedParticle(Collider* entitycollider, const Collider* particlecollider);
 

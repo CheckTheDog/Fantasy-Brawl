@@ -98,7 +98,7 @@ bool j1Scene::Start()
 
 	player_info.position = initialposP1;
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Wendolin);
-	player1->character = CHARACTER::WENDOLIN;
+	player1->character = CHARACTER::SIMON;
 	player1->AssignCharacter();
 
 	player_info.position = initialposP2;
@@ -151,10 +151,10 @@ void j1Scene::ResetAll()
 	player4->Entityinfo.entitycoll->rect.y = initialposP4.y;
 
 	// --- Put all players to idleDown animation ---
-	player1->CurrentAnimation = player1->playerinfo.idleDown;
-	player2->CurrentAnimation = player2->playerinfo.idleDown;
-	player3->CurrentAnimation = player3->playerinfo.idleDown;
-	player4->CurrentAnimation = player4->playerinfo.idleDown;
+	player1->CurrentAnimation = &player1->playerinfo.idleDown;
+	player2->CurrentAnimation = &player2->playerinfo.idleDown;
+	player3->CurrentAnimation = &player3->playerinfo.idleDown;
+	player4->CurrentAnimation = &player4->playerinfo.idleDown;
 
 	// --- Reset Players State and Movement status ---
 	player1->EntityMovement = MOVEMENT::STATIC;
