@@ -221,6 +221,12 @@ void j1Player::MoveX(float dt)
 	if (abs(LJdirection_x) > multipliermin)
 	{
 		LJdirection_x *= Entityinfo.Speed*dt;
+
+		if (RJinverted)
+		{
+			LJdirection_x *= -1;
+		}
+
 		Future_position.x += LJdirection_x;
 	}
 
@@ -236,6 +242,12 @@ void j1Player::MoveY(float dt)
 	if (abs(LJdirection_y) > multipliermin)
 	{
 		LJdirection_y *= Entityinfo.Speed*dt;
+
+		if (RJinverted)
+		{
+			LJdirection_y *= -1;
+		}
+
 		Future_position.y += LJdirection_y;
 	}
 
@@ -395,6 +407,30 @@ void j1Player::Launch3rdSuper()
 {
 	superTimer.Start();
 	App->audio->PlayFx(this->playerinfo.super_fx);
+
+	if (this != App->scene->player1)
+	{
+		App->scene->player1->RJinverted = true;
+		App->scene->player1->RJinversion.Start();
+	}
+
+	if (this != App->scene->player2)
+	{
+		App->scene->player2->RJinverted = true;
+		App->scene->player2->RJinversion.Start();
+	}
+
+	if (this != App->scene->player3)
+	{
+		App->scene->player3->RJinverted = true;
+		App->scene->player3->RJinversion.Start();
+	}
+
+	if (this != App->scene->player4)
+	{
+		App->scene->player4->RJinverted = true;
+		App->scene->player4->RJinversion.Start();
+	}
 }
 
 void j1Player::Launch4thSuper()
@@ -449,6 +485,8 @@ bool j1Player::Update(float dt)
 
 	MoveY(dt);
 
+	if (RJinversion.ReadSec() > 2.5f && RJinverted)
+		RJinverted = false;
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
@@ -746,7 +784,7 @@ const fPoint j1Player::GetNearestPlayerDirection()
 	// --- We need Absolute Distance to nearest player ---
 	absoluteDistance = absoluteDistanceP1;
 
-	if (absoluteDistanceP2 < absoluteDistance || absoluteDistance == 0.0f && absoluteDistanceP2 != 0.0f)
+	if ((absoluteDistanceP2 < absoluteDistance && absoluteDistanceP2 != 0.0f) || absoluteDistance == 0.0f)
 		absoluteDistance = absoluteDistanceP2;
 	if (absoluteDistanceP3 < absoluteDistance && absoluteDistanceP3 != 0.0f)
 		absoluteDistance = absoluteDistanceP3;

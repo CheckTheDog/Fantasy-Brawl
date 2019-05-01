@@ -173,6 +173,7 @@ public:
 
 	// --- Gamepad Input ---
 	float multipliermin = 0.1f;
+	bool RJinverted = false;
 
 	// Left Joystick LJ 
 	float LJAxisx_value = 0.0f;
@@ -197,6 +198,7 @@ public:
 	j1Timer shieldDuration;
 	j1Timer basicTimer;
 	j1Timer attackanimTimer;
+	j1Timer RJinversion;
 	bool shieldON = false;
 
 	// --- Score ---
