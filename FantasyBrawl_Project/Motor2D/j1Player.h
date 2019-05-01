@@ -80,7 +80,8 @@ enum class PSTATE
 {
 	MOVING,
 	ATTACKING,
-	IDLE
+	IDLE,
+	NONE
 };
 
 enum class RANK
@@ -122,8 +123,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	// --- Character ---
+	// --- Character && Player ---
 	void AssignCharacter();
+	const fPoint GetNearestPlayerDirection();
 
 	// --- Collisions Handling ---
 
@@ -144,7 +146,8 @@ public:
 	//bool PlayerLayerOrder();
 
 	// --- Entity Attacks ---
-
+	void HandleAttacks();
+	void HandleShield();
 	void HandleSuperAttacks(PLAYER ID);
 	void Launch1stSuper();
 
@@ -192,6 +195,9 @@ public:
 	// --- Score ---
 	uint kills = 0;
 	RANK P_rank = RANK::CONTENDER;
+
+	// --- Auto aim ---
+	float Aim_Radius = 300.0f;
 };
 
 #endif // __j1Player_H__

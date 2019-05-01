@@ -85,6 +85,7 @@ public:
 		return (x != v.x || y != v.y);
 	}
 
+
 	// Utils ------------------------------------------------
 	bool IsZero() const
 	{
