@@ -93,7 +93,7 @@
       <texture2>textures/Wendolin Red Sprite 2x.png</texture2>
       <texture3>textures/Wendolin Red Sprite 2x.png</texture3>
       <texture4>textures/Wendolin Red Sprite 2x.png</texture4>
-      <collider x="0" y="0" width="70" height="30"/>
+      <collider x="0" y="0" width="47" height="20"/>
       <shield>textures/Shield_Red_2x.png</shield>
       
       <AnimationRangeRight range_start="-22.5f" range_end="22.5f" />
