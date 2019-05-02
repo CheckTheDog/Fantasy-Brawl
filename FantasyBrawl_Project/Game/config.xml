@@ -89,10 +89,10 @@
       <folder2>Animations/player.tmx</folder2>
       <folder3>Animations/player.tmx</folder3>
       <folder4>Animations/player.tmx</folder4>
-      <texture1>textures/Wendolin Red Sprite 3x.png</texture1>
-      <texture2>textures/Wendolin Red Sprite 3x.png</texture2>
-      <texture3>textures/Wendolin Red Sprite 3x.png</texture3>
-      <texture4>textures/Wendolin Red Sprite 3x.png</texture4>
+      <texture1>textures/Wendolin Red Sprite 2x.png</texture1>
+      <texture2>textures/Wendolin Red Sprite 2x.png</texture2>
+      <texture3>textures/Wendolin Red Sprite 2x.png</texture3>
+      <texture4>textures/Wendolin Red Sprite 2x.png</texture4>
       <collider x="0" y="0" width="70" height="30"/>
       <shield>textures/Shield_Red_2x.png</shield>
       
