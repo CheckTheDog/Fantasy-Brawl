@@ -370,11 +370,11 @@ bool j1Player::PostUpdate(float dt)
 	//{
 	if (PlayerPrintOnTop == true)
 	{
-		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 48, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
 	}
 	else
 	{
-		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 48, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
 	}
 	//}
 
