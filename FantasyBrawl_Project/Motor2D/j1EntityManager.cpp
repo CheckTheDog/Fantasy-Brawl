@@ -95,7 +95,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player1info.playerrect = { x,y,w,h };
 
 	// --- P1 Particles ---
-	fPoint particle_speed = { 250.0f, 250.0f };
+	fPoint particle_speed = { 125.0f, 125.0f };
 	player1info.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
 	player1info.characterdata.basic_attack.anim.loop = true;
 	player1info.characterdata.basic_attack.life = 2500;
