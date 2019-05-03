@@ -46,6 +46,8 @@ struct entity_info
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;
 	SDL_Rect entitycollrect = { 0,0,0,0 };
+
+	float scale = 1.0f;
 };
 
 

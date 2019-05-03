@@ -90,6 +90,9 @@ bool j1Player::Start()
 	//playerinfo.characterdata.basic_attack.life = 2500;
 	//playerinfo.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
 
+	//No awake no party! 
+	Entityinfo.scale = 0.66f;
+
 	superTimer.Start();
 	shieldTimer.Start();
 	basicTimer.Start();
@@ -370,11 +373,11 @@ bool j1Player::PostUpdate(float dt)
 	//{
 	if (PlayerPrintOnTop == true)
 	{
-		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
 	}
 	else
 	{
-		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
 	}
 	//}
 
