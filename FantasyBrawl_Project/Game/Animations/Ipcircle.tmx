@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="600" height="1050" tilewidth="1" tileheight="1" infinite="0" nextlayerid="29" nextobjectid="112">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="700" height="1050" tilewidth="1" tileheight="1" infinite="0" nextlayerid="32" nextobjectid="144">
  <imagelayer id="3" name="spritesheet" locked="1">
-  <image source="../textures/CircleRed.png" width="464" height="34"/>
+  <image source="../textures/CircleRed Sprites.png" width="656" height="200"/>
  </imagelayer>
+ <objectgroup id="29" name="circleRedBoth">
+  <object id="112" x="0" y="150" width="81.8182" height="50"/>
+  <object id="113" x="82" y="150" width="81.8182" height="50"/>
+  <object id="114" x="164" y="150" width="81.8182" height="50"/>
+  <object id="115" x="246" y="150" width="81.8182" height="50"/>
+  <object id="116" x="328" y="150" width="81.8182" height="50"/>
+  <object id="117" x="410" y="150" width="81.8182" height="50"/>
+  <object id="118" x="492" y="150" width="81.8182" height="50"/>
+  <object id="119" x="574" y="150" width="81.8182" height="50"/>
+ </objectgroup>
+ <objectgroup id="30" name="circleRedSuper">
+  <object id="128" x="0" y="100" width="81.8182" height="50"/>
+  <object id="129" x="82" y="100" width="81.8182" height="50"/>
+  <object id="130" x="164" y="100" width="81.8182" height="50"/>
+  <object id="131" x="246" y="100" width="81.8182" height="50"/>
+  <object id="132" x="328" y="100" width="81.8182" height="50"/>
+  <object id="133" x="410" y="100" width="81.8182" height="50"/>
+  <object id="134" x="492" y="100" width="81.8182" height="50"/>
+  <object id="135" x="574" y="100" width="81.8182" height="50"/>
+ </objectgroup>
+ <objectgroup id="31" name="circleRedShield">
+  <object id="136" x="0" y="50" width="81.8182" height="50"/>
+  <object id="137" x="82" y="50" width="81.8182" height="50"/>
+  <object id="138" x="164" y="50" width="81.8182" height="50"/>
+  <object id="139" x="246" y="50" width="81.8182" height="50"/>
+  <object id="140" x="328" y="50" width="81.8182" height="50"/>
+  <object id="141" x="410" y="50" width="81.8182" height="50"/>
+  <object id="142" x="492" y="50" width="81.8182" height="50"/>
+  <object id="143" x="574" y="50" width="81.8182" height="50"/>
+ </objectgroup>
  <objectgroup id="28" name="circleRed">
   <object id="104" x="0" y="0" width="58" height="34"/>
   <object id="105" x="58" y="0" width="58" height="34"/>
