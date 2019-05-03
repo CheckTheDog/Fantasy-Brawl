@@ -48,6 +48,7 @@ bool j1Player::Start()
 
 	// --- Animations ---
 	CurrentAnimation = &playerinfo.idleDown;
+	CurrentIDCircleAnimation = &this->Entityinfo.IDCircle;
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -507,16 +508,42 @@ bool j1Player::PostUpdate(float dt)
 	//{
 	if (PlayerPrintOnTop == true)
 	{
-		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+
+		// --- IDCircle Animations ---
+		if (shieldON && superTimer.ReadSec() < 5)
+			App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleshield.GetCurrentFrame(dt));
+
+		else if (shieldON && superTimer.ReadSec() > 5)
+			App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleboth.GetCurrentFrame(dt));
+
+		else if (!shieldON && superTimer.ReadSec() > 5)
+			App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt));
+
+		else
+		App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 6, this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt));
 	}
 	else
 	{
-		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+
+		// --- IDCircle Animations ---
+		if(shieldON && superTimer.ReadSec() < 5)
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleshield.GetCurrentFrame(dt));
+
+		else if (shieldON && superTimer.ReadSec() > 5)
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleboth.GetCurrentFrame(dt));
+
+		else if (!shieldON && superTimer.ReadSec() > 5)
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt));
+
+		else
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 6, this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt));
 	}
 	//}
 
-	if (shieldON)
-		App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x + 12, this->Entityinfo.position.y - 15, SDL_Rect{ 0,0,46,50 });
+	//if (shieldON)
+	//	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x + 12, this->Entityinfo.position.y - 15, SDL_Rect{ 0,0,46,50 });
 
 	return ret;
 }

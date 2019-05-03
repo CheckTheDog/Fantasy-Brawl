@@ -95,10 +95,14 @@ bool j1Scene::Start()
 	// --- Creating entities ---
 
 	entity_info player_info;
+	player_info.IDCircle = App->entities->IDCircle_red;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_red;
+	player_info.IDCircleshield = App->entities->IDCircleshield_red;
+	player_info.IDCircleboth = App->entities->IDCircleboth_red;
 
 	player_info.position = initialposP1;
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Wendolin);
-	player1->character = CHARACTER::TRAKT;
+	player1->character = CHARACTER::WENDOLIN;
 	player1->AssignCharacter();
 
 	player_info.position = initialposP2;

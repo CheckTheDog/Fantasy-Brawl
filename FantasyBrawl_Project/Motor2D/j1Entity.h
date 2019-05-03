@@ -22,7 +22,7 @@ struct entity_info
 {
 	// --- Basic ---
 	fPoint			position = { 0,0 };
-	float          Speed = 175.0f;
+	float          Speed = 87.5f;
 	float			health = 300;
 	float			strength = 1;
 	float	og_health, og_speed, og_strength;
@@ -46,6 +46,12 @@ struct entity_info
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;
 	SDL_Rect entitycollrect = { 0,0,0,0 };
+
+	// --- IDCircle anims ---
+	Animation IDCircle;
+	Animation IDCirclesuper;
+	Animation IDCircleshield;
+	Animation IDCircleboth;
 };
 
 

@@ -140,7 +140,7 @@ void j1Map::Draw()
 
 						if (playerpos4 > 0 || playerpos4_left > 0 || playerpos4_right > 0)
 						{
-							if (playerpos1_top > 0)
+							if (playerpos4_top > 0)
 								App->scene->player4->PlayerPrintOnTop = true;
 							else
 								App->scene->player4->PlayerPrintOnTop = false;

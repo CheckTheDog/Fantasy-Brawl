@@ -90,6 +90,15 @@ public:
 	SDL_Texture * budu_texture;
 	SDL_Texture * axe_texture;
 	SDL_Texture * inkball_texture;
+
+	// --- ID Circle animations ---
+	std::string circle_texturepath;
+	SDL_Texture* circlesprites = nullptr;
+	Animation IDCircle_red;
+	Animation IDCirclesuper_red;
+	Animation IDCircleshield_red;
+	Animation IDCircleboth_red;
+
 };
 
 #endif // __J1ENTITYMANAGER_H__

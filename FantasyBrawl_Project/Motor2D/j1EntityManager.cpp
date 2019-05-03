@@ -39,6 +39,13 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	int h = playernode.child("collider").attribute("height").as_int();
 
 	shield_texturepath = playernode.child("shield").child_value();
+	
+	// --- IDCircle ---
+	circle_texturepath = playernode.child("IDCircle").child_value();
+	IDCircle_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRed");
+	IDCirclesuper_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedSuper");
+	IDCircleshield_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedShield");
+	IDCircleboth_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedBoth");
 
 	// --- Animation Ranges --- 
 	animranges.AnimationRangeRight_start = playernode.child("AnimationRangeRight").attribute("range_start").as_float();
@@ -241,7 +248,7 @@ bool j1EntityManager::Start()
 	LOG("start j1EntityManager");
 	bool ret = true;
 
-	// --- Loadint Particle Textures ---
+	// --- Loading Particle Textures ---
 	Dagger_texture = App->tex->Load("particles/Wendolin Red Dagger.png");
 	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
 	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
@@ -274,6 +281,8 @@ bool j1EntityManager::Start()
 
 	Simon.basic_fx = App->audio->fxSimonBasic;
 	Simon.super_fx = App->audio->fxSimonSpecial;
+
+	circlesprites = App->tex->Load(circle_texturepath.data());
 
 	return ret;
 }

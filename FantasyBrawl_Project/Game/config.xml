@@ -70,12 +70,12 @@
     </fx>
   </audio>
 
-  <scene>3440
-    <map_name path="Map2x_automap.tmx"/>
-    <initialposP1 x="450" y="450"/>
-    <initialposP2 x="500" y="460"/>
-    <initialposP3 x="460" y="3440"/>
-    <initialposP4 x="3440" y="3440"/>
+  <scene>
+    <map_name path="Map1x_automap.tmx"/>
+    <initialposP1 x="620" y="620"/>
+    <initialposP2 x="2184" y="620"/>
+    <initialposP3 x="620" y="2184"/>
+    <initialposP4 x="2184" y="2184"/>
   </scene>
 
   <gui>
@@ -89,12 +89,14 @@
       <folder2>Animations/player.tmx</folder2>
       <folder3>Animations/player.tmx</folder3>
       <folder4>Animations/player.tmx</folder4>
-      <texture1>textures/Wendolin Red Sprite 3x.png</texture1>
-      <texture2>textures/Simon Yellow Sprite 3x.png</texture2>
-      <texture3>textures/Trakt Yellow Sprite 3x.png</texture3>
-      <texture4>textures/Meliadoul Green Sprite 3x.png</texture4>
-      <collider x="0" y="0" width="70" height="30"/>
+      <foldercircle>Animations/Ipcircle.tmx</foldercircle>
+      <texture1>textures/Wendolin Red Sprite 2x.png</texture1>
+      <texture2>textures/Wendolin Red Sprite 2x.png</texture2>
+      <texture3>textures/Wendolin Red Sprite 2x.png</texture3>
+      <texture4>textures/Wendolin Red Sprite 2x.png</texture4>
+      <collider x="0" y="0" width="47" height="24"/>
       <shield>textures/Shield_Red_2x.png</shield>
+      <IDCircle>textures/CircleRed Sprites.png</IDCircle>
       
       <AnimationRangeRight range_start="-22.5f" range_end="22.5f" />
       <AnimationRangeLeft range_start="157.5f" range_end="180.0f" />

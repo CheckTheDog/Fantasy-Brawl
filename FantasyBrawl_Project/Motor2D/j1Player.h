@@ -221,6 +221,9 @@ public:
 	fPoint directionP2 = { 0.0f,0.0f };
 	fPoint directionP3 = { 0.0f,0.0f };
 	fPoint directionP4 = { 0.0f,0.0f };
+
+	// --- IDCircle ---
+	Animation * CurrentIDCircleAnimation = nullptr;
 };
 
 #endif // __j1Player_H__
