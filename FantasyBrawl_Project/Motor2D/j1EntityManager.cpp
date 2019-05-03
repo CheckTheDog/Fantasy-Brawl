@@ -283,6 +283,7 @@ bool j1EntityManager::Start()
 	Simon.super_fx = App->audio->fxSimonSpecial;
 
 	circlesprites = App->tex->Load(circle_texturepath.data());
+	aimpath = App->tex->Load("textures/aimpath.png");
 
 	return ret;
 }

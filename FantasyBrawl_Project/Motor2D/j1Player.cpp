@@ -545,6 +545,10 @@ bool j1Player::PostUpdate(float dt)
 	//if (shieldON)
 	//	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x + 12, this->Entityinfo.position.y - 15, SDL_Rect{ 0,0,46,50 });
 
+	// --- Basic Attack aim path ---
+	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+	App->view->PushQueue(4, manager->aimpath, this->Entityinfo.position.x - 4, this->Entityinfo.position.y + 12, SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5, 0);
+
 	return ret;
 }
 

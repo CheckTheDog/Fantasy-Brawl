@@ -83,13 +83,14 @@ public:
 	AnimationRanges animranges;
 
 	SDL_Texture* shield_texture = nullptr;
+	SDL_Texture * aimpath = nullptr;
 
 	std::string shield_texturepath;
 
-	SDL_Texture * Dagger_texture;
-	SDL_Texture * budu_texture;
-	SDL_Texture * axe_texture;
-	SDL_Texture * inkball_texture;
+	SDL_Texture * Dagger_texture = nullptr;
+	SDL_Texture * budu_texture = nullptr;
+	SDL_Texture * axe_texture = nullptr;
+	SDL_Texture * inkball_texture = nullptr;
 
 	// --- ID Circle animations ---
 	std::string circle_texturepath;
