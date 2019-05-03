@@ -88,6 +88,8 @@ public: // Functions
 
 	// Collect the bush Meta data
 	bool CollectBushData();
+	int8_t GetMetaTileAt(const iPoint& pos) const;
+	void PremapBushMeta();
 
 private: // Functions
 
@@ -108,6 +110,8 @@ private: // Functions
 
 	// Set a frontier with the rectangle size
 	std::list<iPoint> CreateFrontierRect(uint width, uint height, iPoint center);
+
+	std::list<iPoint> PropagateBushBFS(iPoint starting_point);
 
 public: // Variables
 

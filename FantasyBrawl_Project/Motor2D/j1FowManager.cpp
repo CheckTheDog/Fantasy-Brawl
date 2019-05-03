@@ -6,6 +6,7 @@
 #include "j1Input.h"
 #include "j1Textures.h"
 #include "SDL/include/SDL_scancode.h"
+#include <queue>
 
 j1FowManager::j1FowManager()
 {
@@ -349,6 +350,39 @@ std::list<iPoint> j1FowManager::CreateFrontierRect(uint w, uint h, iPoint center
 	return frontier_to_fill;
 }
 
+std::list<iPoint> j1FowManager::PropagateBushBFS(iPoint starting_point)
+{
+	std::queue<iPoint> frontier;
+	std::list<iPoint> visited;
+
+	frontier.push(starting_point);
+	iPoint curr = frontier.front();
+
+	if (!frontier.empty())
+	{
+		iPoint neighbors[4];
+		neighbors[0].create(curr.x + 1, curr.y + 0);
+		neighbors[1].create(curr.x + 0, curr.y + 1);
+		neighbors[2].create(curr.x - 1, curr.y + 0);
+		neighbors[3].create(curr.x + 0, curr.y - 1);
+
+		for (uint i = 0; i < 4; ++i)
+		{
+			if (GetMetaTileAt(neighbors[i]) == 1)
+			{
+				frontier.push(neighbors[i]);
+				visited.push_back(neighbors[i]);
+			}
+		}
+	}
+	else
+	{
+		return visited;
+	}
+
+	frontier.pop();
+}
+
 std::list<iPoint> j1FowManager::CreateFrontierSquare(uint radius, iPoint center)
 {
 	return CreateFrontierRect(radius*2, radius*2, center);
@@ -449,4 +483,41 @@ bool j1FowManager::CollectBushData()
 	}
 
 	return ret;
+}
+
+int8_t j1FowManager::GetMetaTileAt(const iPoint & pos) const
+{
+	// Utility: return the visibility value of a tile
+	if (CheckBoundaries(pos)) // Since both maps will have the same size we can check with the main one
+		return bush_meta_map[(pos.y * width) + pos.x];
+	else
+		return 0;
+}
+
+void j1FowManager::PremapBushMeta()
+{
+	MapData data = App->map->data;
+	for (int y = 0; y < data.height; ++y)
+	{
+		for (int x = 0; x < data.width; ++x)
+		{
+			if (GetMetaTileAt({ x,y }) == 1)
+			{
+				std::list<iPoint> bush_group = PropagateBushBFS({ x,y });
+
+				for (int n = 0; n < data.height; ++n)
+				{
+					for (int m = 0; m < data.width; ++m)
+					{
+						// We would change the value of the bushes here in the meta visbility map of each viewport, since they will all have the same bushes
+						// For now we just do the first part, hardcode to test: convert all of the 
+						for (int k = 0; k < bush_group.size(); ++k)
+						{
+							//
+						}
+					}
+				}
+			}
+		}
+	}
 }
