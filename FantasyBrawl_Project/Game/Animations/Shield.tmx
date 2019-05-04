@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="700" height="1050" tilewidth="1" tileheight="1" infinite="0" nextlayerid="34" nextobjectid="189">
+ <imagelayer id="3" name="spritesheet" locked="1">
+  <image source="../textures/Shield Sprites.png" width="568" height="426"/>
+ </imagelayer>
+ <objectgroup id="32" name="shield">
+  <object id="145" x="0" y="0" width="71" height="71"/>
+  <object id="146" x="71" y="0" width="71" height="71"/>
+  <object id="147" x="142" y="0" width="71" height="71"/>
+  <object id="148" x="284" y="0" width="71" height="71"/>
+  <object id="149" x="213" y="0" width="71" height="71"/>
+  <object id="150" x="355" y="0" width="71" height="71"/>
+  <object id="151" x="426" y="0" width="71" height="71"/>
+  <object id="152" x="497" y="0" width="71" height="71"/>
+  <object id="153" x="0" y="71" width="71" height="71"/>
+  <object id="154" x="71" y="71" width="71" height="71"/>
+  <object id="155" x="142" y="71" width="71" height="71"/>
+  <object id="156" x="213" y="71" width="71" height="71"/>
+  <object id="157" x="284" y="71" width="71" height="71"/>
+  <object id="158" x="355" y="71" width="71" height="71"/>
+  <object id="159" x="426" y="71" width="71" height="71"/>
+  <object id="160" x="497" y="71" width="71" height="71"/>
+  <object id="161" x="0" y="142" width="71" height="71"/>
+  <object id="162" x="71" y="142" width="71" height="71"/>
+  <object id="163" x="142" y="142" width="71" height="71"/>
+  <object id="164" x="213" y="142" width="71" height="71"/>
+  <object id="165" x="284" y="142" width="71" height="71"/>
+  <object id="166" x="355" y="142" width="71" height="71"/>
+  <object id="167" x="426" y="142" width="71" height="71"/>
+  <object id="168" x="497" y="142" width="71" height="71"/>
+  <object id="169" x="0" y="213" width="71" height="71"/>
+  <object id="170" x="71" y="213" width="71" height="71"/>
+  <object id="171" x="142" y="213" width="71" height="71"/>
+  <object id="172" x="213" y="213" width="71" height="71"/>
+  <object id="173" x="284" y="213" width="71" height="71"/>
+  <object id="174" x="355" y="213" width="71" height="71"/>
+  <object id="175" x="426" y="213" width="71" height="71"/>
+  <object id="176" x="497" y="213" width="71" height="71"/>
+  <object id="177" x="0" y="284" width="71" height="71"/>
+  <object id="178" x="71" y="284" width="71" height="71"/>
+  <object id="179" x="142" y="284" width="71" height="71"/>
+  <object id="180" x="213" y="284" width="71" height="71"/>
+  <object id="181" x="284" y="284" width="71" height="71"/>
+  <object id="182" x="355" y="284" width="71" height="71"/>
+  <object id="183" x="497" y="284" width="71" height="71"/>
+  <object id="184" x="426" y="284" width="71" height="71"/>
+ </objectgroup>
+ <objectgroup id="33" name="shieldKill">
+  <object id="185" x="0" y="355" width="71" height="71"/>
+  <object id="186" x="71" y="355" width="71" height="71"/>
+  <object id="187" x="142" y="355" width="71" height="71"/>
+  <object id="188" x="213" y="355" width="71" height="71"/>
+ </objectgroup>
+</map>
