@@ -84,14 +84,19 @@ bool j1Player::Start()
 	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
 	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
+	//No awake no party! 
+	Entityinfo.scale = 0.66f;
+	Entityinfo.entitycoll->rect.w *= Entityinfo.scale;
+	Entityinfo.entitycoll->rect.h *= Entityinfo.scale;
+
+
 	//// --- P1 Particles ---
 	//playerinfo.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
 	//playerinfo.characterdata.basic_attack.anim.loop = true;
 	//playerinfo.characterdata.basic_attack.life = 2500;
 	//playerinfo.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
 
-	//No awake no party! 
-	Entityinfo.scale = 0.66f;
+	
 
 	superTimer.Start();
 	shieldTimer.Start();
