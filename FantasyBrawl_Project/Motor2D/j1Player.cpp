@@ -378,11 +378,11 @@ bool j1Player::PostUpdate(float dt)
 	//{
 	if (PlayerPrintOnTop == true)
 	{
-		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
+		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44 * Entityinfo.scale, CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
 	}
 	else
 	{
-		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 44 * Entityinfo.scale, CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
 	}
 	//}
 
@@ -625,7 +625,7 @@ void j1Player::LogicUpdate(float dt)
 		&& basicTimer.ReadSec() > 0.5f)
 	{
 		basicTimer.Start();
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 12 * Entityinfo.scale, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		// ALPHA_FIX same hardcode as before, no player data means there's still no condition to change the sound accordingly
 		App->audio->PlayFx(App->audio->fxWendolinBasic);
 	}
