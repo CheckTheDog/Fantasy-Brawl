@@ -479,8 +479,6 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			App->audio->PlayFx(App->audio->fxWendolinDeath);
 		}
 
-		Future_position.x = entitycollider->rect.x;
-		Future_position.y = entitycollider->rect.y;
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)
@@ -491,10 +489,17 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
+	default:
+
+	break;
 	}
 }
 
@@ -506,9 +511,16 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 }
@@ -521,9 +533,16 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 }
@@ -536,9 +555,16 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 
