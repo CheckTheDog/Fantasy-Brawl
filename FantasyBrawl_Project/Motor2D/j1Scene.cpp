@@ -95,6 +95,9 @@ bool j1Scene::Start()
 	// --- Creating entities ---
 
 	entity_info player_info;
+
+	player_info.scale = 0.66f;
+
 	player_info.IDCircle = App->entities->IDCircle_red;
 	player_info.IDCirclesuper = App->entities->IDCirclesuper_red;
 	player_info.IDCircleshield = App->entities->IDCircleshield_red;
