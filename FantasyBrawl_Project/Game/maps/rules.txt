@@ -1,8 +1,0 @@
-rules_beauty_1.tmx
-rules_beauty_2.tmx
-rules_beauty_3.tmx
-rules_shadows_1.tmx
-rules_shadows_2.tmx
-rules_walls.tmx
-rules_bushes.tmx
-rules_collisions.tmx
