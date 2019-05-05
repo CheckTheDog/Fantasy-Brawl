@@ -325,15 +325,21 @@ void j1Player::HandleShield()
 		shieldON = true;
 		//LOG("shield on");
 		GetIdleAnimation();
+		CurrentShieldAnimation = &manager->shield_anim;
+		manager->shieldEnd_anim.Reset();
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
 	{
 		//LOG("shield off");
+		CurrentShieldAnimation = &manager->shieldEnd_anim;
+		manager->shield_anim.Reset();
 		shieldON = false;
 	}
 	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
 	{
 		//LOG("shield off");
+		CurrentShieldAnimation = &manager->shieldEnd_anim;
+		manager->shield_anim.Reset();
 		shieldON = false;
 	}
 }
@@ -542,12 +548,12 @@ bool j1Player::PostUpdate(float dt)
 	}
 	//}
 
-	//if (shieldON)
-	//	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x + 12, this->Entityinfo.position.y - 15, SDL_Rect{ 0,0,46,50 });
+	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
+	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - 12, this->Entityinfo.position.y - 44, CurrentShieldAnimation->GetCurrentFrame(dt));
 
 	// --- Basic Attack aim path ---
 	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-	App->view->PushQueue(4, manager->aimpath, this->Entityinfo.position.x - 4, this->Entityinfo.position.y + 12, SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5, 0);
+	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - 4, this->Entityinfo.position.y + 12, SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5, 0);
 
 	return ret;
 }

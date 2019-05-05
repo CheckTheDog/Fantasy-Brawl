@@ -38,15 +38,25 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	int w = playernode.child("collider").attribute("width").as_int();
 	int h = playernode.child("collider").attribute("height").as_int();
 
+	// --- Shield ---
 	shield_texturepath = playernode.child("shield").child_value();
-	
+	shield_anim = *LoadAnimation(playernode.child("foldershield").child_value(), "shield");
+	shieldEnd_anim = *LoadAnimation(playernode.child("foldershield").child_value(), "shieldKill");
+	shield_anim.loop = false;
+	shield_anim.speed = 16.0f;
+	shieldEnd_anim.loop = false;
+	shieldEnd_anim.speed = 16.0f;
+
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
 	IDCircle_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRed");
 	IDCirclesuper_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedSuper");
 	IDCircleshield_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedShield");
 	IDCircleboth_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedBoth");
-
+	IDCircle_red.speed = 10.0f;
+	IDCirclesuper_red.speed = 10.0f;
+	IDCircleshield_red.speed = 10.0f;
+	IDCircleboth_red.speed = 10.0f;
 	// --- Animation Ranges --- 
 	animranges.AnimationRangeRight_start = playernode.child("AnimationRangeRight").attribute("range_start").as_float();
 	animranges.AnimationRangeRight_end = playernode.child("AnimationRangeRight").attribute("range_end").as_float();
@@ -254,8 +264,6 @@ bool j1EntityManager::Start()
 	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
 	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
 
-	shield_texture = App->tex->Load(shield_texturepath.data());
-
 	// --- Loading Character Specific Textures ---
 	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
 	Wendolin.basic_attack.tex = Dagger_texture;
@@ -284,6 +292,7 @@ bool j1EntityManager::Start()
 
 	circlesprites = App->tex->Load(circle_texturepath.data());
 	aimpath = App->tex->Load("textures/aimpath.png");
+	shield_texture = App->tex->Load(shield_texturepath.data());
 
 	return ret;
 }

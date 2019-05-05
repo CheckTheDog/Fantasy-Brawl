@@ -224,6 +224,10 @@ public:
 
 	// --- IDCircle ---
 	Animation * CurrentIDCircleAnimation = nullptr;
+
+	// --- Shield ---
+	Animation * CurrentShieldAnimation = nullptr;
+
 };
 
 #endif // __j1Player_H__

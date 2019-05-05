@@ -83,9 +83,11 @@ public:
 	AnimationRanges animranges;
 
 	SDL_Texture* shield_texture = nullptr;
-	SDL_Texture * aimpath = nullptr;
-
 	std::string shield_texturepath;
+	Animation shield_anim;
+	Animation shieldEnd_anim;
+
+	SDL_Texture * aimpath = nullptr;
 
 	SDL_Texture * Dagger_texture = nullptr;
 	SDL_Texture * budu_texture = nullptr;
