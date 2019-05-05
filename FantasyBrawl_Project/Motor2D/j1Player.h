@@ -145,12 +145,12 @@ public:
 
 	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
 
-	//bool PlayerLayerOrder();
 
 	// --- Entity Attacks ---
 	void HandleAttacks();
 	void HandleShield();
 	void HandleSuperAttacks();
+	void BlitSuperAimPaths(float dt);
 
 	// --- Character Specific Super Attacks ---
 	void Launch1stSuper();
@@ -200,6 +200,7 @@ public:
 	j1Timer attackanimTimer;
 	j1Timer RJinversion;
 	bool shieldON = false;
+	bool superON = false;
 
 	// --- Score ---
 	uint kills = 0;

@@ -87,8 +87,14 @@ public:
 	Animation shield_anim;
 	Animation shieldEnd_anim;
 
+	// --- Aim paths ---
 	SDL_Texture * aimpath = nullptr;
+	SDL_Texture * WendolinSuper_aimpath = nullptr;
+	SDL_Texture * SimonSuper_aimpath = nullptr;
+	SDL_Texture * TraktSuper_aimpath = nullptr;
+	SDL_Texture * MeliadoulSuper_aimpath = nullptr;
 
+	// --- Particles ---
 	SDL_Texture * Dagger_texture = nullptr;
 	SDL_Texture * budu_texture = nullptr;
 	SDL_Texture * axe_texture = nullptr;

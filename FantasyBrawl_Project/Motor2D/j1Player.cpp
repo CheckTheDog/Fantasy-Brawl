@@ -311,8 +311,14 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN))
+	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN)
+		superON = true;
+
+	else if (superON && App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_UP)
+	{
+		superON = false;
 		HandleSuperAttacks();
+	}
 }
 
 void j1Player::HandleShield()
@@ -365,6 +371,27 @@ void j1Player::HandleSuperAttacks()
 	}
 }
 
+void j1Player::BlitSuperAimPaths(float dt)
+{
+	switch (character)
+	{
+	case CHARACTER::WENDOLIN:
+		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - 107, this->Entityinfo.position.y - 120, SDL_Rect{0,0,260,260});
+		break;
+	case  CHARACTER::SIMON:
+	
+		break;
+	case  CHARACTER::TRAKT:
+		
+		break;
+	case  CHARACTER::MELIADOUL:
+		
+		break;
+	default:
+		break;
+	}
+}
+
 void j1Player::Launch1stSuper()
 {
 	if (superTimer.ReadSec() > 5.0f)
@@ -372,7 +399,7 @@ void j1Player::Launch1stSuper()
 		for (int i = 1; i < 17; ++i)
 		{
 			playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 10, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
 
 		superTimer.Start();
@@ -506,47 +533,25 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	//if (PlayerLayerOrder() == true)
-	//{
-	//	App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
-	//}
-	//else
-	//{
 	if (PlayerPrintOnTop == true)
-	{
 		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
-
-		// --- IDCircle Animations ---
-		if (shieldON && superTimer.ReadSec() < 5)
-			App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleshield.GetCurrentFrame(dt));
-
-		else if (shieldON && superTimer.ReadSec() > 5)
-			App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleboth.GetCurrentFrame(dt));
-
-		else if (!shieldON && superTimer.ReadSec() > 5)
-			App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt));
-
-		else
-		App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - 6, this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt));
-	}
 	else
-	{
 		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+	
 
-		// --- IDCircle Animations ---
-		if(shieldON && superTimer.ReadSec() < 5)
+	// --- IDCircle Animations ---
+	if (!shieldON && superTimer.ReadSec() < 5 && shieldTimer.ReadSec() > 10.0f)
 		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleshield.GetCurrentFrame(dt));
 
-		else if (shieldON && superTimer.ReadSec() > 5)
+	else if (!shieldON && superTimer.ReadSec() > 5 && shieldTimer.ReadSec() > 10.0f)
 		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleboth.GetCurrentFrame(dt));
 
-		else if (!shieldON && superTimer.ReadSec() > 5)
+	else if (shieldTimer.ReadSec() < 10.0f && superTimer.ReadSec() > 5)
 		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt));
 
-		else
+	else
 		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 6, this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt));
-	}
-	//}
+
 
 	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
 	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - 12, this->Entityinfo.position.y - 44, CurrentShieldAnimation->GetCurrentFrame(dt));
@@ -554,6 +559,11 @@ bool j1Player::PostUpdate(float dt)
 	// --- Basic Attack aim path ---
 	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
 	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - 4, this->Entityinfo.position.y + 12, SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5, 0);
+
+	// --- Super Attack ---
+	if(superON)
+	BlitSuperAimPaths(dt);
+
 
 	return ret;
 }
@@ -881,48 +891,3 @@ void j1Player::LogicUpdate(float dt)
 		Update(dt);
 
 }
-
-//bool j1Player::PlayerLayerOrder()
-//{
-//	std::list<MapLayer*>::const_iterator item = App->map->data.layers.begin();
-//
-//	bool ret = false;
-//
-//	for (; item != App->map->data.layers.end(); ++item)
-//	{
-//		App->map->layerr = *item;
-//
-//		uint counter = 0;
-//
-//		for (int y = 0; y < App->map->data.height; ++y)
-//		{
-//			for (int x = 0; x < App->map->data.width; ++x)
-//			{
-//				int tile_id = App->map->layerr->Get(x, y);
-//				if (tile_id > 0)
-//				{
-//					iPoint pos = App->map->MapToWorld(x, y);
-//
-//
-//					if (App->map->layerr->name == "walls" && (App->map->layerr->data[counter] == 19 || App->map->layerr->data[counter] == 20 || App->map->layerr->data[counter] == 21 ||
-//						App->map->layerr->data[counter] == 47 || App->map->layerr->data[counter] == 48 || App->map->layerr->data[counter] == 49 || 
-//						App->map->layerr->data[counter] == 75 || App->map->layerr->data[counter] == 76 || App->map->layerr->data[counter] == 77 ||
-//						App->map->layerr->data[counter] == 103 || App->map->layerr->data[counter] == 104 || App->map->layerr->data[counter] == 105 || 
-//						App->map->layerr->data[counter] == 131 || App->map->layerr->data[counter] == 132 || App->map->layerr->data[counter] == 133 ||
-//						App->map->layerr->data[counter] == 159 || App->map->layerr->data[counter] == 160 || App->map->layerr->data[counter] == 161 ||
-//						App->map->layerr->data[counter] == 187 || App->map->layerr->data[counter] == 188 || App->map->layerr->data[counter] == 189 ||
-//						App->map->layerr->data[counter] == 215 || App->map->layerr->data[counter] == 216 || App->map->layerr->data[counter] == 217 ))
-//					{
-//						if (pos.y < Entityinfo.entitycoll->rect.y)
-//						{
-//							ret = true;
-//						}
-//					}
-//	
-//				}
-//				counter++;
-//			}
-//		}
-//	}
-//	return ret;
-//}

@@ -267,6 +267,7 @@ bool j1EntityManager::Start()
 	// --- Loading Character Specific Textures ---
 	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
 	Wendolin.basic_attack.tex = Dagger_texture;
+	WendolinSuper_aimpath = App->tex->Load("textures/wendolinSuper_path.png");
 
 	Simon.tex = App->tex->Load(Simon.Texture.data());
 	Simon.basic_attack.tex = budu_texture;
