@@ -6,7 +6,7 @@ Moreover, each player is in control of a totally different hero each with its ow
 Get ready warrior! A fierce battle against the strongest is about to begin!
 
 - Fantasy Brawl's Wiki: [Wiki](https://github.com/CheckTheDog/Fantasy-Brawl/wiki)
-- Fantasy Brawl's Website: TBD
+- Fantasy Brawl's Website: [Website](https://checkthedog.github.io/Fantasy-Brawl/)
 
 ### CONTROLS
 
