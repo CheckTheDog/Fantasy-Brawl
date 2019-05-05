@@ -1,340 +1,177 @@
-<title>Dungeon Brawler</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
-body, html {
-    height: 100%;
-    color:white;
-    background-color: black;
-    line-height: 1.8;
-}
-#team {
-	background-image: url("https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/Web/characters-bg.jpg"); 
-	color:black;
-	background-repeat: no-repeat;
-	   background-position: center;
-}
-.fa {
-    padding: 20px;
-    font-size: 20px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 50%;
-}
-#how-to-play {
-	color:white;
-	background-repeat: no-repeat;
-	background-color: gray;
-	background-position: center;
-	font-size: 28px;
-	margin-bottom: 50px;
-}
-.button {
-    background-color: #7a572c;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 42px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-.custom-button {
-		margin-bottom: 20px;
-}
-.brawler-logo {
-	width:1124px;
-	height:511px;
-	background-image: url('https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/Web/game_logo_RA.png');
-	 background-position: center; 
-}
-/* Create a Parallax Effect */
-.bgimg-1, .bgimg-2, .bgimg-3 {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-/* First image (Logo. Full height) */
-.bgimg-1 {
-    background-image: url('https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/Web/backgound.jpg');
-    min-height: 100%;
-}
-/* Second image (Portfolio) */
-.bgimg-2 {
-    background-image: url("https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/Web/main_background.png");
-    min-height: 200px;
-}
-/* Third image (Contact) */
-.bgimg-3 {
-    background-image: url("https://github.com/AngryFrogDev/Dungeon-Brawler/blob/gh-pages/Web/stage_3_prev.png?raw=true");
-    min-height: 200px;
-}
-.photo-place {
-	max-width: 300px;
-	background-color:  #aa7a3f;
-	height: 530px;
-}
-.photo-container {
-	max-width: 1000px;
-	margin-left: auto;
-    margin-right: auto;
-}
-#about {
-	margin-bottom: 100px;
-	background-color: #7a572c;
-	font-size: 22px
-}
-#aboout {
-		background-color: #aa7a3f;
-		margin-top: -50px;
-}
-.title-about {
-	background-color:  #404040;
-	width: 100%;
-	position: center;
-	height: 100px;
-	margin-top: 50px;
-}
-.w3-wide {letter-spacing: 10px;}
-.w3-hover-opacity {cursor: pointer;}
-/* Turn off parallax scrolling for tablets and phones */
-@media only screen and (max-device-width: 1024px) {
-    .bgimg-1, .bgimg-2, .bgimg-3 {
-        background-attachment: scroll;
-    }
-}
-</style>
-<body>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
 
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a href="#home" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
-    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT THE GAME</a>
-    <a href="#team" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> THE TEAM</a>
-    <a href="#how-to-play" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> HOW TO PLAY</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
-      <i class="fa fa-search"></i>
-    </a>
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
-    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
-    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
-    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
-  </div>
-</div>
-
-<!-- First Parallax Image with Logo Text -->
-<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-  <div class="w3-display-middle brawler-logo" style="white-space:nowrap;">
-  </div>
-</div>
-
-
-<!-- Container (About Section) -->
-<div id="aboout">
-<div class="title-about">
-		<h3 class="w3-center w3-xxlarge w3-text-white w3-wide" style="font-size: 40px; position: center; padding-top: 17px;">ABOUT THE GAME</h3>
-</div>
-
-<div class="w3-content w3-container w3-padding-64" id="about">
-
-	<p >The game is a 2D fighting game with the Dungeons and Dragons thematic, and simplified controlls.</p>
-	<div class="w3-row">
-		<div class="w3-col m6 w3-center" style="margin-top: 30px;">
-			<img src="https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/Web/Captura%20de%20pantalla%20(19).png" class="w3-round w3-image " alt="Photo of the game" width="700" height="533">
-		</div>
-		<!-- Hide this text on small devices -->
-		<div class="w3-col m6 w3-hide-small w3-padding-large">
-
-		</div>
-	</div>
-
-	<iframe width="940" height="500" src="https://www.youtube.com/embed/oEpfn6593k0?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-	<iframe width="940" height="500" src="https://www.youtube.com/embed/ZyrVfNRMY8c" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-
-</div>
-</div>
-
-<!-- Team Section -->
-<!-- Second Parallax Image with Portfolio Text -->
-<div class="bgimg-2 w3-display-container w3-opacity-min" style="margin-top: -100px; margin-bottom: -100px;">
-  <div class="w3-display-middle">
-    <span class="w3-xxlarge w3-text-white w3-wide">THE TEAM</span>
-  </div>
-</div>
-
-<div class="w3-container" style="padding:128px 16px;" id="team">
-  <div class="w3-row-padding w3-grayscale photo-container">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="https://github.com/AngryFrogDev/Dungeon-Brawler/blob/gh-pages/images/wiki/Team%20Pictures/lucas_garcia_RA.jpg?raw=true" alt="Lucas" style="width:100%">
-        <div class="w3-container">
-          <h3>Lucas García</h3>
-          <p class="w3-opacity">Leader</p>
-          <p>My name is Lucas García Mateu. I'm the leader of Angry Frog, team responible for Dungeon Brawler. </p>
-          <a href="lucasgarcia.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/images/wiki/Team%20Pictures/pol_ferrando_RA.jpg" alt="Pol" style="width:100%">
-        <div class="w3-container">
-          <h3>Pol Ferrando</h3>
-          <p class="w3-opacity">Coder</p>
-          <p>I'm Pol Ferrando, a coder at Angry Frog. I am the responsible of the techincal aspects of the game. </p>
-          <a href="polferrando.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-	
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="https://github.com/AngryFrogDev/Dungeon-Brawler/blob/gh-pages/images/wiki/Team%20Pictures/cristian_palos_RA.jpg?raw=true" alt="John" style="width:100%">
-        <div class="w3-container">
-          <h3>Cristian Palos</h3>
-          <p class="w3-opacity">Art</p>
-          <p>I'm Cristian Palos, the responsible for the Art and Audio of Dungeon Brawler.</p>
-          <a href="cristianpalos.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/images/wiki/Team%20Pictures/clara_ratera_big_RA.jpg" alt="John" style="width:100%">
-        <div class="w3-container">
-          <h3>Clara Ratera</h3>
-          <p class="w3-opacity">UI</p>
-          <p>I've worked in the UI department for the most part, creating the UI layout concept.</p>
-          <a href="clararatera.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="https://github.com/Skyway666/Assignment-3--UI/blob/master/Webpage%20pictures/Gen%C3%ADsWebPic.jpg?raw=true" alt="John" style="width:100%">
-        <div class="w3-container">
-          <h3>Genís Bayó</h3>
-          <p class="w3-opacity">Designer</p>
-          <p>I am Genis Bayo, game designer at Angry Frog. In Dungeon Brawler.</p>
-          <a href="genisbayo.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-        <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="https://github.com/AngryFrogDev/Dungeon-Brawler/blob/gh-pages/images/wiki/Team%20Pictures/raul_morente_RA.jpg?raw=true" alt="John" style="width:100%">
-        <div class="w3-container">
-          <h3>Raúl Morente</h3>
-          <p class="w3-opacity">QA</p>
-          <p>My name is Raul Morente. My responsability in the team is to ensure the quality of the game.</p>
-          <a href="raulmorente.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-	    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card  photo-place">
-        <img src="images/wiki/Team Pictures/sergi_parra_small_RA.jpg" alt="Sergi" style="width:100%">
-        <div class="w3-container">
-          <h3>Sergi Parra</h3>
-          <p class="w3-opacity">Coder</p>
-          <p>I am Sergi Parra and as a coder I am behind the backbone of the game's engine and other technicalities.</p>
-          <a href="sergiparra.html"><div class="w3-button w3-light-grey w3-block custom-button" id="button" >About</div></a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="w3-center">
-      <img src="https://raw.githubusercontent.com/AngryFrogDev/Dungeon-Brawler/gh-pages/Web/Enlight.jpg" class="w3-round w3-image" alt="Photo of the team" width="940" height="533">
-  </div>
-</div>
-
-
-<!-- Modal for full size images on click-->
-<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
-  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-    <img id="img01" class="w3-image">
-    <p id="caption" class="w3-opacity w3-large"></p>
-  </div>
-</div>
-
-<!-- Third Parallax Image with Portfolio Text -->
-<div class="bgimg-3 w3-display-container w3-opacity-min " style="margin-bottom: 100px;">
-  <div class="w3-display-middle" >
-     <span class="w3-xxlarge w3-text-white w3-wide">HOW TO PLAY</span>
-  </div>
-</div>
-
-<div class="w3-container w3-content" style="padding:50px;" id="how-to-play">
-<p>If you want to play the game, just clink on the download button just below and open Dungeon Brawler.exe At least one controller is required to play. You can watch the video to learn the basics</p>
-</div>
-
-<div class="w3-center">
-	<iframe width="940" height="500" src="https://www.youtube.com/embed/QGC2vURicQA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
-<div class="w3-center">
-<a href="https://github.com/AngryFrogDev/Dungeon-Brawler/releases/tag/1.0" class="button w3-center">Download</a>
-</div>
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
-  <div class="w3-xlarge w3-section">
-	<a href="https://www.facebook.com/Angry-Frog-560024371057106/" class="fa fa-facebook"></a>
-	<a href="https://twitter.com/AngryFrog_dev" class="fa fa-twitter"></a>
-		<a href="https://www.instagram.com/angryfrog_dev/" class="fa fa-instagram"></a>
-  </div>
-</footer>
- 
-<!-- Add Google Maps -->
-<script>
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-// Change style of navbar on scroll
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
-    }
-}
-// Used to toggle the menu on small screens when clicking on the menu button
-function toggleFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+		<title>Zelda Legends</title>
 <!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+Template 2081 Solution
+http://www.tooplate.com/view/2081-solution
 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
 
-</body>
+		<!-- animate -->
+		<link rel="stylesheet" href="css/animate.min.css">
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- font-awesome -->
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- google font -->
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700,800' rel='stylesheet' type='text/css'>
+		<!-- custom -->
+		<link rel="stylesheet" href="css/style.css">
+
+	</head>
+	<body data-spy="scroll" data-offset="50" data-target=".navbar-collapse">
+
+		<!-- start navigation -->
+		<div class="navbar navbar-fixed-top navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon icon-bar"></span>
+						<span class="icon icon-bar"></span>
+						<span class="icon icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand"><img src="https://raw.githubusercontent.com/rogerta97/Project2_Zelda/development/Game/textures/catpad_web.png" class="img-responsive" alt="logo"></a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#home" class="smoothScroll">HOME</a></li>
+						<li><a href="#game" class="smoothScroll">GAME</a></li>
+						<li><a href="#team" class="smoothScroll">TEAM</a></li>
+						<li><a href="https://rogerta97.github.io/Project2_Zelda/iban" class="smoothScroll">Iban Mas</a></li>
+						<li><a href="https://rogerta97.github.io/Project2_Zelda/ivan" class="smoothScroll">Ivan Papiol</a></li>
+						<li><a href="https://rogerta97.github.io/Project2_Zelda/guill" class="smoothScroll">Guillem Sunyer</a></li>
+						<li><a href="https://rogerta97.github.io/Project2_Zelda/tello" class="smoothScroll">Roger Tello</a></li>
+						<li><a href="https://rogerta97.github.io/Project2_Zelda/domi" class="smoothScroll">Guillem Dominguez</a></li>
+						<li><a href="https://rogerta97.github.io/Project2_Zelda/sergi" class="smoothScroll">Sergi Perez</a></li>
+						<li><a href="#contact" class="smoothScroll">CONTACT</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- end navigation -->
+
+		<!-- start home -->
+		<section id="home" class="text-center">
+		  <div class="templatemo_headerimage">
+		    <div class="flexslider">
+		      <ul class="slides">
+		        <li>
+		        	<iframe width="1080" height="630" src="https://www.youtube.com/embed/p9DAhSF4i_M" frameborder="0" allowfullscreen>
+					</iframe>
+		        </li>
+		      </ul>
+		    </div>
+		  </div>				
+		</section>
+		<!-- end home -->
+
+		<!-- start service -->
+		<div id="game">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2000 col-sm-100">
+						<div class="media">
+							<div class="media-body wow fadeIn">
+								<img src="https://github.com/rogerta97/Project2_Zelda/blob/master/docs/images/intro_background.png?raw=true" class="img-responsive" alt="team img">
+								<p>Zelda Legends is a local 2vs2 battle arena based on The Legend of Zelda: A Link to the Past. Players can choose between relevant characters of The Legend of Zelda saga and fight versus the other team to make Zelda join your side.</p>
+								<img src="https://github.com/rogerta97/Project2_Zelda/blob/master/docs/images/characters.png?raw=true" class="img-responsive" alt="team img">
+								<p> <strong>Link</strong> is the base character from the Legend of Zelda games. He is a DPS character and his abilities are based on The Legend of Zelda: A Link to the Past game </p>
+								<p> <strong>Navi</strong> is a fairy that appears at The Legend of Zelda: Ocarina of Time. She is one of the most loved characters from The Legend of Zelda fans. Navi's role is Support </p>
+								<p> <strong>Ganon</strong> is the main antagonist in The Legend of Zelda. He is a Tank and his abilities are based on the fight versus him at The Legend of Zelda: A Link to the Past</p>
+								<p></p>
+								<p>Zelda Legends features great additions to the classical MOBA genre. The players will be able to win in two completly different ways, so that even the win condition is adapted to each team playstyle. Players are able to build their character in any possible way, you like the abilities of Link but you would prefere to be more tanky? You can do it! Just buy a shiled from the shop and return to battle.</p>
+								<p> If you want more information about what the game features you can see everything in detail in the <a href = "https://github.com/rogerta97/Project2_Zelda/wiki/GameDesignDocument"><strong>GDD!</strong></a></p>
+								<p> You can dowload the game from GitHub, by either going to the repository <a href = "https://github.com/rogerta97/Project2_Zelda/releases/tag/v1.0.1">releases</a> or by clicking <a href = "https://github.com/rogerta97/Project2_Zelda/releases/download/v1.0.1/Zelda.Legends.1.0.1.zip"> HERE!</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end service -->
+	<div id="game">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2000 col-sm-100">
+						<div class="media">
+							<div class="media-body wow fadeIn">
+							<h2> Gameplay Trailer</h2>
+								<iframe width="1080" height="630" src="https://www.youtube.com/embed/eysjk3k4cJg" frameborder="0" allowfullscreen>
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section id="team" class="text-center">
+		  <div class="templatemo_headerimage">
+		    <div class="flexslider">
+		      <ul class="slides">
+		        <li>
+		        	<img src="images/team.png" alt="Slide 1">
+		        	<div class="slider-caption">
+					    <div class="templatemo_homewrapper">
+					      <h1 class="wow fadeInDown" data-wow-delay="2000">CATPAD</h1>
+					      <h2 class="wow fadeInDown" data-wow-delay="2000">
+							<span>TEAM</span>
+						</h2>
+					    </div>
+				  	</div>
+		        </li>
+		      </ul>
+		    </div>
+		  </div>				
+		</section>
+		
+		<!-- start contact -->
+		<div id="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-5 wow fadeInLeft" data-wow-delay="0.6s">
+						
+					</div>
+					<div class="col-md-3 col-sm-4 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2><strong>CatPad</strong> Games</h2>
+						<p><strong>Making games paw-ssible.</strong></p>
+						<p><i class="fa fa-envelope-o too-icon"></i><strong> catpadgames@gmail.com</strong></p>
+						<ul class="social-icon">
+							<li><a href="https://www.facebook.com/CatPadGames/" class="fa fa-facebook"></a></li>
+							<li><a href="https://twitter.com/CatPad_Games" class="fa fa-twitter"></a></li>
+							<li><a href="https://github.com/rogerta97/Project2_Zelda" class="fa fa-github"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end contact -->
+		
+
+
+
+		<!-- jQuery -->
+		<script src="js/jquery.js"></script>
+		<!-- bootstrap -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- isotope -->
+		<script src="js/isotope.js"></script>
+		<!-- images loaded -->
+   		<script src="js/imagesloaded.min.js"></script>
+   		<!-- wow -->
+		<script src="js/wow.min.js"></script>
+		<!-- smoothScroll -->
+		<script src="js/smoothscroll.js"></script>
+		<!-- jquery flexslider -->
+		<script src="js/jquery.flexslider.js"></script>
+		<!-- custom -->
+		<script src="js/custom.js"></script>
+
+	</body>
 </html>
