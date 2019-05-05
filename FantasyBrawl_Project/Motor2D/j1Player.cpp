@@ -310,7 +310,7 @@ void j1Player::HandleAttacks()
 		basicTimer.Start();
 
 		// --- Firing the particle and playing character specific fx ---
-		last_particle = App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		last_particle = App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(12 * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
@@ -857,13 +857,14 @@ const fPoint j1Player::GetNearestPlayerDirection()
 	ComputeDistance2players();
 
 	// --- We need Absolute Distance to nearest player ---
+	if(App->scene->player1->active)
 	absoluteDistance = absoluteDistanceP1;
 
-	if ((absoluteDistanceP2 < absoluteDistance && absoluteDistanceP2 != 0.0f) || absoluteDistance == 0.0f)
+	if (((absoluteDistanceP2 < absoluteDistance && absoluteDistanceP2 != 0.0f) || absoluteDistance == 0.0f) && App->scene->player2->active)
 		absoluteDistance = absoluteDistanceP2;
-	if (absoluteDistanceP3 < absoluteDistance && absoluteDistanceP3 != 0.0f)
+	if (absoluteDistanceP3 < absoluteDistance && absoluteDistanceP3 != 0.0f && App->scene->player3->active)
 		absoluteDistance = absoluteDistanceP3;
-	if (absoluteDistanceP4 < absoluteDistance && absoluteDistanceP4 != 0.0f)
+	if (absoluteDistanceP4 < absoluteDistance && absoluteDistanceP4 != 0.0f && App->scene->player4->active)
 		absoluteDistance = absoluteDistanceP4;
 
 	// --- If the nearest player is in the auto aim radius ---
