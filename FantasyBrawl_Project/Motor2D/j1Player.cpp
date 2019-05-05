@@ -335,7 +335,7 @@ void j1Player::Launch1stSuper()
 	for (int i = 1; i < 17; ++i)
 	{
 		playerinfo.characterdata.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 12 * Entityinfo.scale, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 	}
 
 }
