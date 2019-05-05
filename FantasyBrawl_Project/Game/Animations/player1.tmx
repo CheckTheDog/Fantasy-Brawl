@@ -4,14 +4,14 @@
   <image source="../textures/Wendolin Red Sprite 2x.png" width="400" height="1200"/>
  </imagelayer>
  <objectgroup id="4" name="idleDownleft">
-  <object id="1" x="10" y="2" width="48" height="70"/>
-  <object id="90" x="74" y="2" width="48" height="70"/>
-  <object id="91" x="138" y="2" width="48" height="70"/>
+  <object id="1" x="10" y="6" width="48" height="70"/>
+  <object id="90" x="74" y="6" width="48" height="70"/>
+  <object id="91" x="138" y="7" width="48" height="70"/>
  </objectgroup>
  <objectgroup id="8" name="idleUpleft">
-  <object id="13" x="9.75" y="146.125" width="48" height="70"/>
-  <object id="14" x="71.7083" y="146" width="48" height="70"/>
-  <object id="15" x="134" y="146" width="48" height="70"/>
+  <object id="13" x="10" y="150" width="48" height="70"/>
+  <object id="14" x="72" y="150" width="48" height="70"/>
+  <object id="15" x="134" y="150" width="48" height="70"/>
  </objectgroup>
  <objectgroup id="9" name="idleUpright">
   <object id="16" x="226" y="150" width="48" height="70"/>
@@ -37,9 +37,9 @@
   <object id="38" x="330" y="368" width="48" height="69"/>
  </objectgroup>
  <objectgroup id="5" name="idleDownright">
-  <object id="4" x="218" y="2" width="48" height="70"/>
-  <object id="5" x="282" y="2" width="48" height="70"/>
-  <object id="6" x="346" y="2" width="48" height="70"/>
+  <object id="4" x="218" y="6" width="48" height="70"/>
+  <object id="5" x="282" y="6" width="48" height="70"/>
+  <object id="6" x="346" y="6" width="48" height="70"/>
  </objectgroup>
  <objectgroup id="7" name="idleRight">
   <object id="10" x="224" y="78" width="48" height="70"/>
@@ -47,9 +47,9 @@
   <object id="12" x="348" y="78" width="48" height="70"/>
  </objectgroup>
  <objectgroup id="6" name="idleLeft">
-  <object id="7" x="14" y="74" width="48" height="70"/>
-  <object id="8" x="76" y="74" width="48" height="70"/>
-  <object id="9" x="138" y="74" width="48" height="70"/>
+  <object id="7" x="14" y="78" width="48" height="70"/>
+  <object id="8" x="76" y="78" width="48" height="70"/>
+  <object id="9" x="138" y="78" width="48" height="70"/>
  </objectgroup>
  <objectgroup id="12" name="moveDownleft">
   <object id="27" x="8" y="294" width="48" height="67.6667"/>
