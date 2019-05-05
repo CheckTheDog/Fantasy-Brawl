@@ -124,6 +124,8 @@ public:
 	_TTF_Font* small_texts_font = nullptr;
 	_TTF_Font* big_buttons_font = nullptr;
 	_TTF_Font* mid_buttons_font = nullptr;
+
+	float scale = 0.66f;
 	
 };
 #endif // !__j1UISCENE_H__ 

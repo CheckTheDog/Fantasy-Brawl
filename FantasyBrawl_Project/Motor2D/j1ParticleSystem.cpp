@@ -67,7 +67,8 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			App->view->PushQueue(3,p->tex, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt),0,0,p->angle*(180.0f / M_PI) - 180.0f);
+			App->view->PushQueue(3,p->tex, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt),0,0,p->angle*(180.0f / M_PI) - 180.0f,2147483647,2147483647,scale);
+
 			//LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
 		}
@@ -104,6 +105,9 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 
 				if (p->ghost)
 					p->pCol->ghost = true;
+
+				p->pCol->rect.w *= scale;
+				p->pCol->rect.h *= scale;
 
 				active[i] = p;
 				return p;

@@ -63,6 +63,9 @@ bool j1Player::Start()
 	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
 	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
+	Entityinfo.entitycoll->rect.w *= Entityinfo.scale;
+	Entityinfo.entitycoll->rect.h *= Entityinfo.scale;
+
 
 	superTimer.Start();
 	shieldTimer.Start();
@@ -376,7 +379,7 @@ void j1Player::BlitSuperAimPaths(float dt)
 	switch (character)
 	{
 	case CHARACTER::WENDOLIN:
-		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - 107, this->Entityinfo.position.y - 120, SDL_Rect{0,0,260,260});
+		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260},0,0,0,0,0, Entityinfo.scale);
 		break;
 	case  CHARACTER::SIMON:
 	
@@ -399,7 +402,7 @@ void j1Player::Launch1stSuper()
 		for (int i = 1; i < 17; ++i)
 		{
 			playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 10, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(10.0f * Entityinfo.scale) , this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
 
 		superTimer.Start();
@@ -482,7 +485,7 @@ void j1Player::Launch4thSuper()
 		for (int i = 1; i < 4; ++i)
 		{
 			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(20.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
 
 		// --- 2nd round of axes ---
@@ -490,9 +493,9 @@ void j1Player::Launch4thSuper()
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 
 		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(20.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(20.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
@@ -534,36 +537,35 @@ bool j1Player::PostUpdate(float dt)
 	bool ret = true;
 
 	if (PlayerPrintOnTop == true)
-		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
 	else
-		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - 44, CurrentAnimation->GetCurrentFrame(dt));
+		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
 	
 
 	// --- IDCircle Animations ---
 	if (!shieldON && superTimer.ReadSec() < 5 && shieldTimer.ReadSec() > 10.0f)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleshield.GetCurrentFrame(dt));
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
 
 	else if (!shieldON && superTimer.ReadSec() > 5 && shieldTimer.ReadSec() > 10.0f)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCircleboth.GetCurrentFrame(dt));
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
 
 	else if (shieldTimer.ReadSec() < 10.0f && superTimer.ReadSec() > 5)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 18, this->Entityinfo.position.y - 10, this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt));
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
 
 	else
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - 6, this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt));
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(6 * Entityinfo.scale), this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
 
 
 	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
-	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - 12, this->Entityinfo.position.y - 44, CurrentShieldAnimation->GetCurrentFrame(dt));
+	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(12 * Entityinfo.scale), this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentShieldAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
 
 	// --- Basic Attack aim path ---
 	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - 4, this->Entityinfo.position.y + 12, SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5, 0);
+	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
 
 	// --- Super Attack ---
 	if(superON)
 	BlitSuperAimPaths(dt);
-
 
 	return ret;
 }
@@ -653,8 +655,6 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
-	Future_position.x = entitycollider->rect.x;
-	Future_position.y = entitycollider->rect.y;
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)
@@ -665,10 +665,17 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
+	default:
+
+	break;
 	}
 }
 
@@ -680,9 +687,16 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 }
@@ -695,9 +709,16 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 }
@@ -710,9 +731,16 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 

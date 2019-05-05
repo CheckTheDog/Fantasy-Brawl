@@ -40,7 +40,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 
 		width = config.child("resolution").attribute("width").as_int(640);
 		height = config.child("resolution").attribute("height").as_int(480);
-		scale = config.child("resolution").attribute("scale").as_int(1);
+		scale = config.child("resolution").attribute("scale").as_float(1.0f);
 
 		if(fullscreen == true)
 		{
@@ -108,7 +108,7 @@ void j1Window::GetWindowSize(uint& width, uint& height) const
 	height = this->height;
 }
 
-uint j1Window::GetScale() const
+float j1Window::GetScale() const
 {
 	return scale;
 }

@@ -52,6 +52,9 @@ struct entity_info
 	Animation IDCirclesuper;
 	Animation IDCircleshield;
 	Animation IDCircleboth;
+
+	float scale = 1.0f;
+
 };
 
 

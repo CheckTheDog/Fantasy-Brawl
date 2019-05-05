@@ -61,5 +61,7 @@ private:
 
 	Particle* active[MAX_PARTICLES];
 
+	float scale = 0.66;
+
 };
 #endif // ! _j1PARTICLESYSTEM_H_
