@@ -115,7 +115,6 @@ Aitor:
 - Music Plays
 - Improved Sprite Ordering
 - In-game UI (code behaviour)
-- Camera fix to players, does not go out of map bounds 
 - Player-Character Independence
 - Adapted Player related stuff and particles to Scale system
 - Auto-Aim
