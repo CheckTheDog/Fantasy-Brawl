@@ -103,8 +103,8 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
 
-				if (p->ghost)
-					p->pCol->ghost = true;
+				/*if (p->ghost)
+					p->pCol->ghost = true;*/
 
 				p->pCol->rect.w *= scale;
 				p->pCol->rect.h *= scale;

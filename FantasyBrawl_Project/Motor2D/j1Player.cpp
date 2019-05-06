@@ -415,7 +415,7 @@ void j1Player::Launch2ndSuper()
 {
 	if (superTimer.ReadSec() > 5.0f)
 	{
-		float damage_radius = 150.0f;
+		float damage_radius = 150.0f * Entityinfo.scale;
 
 		if (last_particle != nullptr && last_particle->toDelete != true)
 		{
