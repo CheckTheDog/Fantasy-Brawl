@@ -49,14 +49,47 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
+
 	IDCircle_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRed");
 	IDCirclesuper_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedSuper");
 	IDCircleshield_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedShield");
 	IDCircleboth_red = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleRedBoth");
+
 	IDCircle_red.speed = 10.0f;
 	IDCirclesuper_red.speed = 10.0f;
 	IDCircleshield_red.speed = 10.0f;
 	IDCircleboth_red.speed = 10.0f;
+
+	IDCircle_green = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleGreen");
+	IDCirclesuper_green	= *LoadAnimation(playernode.child("foldercircle").child_value(), "circleGreenSuper");
+	IDCircleshield_green = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleGreenShield");
+	IDCircleboth_green = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleGreenBoth");
+
+	IDCircle_green.speed = 10.0f;
+	IDCirclesuper_green.speed = 10.0f;
+	IDCircleshield_green.speed = 10.0f;
+	IDCircleboth_green.speed = 10.0f;
+
+	IDCircle_blue = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleBlue");
+	IDCirclesuper_blue = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleBlueSuper");
+	IDCircleshield_blue = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleBlueShield");
+	IDCircleboth_blue = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleBlueBoth");
+
+	IDCircle_blue.speed = 10.0f;
+	IDCirclesuper_blue.speed = 10.0f;
+	IDCircleshield_blue.speed = 10.0f;
+	IDCircleboth_blue.speed = 10.0f;
+
+	IDCircle_yellow = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleYellow");
+	IDCirclesuper_yellow = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleYellowSuper");
+	IDCircleshield_yellow = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleYellowShield");
+	IDCircleboth_yellow = *LoadAnimation(playernode.child("foldercircle").child_value(), "circleYellowBoth");
+
+	IDCircle_yellow.speed = 10.0f;
+	IDCirclesuper_yellow.speed = 10.0f;
+	IDCircleshield_yellow.speed = 10.0f;
+	IDCircleboth_yellow.speed = 10.0f;
+
 	// --- Animation Ranges --- 
 	animranges.AnimationRangeRight_start = playernode.child("AnimationRangeRight").attribute("range_start").as_float();
 	animranges.AnimationRangeRight_end = playernode.child("AnimationRangeRight").attribute("range_end").as_float();
@@ -113,7 +146,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Wendolin.playerrect = { x,y,w,h };
 
 	// --- Wendolin Particles ---
-	fPoint particle_speed = { 250.0f, 250.0f };
+	fPoint particle_speed = { 125.0f, 125.0f };
 	Wendolin.basic_attack.anim.PushBack({ 0,0,28,18 });
 	Wendolin.basic_attack.anim.loop = true;
 	Wendolin.basic_attack.life = 2500;
@@ -277,6 +310,7 @@ bool j1EntityManager::Start()
 
 	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
 	Meliadoul.basic_attack.tex = axe_texture;
+	MeliadoulSuper_aimpath = App->tex->Load("textures/meliadoulSuper_path.png");
 
 	// --- Loading Character Specific FX ---
 	Wendolin.basic_fx = App->audio->fxWendolinBasic;

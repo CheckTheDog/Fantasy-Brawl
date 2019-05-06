@@ -108,6 +108,21 @@ public:
 	Animation IDCircleshield_red;
 	Animation IDCircleboth_red;
 
+	Animation IDCircle_green;
+	Animation IDCirclesuper_green;
+	Animation IDCircleshield_green;
+	Animation IDCircleboth_green;
+
+	Animation IDCircle_blue;
+	Animation IDCirclesuper_blue;
+	Animation IDCircleshield_blue;
+	Animation IDCircleboth_blue;
+
+	Animation IDCircle_yellow;
+	Animation IDCirclesuper_yellow;
+	Animation IDCircleshield_yellow;
+	Animation IDCircleboth_yellow;
+
 };
 
 #endif // __J1ENTITYMANAGER_H__
