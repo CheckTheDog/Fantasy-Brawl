@@ -53,6 +53,9 @@ struct MapLayer
 
 	inline uint Get(int x, int y) const
 	{
+		if (((y*width) + x) < 0)
+			return 0;
+		else
 		return data[(y*width) + x];
 	}
 };
