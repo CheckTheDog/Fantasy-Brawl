@@ -14,11 +14,15 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 
   - Move around: Left joystick, movement in any direction
 
-- Player Attack (Gamepad Exclusive):
+- Player Abilities(Gamepad Exclusive):
 
-  - Aim & Basic Attack: Right Joystick, aim at any direction while pressing RIGHT TRIGGER, release to shoot. 
-  - Super Attack: Press LEFT TRIGGER
-  - Shield: Press RIGHT JOYSTICK
+  - Aim: Move RIGHT JOYSTICK
+  - Basic Attack: Press / keep pressed RIGHT BUMPER. 
+  - Super Attack: Press LEFT BUMPER, then release it.
+  - Shield: Press A, deactivate it halfway pressing A again.
+
+Tips: Auto-aim will be activated when being near enemy players, no need to move the right joystick.
+
 
 - ESC opens pause menu (to be changed in future versions of the game)
 
@@ -74,10 +78,12 @@ Copyright Disclaimer, allowance is made for "fair use" for purposes such as crit
 Non-profit, educational or personal use tips the balance in favor of fair use." All content is owned by its respective 
 creators, no copyright infringement is intended, its use is solely and strictly educational.
 
-We do not own any of the sprites, tilesets, music or sfx presented in this game. Authors credited below:
+We do not own most of the sprites, tilesets, music or sfx presented in this game. Authors credited below:
 
 - Player sprites, Tilesets & songs, SFX are property of  Square Enix, original from Final Fantasy Tactics for 
 Sony's Playstation
+
+- Shield and IDCircle animations (circle on the bottom of players) sprites by Pol
 
 ### LICENSE
 
@@ -98,7 +104,7 @@ Aitor:
 - Player particle shooting
 - Particle system improvements (put to work)
 - Player basic attack
-- Player super attack
+- All charachters Super Attacks
 - Player Shield
 - Particles launched in all directions with rotated sprite
 - Particle collisions and damage, player death
@@ -109,7 +115,12 @@ Aitor:
 - Music Plays
 - Improved Sprite Ordering
 - In-game UI (code behaviour)
-- Camera fix to players, does not go out of map bounds
+- Camera fix to players, does not go out of map bounds 
+- Player-Character Independence
+- Adapted Player related stuff and particles to Scale system
+- Auto-Aim
+- Added IDCircle code management
+- Aim path on basic & Super attacks
 
 Didac:
 
@@ -117,17 +128,22 @@ Didac:
 - Storm
 - Fx plays
 - Gamepad Vibration
+- Scale system 
 
 Pol:
 
 - Character animations (creation)
 - First Map
 - Player Shield Texture, added collider water in Tiled
+- Shield Animation
+- IDCircle Animations
+
 
 Vladislav: 
 
 - Character animations in Tiled 
 - Basic Particle System (rough)
+- Basic Website
 
 Jacobo:
 
