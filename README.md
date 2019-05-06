@@ -68,6 +68,7 @@ Our Twitter account: [Our Twitter](https://twitter.com/dog_check?lang=es)
 - Microsoft Visual Studio 2017
 - Tiled
 - Adobe Photoshop
+- Piskel
 - Brofiler
 - SDL, STL and pugi xml
 
@@ -132,16 +133,22 @@ Didac:
 
 Pol:
 
-- Character animations (creation)
-- First Map
-- Player Shield Texture, added collider water in Tiled
-- Shield Animation
-- IDCircle Animations
+- All 4 character animations (Wendolin, Trakt, Simon, Meliadoul):
+  - 8 direction Idles (creation).
+  - 8 direction movement (Up, Down, Left, Right creation; Diagonals taken from sprites).
+  - 8 direction attack frames (Up, Down, Left, Right creation; Diagonals taken from sprites).
+- All 4 character sprites into Tiled object layers (+ Adjustments).
+- Particle Textures.
+- Crystal Textures.
+- Tileset for the 1st map.
+- Map layout in Tiled.
+- Automap feature in Tiled adapted to our Tileset (Automatically creating all layers of tiles including collisions, from a ground basic layer).
+- Shield Animation (Shield desintegration 40 frames + shield vanishing 4 frames).
+- IDCircle Animations (4 colours, 4 different textures per colour).
 
 
 Vladislav: 
 
-- Character animations in Tiled 
 - Basic Particle System (rough)
 - Basic Website
 
