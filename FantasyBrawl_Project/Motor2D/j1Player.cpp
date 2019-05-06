@@ -310,7 +310,7 @@ void j1Player::HandleAttacks()
 		basicTimer.Start();
 
 		// --- Firing the particle and playing character specific fx ---
-		last_particle = App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		last_particle = App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8 * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
@@ -360,13 +360,13 @@ void j1Player::HandleSuperAttacks()
 	case CHARACTER::WENDOLIN:
 		Launch1stSuper();
 		break;
-	case  CHARACTER::SIMON:
+	case CHARACTER::SIMON:
 		Launch2ndSuper();
 		break;
-	case  CHARACTER::TRAKT:
+	case CHARACTER::TRAKT:
 		Launch3rdSuper();
 		break;
-	case  CHARACTER::MELIADOUL:
+	case CHARACTER::MELIADOUL:
 		Launch4thSuper();
 		break;
 	default:
@@ -381,14 +381,15 @@ void j1Player::BlitSuperAimPaths(float dt)
 	case CHARACTER::WENDOLIN:
 		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260},0,0,0,0,0, Entityinfo.scale);
 		break;
-	case  CHARACTER::SIMON:
+	case CHARACTER::SIMON:
 	
 		break;
-	case  CHARACTER::TRAKT:
+	case CHARACTER::TRAKT:
 		
 		break;
-	case  CHARACTER::MELIADOUL:
-		
+	case CHARACTER::MELIADOUL:
+		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+		App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
 		break;
 	default:
 		break;
@@ -402,7 +403,7 @@ void j1Player::Launch1stSuper()
 		for (int i = 1; i < 17; ++i)
 		{
 			playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(10.0f * Entityinfo.scale) , this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f * Entityinfo.scale) , this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
 
 		superTimer.Start();
@@ -479,13 +480,13 @@ void j1Player::Launch4thSuper()
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
 
-		float angle = std::atan2(RJdirection_y, RJdirection_x) - 45.0f;
+		float angle = std::atan2(RJdirection_y, RJdirection_x) - 45.0f*(M_PI / 180.0f);
 
 		// --- First round of axes ---
 		for (int i = 1; i < 4; ++i)
 		{
 			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(20.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
 
 		// --- 2nd round of axes ---
@@ -493,9 +494,9 @@ void j1Player::Launch4thSuper()
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 
 		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(20.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(20.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
@@ -537,9 +538,9 @@ bool j1Player::PostUpdate(float dt)
 	bool ret = true;
 
 	if (PlayerPrintOnTop == true)
-		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
+		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
 	else
-		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x, this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
+		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
 	
 
 	// --- IDCircle Animations ---
