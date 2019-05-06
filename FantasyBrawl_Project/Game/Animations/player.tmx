@@ -1,134 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="400" height="1050" tilewidth="1" tileheight="1" infinite="0" nextlayerid="28" nextobjectid="103">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="400" height="1250" tilewidth="1" tileheight="1" infinite="0" nextlayerid="28" nextobjectid="186">
  <imagelayer id="3" name="spritesheet" locked="1">
-  <image source="../textures/Wendolin Red Sprite 2x.png" width="400" height="1200"/>
+  <image source="../textures/Wendolin Red Sprite 2x.png" width="396" height="1232"/>
  </imagelayer>
  <objectgroup id="4" name="idleDownleft">
-  <object id="1" x="10" y="6" width="48" height="70"/>
-  <object id="90" x="74" y="6" width="48" height="70"/>
-  <object id="91" x="138" y="7" width="48" height="70"/>
+  <object id="103" x="0" y="0" width="66" height="88"/>
+  <object id="106" x="66" y="0" width="66" height="88"/>
+  <object id="107" x="132" y="0" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="8" name="idleUpleft">
-  <object id="13" x="10" y="150" width="48" height="70"/>
-  <object id="14" x="72" y="150" width="48" height="70"/>
-  <object id="15" x="134" y="150" width="48" height="70"/>
+  <object id="117" x="0" y="176" width="66" height="88"/>
+  <object id="118" x="66" y="176" width="66" height="88"/>
+  <object id="119" x="132" y="176" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="9" name="idleUpright">
-  <object id="16" x="226" y="150" width="48" height="70"/>
-  <object id="17" x="288" y="150" width="48" height="70"/>
-  <object id="18" x="349" y="150" width="48" height="70"/>
+  <object id="120" x="198" y="176" width="66" height="88"/>
+  <object id="121" x="264" y="176" width="66" height="88"/>
+  <object id="122" x="330" y="176" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="10" name="idleDown">
-  <object id="19" x="8" y="220" width="48" height="70"/>
-  <object id="86" x="68" y="220" width="48" height="70"/>
-  <object id="88" x="128" y="220" width="48" height="69.625"/>
+  <object id="123" x="0" y="264" width="66" height="88"/>
+  <object id="124" x="66" y="264" width="66" height="88"/>
+  <object id="125" x="132" y="264" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="11" name="idleUp">
-  <object id="23" x="224" y="222" width="48" height="68.6667"/>
-  <object id="25" x="286" y="222" width="48" height="67.3333"/>
-  <object id="26" x="348" y="222" width="48" height="66.7917"/>
+  <object id="126" x="198" y="264" width="66" height="88"/>
+  <object id="127" x="264" y="264" width="66" height="88"/>
+  <object id="128" x="330" y="264" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="13" name="moveDownright">
-  <object id="33" x="10" y="368" width="48" height="68"/>
-  <object id="34" x="74" y="368" width="48" height="68.3333"/>
-  <object id="35" x="138" y="368" width="48" height="68.3333"/>
-  <object id="36" x="202" y="368" width="48" height="69.3333"/>
-  <object id="37" x="266" y="368" width="48" height="69.6667"/>
-  <object id="38" x="330" y="368" width="48" height="69"/>
+  <object id="130" x="0" y="440" width="66" height="88"/>
+  <object id="176" x="66" y="440" width="66" height="88"/>
+  <object id="177" x="132" y="440" width="66" height="88"/>
+  <object id="178" x="198" y="440" width="66" height="88"/>
+  <object id="179" x="264" y="440" width="66" height="88"/>
+  <object id="180" x="330" y="440" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="5" name="idleDownright">
-  <object id="4" x="218" y="6" width="48" height="70"/>
-  <object id="5" x="282" y="6" width="48" height="70"/>
-  <object id="6" x="346" y="6" width="48" height="70"/>
+  <object id="108" x="198" y="0" width="66" height="88"/>
+  <object id="109" x="264" y="0" width="66" height="88"/>
+  <object id="110" x="330" y="0" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="7" name="idleRight">
-  <object id="10" x="224" y="78" width="48" height="70"/>
-  <object id="11" x="286" y="78" width="48" height="70"/>
-  <object id="12" x="348" y="78" width="48" height="70"/>
+  <object id="114" x="198" y="88" width="66" height="88"/>
+  <object id="115" x="264" y="88" width="66" height="88"/>
+  <object id="116" x="330" y="88" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="6" name="idleLeft">
-  <object id="7" x="14" y="78" width="48" height="70"/>
-  <object id="8" x="76" y="78" width="48" height="70"/>
-  <object id="9" x="138" y="78" width="48" height="70"/>
+  <object id="111" x="0" y="88" width="66" height="88"/>
+  <object id="112" x="66" y="88" width="66" height="88"/>
+  <object id="113" x="132" y="88" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="12" name="moveDownleft">
-  <object id="27" x="8" y="294" width="48" height="67.6667"/>
-  <object id="28" x="72" y="294" width="48" height="68"/>
-  <object id="29" x="136" y="294" width="48" height="68"/>
-  <object id="30" x="200" y="294" width="48" height="68.6667"/>
-  <object id="31" x="264" y="294" width="48" height="69"/>
-  <object id="32" x="328" y="294" width="48" height="68.6667"/>
+  <object id="129" x="0" y="352" width="66" height="88"/>
+  <object id="181" x="66" y="352" width="66" height="88"/>
+  <object id="182" x="132" y="352" width="66" height="88"/>
+  <object id="183" x="198" y="352" width="66" height="88"/>
+  <object id="184" x="264" y="352" width="66" height="88"/>
+  <object id="185" x="330" y="352" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="14" name="moveLeft">
-  <object id="39" x="10" y="440" width="44.9502" height="68.9835"/>
-  <object id="92" x="72" y="440" width="44.9502" height="68.9835"/>
-  <object id="93" x="134" y="440" width="44.9502" height="68.9835"/>
-  <object id="94" x="196" y="440" width="44.9502" height="68.9835"/>
-  <object id="95" x="258" y="440" width="44.9502" height="68.9835"/>
-  <object id="96" x="320" y="440" width="44.9502" height="68.9835"/>
+  <object id="131" x="0" y="528" width="66" height="88"/>
+  <object id="171" x="66" y="528" width="66" height="88"/>
+  <object id="172" x="132" y="528" width="66" height="88"/>
+  <object id="173" x="198" y="528" width="66" height="88"/>
+  <object id="174" x="264" y="528" width="66" height="88"/>
+  <object id="175" x="330" y="528" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="15" name="moveRight">
-  <object id="46" x="8.05682" y="513.989" width="48" height="69.0104"/>
-  <object id="97" x="69.9051" y="514.001" width="48" height="69.0104"/>
-  <object id="98" x="131.877" y="514.048" width="48" height="69.0104"/>
-  <object id="99" x="194" y="514" width="48" height="69.0104"/>
-  <object id="101" x="256" y="514" width="48" height="69.0104"/>
-  <object id="102" x="318" y="514" width="48" height="69.0104"/>
+  <object id="132" x="0" y="616" width="66" height="88"/>
+  <object id="166" x="66" y="616" width="66" height="88"/>
+  <object id="167" x="132" y="616" width="66" height="88"/>
+  <object id="168" x="198" y="616" width="66" height="88"/>
+  <object id="169" x="264" y="616" width="66" height="88"/>
+  <object id="170" x="330" y="616" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="16" name="moveUpleft">
-  <object id="52" x="10" y="584" width="48" height="68.7273"/>
-  <object id="53" x="72" y="584" width="48" height="69.3031"/>
-  <object id="54" x="133.708" y="585.792" width="48" height="66.6667"/>
-  <object id="55" x="196" y="584" width="48" height="69.2424"/>
-  <object id="56" x="258" y="584" width="48" height="69.2424"/>
-  <object id="57" x="317.75" y="585.909" width="48" height="68"/>
+  <object id="133" x="0" y="704" width="66" height="88"/>
+  <object id="161" x="66" y="704" width="66" height="88"/>
+  <object id="162" x="132" y="704" width="66" height="88"/>
+  <object id="163" x="198" y="704" width="66" height="88"/>
+  <object id="164" x="264" y="704" width="66" height="88"/>
+  <object id="165" x="330" y="704" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="17" name="moveUpright">
-  <object id="58" x="8" y="656" width="48" height="67.9697"/>
-  <object id="59" x="70" y="656" width="49.0473" height="68.1212"/>
-  <object id="60" x="132" y="658" width="48" height="67.6667"/>
-  <object id="61" x="194" y="656" width="48" height="69.7292"/>
-  <object id="62" x="256" y="656" width="48" height="70.087"/>
-  <object id="63" x="318" y="658" width="48" height="68.6667"/>
+  <object id="134" x="0" y="792" width="66" height="88"/>
+  <object id="155" x="66" y="792" width="66" height="88"/>
+  <object id="156" x="132" y="792" width="66" height="88"/>
+  <object id="157" x="198" y="792" width="66" height="88"/>
+  <object id="158" x="264" y="792" width="66" height="88"/>
+  <object id="160" x="330" y="792" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="18" name="moveDown">
-  <object id="64" x="8" y="728" width="48" height="67.6667"/>
-  <object id="65" x="68" y="728" width="48" height="68.25"/>
-  <object id="66" x="128" y="728" width="48" height="69.2083"/>
-  <object id="67" x="188" y="728" width="48" height="69.3333"/>
-  <object id="68" x="248" y="728" width="48" height="70"/>
-  <object id="69" x="308" y="728" width="48" height="70"/>
+  <object id="135" x="0" y="880" width="66" height="88"/>
+  <object id="150" x="66" y="880" width="66" height="88"/>
+  <object id="151" x="132" y="880" width="66" height="88"/>
+  <object id="152" x="198" y="880" width="66" height="88"/>
+  <object id="153" x="264" y="880" width="66" height="88"/>
+  <object id="154" x="330" y="880" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="19" name="moveUp">
-  <object id="70" x="8" y="800" width="48" height="68.6667"/>
-  <object id="71" x="70" y="800" width="48" height="68.6667"/>
-  <object id="72" x="131.667" y="800" width="48" height="68.3333"/>
-  <object id="73" x="194" y="800" width="48" height="69.3333"/>
-  <object id="74" x="256" y="800" width="48" height="68.6667"/>
-  <object id="75" x="318" y="800" width="48" height="70"/>
+  <object id="136" x="0" y="968" width="66" height="88"/>
+  <object id="145" x="66" y="968" width="66" height="88"/>
+  <object id="146" x="132" y="968" width="66" height="88"/>
+  <object id="147" x="198" y="968" width="66" height="88"/>
+  <object id="148" x="264" y="968" width="66" height="88"/>
+  <object id="149" x="330" y="968" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="20" name="attackDownleft">
-  <object id="76" x="10" y="872" width="48" height="68.3333"/>
+  <object id="137" x="0" y="1056" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="21" name="attackDownright">
-  <object id="77" x="69" y="872" width="48" height="68.3333"/>
+  <object id="140" x="66" y="1056" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="22" name="attackUpleft">
-  <object id="78" x="131" y="872" width="48" height="68"/>
+  <object id="141" x="132" y="1056" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="23" name="attackUpright">
-  <object id="79" x="198" y="872" width="48" height="68.6667"/>
+  <object id="142" x="198" y="1056" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="24" name="attackLeft">
-  <object id="80" x="259" y="872" width="48" height="68.6667"/>
+  <object id="143" x="264" y="1056" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="25" name="attackRight">
-  <object id="82" x="321.625" y="871.958" width="48" height="70"/>
+  <object id="144" x="330" y="1056" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="26" name="attackDown">
-  <object id="84" x="9.66667" y="945.917" width="48" height="70"/>
+  <object id="138" x="0" y="1144" width="66" height="88"/>
  </objectgroup>
  <objectgroup id="27" name="attackUp">
-  <object id="85" x="70.7917" y="945.833" width="48" height="70"/>
+  <object id="139" x="66" y="1144" width="66" height="88"/>
  </objectgroup>
 </map>
