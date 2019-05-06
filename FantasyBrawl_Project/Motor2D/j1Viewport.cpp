@@ -323,9 +323,9 @@ iPoint j1Viewport::GetScreenPosition(uint id)
 	return ret;
 }
 
-void j1Viewport::PushQueue(int layer, SDL_Texture * texture, int x, int y, const SDL_Rect section, int viewport, float speed, double angle, int pivot_x, int pivot_y)
+void j1Viewport::PushQueue(int layer, SDL_Texture * texture, int x, int y, const SDL_Rect section, int viewport, float speed, double angle, int pivot_x, int pivot_y, float scale)
 {
-	element_to_render lblit(layer, texture, x, y, section, viewport, speed, angle, pivot_x, pivot_y);
+	element_to_render lblit(layer, texture, x, y, section, viewport, speed, angle, pivot_x, pivot_y, scale);
 
 	SDL_Rect view = GetScreenSize();
 
@@ -493,7 +493,7 @@ void j1Viewport::BlitFromQueue()
 		while (!layer_list1.empty())
 		{
 			element_to_render curr = layer_list1.top();
-			App->render->Blit(curr.texture, curr.x + (int)screen_1.x, curr.y + (int)screen_1.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y);
+			App->render->Blit(curr.texture, curr.x + (int)screen_1.x, curr.y + (int)screen_1.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y, curr.scale);
 			layer_list1.pop();
 		}
 
@@ -536,7 +536,7 @@ void j1Viewport::BlitFromQueue()
 		while (!layer_list1.empty())
 		{
 			element_to_render curr = layer_list1.top();
-			App->render->Blit(curr.texture, curr.x + (int)screen_1.x, curr.y + (int)screen_1.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y);
+			App->render->Blit(curr.texture, curr.x + (int)screen_1.x, curr.y + (int)screen_1.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y, curr.scale);
 			layer_list1.pop();
 		}
 
@@ -567,7 +567,7 @@ void j1Viewport::BlitFromQueue()
 		while (!layer_list2.empty())
 		{
 			element_to_render curr = layer_list2.top();
-			App->render->Blit(curr.texture, curr.x + (int)screen_2.x, curr.y + (int)screen_2.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y);
+			App->render->Blit(curr.texture, curr.x + (int)screen_2.x, curr.y + (int)screen_2.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y, curr.scale);
 			layer_list2.pop();
 		}
 
@@ -598,7 +598,7 @@ void j1Viewport::BlitFromQueue()
 		while (!layer_list3.empty())
 		{
 			element_to_render curr = layer_list3.top();
-			App->render->Blit(curr.texture, curr.x + (int)screen_3.x, curr.y + (int)screen_3.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y);
+			App->render->Blit(curr.texture, curr.x + (int)screen_3.x, curr.y + (int)screen_3.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y, curr.scale);
 			layer_list3.pop();
 		}
 
@@ -629,7 +629,7 @@ void j1Viewport::BlitFromQueue()
 		while (!layer_list4.empty())
 		{
 			element_to_render curr = layer_list4.top();
-			App->render->Blit(curr.texture, curr.x + (int)screen_4.x, curr.y + (int)screen_4.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y);
+			App->render->Blit(curr.texture, curr.x + (int)screen_4.x, curr.y + (int)screen_4.y, &curr.section, curr.speed, curr.angle, curr.pivot_x, curr.pivot_y, curr.scale);
 			layer_list4.pop();
 		}
 

@@ -16,6 +16,7 @@
 #include "j1Viewport.h"
 #include "j1BuffManager.h"
 #include "j1Map.h"
+#include <queue>
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -45,31 +46,9 @@ bool j1Player::Start()
 
 	manager->playerid++;
 
-	switch (ID)
-	{
-	case PLAYER::P1:
-		playerinfo = manager->player1info;
-		break;
-
-	case PLAYER::P2:
-		playerinfo = manager->player2info;
-		break;
-
-	case PLAYER::P3:
-		playerinfo = manager->player3info;
-		break;
-
-	case PLAYER::P4:
-		playerinfo = manager->player4info;
-		break;
-	}
-
-	// --- Entity Spritesheet ---
-	if (spritesheet == nullptr)
-		spritesheet = App->tex->Load(playerinfo.Texture.data());
-
 	// --- Animations ---
-	CurrentAnimation = playerinfo.idleDown;
+	CurrentAnimation = &playerinfo.idleDown;
+	CurrentIDCircleAnimation = &this->Entityinfo.IDCircle;
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -84,11 +63,9 @@ bool j1Player::Start()
 	Entityinfo.entitycoll = App->coll->AddCollider(Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)manager);
 	Entityinfo.entitycoll->SetPos(Entityinfo.position.x, Entityinfo.position.y);
 
-	//// --- P1 Particles ---
-	//playerinfo.characterdata.basic_attack.anim.PushBack({ 0,0,28,18 });
-	//playerinfo.characterdata.basic_attack.anim.loop = true;
-	//playerinfo.characterdata.basic_attack.life = 2500;
-	//playerinfo.characterdata.basic_attack.particle_effect = &App->buff->effects[3];
+	Entityinfo.entitycoll->rect.w *= Entityinfo.scale;
+	Entityinfo.entitycoll->rect.h *= Entityinfo.scale;
+
 
 	superTimer.Start();
 	shieldTimer.Start();
@@ -99,10 +76,11 @@ bool j1Player::Start()
 
 void j1Player::HandleAnimations()
 {
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
-		&& (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin))
+	if (((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
+		&& basicTimer.ReadSec() > 0.5f)
+		|| attackanimTimer.ReadSec() < 0.2)
 		PlayerState = PSTATE::ATTACKING;
-	else if ((abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin))
+	else if (abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin)
 		PlayerState = PSTATE::MOVING;
 
 	switch (PlayerState)
@@ -114,6 +92,11 @@ void j1Player::HandleAnimations()
 	case PSTATE::ATTACKING:
 		GetAttackAnimation();
 		break;
+	}
+
+	if (PlayerState == PSTATE::NONE && (abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin))
+	{
+		GetMovementAnimation();
 	}
 }
 
@@ -131,85 +114,106 @@ bool j1Player::InRange(float axisX, float axisY, float range_start, float range_
 
 void j1Player::GetAttackAnimation()
 {
-	if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeRight_start, manager->animranges.AnimationRangeRight_end))
-		CurrentAnimation = playerinfo.attackRight;
+	// --- Player Auto aim attack ---
+	playerinfo.basic_attack.direction.x = GetNearestPlayerDirection().x / Aim_Radius;
+	playerinfo.basic_attack.direction.y = GetNearestPlayerDirection().y / Aim_Radius;
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
-		|| InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
-		CurrentAnimation = playerinfo.attackLeft;
+	if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+	{
+		// --- Player Manually directed Attack ---
+		playerinfo.basic_attack.direction.x = RJdirection_x;
+		playerinfo.basic_attack.direction.y = RJdirection_y;
+		playerinfo.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x);
+	}
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
-		CurrentAnimation = playerinfo.attackUp;
+	float direction_x = playerinfo.basic_attack.direction.x;
+	float direction_y = playerinfo.basic_attack.direction.y;
+	playerinfo.basic_attack.angle = std::atan2(direction_y, direction_x);
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeUpright_start, manager->animranges.AnimationRangeUpright_end))
-		CurrentAnimation = playerinfo.attackUpright;
+	if (playerinfo.basic_attack.direction.x != 0.0f && playerinfo.basic_attack.direction.x != 0.0f)
+	{
+		if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeRight_start, manager->animranges.AnimationRangeRight_end))
+			CurrentAnimation = &playerinfo.attackRight;
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeUpleft_start, manager->animranges.AnimationRangeUpleft_end))
-		CurrentAnimation = playerinfo.attackUpleft;
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
+			|| InRange(direction_x, direction_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
+			CurrentAnimation = &playerinfo.attackLeft;
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeDown_start, manager->animranges.AnimationRangeDown_end))
-		CurrentAnimation = playerinfo.attackDown;
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
+			CurrentAnimation = &playerinfo.attackUp;
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeDownright_start, manager->animranges.AnimationRangeDownright_end))
-		CurrentAnimation = playerinfo.attackDownright;
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeUpright_start, manager->animranges.AnimationRangeUpright_end))
+			CurrentAnimation = &playerinfo.attackUpright;
 
-	else if (InRange(RJdirection_x, RJdirection_y, manager->animranges.AnimationRangeDownleft_start, manager->animranges.AnimationRangeDownleft_end))
-		CurrentAnimation = playerinfo.attackDownleft;
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeUpleft_start, manager->animranges.AnimationRangeUpleft_end))
+			CurrentAnimation = &playerinfo.attackUpleft;
+
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeDown_start, manager->animranges.AnimationRangeDown_end))
+			CurrentAnimation = &playerinfo.attackDown;
+
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeDownright_start, manager->animranges.AnimationRangeDownright_end))
+			CurrentAnimation = &playerinfo.attackDownright;
+
+		else if (InRange(direction_x, direction_y, manager->animranges.AnimationRangeDownleft_start, manager->animranges.AnimationRangeDownleft_end))
+			CurrentAnimation = &playerinfo.attackDownleft;
+	}
+	else
+		PlayerState = PSTATE::NONE;
 }
 
 void j1Player::GetMovementAnimation()
 {
 	if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeRight_start, manager->animranges.AnimationRangeRight_end))
-		CurrentAnimation = playerinfo.moveRight;
+		CurrentAnimation = &playerinfo.moveRight;
 
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_start, manager->animranges.AnimationRangeLeft_end)
 		|| InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeLeft_end2, manager->animranges.AnimationRangeLeft_start2))
-		 	CurrentAnimation = playerinfo.moveLeft;
-		 
+		CurrentAnimation = &playerinfo.moveLeft;
+
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeUp_start, manager->animranges.AnimationRangeUp_end))
-			CurrentAnimation = playerinfo.moveUp;
-		
+		CurrentAnimation = &playerinfo.moveUp;
+
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeUpright_start, manager->animranges.AnimationRangeUpright_end))
-			CurrentAnimation = playerinfo.moveUpright;
-		
+		CurrentAnimation = &playerinfo.moveUpright;
+
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeUpleft_start, manager->animranges.AnimationRangeUpleft_end))
-			CurrentAnimation = playerinfo.moveUpleft;
-		
+		CurrentAnimation = &playerinfo.moveUpleft;
+
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeDown_start, manager->animranges.AnimationRangeDown_end))
-		 	CurrentAnimation = playerinfo.moveDown;
-		 
+		CurrentAnimation = &playerinfo.moveDown;
+
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeDownright_start, manager->animranges.AnimationRangeDownright_end))
-		 	CurrentAnimation = playerinfo.moveDownright;
-		 
+		CurrentAnimation = &playerinfo.moveDownright;
+
 	else if (InRange(LJdirection_x, LJdirection_y, manager->animranges.AnimationRangeDownleft_start, manager->animranges.AnimationRangeDownleft_end))
-		CurrentAnimation = playerinfo.moveDownleft;
+		CurrentAnimation = &playerinfo.moveDownleft;
 }
 
 void j1Player::GetIdleAnimation()
 {
-	if (CurrentAnimation == playerinfo.moveRight || CurrentAnimation == playerinfo.attackRight)
-		CurrentAnimation = playerinfo.idleRight;
+	if (CurrentAnimation == &playerinfo.moveRight || CurrentAnimation == &playerinfo.attackRight)
+		CurrentAnimation = &playerinfo.idleRight;
 
-	else if (CurrentAnimation == playerinfo.moveLeft || CurrentAnimation == playerinfo.attackLeft)
-		CurrentAnimation = playerinfo.idleLeft;
+	else if (CurrentAnimation == &playerinfo.moveLeft || CurrentAnimation == &playerinfo.attackLeft)
+		CurrentAnimation = &playerinfo.idleLeft;
 
-	else if (CurrentAnimation == playerinfo.moveUp || CurrentAnimation == playerinfo.attackUp)
-		CurrentAnimation = playerinfo.idleUp;
+	else if (CurrentAnimation == &playerinfo.moveUp || CurrentAnimation == &playerinfo.attackUp)
+		CurrentAnimation = &playerinfo.idleUp;
 
-	else if (CurrentAnimation == playerinfo.moveUpright || CurrentAnimation == playerinfo.attackUpright)
-		CurrentAnimation = playerinfo.idleUpright;
+	else if (CurrentAnimation == &playerinfo.moveUpright || CurrentAnimation == &playerinfo.attackUpright)
+		CurrentAnimation = &playerinfo.idleUpright;
 
-	else if (CurrentAnimation == playerinfo.moveUpleft || CurrentAnimation == playerinfo.attackUpleft)
-		CurrentAnimation = playerinfo.idleUpleft;
+	else if (CurrentAnimation == &playerinfo.moveUpleft || CurrentAnimation == &playerinfo.attackUpleft)
+		CurrentAnimation = &playerinfo.idleUpleft;
 
-	else if (CurrentAnimation == playerinfo.moveDown || CurrentAnimation == playerinfo.attackDown)
-		CurrentAnimation = playerinfo.idleDown;
+	else if (CurrentAnimation == &playerinfo.moveDown || CurrentAnimation == &playerinfo.attackDown)
+		CurrentAnimation = &playerinfo.idleDown;
 
-	else if (CurrentAnimation == playerinfo.moveDownright || CurrentAnimation == playerinfo.attackDownright)
-		CurrentAnimation = playerinfo.idleDownright;
+	else if (CurrentAnimation == &playerinfo.moveDownright || CurrentAnimation == &playerinfo.attackDownright)
+		CurrentAnimation = &playerinfo.idleDownright;
 
-	else if (CurrentAnimation == playerinfo.moveDownleft || CurrentAnimation == playerinfo.attackDownleft)
-		CurrentAnimation = playerinfo.idleDownleft;
+	else if (CurrentAnimation == &playerinfo.moveDownleft || CurrentAnimation == &playerinfo.attackDownleft)
+		CurrentAnimation = &playerinfo.idleDownleft;
 
 }
 
@@ -221,6 +225,12 @@ void j1Player::MoveX(float dt)
 	if (abs(LJdirection_x) > multipliermin)
 	{
 		LJdirection_x *= Entityinfo.Speed*dt;
+
+		if (RJinverted)
+		{
+			LJdirection_x *= -1;
+		}
+
 		Future_position.x += LJdirection_x;
 	}
 
@@ -236,6 +246,12 @@ void j1Player::MoveY(float dt)
 	if (abs(LJdirection_y) > multipliermin)
 	{
 		LJdirection_y *= Entityinfo.Speed*dt;
+
+		if (RJinverted)
+		{
+			LJdirection_y *= -1;
+		}
+
 		Future_position.y += LJdirection_y;
 	}
 
@@ -279,70 +295,229 @@ void j1Player::HandleInput()
 
 	//--------------
 
-	// --- Fill in particle info ---
-	//playerinfo.characterdata.basic_attack.speed.x = RJdirection_x * 300;
-	//playerinfo.characterdata.basic_attack.speed.y = RJdirection_y * 300;
-	playerinfo.characterdata.basic_attack.direction.x = RJdirection_x;
-	playerinfo.characterdata.basic_attack.direction.y = RJdirection_y;
-	playerinfo.characterdata.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x) /** (180.0f / M_PI)*/;
-
 	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
-
 	//LOG("direction_x: %f", RJdirection_x);
 	//LOG("direction_y: %f", RJdirection_y);
 }
 
-void j1Player::HandleSuperAttacks(PLAYER ID)
+void j1Player::HandleAttacks()
 {
-	superTimer.Start();
-
-	// --- To be changed for enum class Character ---
-
-	switch (ID)
+	// --- Attack according to input ---
+	if (PlayerState == PSTATE::ATTACKING && basicTimer.ReadSec() > 0.5f)
 	{
-	case PLAYER::P1:
+		// --- We reset the basic attack timer and the attack animation timer ---
+		attackanimTimer.Start();
+		basicTimer.Start();
+
+		// --- Firing the particle and playing character specific fx ---
+
+		last_particle = App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8 * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+
+		App->audio->PlayFx(this->playerinfo.basic_fx);
+	}
+
+	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN)
+		superON = true;
+
+	else if (superON && App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_UP)
+	{
+		superON = false;
+		HandleSuperAttacks();
+	}
+}
+
+void j1Player::HandleShield()
+{
+	// --- Shield according to input ---
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	{
+		shieldTimer.Start();
+		shieldDuration.Start();
+		shieldON = true;
+		//LOG("shield on");
+		GetIdleAnimation();
+		CurrentShieldAnimation = &manager->shield_anim;
+		manager->shieldEnd_anim.Reset();
+	}
+	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
+	{
+		//LOG("shield off");
+		CurrentShieldAnimation = &manager->shieldEnd_anim;
+		manager->shield_anim.Reset();
+		shieldON = false;
+	}
+	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
+	{
+		//LOG("shield off");
+		CurrentShieldAnimation = &manager->shieldEnd_anim;
+		manager->shield_anim.Reset();
+		shieldON = false;
+	}
+}
+
+void j1Player::HandleSuperAttacks()
+{
+	switch (character)
+	{
+	case CHARACTER::WENDOLIN:
 		Launch1stSuper();
 		break;
-	case PLAYER::P2:
-		Launch1stSuper();
+	case CHARACTER::SIMON:
+		Launch2ndSuper();
 		break;
-	case PLAYER::P3:
-		Launch1stSuper();
+	case CHARACTER::TRAKT:
+		Launch3rdSuper();
 		break;
-	case PLAYER::P4:
-		Launch1stSuper();
+	case CHARACTER::MELIADOUL:
+		Launch4thSuper();
 		break;
 	default:
 		break;
 	}
+}
 
-	// ALPHA_FIX this is hardcoded since we don't have the data to determine which character is selected for each player
-	// this effect should be under an if statement determined by the switch above, taking into account the character each player is using
-	App->audio->PlayFx(App->audio->fxWendolinSpecial);
+void j1Player::BlitSuperAimPaths(float dt)
+{
+	switch (character)
+	{
+	case CHARACTER::WENDOLIN:
+		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260},0,0,0,0,0, Entityinfo.scale);
+		break;
+	case CHARACTER::SIMON:
+	
+		break;
+	case CHARACTER::TRAKT:
+		
+		break;
+	case CHARACTER::MELIADOUL:
+		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+		App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+		break;
+	default:
+		break;
+	}
 }
 
 void j1Player::Launch1stSuper()
 {
-
-	for (int i = 1; i < 17; ++i)
+	if (superTimer.ReadSec() > 5.0f)
 	{
-		playerinfo.characterdata.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		for (int i = 1; i < 17; ++i)
+		{
+			playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f * Entityinfo.scale) , this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		}
+
+		superTimer.Start();
+		App->audio->PlayFx(this->playerinfo.super_fx);
+	}
+}
+
+void j1Player::Launch2ndSuper()
+{
+	if (superTimer.ReadSec() > 5.0f)
+	{
+		float damage_radius = 150.0f * Entityinfo.scale;
+
+		if (last_particle != nullptr && last_particle->toDelete != true)
+		{
+			superTimer.Start();
+			App->audio->PlayFx(this->playerinfo.super_fx);
+			this->Future_position.x = last_particle->pos.x;
+			this->Future_position.y = last_particle->pos.y;
+
+			ComputeDistance2players();
+
+			if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
+
+			if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
+
+			if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
+
+			if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
+				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+		}
+	}
+}
+
+void j1Player::Launch3rdSuper()
+{
+	superTimer.Start();
+	App->audio->PlayFx(this->playerinfo.super_fx);
+
+	if (this != App->scene->player1)
+	{
+		App->scene->player1->RJinverted = true;
+		App->scene->player1->RJinversion.Start();
 	}
 
+	if (this != App->scene->player2)
+	{
+		App->scene->player2->RJinverted = true;
+		App->scene->player2->RJinversion.Start();
+	}
+
+	if (this != App->scene->player3)
+	{
+		App->scene->player3->RJinverted = true;
+		App->scene->player3->RJinversion.Start();
+	}
+
+	if (this != App->scene->player4)
+	{
+		App->scene->player4->RJinverted = true;
+		App->scene->player4->RJinversion.Start();
+	}
+}
+
+void j1Player::Launch4thSuper()
+{
+	if ((abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
+		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE)
+		&& superTimer.ReadSec() > 5.0f)
+	{
+		superTimer.Start();
+		App->audio->PlayFx(this->playerinfo.super_fx);
+
+		float angle = std::atan2(RJdirection_y, RJdirection_x) - 45.0f*(M_PI / 180.0f);
+
+		// --- First round of axes ---
+		for (int i = 1; i < 4; ++i)
+		{
+			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		}
+
+		// --- 2nd round of axes ---
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
+
+		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
+	}
 }
 
 bool j1Player::Update(float dt)
 {
 	HandleInput();
 
-	if (abs(LJAxisx_value) > JOYSTICK_DEAD_ZONE 
+	if (abs(LJAxisx_value) > JOYSTICK_DEAD_ZONE
 		|| abs(LJAxisy_value) > JOYSTICK_DEAD_ZONE
 		|| abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
 		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE
+		|| App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT
 		)
 		HandleAnimations();
-	
+
 	if (PlayerState == PSTATE::IDLE)
 		GetIdleAnimation();
 
@@ -350,6 +525,8 @@ bool j1Player::Update(float dt)
 
 	MoveY(dt);
 
+	if (RJinversion.ReadSec() > 2.5f && RJinverted)
+		RJinverted = false;
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
@@ -362,24 +539,36 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	//if (PlayerLayerOrder() == true)
-	//{
-	//	App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
-	//}
-	//else
-	//{
 	if (PlayerPrintOnTop == true)
-	{
-		App->view->PushQueue(7, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
-	}
+		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
 	else
-	{
-		App->view->PushQueue(5, spritesheet, this->Entityinfo.position.x, this->Entityinfo.position.y - 65, CurrentAnimation->GetCurrentFrame(dt));
-	}
-	//}
+		App->view->PushQueue(5, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
+	
 
-	if(shieldON)
-		App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x + 12, this->Entityinfo.position.y - 15, SDL_Rect{0,0,46,50});
+	// --- IDCircle Animations ---
+	if (!shieldON && superTimer.ReadSec() < 5 && shieldTimer.ReadSec() > 10.0f)
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+
+	else if (!shieldON && superTimer.ReadSec() > 5 && shieldTimer.ReadSec() > 10.0f)
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+
+	else if (shieldTimer.ReadSec() < 10.0f && superTimer.ReadSec() > 5)
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+
+	else
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(6 * Entityinfo.scale), this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
+
+
+	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
+	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(12 * Entityinfo.scale), this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentShieldAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
+
+	// --- Basic Attack aim path ---
+	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+
+	// --- Super Attack ---
+	if(superON)
+	BlitSuperAimPaths(dt);
 
 	return ret;
 }
@@ -414,65 +603,61 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			EntityMovement = MOVEMENT::UPWARDS;
 		break;
 	}
-	
-		switch (EntityMovement)
+
+	switch (EntityMovement)
+	{
+	case MOVEMENT::RIGHTWARDS:
+		Right_Collision(entitycollider, to_check);
+		break;
+	case MOVEMENT::LEFTWARDS:
+		Left_Collision(entitycollider, to_check);
+		break;
+	case MOVEMENT::UPWARDS:
+		Up_Collision(entitycollider, to_check);
+		break;
+	case MOVEMENT::DOWNWARDS:
+		Down_Collision(entitycollider, to_check);
+		break;
+	}
+
+	if (!shieldON)
+	{
+		switch (to_check->type)
 		{
-		case MOVEMENT::RIGHTWARDS:
-			Right_Collision(entitycollider, to_check);
+		case COLLIDER_TYPE::COLLIDER_PARTICLE:
+			CheckParticleCollision(entitycollider, to_check);
 			break;
-		case MOVEMENT::LEFTWARDS:
-			Left_Collision(entitycollider, to_check);
-			break;
-		case MOVEMENT::UPWARDS:
-			Up_Collision(entitycollider, to_check);
-			break;
-		case MOVEMENT::DOWNWARDS:
-			Down_Collision(entitycollider, to_check);
+		case COLLIDER_TYPE::COLLIDER_STORM:
+			float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
+			App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
 			break;
 		}
-
-		if (!shieldON)
+	}
+	else
+	{
+		int shield_fx = rand() % 2 + 1;
+		switch (shield_fx)
 		{
-			switch (to_check->type)
-			{
-			case COLLIDER_TYPE::COLLIDER_PARTICLE:
-				CheckParticleCollision(entitycollider, to_check);
-				break;
-			case COLLIDER_TYPE::COLLIDER_STORM:
-				float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
-				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
-				break;
-			}
+		case 1:
+			App->audio->PlayFx(App->audio->fxShieldHit1);
+			break;
+		case 2:
+			App->audio->PlayFx(App->audio->fxShieldHit2);
+			break;
 		}
-		else
-		{
-			int shield_fx = rand() % 2 +1;
-			switch (shield_fx)
-			{
-			case 1:
-				App->audio->PlayFx(App->audio->fxShieldHit1);
-				break;
-			case 2:
-				App->audio->PlayFx(App->audio->fxShieldHit2);
-				break;
-			}
-		}
+	}
 
-		// --- On player death, deactivate it ---
-		if (this->Entityinfo.health <= 0.0f)
-		{
-			P_rank = RANK::LOSER;
-			this->active = false;
-			this->Entityinfo.entitycoll->rect.x = 0;
-			this->Entityinfo.entitycoll->rect.y = 0;
+	// --- On player death, deactivate it ---
+	if (this->Entityinfo.health <= 0.0f)
+	{
+		P_rank = RANK::LOSER;
+		this->active = false;
+		this->Entityinfo.entitycoll->rect.x = 0;
+		this->Entityinfo.entitycoll->rect.y = 0;
 
-			// ALPHA_FIX This is hardcoded for now sincewe only have 1 character and basically selctions screen is a 
-			// placebo because we don't store the info oon which character was selected
-			App->audio->PlayFx(App->audio->fxWendolinDeath);
-		}
+		App->audio->PlayFx(this->playerinfo.basic_fx);
+	}
 
-		Future_position.x = entitycollider->rect.x;
-		Future_position.y = entitycollider->rect.y;
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)
@@ -483,10 +668,17 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
+	default:
+
+	break;
 	}
 }
 
@@ -498,9 +690,16 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 }
@@ -513,9 +712,16 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 }
@@ -528,9 +734,16 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
 		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	default:
+
 		break;
 	}
 
@@ -538,7 +751,7 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 
 void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider * to_check)
 {
-	Particle* pcollided = App->particlesys->GetCollidedParticle(entitycollider,to_check);
+	Particle* pcollided = App->particlesys->GetCollidedParticle(entitycollider, to_check);
 
 	if (pcollided && pcollided->originplayer != this)
 	{
@@ -589,6 +802,94 @@ bool j1Player::Save(pugi::xml_node &config) const
 	return true;
 }
 
+void j1Player::AssignCharacter()
+{
+	switch (this->character)
+	{
+	case CHARACTER::WENDOLIN:
+		this->playerinfo = manager->Wendolin;
+		break;
+	case CHARACTER::MELIADOUL:
+		this->playerinfo = manager->Meliadoul;
+		break;
+	case CHARACTER::SIMON:
+		this->playerinfo = manager->Simon;
+		break;
+	case CHARACTER::TRAKT:
+		this->playerinfo = manager->Trakt;
+		break;
+	default:
+		break;
+	}
+}
+
+void j1Player::ComputeDistance2players()
+{
+	directionP1.x = App->scene->player1->Future_position.x - this->Future_position.x;
+	directionP1.y = App->scene->player1->Future_position.y - this->Future_position.y;
+	absoluteDistanceP1 = sqrtf(pow(directionP1.x, 2.0f) + pow(directionP1.y, 2.0f));
+
+	directionP2.x = App->scene->player2->Future_position.x - this->Future_position.x;
+	directionP2.y = App->scene->player2->Future_position.y - this->Future_position.y;
+	absoluteDistanceP2 = sqrtf(pow(directionP2.x, 2.0f) + pow(directionP2.y, 2.0f));
+
+	directionP3.x = App->scene->player3->Future_position.x - this->Future_position.x;
+	directionP3.y = App->scene->player3->Future_position.y - this->Future_position.y;
+	absoluteDistanceP3 = sqrtf(pow(directionP3.x, 2.0f) + pow(directionP3.y, 2.0f));
+
+	directionP4.x = App->scene->player4->Future_position.x - this->Future_position.x;
+	directionP4.y = App->scene->player4->Future_position.y - this->Future_position.y;
+	absoluteDistanceP4 = sqrtf(pow(directionP4.x, 2.0f) + pow(directionP4.y, 2.0f));
+}
+
+const fPoint j1Player::GetNearestPlayerDirection()
+{
+	fPoint direction = { 0.0f,0.0f };
+	directionP1 = { 0.0f,0.0f };
+	directionP2 = { 0.0f,0.0f };
+	directionP3 = { 0.0f,0.0f };
+	directionP4 = { 0.0f,0.0f };
+
+	float absoluteDistance = 0.0f;
+	absoluteDistanceP1 = 0.0f;
+	absoluteDistanceP2 = 0.0f;
+	absoluteDistanceP3 = 0.0f;
+	absoluteDistanceP4 = 0.0f;
+
+	// --- Distances to all players ---
+	ComputeDistance2players();
+
+	// --- We need Absolute Distance to nearest player ---
+	if(App->scene->player1->active)
+	absoluteDistance = absoluteDistanceP1;
+
+	if (((absoluteDistanceP2 < absoluteDistance && absoluteDistanceP2 != 0.0f) || absoluteDistance == 0.0f) && App->scene->player2->active)
+		absoluteDistance = absoluteDistanceP2;
+	if (absoluteDistanceP3 < absoluteDistance && absoluteDistanceP3 != 0.0f && App->scene->player3->active)
+		absoluteDistance = absoluteDistanceP3;
+	if (absoluteDistanceP4 < absoluteDistance && absoluteDistanceP4 != 0.0f && App->scene->player4->active)
+		absoluteDistance = absoluteDistanceP4;
+
+	// --- If the nearest player is in the auto aim radius ---
+	if (absoluteDistance < Aim_Radius)
+	{
+		if (absoluteDistance == absoluteDistanceP1)
+			direction = directionP1;
+
+		else if (absoluteDistance == absoluteDistanceP2)
+			direction = directionP2;
+
+		else if (absoluteDistance == absoluteDistanceP3)
+			direction = directionP3;
+
+		else if (absoluteDistance == absoluteDistanceP4)
+			direction = directionP4;
+	}
+
+	return direction;
+}
+
+
 bool j1Player::CleanUp()
 {
 	/*App->tex->UnLoad(spritesheet);*/
@@ -612,87 +913,13 @@ void j1Player::LogicUpdate(float dt)
 
 	EntityMovement = MOVEMENT::STATIC;
 
-	// --- Attack according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_UP) && PlayerState == PSTATE::ATTACKING
-		&& basicTimer.ReadSec() > 0.5f)
-	{
-		basicTimer.Start();
-		App->particlesys->AddParticle(playerinfo.characterdata.basic_attack, this->Entityinfo.position.x + 20, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-		// ALPHA_FIX same hardcode as before, no player data means there's still no condition to change the sound accordingly
-		App->audio->PlayFx(App->audio->fxWendolinBasic);
-	}
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN) && superTimer.ReadSec() > 5.0f)
-		HandleSuperAttacks(ID);
+	HandleAttacks();
 
-	// --- Shield according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
-	{
-		shieldTimer.Start();
-		shieldDuration.Start();
-		shieldON = true;
-		LOG("shield on");
-		GetIdleAnimation();
-	}
-	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSTICK) == KEY_DOWN) && shieldON)
-	{
-		LOG("shield off");
-		shieldON = false;
-	}
-	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
-	{
-		LOG("shield off");
-		shieldON = false;
-	}
+	HandleShield();
 
 	PlayerState = PSTATE::IDLE;
 
-	if(!shieldON)
-	Update(dt);
-
+	if (!shieldON)
+		Update(dt);
 
 }
-
-//bool j1Player::PlayerLayerOrder()
-//{
-//	std::list<MapLayer*>::const_iterator item = App->map->data.layers.begin();
-//
-//	bool ret = false;
-//
-//	for (; item != App->map->data.layers.end(); ++item)
-//	{
-//		App->map->layerr = *item;
-//
-//		uint counter = 0;
-//
-//		for (int y = 0; y < App->map->data.height; ++y)
-//		{
-//			for (int x = 0; x < App->map->data.width; ++x)
-//			{
-//				int tile_id = App->map->layerr->Get(x, y);
-//				if (tile_id > 0)
-//				{
-//					iPoint pos = App->map->MapToWorld(x, y);
-//
-//
-//					if (App->map->layerr->name == "walls" && (App->map->layerr->data[counter] == 19 || App->map->layerr->data[counter] == 20 || App->map->layerr->data[counter] == 21 ||
-//						App->map->layerr->data[counter] == 47 || App->map->layerr->data[counter] == 48 || App->map->layerr->data[counter] == 49 || 
-//						App->map->layerr->data[counter] == 75 || App->map->layerr->data[counter] == 76 || App->map->layerr->data[counter] == 77 ||
-//						App->map->layerr->data[counter] == 103 || App->map->layerr->data[counter] == 104 || App->map->layerr->data[counter] == 105 || 
-//						App->map->layerr->data[counter] == 131 || App->map->layerr->data[counter] == 132 || App->map->layerr->data[counter] == 133 ||
-//						App->map->layerr->data[counter] == 159 || App->map->layerr->data[counter] == 160 || App->map->layerr->data[counter] == 161 ||
-//						App->map->layerr->data[counter] == 187 || App->map->layerr->data[counter] == 188 || App->map->layerr->data[counter] == 189 ||
-//						App->map->layerr->data[counter] == 215 || App->map->layerr->data[counter] == 216 || App->map->layerr->data[counter] == 217 ))
-//					{
-//						if (pos.y < Entityinfo.entitycoll->rect.y)
-//						{
-//							ret = true;
-//						}
-//					}
-//	
-//				}
-//				counter++;
-//			}
-//		}
-//	}
-//	return ret;
-//}

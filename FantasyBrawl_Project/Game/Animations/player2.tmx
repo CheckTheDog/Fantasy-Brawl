@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="400" height="1250" tilewidth="1" tileheight="1" infinite="0" nextlayerid="28" nextobjectid="186">
  <imagelayer id="3" name="spritesheet" locked="1">
-  <image source="../textures/Wendolin Red Sprite 2x.png" width="396" height="1232"/>
+  <image source="../textures/Trakt Yellow Sprite 2x.png" width="396" height="1232"/>
  </imagelayer>
  <objectgroup id="4" name="idleDownleft">
   <object id="103" x="0" y="0" width="66" height="88"/>

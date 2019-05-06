@@ -12,47 +12,53 @@ enum class PLAYER;
 
 #define JOYSTICK_DEAD_ZONE 8000
 
-struct CharacterData
+enum class CHARACTER
 {
-	Particle basic_attack;
+	WENDOLIN,
+	MELIADOUL,
+	SIMON,
+	TRAKT,
+	NONE
 };
 
 struct Playerdata {
 
-	Animation* idleRight = nullptr;
-	Animation* idleLeft = nullptr;
-	Animation* idleUp = nullptr;
-	Animation* idleUpright = nullptr;
-	Animation* idleUpleft = nullptr;
-	Animation* idleDown = nullptr;
-	Animation* idleDownright = nullptr;
-	Animation* idleDownleft = nullptr;
+	Animation idleRight;
+	Animation idleLeft;
+	Animation idleUp;
+	Animation idleUpright;
+	Animation idleUpleft;
+	Animation idleDown;
+	Animation idleDownright;
+	Animation idleDownleft;
 
-	Animation* moveRight = nullptr;
-	Animation* moveLeft = nullptr;
-	Animation* moveUp = nullptr;
-	Animation* moveUpright = nullptr;
-	Animation* moveUpleft = nullptr;
-	Animation* moveDown = nullptr;
-	Animation* moveDownright = nullptr;
-	Animation* moveDownleft = nullptr;
+	Animation moveRight;
+	Animation moveLeft;
+	Animation moveUp;
+	Animation moveUpright;
+	Animation moveUpleft;
+	Animation moveDown;
+	Animation moveDownright;
+	Animation moveDownleft;
 
-	Animation* attackRight = nullptr;
-	Animation* attackLeft = nullptr;
-	Animation* attackUp = nullptr;
-	Animation* attackUpright = nullptr;
-	Animation* attackUpleft = nullptr;
-	Animation* attackDown = nullptr;
-	Animation* attackDownright = nullptr;
-	Animation* attackDownleft = nullptr;
+	Animation attackRight;
+	Animation attackLeft;
+	Animation attackUp;
+	Animation attackUpright;
+	Animation attackUpleft;
+	Animation attackDown;
+	Animation attackDownright;
+	Animation attackDownleft;
 
 	std::string folder;
 	std::string Texture;
+	SDL_Texture* tex = nullptr;
+
+	Particle basic_attack;
+	uint basic_fx = 0;
+	uint super_fx = 0;
 
 	SDL_Rect playerrect = { 0,0,0,0 };
-
-	// --- Characters ---
-	CharacterData characterdata;
 };
 
 enum class MOVEMENT
@@ -75,7 +81,8 @@ enum class PSTATE
 {
 	MOVING,
 	ATTACKING,
-	IDLE
+	IDLE,
+	NONE
 };
 
 enum class RANK
@@ -117,6 +124,11 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	// --- Character && Player ---
+	void AssignCharacter();
+	const fPoint GetNearestPlayerDirection();
+	void ComputeDistance2players();
+
 	// --- Collisions Handling ---
 
 	void OnCollision(Collider* c1, Collider* c2);
@@ -133,12 +145,18 @@ public:
 
 	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
 
-	//bool PlayerLayerOrder();
 
 	// --- Entity Attacks ---
+	void HandleAttacks();
+	void HandleShield();
+	void HandleSuperAttacks();
+	void BlitSuperAimPaths(float dt);
 
-	void HandleSuperAttacks(PLAYER ID);
+	// --- Character Specific Super Attacks ---
 	void Launch1stSuper();
+	void Launch2ndSuper();
+	void Launch3rdSuper();
+	void Launch4thSuper();
 
 public:
 
@@ -146,6 +164,7 @@ public:
 	PLAYER ID;
 	Playerdata playerinfo;
 	PSTATE PlayerState;
+	CHARACTER character = CHARACTER::NONE;
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };
@@ -154,6 +173,7 @@ public:
 
 	// --- Gamepad Input ---
 	float multipliermin = 0.1f;
+	bool RJinverted = false;
 
 	// Left Joystick LJ 
 	float LJAxisx_value = 0.0f;
@@ -177,11 +197,38 @@ public:
 	j1Timer shieldTimer;
 	j1Timer shieldDuration;
 	j1Timer basicTimer;
+	j1Timer attackanimTimer;
+	j1Timer RJinversion;
 	bool shieldON = false;
+	bool superON = false;
 
 	// --- Score ---
 	uint kills = 0;
 	RANK P_rank = RANK::CONTENDER;
+
+	// --- Auto aim ---
+	float Aim_Radius = 300.0f;
+
+	// --- Particles ---
+	Particle * last_particle = nullptr;
+
+	// --- Distances to players ---
+	float absoluteDistanceP1 = 0.0f;
+	float absoluteDistanceP2 = 0.0f;
+	float absoluteDistanceP3 = 0.0f;
+	float absoluteDistanceP4 = 0.0f;
+
+	fPoint directionP1 = { 0.0f,0.0f };
+	fPoint directionP2 = { 0.0f,0.0f };
+	fPoint directionP3 = { 0.0f,0.0f };
+	fPoint directionP4 = { 0.0f,0.0f };
+
+	// --- IDCircle ---
+	Animation * CurrentIDCircleAnimation = nullptr;
+
+	// --- Shield ---
+	Animation * CurrentShieldAnimation = nullptr;
+
 };
 
 #endif // __j1Player_H__

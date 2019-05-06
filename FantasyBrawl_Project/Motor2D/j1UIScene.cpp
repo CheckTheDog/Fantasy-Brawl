@@ -412,24 +412,24 @@ bool j1UIScene::Update(float dt)
 	}
 		
 	//UPDATING HP BARS POSITION
-	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - hp_bar1->section.w / 3;
-	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 125;				 
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - hp_bar2->section.w / 3;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 125;				 
-	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - hp_bar3->section.w / 3;
-	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 125;				 
-	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - hp_bar4->section.w / 3;
-	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 125;				 
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;				 
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;				 
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;				 
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;				 
 																								 
 	//UPDATING SP BARS POSITION																	 
-	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - sp_bar1->section.w / 3 + 1;
-	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;				 
-	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - sp_bar2->section.w / 3 + 1;
-	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;				 
-	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - sp_bar3->section.w / 3 + 1;
-	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;				 
-	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - sp_bar4->section.w / 3 + 1;
-	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;
+	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 75;				 
+	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 75;				 
+	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 75;				 
+	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 75;
 	
 	if (player1_select == true)
 	{

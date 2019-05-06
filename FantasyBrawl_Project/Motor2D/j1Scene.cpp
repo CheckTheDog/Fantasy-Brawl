@@ -96,14 +96,47 @@ bool j1Scene::Start()
 
 	entity_info player_info;
 
+	player_info.scale = 0.66f;
+
+	player_info.IDCircle = App->entities->IDCircle_red;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_red;
+	player_info.IDCircleshield = App->entities->IDCircleshield_red;
+	player_info.IDCircleboth = App->entities->IDCircleboth_red;
+
 	player_info.position = initialposP1;
-	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player1info);
+	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Wendolin);
+	player1->character = CHARACTER::WENDOLIN;
+	player1->AssignCharacter();
+
+	player_info.IDCircle = App->entities->IDCircle_green;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_green;
+	player_info.IDCircleshield = App->entities->IDCircleshield_green;
+	player_info.IDCircleboth = App->entities->IDCircleboth_green;
+
 	player_info.position = initialposP2;
-	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player2info);
+	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Simon);
+	player2->character = CHARACTER::SIMON;
+	player2->AssignCharacter();
+
+	player_info.IDCircle = App->entities->IDCircle_blue;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_blue;
+	player_info.IDCircleshield = App->entities->IDCircleshield_blue;
+	player_info.IDCircleboth = App->entities->IDCircleboth_blue;
+
 	player_info.position = initialposP3;
-	player3 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player3info);
+	player3 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Trakt);
+	player3->character = CHARACTER::TRAKT;
+	player3->AssignCharacter();
+
+	player_info.IDCircle = App->entities->IDCircle_yellow;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_yellow;
+	player_info.IDCircleshield = App->entities->IDCircleshield_yellow;
+	player_info.IDCircleboth = App->entities->IDCircleboth_yellow;
+
 	player_info.position = initialposP4;
-	player4 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->player4info);
+	player4 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Meliadoul);
+	player4->character = CHARACTER::MELIADOUL;
+	player4->AssignCharacter();
 
 	return true;
 }
@@ -140,10 +173,10 @@ void j1Scene::ResetAll()
 	player4->Entityinfo.entitycoll->rect.y = initialposP4.y;
 
 	// --- Put all players to idleDown animation ---
-	player1->CurrentAnimation = player1->playerinfo.idleDown;
-	player2->CurrentAnimation = player2->playerinfo.idleDown;
-	player3->CurrentAnimation = player3->playerinfo.idleDown;
-	player4->CurrentAnimation = player4->playerinfo.idleDown;
+	player1->CurrentAnimation = &player1->playerinfo.idleDown;
+	player2->CurrentAnimation = &player2->playerinfo.idleDown;
+	player3->CurrentAnimation = &player3->playerinfo.idleDown;
+	player4->CurrentAnimation = &player4->playerinfo.idleDown;
 
 	// --- Reset Players State and Movement status ---
 	player1->EntityMovement = MOVEMENT::STATIC;

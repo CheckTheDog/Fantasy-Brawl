@@ -76,14 +76,53 @@ public:
 	float				update_ms_cycle = 0;
 	uint playerid = 0;
 	// --- Player ---
-	Playerdata player1info;
-	Playerdata player2info;
-	Playerdata player3info;
-	Playerdata player4info;
+	Playerdata Wendolin;
+	Playerdata Simon;
+	Playerdata Trakt;
+	Playerdata Meliadoul;
 	AnimationRanges animranges;
 
 	SDL_Texture* shield_texture = nullptr;
 	std::string shield_texturepath;
+	Animation shield_anim;
+	Animation shieldEnd_anim;
+
+	// --- Aim paths ---
+	SDL_Texture * aimpath = nullptr;
+	SDL_Texture * WendolinSuper_aimpath = nullptr;
+	SDL_Texture * SimonSuper_aimpath = nullptr;
+	SDL_Texture * TraktSuper_aimpath = nullptr;
+	SDL_Texture * MeliadoulSuper_aimpath = nullptr;
+
+	// --- Particles ---
+	SDL_Texture * Dagger_texture = nullptr;
+	SDL_Texture * budu_texture = nullptr;
+	SDL_Texture * axe_texture = nullptr;
+	SDL_Texture * inkball_texture = nullptr;
+
+	// --- ID Circle animations ---
+	std::string circle_texturepath;
+	SDL_Texture* circlesprites = nullptr;
+	Animation IDCircle_red;
+	Animation IDCirclesuper_red;
+	Animation IDCircleshield_red;
+	Animation IDCircleboth_red;
+
+	Animation IDCircle_green;
+	Animation IDCirclesuper_green;
+	Animation IDCircleshield_green;
+	Animation IDCircleboth_green;
+
+	Animation IDCircle_blue;
+	Animation IDCirclesuper_blue;
+	Animation IDCircleshield_blue;
+	Animation IDCircleboth_blue;
+
+	Animation IDCircle_yellow;
+	Animation IDCirclesuper_yellow;
+	Animation IDCircleshield_yellow;
+	Animation IDCircleboth_yellow;
+
 };
 
 #endif // __J1ENTITYMANAGER_H__
