@@ -18,7 +18,7 @@ void Image::BlitElement()
 	{
 		multiplier = (App->scene->player1->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player1->active)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
 		
@@ -28,7 +28,7 @@ void Image::BlitElement()
 	{
 		multiplier = (App->scene->player2->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if(App->scene->player2->active)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
 	}
@@ -37,7 +37,7 @@ void Image::BlitElement()
 	{
 		multiplier = (App->scene->player3->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player3->active)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
 	}
@@ -46,7 +46,7 @@ void Image::BlitElement()
 	{
 		multiplier = (App->scene->player4->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player4->active)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
 	}
@@ -62,9 +62,9 @@ void Image::BlitElement()
 
 		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player1->active)
-		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,1);
 	}
 
 	else if (this == App->ui_scene->sp_bar2)
@@ -78,9 +78,9 @@ void Image::BlitElement()
 
 		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player2->active)
-		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,2);
 	}
 
 	else if (this == App->ui_scene->sp_bar3)
@@ -94,9 +94,9 @@ void Image::BlitElement()
 
 		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player3->active)
-		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,3);
 	}
 
 	else if (this == App->ui_scene->sp_bar4)
@@ -110,9 +110,9 @@ void Image::BlitElement()
 
 		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
-		/*App->render->Blit(texture, globalPos.x, globalPos.y, &tmp_section);*/
+
 		if (App->scene->player4->active)
-		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section);
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,4);
 	}
 
 	else

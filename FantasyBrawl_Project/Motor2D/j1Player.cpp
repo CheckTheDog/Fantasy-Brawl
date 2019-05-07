@@ -381,7 +381,7 @@ void j1Player::BlitSuperAimPaths(float dt)
 	switch (character)
 	{
 	case CHARACTER::WENDOLIN:
-		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260},0,0,0,0,0, Entityinfo.scale);
+		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale);
 		break;
 	case CHARACTER::SIMON:
 	
@@ -391,7 +391,7 @@ void j1Player::BlitSuperAimPaths(float dt)
 		break;
 	case CHARACTER::MELIADOUL:
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-		App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+		App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
 		break;
 	default:
 		break;
@@ -547,13 +547,13 @@ bool j1Player::PostUpdate(float dt)
 
 	// --- IDCircle Animations ---
 	if (!shieldON && superTimer.ReadSec() < 5 && shieldTimer.ReadSec() > 10.0f)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale);
 
 	else if (!shieldON && superTimer.ReadSec() > 5 && shieldTimer.ReadSec() > 10.0f)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale);
 
 	else if (shieldTimer.ReadSec() < 10.0f && superTimer.ReadSec() > 5)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, Entityinfo.scale);
 
 	else
 		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(6 * Entityinfo.scale), this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
@@ -564,7 +564,7 @@ bool j1Player::PostUpdate(float dt)
 
 	// --- Basic Attack aim path ---
 	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
 
 	// --- Super Attack ---
 	if(superON)
@@ -865,9 +865,9 @@ const fPoint j1Player::GetNearestPlayerDirection()
 
 	if (((absoluteDistanceP2 < absoluteDistance && absoluteDistanceP2 != 0.0f) || absoluteDistance == 0.0f) && App->scene->player2->active)
 		absoluteDistance = absoluteDistanceP2;
-	if (absoluteDistanceP3 < absoluteDistance && absoluteDistanceP3 != 0.0f && App->scene->player3->active)
+	if (((absoluteDistanceP3 < absoluteDistance && absoluteDistanceP3 != 0.0f) || absoluteDistance == 0.0f) && App->scene->player3->active)
 		absoluteDistance = absoluteDistanceP3;
-	if (absoluteDistanceP4 < absoluteDistance && absoluteDistanceP4 != 0.0f && App->scene->player4->active)
+	if (((absoluteDistanceP4 < absoluteDistance && absoluteDistanceP4 != 0.0f) || absoluteDistance == 0.0f) && App->scene->player4->active)
 		absoluteDistance = absoluteDistanceP4;
 
 	// --- If the nearest player is in the auto aim radius ---
