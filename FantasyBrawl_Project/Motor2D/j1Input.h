@@ -14,6 +14,7 @@
 struct SDL_Rect;
 struct _SDL_GameController;
 struct _SDL_Haptic;
+struct SDL_GameControllerButtonBind;
 
 
 enum j1EventWindow
@@ -42,6 +43,14 @@ enum GP_BUTTON_STATE
 	BUTTON_UP
 };
 
+enum class BUTTON_BIND
+{
+	BASIC_ATTACK = 0,
+	SUPER_ATTACK,
+	SHIELD,
+	MAX_BUTTON_BIND
+};
+
 enum class PLAYER
 {
 	P1 = 0,
@@ -61,6 +70,8 @@ struct Gamepad
 	GP_BUTTON_STATE* buttons = nullptr;
 	int* axis = nullptr;
 	int index = -1;
+
+	SDL_GameControllerButtonBind* binded_buttons = nullptr;
 };
 
 class j1Input : public j1Module
@@ -116,6 +127,14 @@ public:
 		else
 			return 0;
 	}
+
+	// Check gamepad button bind. 
+	GP_BUTTON_STATE GetButton(PLAYER p, BUTTON_BIND id) const;
+
+	//Bind a button to an action
+	void BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind);
+
+	
 
 	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
 	void ShakeController(PLAYER p, float intensity, uint32 length);

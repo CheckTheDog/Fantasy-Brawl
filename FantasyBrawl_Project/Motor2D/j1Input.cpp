@@ -25,6 +25,10 @@ j1Input::j1Input() : j1Module()
 
 		controllers[i].axis = new int[SDL_CONTROLLER_AXIS_MAX];
 		memset(controllers[i].axis, 0, sizeof(int) * SDL_CONTROLLER_AXIS_MAX);
+
+		//Allocate space for button binders
+		controllers[i].binded_buttons = new SDL_GameControllerButtonBind[uint(BUTTON_BIND::MAX_BUTTON_BIND)];
+		memset(controllers[i].binded_buttons, SDL_CONTROLLER_BUTTON_MAX, sizeof(SDL_GameControllerButtonBind) * (int)BUTTON_BIND::MAX_BUTTON_BIND);
 	}
 }
 
@@ -268,6 +272,11 @@ bool j1Input::CleanUp()
 
 		delete[] controllers[i].buttons;
 		delete[] controllers[i].axis;
+		delete[] controllers[i].binded_buttons;
+		
+		/*controllers[i].buttons = nullptr;
+		controllers[i].axis = nullptr;
+		controllers[i].binded_buttons = nullptr;*/
 	}
 
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
@@ -283,6 +292,19 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 	return windowEvents[ev];
 }
 
+
+GP_BUTTON_STATE j1Input::GetButton(PLAYER p, BUTTON_BIND id) const
+{
+	if (controllers[(int)p].id_ptr != nullptr && controllers[(int)p].binded_buttons[(int)id].bindType == SDL_CONTROLLER_BINDTYPE_BUTTON)
+		return controllers[(int)p].buttons[controllers[(int)p].binded_buttons[(int)id].value.button];
+	else
+		return BUTTON_IDLE;
+}
+
+void j1Input::BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind)
+{
+	controllers[(int)p].binded_buttons[(int)bind] = SDL_GameControllerGetBindForButton(controllers[(int)p].id_ptr, (SDL_GameControllerButton)button_to_bind);
+}
 
 void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
 {
