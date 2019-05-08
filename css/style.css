@@ -37,7 +37,7 @@ p
 /* start nagivation */
 .navbar-default
     {
-        background: #20b87f;
+        background: #fff;
         border: none;
         box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
         margin: 0 !important;
@@ -56,12 +56,12 @@ p
     }
 .navbar-default .navbar-nav li a:hover
     {
-        color: #20b87f;
+        color: #b83720;
     }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #ff8000;
+  color: #b83720;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle
