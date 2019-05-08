@@ -191,8 +191,10 @@ bool j1Input::PreUpdate()
 							// This index will assign the proper index for a gamapd that has been connected once
 							// in case it is disconnected and connected again it will use the value of the var 
 							// at the moment of opening the gamepad
-							if (index_addition_controllers < MAX_GAMEPADS - 1) 
+							if (index_addition_controllers < MAX_GAMEPADS - 1)
 								index_addition_controllers++;
+		
+								LoadConfigBinding();
 
 							break;
 						}
@@ -328,4 +330,27 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+void j1Input::LoadConfigBinding()
+{
+	//Load the config
+	pugi::xml_document	config_file;
+	pugi::xml_node config;
+
+	pugi::xml_parse_result result = config_file.load_file("config_input.xml");
+
+	if (result == NULL)
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
+	else
+		config = config_file.child("config_input");
+
+	//Once the config is loaded iterate and get the data
+	bool customized_controllers[MAX_GAMEPADS] = {false};
+	config = config.child("customized_controllers");
+	customized_controllers[0] = config.attribute("P1").as_bool();
+	customized_controllers[1] = config.attribute("P2").as_bool();
+	customized_controllers[2] = config.attribute("P3").as_bool();
+	customized_controllers[3] = config.attribute("P4").as_bool();
+
 }
