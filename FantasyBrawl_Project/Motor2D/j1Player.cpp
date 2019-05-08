@@ -76,7 +76,7 @@ bool j1Player::Start()
 
 void j1Player::HandleAnimations()
 {
-	if (((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT)
+	if (((App->input->GetButton(ID, BUTTON_BIND::BASIC_ATTACK) == KEY_REPEAT)
 		&& basicTimer.ReadSec() > 0.5f)
 		|| attackanimTimer.ReadSec() < 0.2)
 		PlayerState = PSTATE::ATTACKING;
@@ -316,10 +316,10 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
-	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN)
+	if (App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_DOWN)
 		superON = true;
 
-	else if (superON && App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_UP)
+	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP)
 	{
 		superON = false;
 		HandleSuperAttacks();
@@ -329,7 +329,7 @@ void j1Player::HandleAttacks()
 void j1Player::HandleShield()
 {
 	// --- Shield according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	if ((App->input->GetButton(ID, BUTTON_BIND::SHIELD) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
 	{
 		shieldTimer.Start();
 		shieldDuration.Start();
@@ -339,7 +339,7 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &manager->shield_anim;
 		manager->shieldEnd_anim.Reset();
 	}
-	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
+	else if ((App->input->GetButton(ID, BUTTON_BIND::SHIELD) == KEY_DOWN) && shieldON)
 	{
 		//LOG("shield off");
 		CurrentShieldAnimation = &manager->shieldEnd_anim;
@@ -514,7 +514,7 @@ bool j1Player::Update(float dt)
 		|| abs(LJAxisy_value) > JOYSTICK_DEAD_ZONE
 		|| abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
 		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE
-		|| App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == KEY_REPEAT
+		|| App->input->GetButton(ID, BUTTON_BIND::BASIC_ATTACK) == KEY_REPEAT
 		)
 		HandleAnimations();
 

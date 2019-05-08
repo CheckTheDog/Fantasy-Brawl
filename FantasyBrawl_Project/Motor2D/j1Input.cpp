@@ -193,8 +193,6 @@ bool j1Input::PreUpdate()
 							// at the moment of opening the gamepad
 							if (index_addition_controllers < MAX_GAMEPADS - 1)
 								index_addition_controllers++;
-		
-								LoadConfigBinding();
 
 							break;
 						}
@@ -205,7 +203,6 @@ bool j1Input::PreUpdate()
 
 		}
 	}
-
 
 	//Check Gamepads
 	for (int i = 0; i < MAX_GAMEPADS; i++)
@@ -246,6 +243,10 @@ bool j1Input::PreUpdate()
 				controllers[i].haptic_ptr = nullptr;*/
 			}
 	}
+
+	//Testing
+	if(GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+	LoadConfigBinding();
 
 	return true;
 }
@@ -306,6 +307,7 @@ GP_BUTTON_STATE j1Input::GetButton(PLAYER p, BUTTON_BIND id) const
 void j1Input::BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind)
 {
 	controllers[(int)p].binded_buttons[(int)bind] = SDL_GameControllerGetBindForButton(controllers[(int)p].id_ptr, (SDL_GameControllerButton)button_to_bind);
+	controllers[(int)p].binded_buttons[(int)bind].value.button = (SDL_GameControllerButton)button_to_bind;
 }
 
 void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
@@ -347,10 +349,31 @@ void j1Input::LoadConfigBinding()
 
 	//Once the config is loaded iterate and get the data
 	bool customized_controllers[MAX_GAMEPADS] = {false};
-	config = config.child("customized_controllers");
-	customized_controllers[0] = config.attribute("P1").as_bool();
-	customized_controllers[1] = config.attribute("P2").as_bool();
-	customized_controllers[2] = config.attribute("P3").as_bool();
-	customized_controllers[3] = config.attribute("P4").as_bool();
+	pugi::xml_node customs = config.child("customized_controllers");
+	customized_controllers[0] = customs.attribute("P1").as_bool();
+	customized_controllers[1] = customs.attribute("P2").as_bool();
+	customized_controllers[2] = customs.attribute("P3").as_bool();
+	customized_controllers[3] = customs.attribute("P4").as_bool();
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		// If the controller has customized input in the xml
+		if (customized_controllers[i] == true)
+		{
+
+		}
+		else // Default binding!
+		{
+			/*config = config.child("default_binding");*/
+			int bind = 0; // We start with the first button from BUTTON_BIND enum
+			BindButton((PLAYER)i, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int());
+			bind++;
+
+			BindButton((PLAYER)i, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int());
+			bind++;
+
+			BindButton((PLAYER)i, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int());
+		}
+	}
 
 }
