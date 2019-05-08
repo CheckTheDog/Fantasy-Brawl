@@ -9,7 +9,7 @@ http://www.tooplate.com/view/2081-solution
 body
 	{
 		background: #ffffff;
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Helvetica', sans-serif;
 		font-weight: 400;
         position: relative;
 	}
@@ -37,7 +37,7 @@ p
 /* start nagivation */
 .navbar-default
     {
-        background: #fff;
+        background: #20b87f;
         border: none;
         box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
         margin: 0 !important;
@@ -56,7 +56,7 @@ p
     }
 .navbar-default .navbar-nav li a:hover
     {
-        color: #ff8000;
+        color: #20b87f;
     }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -85,11 +85,11 @@ p
 	}
 .flexslider {
   margin: 0 0 60px;
-  background: #fff;
+  background: #20b87f;
   padding: 0;
   position: relative;
   zoom: 1;
-  background-color: #FF8000;
+  background-color: #20b87f;
   overflow: hidden;
   margin: 0;
 }
@@ -138,10 +138,10 @@ p
 }
 .flexslider .btn
 {
-    background: #93ca3a;
+    background: #20b87f;
     border-radius: 0;
     border: 2px solid transparent;
-    color: #FFFFFF;
+    color: #20b87f;
     font-weight: bold;
     margin: 40px 0 0 0;
     -webkit-transition: all 0.4s ease-in-out;
@@ -153,7 +153,7 @@ p
 .flexslider .btn:hover,
 .flexslider .btn:focus {
     background: #fff;
-    color: #93ca3a;
+    color: #20b87f;
     border: 2px solid transparent;
 }
 
@@ -185,7 +185,7 @@ p
         background: url('../images/divider-bg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
-        color: #FFFFFF;
+        color: #20b87f;
     }
 #divider h2
     {
@@ -193,7 +193,7 @@ p
     }
 #divider strong
     {
-        color: #93ca3a;
+        color: #20b87f;
     }
 #divider h3
     {
@@ -204,7 +204,7 @@ p
 /* start about */
 #about h3
     {
-        color: #93ca3a;
+        color: #20b87f;
         font-size: 40px;
         padding-bottom: 10px;
     }
@@ -215,12 +215,12 @@ p
 #about .progress
     {
         border-radius: 4px;
-        background: #ffffff;
+        background: #20b87f;
         height: 6px;
     }
 #about .progress .progress-bar-danger
     {
-        background: #93ca3a;
+        background: #20b87f;
     }
 #about .text-top
     {
@@ -241,8 +241,8 @@ p
 /* start team */
 #art
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
+        border-top: 1px solid #20b87f;
+        border-bottom: 1px solid #20b87f;
         text-align: center;
     }
 #art h2
@@ -251,7 +251,7 @@ p
     }
 #art img
     {
-        border: 1px solid #f6f6f6;
+        border: 1px solid #20b87f;
         display: inline-block;
         padding: 10px;
         transition: all 0.4s ease-in;
@@ -263,7 +263,7 @@ p
     }
 #art h3
     {
-        color: #ff8000;
+        color: #20b87f;
         padding-bottom: 10px;
     }
 #art h4
@@ -297,7 +297,7 @@ p
     }
 #teamleader h3
     {
-        color: #ff8000;
+        color: #20b87f;
         padding-bottom: 10px;
     }
 #teamleader h4
@@ -331,7 +331,7 @@ p
     }
 #team h3
     {
-        color: #ff8000;
+        color: #20b87f;
         padding-bottom: 10px;
     }
 #team h4
@@ -364,7 +364,7 @@ p
     }
 #ui h3
     {
-        color: #ff8000;
+        color: #20b87f;
         padding-bottom: 10px;
     }
 #ui h4
@@ -432,7 +432,7 @@ p
     }
 #design h3
     {
-        color: #ff8000;
+        color: #20b87f;
         padding-bottom: 10px;
     }
 #design h4
@@ -466,7 +466,7 @@ p
     }
 #programming h3
     {
-        color: #ff8000;
+        color: #20b87f;
         padding-bottom: 10px;
     }
 #programming h4
@@ -509,7 +509,7 @@ p
     }
 #newsletter input[type="submit"]
     {
-        background: #93ca3a;
+        background: #20b87f;
         border: 2px solid transparent;
         color: #ffffff;
     }
@@ -568,7 +568,7 @@ p
 #pricing .plan .plan_title
   {
     border-bottom: 1px solid #f6f6f6;
-    color: #9bc848;
+    color: #20b87f;
     font-size: 30px;
     padding: 20px;
   }
@@ -583,7 +583,7 @@ p
   }
 #pricing .plan .btn
   {
-    background: #93ca3a;
+    background: #20b87f;
     border: none;
     border-radius: 2px;
     font-weight: bold;
@@ -596,7 +596,7 @@ p
 #pricing .plan .btn:hover
   {
     background: #FFFFFF;
-    color: #66AF33;
+    color: #20b87f;
   }
 /* end pricing */
 
@@ -717,7 +717,7 @@ p
     }
 #contact .fa
     {
-        color: #ff8000;
+        color: #20b87f;
         font-size: 18px;
         padding-bottom: 14px;
     }
@@ -741,7 +741,7 @@ p
     }
 #contact input[type="submit"]:hover
     {
-        background: #93ca3a;
+        background: #20b87f;
     }
  #contact .form-control::-moz-placeholder {
   color: #666;
