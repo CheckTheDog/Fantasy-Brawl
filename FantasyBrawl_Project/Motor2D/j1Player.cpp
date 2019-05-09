@@ -49,6 +49,8 @@ bool j1Player::Start()
 	// --- Animations ---
 	CurrentAnimation = &playerinfo.idleDown;
 	CurrentIDCircleAnimation = &this->Entityinfo.IDCircle;
+	shieldAnim = manager->shield_anim;
+	shieldendAnim = manager->shieldEnd_anim;
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -336,21 +338,21 @@ void j1Player::HandleShield()
 		shieldON = true;
 		//LOG("shield on");
 		GetIdleAnimation();
-		CurrentShieldAnimation = &manager->shield_anim;
-		manager->shieldEnd_anim.Reset();
+		CurrentShieldAnimation = &shieldAnim;
+		shieldendAnim.Reset();
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
 	{
 		//LOG("shield off");
-		CurrentShieldAnimation = &manager->shieldEnd_anim;
-		manager->shield_anim.Reset();
+		CurrentShieldAnimation = &shieldendAnim;
+		shieldAnim.Reset();
 		shieldON = false;
 	}
 	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
 	{
 		//LOG("shield off");
-		CurrentShieldAnimation = &manager->shieldEnd_anim;
-		manager->shield_anim.Reset();
+		CurrentShieldAnimation = &shieldendAnim;
+		shieldAnim.Reset();
 		shieldON = false;
 	}
 }
@@ -558,7 +560,7 @@ bool j1Player::PostUpdate(float dt)
 	App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
 
-	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
+	if (shieldON || (CurrentShieldAnimation == &shieldendAnim && CurrentShieldAnimation->Finished() == false))
 	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(17.0f * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(44.0f * Entityinfo.scale*1.2f), CurrentShieldAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale*1.2f);
 
 	// --- Basic Attack aim path ---

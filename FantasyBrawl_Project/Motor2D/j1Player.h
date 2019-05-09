@@ -228,6 +228,8 @@ public:
 
 	// --- Shield ---
 	Animation * CurrentShieldAnimation = nullptr;
+	Animation shieldAnim;
+	Animation shieldendAnim;
 
 };
 
