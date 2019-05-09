@@ -555,8 +555,7 @@ bool j1Player::PostUpdate(float dt)
 	else if (shieldTimer.ReadSec() < 10.0f && superTimer.ReadSec() > 5)
 		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, Entityinfo.scale);
 
-	else
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(6 * Entityinfo.scale), this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
+	App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(6 * Entityinfo.scale), this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
 
 
 	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
