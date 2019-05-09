@@ -756,31 +756,34 @@ void j1Player::CheckParticleCollision(Collider * entitycollider, const Collider 
 
 	if (pcollided && pcollided->originplayer != this)
 	{
-		App->buff->ApplyEffect(pcollided->particle_effect, this);
-		App->input->ShakeController(ID, 0.5, 100);
-		App->buff->LimitAttributes(this);
-		LOG("player life: %f", this->Entityinfo.health);
-
-		// Play a random hurt effect
-		int hurt_effect = rand() % 3 + 1;
-
-		switch (hurt_effect)
+		if (this->Entityinfo.health > 0.0f && !AreOtherPlayersDead())
 		{
-		case 1:
-			App->audio->PlayFx(App->audio->fxHit1);
-			break;
-		case 2:
-			App->audio->PlayFx(App->audio->fxHit2);
-			break;
-		case 3:
-			App->audio->PlayFx(App->audio->fxHit3);
-			break;
-		}
+			App->buff->ApplyEffect(pcollided->particle_effect, this);
+			App->input->ShakeController(ID, 0.5, 100);
+			App->buff->LimitAttributes(this);
+			LOG("player life: %f", this->Entityinfo.health);
 
-		if (this->Entityinfo.health <= 0.0f)
-		{
-			pcollided->originplayer->kills++;
-			App->input->ShakeController(ID, 1.0, 1000);
+			// Play a random hurt effect
+			int hurt_effect = rand() % 3 + 1;
+
+			switch (hurt_effect)
+			{
+			case 1:
+				App->audio->PlayFx(App->audio->fxHit1);
+				break;
+			case 2:
+				App->audio->PlayFx(App->audio->fxHit2);
+				break;
+			case 3:
+				App->audio->PlayFx(App->audio->fxHit3);
+				break;
+			}
+
+			if (this->Entityinfo.health <= 0.0f)
+			{
+				pcollided->originplayer->kills++;
+				App->input->ShakeController(ID, 1.0, 1000);
+			}
 		}
 
 	}
@@ -841,6 +844,26 @@ void j1Player::ComputeDistance2players()
 	directionP4.x = App->scene->player4->Future_position.x - this->Future_position.x;
 	directionP4.y = App->scene->player4->Future_position.y - this->Future_position.y;
 	absoluteDistanceP4 = sqrtf(pow(directionP4.x, 2.0f) + pow(directionP4.y, 2.0f));
+}
+
+bool j1Player::AreOtherPlayersDead()
+{
+	bool ret = false;
+	uint dead = 0;
+
+	if (this != App->scene->player1 && !App->scene->player1->active)
+		dead++;
+	if (this != App->scene->player2 && !App->scene->player2->active)
+		dead++;
+	if (this != App->scene->player3 && !App->scene->player3->active)
+		dead++;
+	if (this != App->scene->player4 && !App->scene->player4->active)
+		dead++;
+
+	if (dead == 3)
+		ret = true;
+
+	return ret;
 }
 
 const fPoint j1Player::GetNearestPlayerDirection()

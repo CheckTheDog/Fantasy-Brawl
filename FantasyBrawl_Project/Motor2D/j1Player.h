@@ -128,6 +128,7 @@ public:
 	void AssignCharacter();
 	const fPoint GetNearestPlayerDirection();
 	void ComputeDistance2players();
+	bool AreOtherPlayersDead();
 
 	// --- Collisions Handling ---
 
