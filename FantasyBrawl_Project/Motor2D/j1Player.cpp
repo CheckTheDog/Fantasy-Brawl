@@ -547,19 +547,19 @@ bool j1Player::PostUpdate(float dt)
 
 	// --- IDCircle Animations ---
 	if (!shieldON && superTimer.ReadSec() < 5 && shieldTimer.ReadSec() > 10.0f)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
 	else if (!shieldON && superTimer.ReadSec() > 5 && shieldTimer.ReadSec() > 10.0f)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
 	else if (shieldTimer.ReadSec() < 10.0f && superTimer.ReadSec() > 5)
-		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(10 * Entityinfo.scale), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
-	App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(6 * Entityinfo.scale), this->Entityinfo.position.y, this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+	App->view->PushQueue(4, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
 
 	if (shieldON || (CurrentShieldAnimation == &manager->shieldEnd_anim && CurrentShieldAnimation->Finished() == false))
-	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(12 * Entityinfo.scale), this->Entityinfo.position.y - (int)(44 * Entityinfo.scale), CurrentShieldAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale);
+	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(17.0f * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(44.0f * Entityinfo.scale*1.2f), CurrentShieldAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale*1.2f);
 
 	// --- Basic Attack aim path ---
 	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
