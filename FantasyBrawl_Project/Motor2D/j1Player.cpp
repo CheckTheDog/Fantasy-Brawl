@@ -386,7 +386,8 @@ void j1Player::BlitSuperAimPaths(float dt)
 		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale);
 		break;
 	case CHARACTER::SIMON:
-	
+		if(last_particle && !last_particle->toDelete)
+		App->view->PushQueue(3, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(14 * Entityinfo.scale), last_particle->pos.y -  (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale);
 		break;
 	case CHARACTER::TRAKT:
 		
