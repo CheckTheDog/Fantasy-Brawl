@@ -565,9 +565,16 @@ bool j1Player::PostUpdate(float dt)
 	App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(17.0f * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(44.0f * Entityinfo.scale*1.2f), CurrentShieldAnimation->GetCurrentFrame(dt),0,0,0,0,0, Entityinfo.scale*1.2f);
 
 	// --- Basic Attack aim path ---
-	if(abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-	App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+	if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+	{
+		bool blit_aimpath = true;
 
+		if (this->character == CHARACTER::MELIADOUL && superON)
+			blit_aimpath = false;
+
+		if(blit_aimpath)
+		App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+	}
 	// --- Super Attack ---
 	if(superON)
 	BlitSuperAimPaths(dt);
