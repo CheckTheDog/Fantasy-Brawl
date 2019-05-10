@@ -387,10 +387,10 @@ void j1Player::BlitSuperAimPaths(float dt)
 		break;
 	case CHARACTER::SIMON:
 		if(last_particle && !last_particle->toDelete)
-		App->view->PushQueue(3, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(14 * Entityinfo.scale), last_particle->pos.y -  (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(3, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y -  (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
 		break;
 	case CHARACTER::TRAKT:
-		
+		App->view->PushQueue(3, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0);
 		break;
 	case CHARACTER::MELIADOUL:
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
@@ -420,7 +420,7 @@ void j1Player::Launch2ndSuper()
 {
 	if (superTimer.ReadSec() > 5.0f)
 	{
-		float damage_radius = 150.0f * Entityinfo.scale;
+		float damage_radius = 76.0f * Entityinfo.scale;
 
 		if (last_particle != nullptr && last_particle->toDelete != true)
 		{
@@ -449,31 +449,38 @@ void j1Player::Launch2ndSuper()
 
 void j1Player::Launch3rdSuper()
 {
-	superTimer.Start();
-	App->audio->PlayFx(this->playerinfo.super_fx);
-
-	if (this != App->scene->player1)
+	if (superTimer.ReadSec() > 5.0f)
 	{
-		App->scene->player1->RJinverted = true;
-		App->scene->player1->RJinversion.Start();
-	}
+		superTimer.Start();
+		App->audio->PlayFx(this->playerinfo.super_fx);
 
-	if (this != App->scene->player2)
-	{
-		App->scene->player2->RJinverted = true;
-		App->scene->player2->RJinversion.Start();
-	}
+		float radius = 265.0f * Entityinfo.scale;
 
-	if (this != App->scene->player3)
-	{
-		App->scene->player3->RJinverted = true;
-		App->scene->player3->RJinversion.Start();
-	}
+		ComputeDistance2players();
 
-	if (this != App->scene->player4)
-	{
-		App->scene->player4->RJinverted = true;
-		App->scene->player4->RJinversion.Start();
+		if (this != App->scene->player1 && absoluteDistanceP1 < radius)
+		{
+			App->scene->player1->RJinverted = true;
+			App->scene->player1->RJinversion.Start();
+		}
+
+		if (this != App->scene->player2 && absoluteDistanceP2 < radius)
+		{
+			App->scene->player2->RJinverted = true;
+			App->scene->player2->RJinversion.Start();
+		}
+
+		if (this != App->scene->player3 && absoluteDistanceP3 < radius)
+		{
+			App->scene->player3->RJinverted = true;
+			App->scene->player3->RJinversion.Start();
+		}
+
+		if (this != App->scene->player4 && absoluteDistanceP4 < radius)
+		{
+			App->scene->player4->RJinverted = true;
+			App->scene->player4->RJinversion.Start();
+		}
 	}
 }
 
@@ -871,20 +878,20 @@ void j1Player::AssignCharacter()
 
 void j1Player::ComputeDistance2players()
 {
-	directionP1.x = App->scene->player1->Future_position.x - this->Future_position.x;
-	directionP1.y = App->scene->player1->Future_position.y - this->Future_position.y;
+	directionP1.x = App->scene->player1->Future_position.x + App->scene->player1->Entityinfo.entitycoll->rect.w/2 - (this->Future_position.x + Entityinfo.entitycoll->rect.w / 2) ;
+	directionP1.y = App->scene->player1->Future_position.y + App->scene->player1->Entityinfo.entitycoll->rect.h / 2 - (this->Future_position.y + Entityinfo.entitycoll->rect.h / 2);
 	absoluteDistanceP1 = sqrtf(pow(directionP1.x, 2.0f) + pow(directionP1.y, 2.0f));
 
-	directionP2.x = App->scene->player2->Future_position.x - this->Future_position.x;
-	directionP2.y = App->scene->player2->Future_position.y - this->Future_position.y;
+	directionP2.x = App->scene->player2->Future_position.x + App->scene->player2->Entityinfo.entitycoll->rect.w / 2 - (this->Future_position.x + Entityinfo.entitycoll->rect.w / 2);
+	directionP2.y = App->scene->player2->Future_position.y + App->scene->player2->Entityinfo.entitycoll->rect.h / 2 - (this->Future_position.y + Entityinfo.entitycoll->rect.h / 2);
 	absoluteDistanceP2 = sqrtf(pow(directionP2.x, 2.0f) + pow(directionP2.y, 2.0f));
 
-	directionP3.x = App->scene->player3->Future_position.x - this->Future_position.x;
-	directionP3.y = App->scene->player3->Future_position.y - this->Future_position.y;
+	directionP3.x = App->scene->player3->Future_position.x + App->scene->player3->Entityinfo.entitycoll->rect.w / 2 - (this->Future_position.x + Entityinfo.entitycoll->rect.w / 2);
+	directionP3.y = App->scene->player3->Future_position.y + App->scene->player3->Entityinfo.entitycoll->rect.h / 2 - (this->Future_position.y + Entityinfo.entitycoll->rect.h / 2);
 	absoluteDistanceP3 = sqrtf(pow(directionP3.x, 2.0f) + pow(directionP3.y, 2.0f));
 
-	directionP4.x = App->scene->player4->Future_position.x - this->Future_position.x;
-	directionP4.y = App->scene->player4->Future_position.y - this->Future_position.y;
+	directionP4.x = App->scene->player4->Future_position.x + App->scene->player4->Entityinfo.entitycoll->rect.w / 2 - (this->Future_position.x + Entityinfo.entitycoll->rect.w / 2);
+	directionP4.y = App->scene->player4->Future_position.y + App->scene->player4->Entityinfo.entitycoll->rect.h / 2 - (this->Future_position.y + Entityinfo.entitycoll->rect.h / 2);
 	absoluteDistanceP4 = sqrtf(pow(directionP4.x, 2.0f) + pow(directionP4.y, 2.0f));
 }
 
