@@ -232,6 +232,9 @@ public:
 	Animation shieldAnim;
 	Animation shieldendAnim;
 
+	// --- Others ---
+	bool teleported = false;
+
 };
 
 #endif // __j1Player_H__

@@ -423,6 +423,7 @@ void j1Player::Launch2ndSuper()
 
 		if (last_particle != nullptr && last_particle->toDelete != true)
 		{
+			teleported = true;
 			superTimer.Start();
 			App->audio->PlayFx(this->playerinfo.super_fx);
 			this->Future_position.x = last_particle->pos.x;
@@ -532,7 +533,7 @@ bool j1Player::Update(float dt)
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
-
+	teleported = false;
 
 	return true;
 }
@@ -673,9 +674,18 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
-		entitycollider->rect.x -= Intersection.w;
-		Future_position.x = entitycollider->rect.x;
-		Future_position.y = entitycollider->rect.y;
+		if (teleported)
+		{
+			Future_position.x = Entityinfo.position.x;
+			Future_position.y = Entityinfo.position.y;
+		}
+		else
+		{
+			entitycollider->rect.x -= Intersection.w;
+			Future_position.x = entitycollider->rect.x;
+			Future_position.y = entitycollider->rect.y;
+		}
+
 		break;
 	default:
 
@@ -695,9 +705,17 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
-		entitycollider->rect.x += Intersection.w;
-		Future_position.x = entitycollider->rect.x;
-		Future_position.y = entitycollider->rect.y;
+		if (teleported)
+		{
+			Future_position.x = Entityinfo.position.x;
+			Future_position.y = Entityinfo.position.y;
+		}
+		else
+		{
+			entitycollider->rect.x += Intersection.w;
+			Future_position.x = entitycollider->rect.x;
+			Future_position.y = entitycollider->rect.y;
+		}
 		break;
 	default:
 
@@ -717,9 +735,17 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
-		entitycollider->rect.y += Intersection.h;
-		Future_position.x = entitycollider->rect.x;
-		Future_position.y = entitycollider->rect.y;
+		if (teleported)
+		{
+			Future_position.x = Entityinfo.position.x;
+			Future_position.y = Entityinfo.position.y;
+		}
+		else
+		{
+			entitycollider->rect.y += Intersection.h;
+			Future_position.x = entitycollider->rect.x;
+			Future_position.y = entitycollider->rect.y;
+		}
 		break;
 	default:
 
@@ -739,9 +765,17 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 		Future_position.y = entitycollider->rect.y;
 		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
-		entitycollider->rect.y -= Intersection.h;
-		Future_position.x = entitycollider->rect.x;
-		Future_position.y = entitycollider->rect.y;
+		if (teleported)
+		{
+			Future_position.x = Entityinfo.position.x;
+			Future_position.y = Entityinfo.position.y;
+		}
+		else
+		{
+			entitycollider->rect.y -= Intersection.h;
+			Future_position.x = entitycollider->rect.x;
+			Future_position.y = entitycollider->rect.y;
+		}
 		break;
 	default:
 
