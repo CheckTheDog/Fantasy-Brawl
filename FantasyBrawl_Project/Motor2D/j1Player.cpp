@@ -72,6 +72,7 @@ bool j1Player::Start()
 	superTimer.Start();
 	shieldTimer.Start();
 	basicTimer.Start();
+	Traktpulsation.Start();
 
 	return true;
 }
@@ -391,6 +392,23 @@ void j1Player::BlitSuperAimPaths(float dt)
 		break;
 	case CHARACTER::TRAKT:
 		App->view->PushQueue(3, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0);
+
+		// --- All gamepads vibrate on trakt's super (heart pulsation) ---
+		ComputeDistance2players();
+
+		if (Traktpulsation.ReadSec() > 2.0f && superTimer.ReadSec() > 5.0f)
+		{
+			Traktpulsation.Start();
+			if (absoluteDistanceP1 < 265.0f * Entityinfo.scale)
+			App->input->ShakeController(PLAYER::P1, 0.25, 750);
+			if (absoluteDistanceP2 < 265.0f * Entityinfo.scale)
+			App->input->ShakeController(PLAYER::P2, 0.25, 750);
+			if (absoluteDistanceP3 < 265.0f * Entityinfo.scale)
+			App->input->ShakeController(PLAYER::P3, 0.25, 750);
+			if (absoluteDistanceP4 < 265.0f * Entityinfo.scale)
+			App->input->ShakeController(PLAYER::P4, 0.25, 750);
+		}
+
 		break;
 	case CHARACTER::MELIADOUL:
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)

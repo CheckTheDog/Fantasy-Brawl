@@ -200,6 +200,7 @@ public:
 	j1Timer basicTimer;
 	j1Timer attackanimTimer;
 	j1Timer RJinversion;
+	j1Timer Traktpulsation;
 	bool shieldON = false;
 	bool superON = false;
 
