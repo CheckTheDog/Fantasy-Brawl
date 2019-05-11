@@ -181,10 +181,12 @@ bool j1Input::PreUpdate()
 								SDL_HapticRumbleInit(controllers[i].haptic_ptr);
 
 								controllers[i].index = index_addition_controllers;
+								LoadConfigBinding((PLAYER)controllers[i].index);
 							}
 							else    //The gamepad was disconnected at some point and is now being reconnected
 							{
 								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
+								LoadConfigBinding((PLAYER)controllers[i].index);
 							}
 
 							
@@ -243,10 +245,6 @@ bool j1Input::PreUpdate()
 				controllers[i].haptic_ptr = nullptr;*/
 			}
 	}
-
-	//Testing
-	if(GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-	LoadConfigBinding();
 
 	return true;
 }
@@ -334,7 +332,7 @@ void j1Input::GetMouseMotion(int& x, int& y)
 	y = mouse_motion_y;
 }
 
-void j1Input::LoadConfigBinding()
+void j1Input::LoadConfigBinding(PLAYER p)
 {
 	//Load the config
 	pugi::xml_document	config_file;
@@ -350,30 +348,38 @@ void j1Input::LoadConfigBinding()
 	//Once the config is loaded iterate and get the data
 	bool customized_controllers[MAX_GAMEPADS] = {false};
 	pugi::xml_node customs = config.child("customized_controllers");
-	customized_controllers[0] = customs.attribute("P1").as_bool();
-	customized_controllers[1] = customs.attribute("P2").as_bool();
-	customized_controllers[2] = customs.attribute("P3").as_bool();
-	customized_controllers[3] = customs.attribute("P4").as_bool();
-
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	switch (p)
 	{
-		// If the controller has customized input in the xml
-		if (customized_controllers[i] == true)
-		{
+	case PLAYER::P1:
+		customized_controllers[0] = customs.attribute("P1").as_bool();
+		break;
+	case PLAYER::P2:
+		customized_controllers[1] = customs.attribute("P2").as_bool();
+		break;
+	case PLAYER::P3:
+		customized_controllers[2] = customs.attribute("P3").as_bool();
+		break;
+	case PLAYER::P4:
+		customized_controllers[3] = customs.attribute("P4").as_bool();
+		break;
 
-		}
-		else // Default binding!
-		{
-			/*config = config.child("default_binding");*/
-			int bind = 0; // We start with the first button from BUTTON_BIND enum
-			BindButton((PLAYER)i, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int());
-			bind++;
-
-			BindButton((PLAYER)i, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int());
-			bind++;
-
-			BindButton((PLAYER)i, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int());
-		}
 	}
+	
+	// If the controller has customized input in the xml
+	if (customized_controllers[(int)p] == true)
+	{
 
+	}
+	else // Default binding!
+	{
+		/*config = config.child("default_binding");*/
+		int bind = 0; // We start with the first button from BUTTON_BIND enum
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int());
+		bind++;
+
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int());
+		bind++;
+
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int());
+	}
 }

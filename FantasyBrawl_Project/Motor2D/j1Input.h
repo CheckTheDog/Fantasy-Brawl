@@ -150,7 +150,7 @@ public:
 	void GetMouseMotion(int& x, int& y);
 
 private: // Functions
-	void LoadConfigBinding();
+	void LoadConfigBinding(PLAYER p);
 
 private: // Variables
 	bool		windowEvents[WE_COUNT];
