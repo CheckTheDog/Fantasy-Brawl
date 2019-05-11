@@ -105,33 +105,33 @@ bool j1Scene::Start()
 
 	player_info.position = initialposP1;
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Wendolin);
-	player1->character = CHARACTER::WENDOLIN;
+	player1->character = CHARACTER::TRAKT;
 	player1->AssignCharacter();
-
-	player_info.IDCircle = App->entities->IDCircle_green;
-	player_info.IDCirclesuper = App->entities->IDCirclesuper_green;
-	player_info.IDCircleshield = App->entities->IDCircleshield_green;
-	player_info.IDCircleboth = App->entities->IDCircleboth_green;
+	
+	player_info.IDCircle = App->entities->IDCircle_blue;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_blue;
+	player_info.IDCircleshield = App->entities->IDCircleshield_blue;
+	player_info.IDCircleboth = App->entities->IDCircleboth_blue;
 
 	player_info.position = initialposP2;
 	player2 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Simon);
 	player2->character = CHARACTER::SIMON;
 	player2->AssignCharacter();
 
-	player_info.IDCircle = App->entities->IDCircle_blue;
-	player_info.IDCirclesuper = App->entities->IDCirclesuper_blue;
-	player_info.IDCircleshield = App->entities->IDCircleshield_blue;
-	player_info.IDCircleboth = App->entities->IDCircleboth_blue;
+	player_info.IDCircle = App->entities->IDCircle_yellow;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_yellow;
+	player_info.IDCircleshield = App->entities->IDCircleshield_yellow;
+	player_info.IDCircleboth = App->entities->IDCircleboth_yellow;
 
 	player_info.position = initialposP3;
 	player3 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Trakt);
 	player3->character = CHARACTER::TRAKT;
 	player3->AssignCharacter();
 
-	player_info.IDCircle = App->entities->IDCircle_yellow;
-	player_info.IDCirclesuper = App->entities->IDCirclesuper_yellow;
-	player_info.IDCircleshield = App->entities->IDCircleshield_yellow;
-	player_info.IDCircleboth = App->entities->IDCircleboth_yellow;
+	player_info.IDCircle = App->entities->IDCircle_green;
+	player_info.IDCirclesuper = App->entities->IDCirclesuper_green;
+	player_info.IDCircleshield = App->entities->IDCircleshield_green;
+	player_info.IDCircleboth = App->entities->IDCircleboth_green;
 
 	player_info.position = initialposP4;
 	player4 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Meliadoul);

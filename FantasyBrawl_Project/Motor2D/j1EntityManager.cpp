@@ -304,9 +304,11 @@ bool j1EntityManager::Start()
 
 	Simon.tex = App->tex->Load(Simon.Texture.data());
 	Simon.basic_attack.tex = budu_texture;
+	SimonSuper_aimpath = App->tex->Load("textures/simonSuper_path.png");
 
 	Trakt.tex = App->tex->Load(Trakt.Texture.data());
 	Trakt.basic_attack.tex = inkball_texture;
+	TraktSuper_aimpath = App->tex->Load("textures/traktSuper_path.png");
 
 	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
 	Meliadoul.basic_attack.tex = axe_texture;
