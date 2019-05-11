@@ -127,10 +127,10 @@
     <seconds_between_blinks value="1.5"/>
     
     <!-- Here we create the amount of storm phases, adding the attributes of waiting time and move time-->
-    <storm_phase w_time="40" tiles_to_advance="12" damage_per_tick="4"/>
+    <storm_phase w_time="40" tiles_to_advance="25" damage_per_tick="4"/>
     <storm_phase w_time="30" tiles_to_advance="8" damage_per_tick="8"/>
     <storm_phase w_time="20" tiles_to_advance="6" damage_per_tick="15"/>
-    <storm_phase w_time="15" tiles_to_advance="4" damage_per_tick="30"/>
+    <storm_phase w_time="10" tiles_to_advance="6" damage_per_tick="30"/>
     <storm_phase w_time="30" tiles_to_advance="6" damage_per_tick="50"/>
     
   </arena_interactions>
