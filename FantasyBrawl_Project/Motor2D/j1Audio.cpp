@@ -182,10 +182,10 @@ int j1Audio::getMusicVolume() const
 	return Mix_VolumeMusic(-1);
 }
 
-//int j1Audio::getFxVolume() const
-//{
-//	return fx_volume;
-//}
+int j1Audio::getFxVolume() const
+{
+	return fx_volume;
+}
 
 void j1Audio::setMusicVolume(float volume)
 {
@@ -195,9 +195,9 @@ void j1Audio::setMusicVolume(float volume)
 
 //void j1Audio::setFxVolume(float volume)
 //{
-//	for (p2List_item<Mix_Chunk*>* item = fx.start; item; item = item->next)
+//	for (std::list<Mix_Chunk*>::const_iterator item = fx.begin(); (*item); ++item)
 //	{
-//		Mix_VolumeChunk(item->data, MIX_MAX_VOLUME*volume);
+//		Mix_VolumeChunk((*item), MIX_MAX_VOLUME*volume);
 //	}
 //	fx_volume = MIX_MAX_VOLUME * volume; //Save it for future loaded fx
 //} 

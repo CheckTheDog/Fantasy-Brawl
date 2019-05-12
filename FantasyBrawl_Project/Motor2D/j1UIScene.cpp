@@ -62,7 +62,7 @@ bool j1UIScene::Start()
 
 
 	float music_progress = (float)App->audio->getMusicVolume() / 128;
-	/*float fx_progress = (float)App->audio->getFxVolume() / 128;*/
+	float fx_progress = (float)App->audio->getFxVolume() / 128;
 
 	
 
@@ -244,6 +244,15 @@ bool j1UIScene::Start()
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
 
+		////FX
+		//Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		//Slider* fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		//fx_slider->modify = FX;
+		//settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_slider);
+
+		//UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
+		//fx_text->setOutlined(true);
+
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
 		settings_image->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
@@ -252,10 +261,10 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* apply_button = App->gui->createButton(650 * App->gui->UI_scale, 500 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 200, 200, mid_texts_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
 		
@@ -266,6 +275,8 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(music_slider_butt);
 		settingsMenu->elements.push_back(music_slider);
 		settingsMenu->elements.push_back(audio_text);
+		/*settingsMenu->elements.push_back(fx_slider);
+		settingsMenu->elements.push_back(fx_text);*/
 		settingsMenu->elements.push_back(apply_button);
 		settingsMenu->elements.push_back(apply_text);
 		/*settingsMenu->elements.push_back(full_switch);
@@ -273,50 +284,7 @@ bool j1UIScene::Start()
 		menus.push_back(settingsMenu);
 	}
 
-	menu* pauseMenu = new menu(PAUSE_MENU);
-	{
-		//WINDOW
-		UI_element* pause_window = App->gui->createWindow(140*App->gui->UI_scale, 50*App->gui->UI_scale, App->tex->Load("gui/medium_parchment.png"), { 225,250, 744, 703 }, this);
-		UI_element* pause_text = App->gui->createText("PAUSE", 450, 100, big_buttons_font, brown_color);
-		pause_text->setOutlined(true);
-
-
-		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
-		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
-		back_text->setOutlined(true);
-		back_button->appendChildAtCenter(back_text);
-
-		//AUDIO
-		/*Button* music_slider_butt = App->gui->createButton(500, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(420, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
-		music_slider->modify = MUSIC;
-		
-
-		UI_element* audio_text = App->gui->createText("AUDIO", 330, 240, mid_buttons_font, brown_color);
-		audio_text->setOutlined(true);*/
-
-		//FULLSCREEN
-		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
-		
-
-		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 330, 400, mid_buttons_font, brown_color);
-		fullscreen_text->setOutlined(true);*/
-
-
-
-		pauseMenu->elements.push_back(pause_window);
-		pauseMenu->elements.push_back(pause_text);
-		pauseMenu->elements.push_back(back_button);
-		pauseMenu->elements.push_back(back_text);
-		/*pauseMenu->elements.push_back(music_slider_butt);
-		pauseMenu->elements.push_back(music_slider);
-		pauseMenu->elements.push_back(audio_text);*/
-		/*pauseMenu->elements.push_back(full_switch);
-		pauseMenu->elements.push_back(fullscreen_text);*/
-		menus.push_back(pauseMenu);
-	}
+	
 
 	finalMenu = new menu(FINAL_MENU);
 	{
@@ -344,7 +312,7 @@ bool j1UIScene::Start()
 
 	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 
-	/*defaultValues.fx = fx_progress;*/
+	defaultValues.fx = fx_progress;
 	defaultValues.music = music_progress;
 	newValues = defaultValues;
 
@@ -370,15 +338,15 @@ bool j1UIScene::Update(float dt)
 		else if (actual_menu == INGAME_MENU)
 		{
 			App->on_GamePause = true;
-			actual_menu = PAUSE_MENU;
+			actual_menu = SETTINGS_MENU;
 
 			Mix_PauseMusic();
-			App->transition->menuTransition(PAUSE_MENU, 0.3f);
+			App->transition->menuTransition(SETTINGS_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
 			App->audio->PlayFx(App->audio->fxPause);
 			ret = true;
 		}
-		else if (actual_menu == PAUSE_MENU)
+		else if (actual_menu == SETTINGS_MENU && previous_menu == INGAME_MENU)
 		{
 			App->on_GamePause = false;
 			actual_menu = INGAME_MENU;
@@ -655,14 +623,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			break;
 		case BACK:
-			if (actual_menu == SETTINGS_MENU)
+			if (actual_menu == SETTINGS_MENU && previous_menu != INGAME_MENU)
 			{
 				App->transition->menuTransition(previous_menu, 0.3);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(),0);
 				App->audio->PlayFx(App->audio->fxCancel);
 			}
-			if (actual_menu == PAUSE_MENU)
+
+			if (actual_menu == SETTINGS_MENU && previous_menu == INGAME_MENU)
 			{
 				App->on_GamePause = false;
 				App->arena_interactions->DestroyStorm();
