@@ -330,6 +330,7 @@ bool j1EntityManager::Start()
 	circlesprites = App->tex->Load(circle_texturepath.data());
 	aimpath = App->tex->Load("textures/aimpath.png");
 	shield_texture = App->tex->Load(shield_texturepath.data());
+	arrows_tex = App->tex->Load("textures/Arrows.png");
 
 	return ret;
 }
