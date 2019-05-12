@@ -146,10 +146,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Wendolin.playerrect = { x,y,w,h };
 
 	// --- Wendolin Particles ---
-	fPoint particle_speed = { 125.0f, 125.0f };
+	fPoint particle_speed = { 175.0f, 175.0f };
 	Wendolin.basic_attack.anim.PushBack({ 0,0,28,18 });
 	Wendolin.basic_attack.anim.loop = true;
-	Wendolin.basic_attack.life = 2500;
+	Wendolin.basic_attack.life = 2000;
 	Wendolin.basic_attack.speed = particle_speed;
 	Wendolin.basic_attack.particle_effect = &App->buff->effects[3];
 
@@ -191,7 +191,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Simon Particles ---
 	Simon.basic_attack.anim.PushBack({ 0,0,24,36 });
 	Simon.basic_attack.anim.loop = true;
-	Simon.basic_attack.life = 2500;
+	Simon.basic_attack.life = 2000;
 	Simon.basic_attack.speed = particle_speed;
 	Simon.basic_attack.particle_effect = &App->buff->effects[3];
 	Simon.basic_attack.ghost = true;
@@ -234,7 +234,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Trakt Particles ---
 	Trakt.basic_attack.anim.PushBack({ 0,0,30,30 });
 	Trakt.basic_attack.anim.loop = true;
-	Trakt.basic_attack.life = 2500;
+	Trakt.basic_attack.life = 2000;
 	Trakt.basic_attack.speed = particle_speed;
 	Trakt.basic_attack.particle_effect = &App->buff->effects[3];
 
@@ -276,7 +276,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Meliadoul Particles ---
 	Meliadoul.basic_attack.anim.PushBack({ 0,0,40,34 });
 	Meliadoul.basic_attack.anim.loop = true;
-	Meliadoul.basic_attack.life = 2500;
+	Meliadoul.basic_attack.life = 2000;
 	Meliadoul.basic_attack.speed = particle_speed;
 	Meliadoul.basic_attack.particle_effect = &App->buff->effects[3];
 
