@@ -61,7 +61,8 @@ bool j1UIScene::Start()
 	
 
 
-	
+	float music_progress = (float)App->audio->getMusicVolume() / 128;
+	/*float fx_progress = (float)App->audio->getFxVolume() / 128;*/
 
 	
 
@@ -235,13 +236,13 @@ bool j1UIScene::Start()
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
-		/*Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
+		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
-		audio_text->setOutlined(true);*/
+		audio_text->setOutlined(true);
 
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
@@ -250,15 +251,23 @@ bool j1UIScene::Start()
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
 		fullscreen_text->setOutlined(true);*/
 
+		//APPLY
+		UI_element* apply_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		apply_button->function = APPLY;
 
+		UI_element* apply_text = App->gui->createText("APPLY", 200, 200, mid_texts_font, yellow_color);
+		apply_text->setOutlined(true);
+		apply_button->appendChildAtCenter(apply_text);
 		
 		settingsMenu->elements.push_back(settings_image);
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
 		settingsMenu->elements.push_back(back_text);
-		/*settingsMenu->elements.push_back(music_slider_butt);
+		settingsMenu->elements.push_back(music_slider_butt);
 		settingsMenu->elements.push_back(music_slider);
-		settingsMenu->elements.push_back(audio_text);*/
+		settingsMenu->elements.push_back(audio_text);
+		settingsMenu->elements.push_back(apply_button);
+		settingsMenu->elements.push_back(apply_text);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
@@ -334,6 +343,10 @@ bool j1UIScene::Start()
 	current_menu = startMenu;
 
 	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
+
+	/*defaultValues.fx = fx_progress;*/
+	defaultValues.music = music_progress;
+	newValues = defaultValues;
 
 	return true;
 }
@@ -636,7 +649,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			break;
 		case APPLY:
-
+			applySettings(newValues);
 			break;
 		case CANCEL:
 
@@ -795,7 +808,8 @@ void j1UIScene::applySettings(settings_values values)
 		flag = SDL_WINDOW_FULLSCREEN;
 	SDL_SetWindowFullscreen(App->win->window, flag);
 
-
+	App->audio->setMusicVolume(values.music);
+	/*App->audio->setFxVolume(values.fx);*/
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{

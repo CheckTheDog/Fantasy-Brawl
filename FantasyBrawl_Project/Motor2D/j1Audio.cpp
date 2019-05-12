@@ -177,6 +177,31 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
+int j1Audio::getMusicVolume() const
+{
+	return Mix_VolumeMusic(-1);
+}
+
+//int j1Audio::getFxVolume() const
+//{
+//	return fx_volume;
+//}
+
+void j1Audio::setMusicVolume(float volume)
+{
+	Mix_VolumeMusic(MIX_MAX_VOLUME*volume);
+	music_volume = MIX_MAX_VOLUME * volume; //Save it for fading;
+}
+
+//void j1Audio::setFxVolume(float volume)
+//{
+//	for (p2List_item<Mix_Chunk*>* item = fx.start; item; item = item->next)
+//	{
+//		Mix_VolumeChunk(item->data, MIX_MAX_VOLUME*volume);
+//	}
+//	fx_volume = MIX_MAX_VOLUME * volume; //Save it for future loaded fx
+//} 
+
 void j1Audio::LoadAudio(pugi::xml_node& config)
 {
 	//FX Loads
