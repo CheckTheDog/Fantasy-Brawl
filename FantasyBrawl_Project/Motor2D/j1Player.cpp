@@ -557,7 +557,6 @@ bool j1Player::Update(float dt)
 	if (RJinversion.ReadSec() > 2.5f && RJinverted)
 		RJinverted = false;
 
-	BlitArrows();
 
 	// --- Adjust Player's Position ---
 	this->Entityinfo.position = Future_position;
@@ -606,6 +605,8 @@ bool j1Player::PostUpdate(float dt)
 	// --- Super Attack ---
 	if(superON)
 	BlitSuperAimPaths(dt);
+
+	BlitArrows();
 
 	return ret;
 }
