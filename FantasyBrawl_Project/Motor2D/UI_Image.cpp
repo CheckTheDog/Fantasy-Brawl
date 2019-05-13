@@ -115,6 +115,95 @@ void Image::BlitElement()
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,4);
 	}
 
+	else if (this == App->ui_scene->shield_bar1)
+	{
+	float time = App->scene->player1->shieldTimer.ReadSec()*20.0f;
+
+	if (time >= 5.0f*20.0f)
+	{
+		time = 5.0f*20.0f;
+	}
+
+	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	tmp_section.w = (section.w * multiplier);
+
+	if (App->scene->player1->active)
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 1);
+	}
+
+	else if (this == App->ui_scene->shield_bar2)
+	{
+	float time = App->scene->player2->shieldTimer.ReadSec()*20.0f;
+
+	if (time >= 5.0f*20.0f)
+	{
+		time = 5.0f*20.0f;
+	}
+
+	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	tmp_section.w = (section.w * multiplier);
+
+	if (App->scene->player2->active)
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 2);
+	}
+
+	else if (this == App->ui_scene->shield_bar3)
+	{
+	float time = App->scene->player3->shieldTimer.ReadSec()*20.0f;
+
+	if (time >= 5.0f*20.0f)
+	{
+		time = 5.0f*20.0f;
+	}
+
+	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	tmp_section.w = (section.w * multiplier);
+
+	if (App->scene->player3->active)
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 3);
+	}
+
+	else if (this == App->ui_scene->shield_bar4)
+	{
+	float time = App->scene->player4->shieldTimer.ReadSec()*20.0f;
+
+	if (time >= 5.0f*20.0f)
+	{
+		time = 5.0f*20.0f;
+	}
+
+	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	tmp_section.w = (section.w * multiplier);
+
+	if (App->scene->player4->active)
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 4);
+	}
+
+	else if (this == App->ui_scene-> hp_capsule1 || this == App->ui_scene->hp_capsule2 || this == App->ui_scene->hp_capsule3 || this == App->ui_scene->hp_capsule4)
+	{
+		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 0);
+	}
+
+	else if (this == App->ui_scene->sp_capsule1 || this == App->ui_scene->shield_capsule1)
+	{
+		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 1);
+	}
+
+	else if (this == App->ui_scene->sp_capsule2 || this == App->ui_scene->shield_capsule2)
+	{
+	App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 2);
+	}
+
+	else if (this == App->ui_scene->sp_capsule3 || this == App->ui_scene->shield_capsule3)
+	{
+	App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 3);
+	}
+
+	else if (this == App->ui_scene->sp_capsule4 || this == App->ui_scene->shield_capsule4)
+	{
+	App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 4);
+	}
+
 	else
 		App->render->Blit(texture, globalPos.x, globalPos.y, &section);
 }
