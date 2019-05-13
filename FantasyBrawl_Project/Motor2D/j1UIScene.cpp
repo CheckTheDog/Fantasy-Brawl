@@ -130,6 +130,10 @@ bool j1UIScene::Start()
 
 	menu* ingameMenu = new menu(INGAME_MENU);
 	{
+		// margin
+		SDL_Texture* margin_tex = App->tex->Load("gui/TimerMargins.png");
+		UI_element* margin = App->gui->createImage(0, 0, margin_tex, this);
+
 		//player1
 		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 352, 171, 21}, this);
 		hp_bar1 = hp_bar_player1;
@@ -207,6 +211,7 @@ bool j1UIScene::Start()
 		shield_capsule4 = shield_capsule_bar4;
 		
 
+		ingameMenu->elements.push_back(margin);
 		ingameMenu->elements.push_back(hp_capsule_bar1);
 		ingameMenu->elements.push_back(hp_capsule_bar2);
 		ingameMenu->elements.push_back(hp_capsule_bar3);
@@ -327,7 +332,7 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(650 * App->gui->UI_scale, 500 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		apply_button->function = APPLY;
 
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
