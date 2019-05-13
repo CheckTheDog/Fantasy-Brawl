@@ -8,8 +8,8 @@ http://www.tooplate.com/view/2081-solution
 
 body
 	{
-		background: #ffffff;
-        font-family: 'Helvetica', sans-serif;
+		background: #ff0707;
+        font-family: 'Helvetica', serif;
 		font-weight: 400;
         position: relative;
 	}
@@ -50,18 +50,18 @@ p
     }
 .navbar-default .navbar-nav li a
     {
-        font-size: 18px;
+        font-size: 15px;
         font-weight: bold;
-        line-height: 35px;
+        line-height: 50px;
     }
 .navbar-default .navbar-nav li a:hover
     {
-        color: #ff871d;
+        color: #ff0707;
     }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #ff871d;
+  color: #fff;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle
@@ -71,7 +71,7 @@ p
     }
 .navbar-default .navbar-toggle .icon-bar
     {
-        background: #ff871d;
+        background: #fff;
         border-color: transparent;
     }
 .navbar-default .navbar-toggle:hover,
