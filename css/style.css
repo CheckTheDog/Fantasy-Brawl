@@ -50,18 +50,18 @@ p
     }
 .navbar-default .navbar-nav li a
     {
-        font-size: 13px;
+        font-size: 18px;
         font-weight: bold;
         line-height: 35px;
     }
 .navbar-default .navbar-nav li a:hover
     {
-        color: #b83720;
+        color: #ff871d;
     }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #b83720;
+  color: #ff871d;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle
@@ -71,7 +71,7 @@ p
     }
 .navbar-default .navbar-toggle .icon-bar
     {
-        background: #b83720;
+        background: #ff871d;
         border-color: transparent;
     }
 .navbar-default .navbar-toggle:hover,
