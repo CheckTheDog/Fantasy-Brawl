@@ -907,21 +907,21 @@ bool j1UIScene::loadMenu(menu_id id)
 
 void j1UIScene::applySettings(settings_values values)
 {
-	Uint32 flag = 0;
+	/*Uint32 flag = 0;
 	if (values.fullscreen)
 		flag = SDL_WINDOW_FULLSCREEN;
-	SDL_SetWindowFullscreen(App->win->window, flag);
+	SDL_SetWindowFullscreen(App->win->window, flag);*/
 
 	App->audio->setMusicVolume(values.music);
 	App->audio->setFxVolume(values.fx);
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{
-		if ((*item)->element_type == SWITCH)
+		/*if ((*item)->element_type == SWITCH)
 		{
 			Button* full_switch = (Button*)*item;
 			full_switch->active = values.fullscreen;
-		}
+		}*/
 		if ((*item)->element_type == SLIDER)
 		{
 			Slider* slider = (Slider*)*item;
