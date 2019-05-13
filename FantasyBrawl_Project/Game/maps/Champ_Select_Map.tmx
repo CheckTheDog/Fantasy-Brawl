@@ -9,8 +9,8 @@
  <tileset firstgid="25" name="Tileset_ChSel2" tilewidth="28" tileheight="28" tilecount="12" columns="4">
   <image source="Tileset_ChSel2.png" width="112" height="84"/>
  </tileset>
- <imagelayer id="338" name="Capa de Imagen 1" visible="0">
-  <image source="../gui/ChampSelectTemp.png" width="1024" height="768"/>
+ <imagelayer id="338" name="Capa de Imagen 1">
+  <image source="../gui/ChampSelect.png" width="1024" height="768"/>
  </imagelayer>
  <layer id="289" name="ground" width="50" height="50">
   <data>
