@@ -9,7 +9,7 @@ http://www.tooplate.com/view/2081-solution
 body
 	{
 		background: #ff0707;
-        font-family: 'Helvetica', sans-serif;
+        font-family: monospace;
 		font-weight: 400;
         position: relative;
 	}
