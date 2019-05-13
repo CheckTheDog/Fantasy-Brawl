@@ -119,12 +119,12 @@ void Image::BlitElement()
 	{
 	float time = App->scene->player1->shieldTimer.ReadSec()*20.0f;
 
-	if (time >= 5.0f*20.0f)
+	if (time >= 10.0f*20.0f)
 	{
-		time = 5.0f*20.0f;
+		time = 10.0f*20.0f;
 	}
 
-	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	multiplier = (time + tmp_section.w) / (10.0f*20.0f + section.w);
 	tmp_section.w = (section.w * multiplier);
 
 	if (App->scene->player1->active)
@@ -135,12 +135,12 @@ void Image::BlitElement()
 	{
 	float time = App->scene->player2->shieldTimer.ReadSec()*20.0f;
 
-	if (time >= 5.0f*20.0f)
+	if (time >= 10.0f*20.0f)
 	{
-		time = 5.0f*20.0f;
+		time = 10.0f*20.0f;
 	}
 
-	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	multiplier = (time + tmp_section.w) / (10.0f*20.0f + section.w);
 	tmp_section.w = (section.w * multiplier);
 
 	if (App->scene->player2->active)
@@ -151,12 +151,12 @@ void Image::BlitElement()
 	{
 	float time = App->scene->player3->shieldTimer.ReadSec()*20.0f;
 
-	if (time >= 5.0f*20.0f)
+	if (time >= 10.0f*20.0f)
 	{
-		time = 5.0f*20.0f;
+		time = 10.0f*20.0f;
 	}
 
-	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	multiplier = (time + tmp_section.w) / (10.0f*20.0f + section.w);
 	tmp_section.w = (section.w * multiplier);
 
 	if (App->scene->player3->active)
@@ -167,12 +167,12 @@ void Image::BlitElement()
 	{
 	float time = App->scene->player4->shieldTimer.ReadSec()*20.0f;
 
-	if (time >= 5.0f*20.0f)
+	if (time >= 10.0f*20.0f)
 	{
-		time = 5.0f*20.0f;
+		time = 10.0f*20.0f;
 	}
 
-	multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+	multiplier = (time + tmp_section.w) / (10.0f*20.0f + section.w);
 	tmp_section.w = (section.w * multiplier);
 
 	if (App->scene->player4->active)
