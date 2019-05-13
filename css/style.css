@@ -717,7 +717,7 @@ p
     }
 #contact .fa
     {
-        color: #f0c5a8;
+        color: #fff;
         font-size: 18px;
         padding-bottom: 14px;
     }
@@ -799,7 +799,7 @@ footer .social-icon
     }
 .social-icon li a
     {
-        color: #f0c5a8;
+        color: #fff;
         font-size: 13px;
         text-decoration: none;
         transition: all 0.4s ease-in-out;
