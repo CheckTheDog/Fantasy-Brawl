@@ -572,11 +572,32 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{			
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
-			App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+
 			App->audio->PlayFx(App->audio->fxConfirm);
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+
+			int music = rand() % 5 + 1;
+
+			switch (music)
+			{
+			case 1:
+				App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+				break;
+			case 2:
+				App->audio->PlayMusic(App->audio->pathMap2_1.data(), 0);
+				break;
+			case 3:
+				App->audio->PlayMusic(App->audio->pathMap2_2.data(), 0);
+				break;
+			case 4:
+				App->audio->PlayMusic(App->audio->pathMap3.data(), 0);
+				break;
+			case 5:
+				App->audio->PlayMusic(App->audio->pathMap4.data(), 0);
+				break;
+			}
 		
 			break;
 		}

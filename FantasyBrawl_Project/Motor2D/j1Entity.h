@@ -22,7 +22,7 @@ struct entity_info
 {
 	// --- Basic ---
 	fPoint			position = { 0,0 };
-	float          Speed = 100.0f;
+	float          Speed = 110.0f;
 	float			health = 300;
 	float			strength = 1;
 	float	og_health, og_speed, og_strength;
