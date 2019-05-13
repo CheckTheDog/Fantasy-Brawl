@@ -244,14 +244,14 @@ bool j1UIScene::Start()
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
 
-		////FX
-		//Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		//Slider* fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
-		//fx_slider->modify = FX;
-		//settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_slider);
+		//FX
+		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_slider->modify = FX;
+		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_slider);
 
-		//UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
-		//fx_text->setOutlined(true);
+		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
+		fx_text->setOutlined(true);
 
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
@@ -275,8 +275,9 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(music_slider_butt);
 		settingsMenu->elements.push_back(music_slider);
 		settingsMenu->elements.push_back(audio_text);
-		/*settingsMenu->elements.push_back(fx_slider);
-		settingsMenu->elements.push_back(fx_text);*/
+		settingsMenu->elements.push_back(fx_slider_butt);
+		settingsMenu->elements.push_back(fx_slider);
+		settingsMenu->elements.push_back(fx_text);
 		settingsMenu->elements.push_back(apply_button);
 		settingsMenu->elements.push_back(apply_text);
 		/*settingsMenu->elements.push_back(full_switch);
@@ -778,7 +779,7 @@ void j1UIScene::applySettings(settings_values values)
 	SDL_SetWindowFullscreen(App->win->window, flag);
 
 	App->audio->setMusicVolume(values.music);
-	/*App->audio->setFxVolume(values.fx);*/
+	App->audio->setFxVolume(values.fx);
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{
