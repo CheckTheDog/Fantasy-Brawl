@@ -8,7 +8,7 @@ http://www.tooplate.com/view/2081-solution
 
 body
 	{
-		background: #ff0707;
+		background: #f0c5a8;
         font-family: monospace;
 		font-weight: 400;
         position: relative;
@@ -37,7 +37,7 @@ p
 /* start nagivation */
 .navbar-default
     {
-        background: #ff0707;
+        background: #f0c5a8;
         border: none;
         box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
         margin: 0 !important;
@@ -50,13 +50,13 @@ p
     }
 .navbar-default .navbar-nav li a
     {
-        font-size: 15px;
+        font-size: 18px;
         font-weight: bold;
         line-height: 50px;
     }
 .navbar-default .navbar-nav li a:hover
     {
-        color: #ff0707;
+        color: #a8d3f0;
     }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -85,11 +85,11 @@ p
 	}
 .flexslider {
   margin: 0 0 60px;
-  background: #ff0707;
+  background: #f0c5a8;
   padding: 0;
   position: relative;
   zoom: 1;
-  background-color: #ff0707;
+  background-color: #f0c5a8;
   overflow: hidden;
   margin: 0;
 }
@@ -138,10 +138,10 @@ p
 }
 .flexslider .btn
 {
-    background: #ff0707;
+    background: #f0c5a8;
     border-radius: 0;
     border: 2px solid transparent;
-    color: #FFFFFF;
+    color: #f0c5a8;
     font-weight: bold;
     margin: 40px 0 0 0;
     -webkit-transition: all 0.4s ease-in-out;
@@ -153,7 +153,7 @@ p
 .flexslider .btn:hover,
 .flexslider .btn:focus {
     background: #fff;
-    color: #ff0707;
+    color: #f0c5a8;
     border: 2px solid transparent;
 }
 
@@ -185,7 +185,7 @@ p
         background: url('../images/divider-bg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
-        color: #FFFFFF;
+        color: #f0c5a8;
     }
 #divider h2
     {
@@ -193,7 +193,7 @@ p
     }
 #divider strong
     {
-        color: #ff0707;
+        color: #f0c5a8;
     }
 #divider h3
     {
@@ -204,7 +204,7 @@ p
 /* start about */
 #about h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         font-size: 40px;
         padding-bottom: 10px;
     }
@@ -215,12 +215,12 @@ p
 #about .progress
     {
         border-radius: 4px;
-        background: #ff0707;
+        background: #f0c5a8;
         height: 6px;
     }
 #about .progress .progress-bar-danger
     {
-        background: #ff0707;
+        background: #f0c5a8;
     }
 #about .text-top
     {
@@ -241,8 +241,8 @@ p
 /* start team */
 #art
     {
-        border-top: 1px solid #ff0707;
-        border-bottom: 1px solid #ff0707;
+        border-top: 1px solid #f0c5a8;
+        border-bottom: 1px solid #f0c5a8;
         text-align: center;
     }
 #art h2
@@ -263,7 +263,7 @@ p
     }
 #art h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #art h4
@@ -297,7 +297,7 @@ p
     }
 #teamleader h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #teamleader h4
@@ -331,7 +331,7 @@ p
     }
 #team h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #team h4
@@ -364,7 +364,7 @@ p
     }
 #ui h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #ui h4
@@ -398,7 +398,7 @@ p
     }
 #qa h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #qa h4
@@ -420,7 +420,7 @@ p
     }
 #design img
     {
-        border: 1px solid #ff0707;
+        border: 1px solid #f0c5a8;
         display: inline-block;
         padding: 10px;
         transition: all 0.4s ease-in;
@@ -432,7 +432,7 @@ p
     }
 #design h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #design h4
@@ -466,7 +466,7 @@ p
     }
 #programming h3
     {
-        color: #ff0707;
+        color: #f0c5a8;
         padding-bottom: 10px;
     }
 #programming h4
@@ -509,7 +509,7 @@ p
     }
 #newsletter input[type="submit"]
     {
-        background: #ff0707;
+        background: #f0c5a8;
         border: 2px solid transparent;
         color: #ffffff;
     }
@@ -568,7 +568,7 @@ p
 #pricing .plan .plan_title
   {
     border-bottom: 1px solid #f6f6f6;
-    color: #ff0707;
+    color: #f0c5a8;
     font-size: 30px;
     padding: 20px;
   }
@@ -583,7 +583,7 @@ p
   }
 #pricing .plan .btn
   {
-    background: #ff0707;
+    background: #f0c5a8;
     border: none;
     border-radius: 2px;
     font-weight: bold;
@@ -596,7 +596,7 @@ p
 #pricing .plan .btn:hover
   {
     background: #FFFFFF;
-    color: #ff0707;
+    color: #f0c5a8;
   }
 /* end pricing */
 
@@ -717,7 +717,7 @@ p
     }
 #contact .fa
     {
-        color: #ff0707;
+        color: #f0c5a8;
         font-size: 18px;
         padding-bottom: 14px;
     }
@@ -741,7 +741,7 @@ p
     }
 #contact input[type="submit"]:hover
     {
-        background: #ff0707;
+        background: #f0c5a8;
     }
  #contact .form-control::-moz-placeholder {
   color: #666;
@@ -799,7 +799,7 @@ footer .social-icon
     }
 .social-icon li a
     {
-        color: #ff0707;
+        color: #f0c5a8;
         font-size: 13px;
         text-decoration: none;
         transition: all 0.4s ease-in-out;
