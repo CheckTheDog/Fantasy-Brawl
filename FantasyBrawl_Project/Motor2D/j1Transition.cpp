@@ -17,8 +17,7 @@ bool j1Transition::Update(float dt)
 
 	if (doingMenuTransition)
 	{
-		if (App->ui_scene->actual_menu != menu_id::PAUSE_MENU
-			&& App->ui_scene->actual_menu != menu_id::INGAME_MENU)
+		if (App->ui_scene->actual_menu != menu_id::INGAME_MENU)
 		{
 			uint w, h;
 			App->win->GetWindowSize(w, h);

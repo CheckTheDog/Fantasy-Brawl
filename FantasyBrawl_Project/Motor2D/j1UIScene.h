@@ -21,7 +21,6 @@ enum menu_id
 	SETTINGS_MENU,
 	INGAME_MENU,
 	SELECTION_MENU,
-	PAUSE_MENU,
 	CREDITS_MENU,
 	FINAL_MENU
 };
@@ -103,6 +102,30 @@ public:
 	UI_element* sp_bar2 = nullptr;
 	UI_element* sp_bar3 = nullptr;
 	UI_element* sp_bar4 = nullptr;
+
+	//PLAYER SHIELD BARS
+	UI_element* shield_bar1 = nullptr;
+	UI_element* shield_bar2 = nullptr;
+	UI_element* shield_bar3 = nullptr;
+	UI_element* shield_bar4 = nullptr;
+
+	//PLAYER HP CAPSULES
+	UI_element* hp_capsule1 = nullptr;
+	UI_element* hp_capsule2 = nullptr;
+	UI_element* hp_capsule3 = nullptr;
+	UI_element* hp_capsule4 = nullptr;
+
+	//PLAYER SP CAPSULES
+	UI_element* sp_capsule1 = nullptr;
+	UI_element* sp_capsule2 = nullptr;
+	UI_element* sp_capsule3 = nullptr;
+	UI_element* sp_capsule4 = nullptr;
+
+	//PLAYER SHIELD CAPSULES
+	UI_element* shield_capsule1 = nullptr;
+	UI_element* shield_capsule2 = nullptr;
+	UI_element* shield_capsule3 = nullptr;
+	UI_element* shield_capsule4 = nullptr;
 
 	//PLAYER MARKS(?)
 	UI_element* mark1 = nullptr;

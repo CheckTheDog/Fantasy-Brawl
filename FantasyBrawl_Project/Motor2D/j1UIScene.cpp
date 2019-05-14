@@ -61,7 +61,8 @@ bool j1UIScene::Start()
 	
 
 
-	
+	float music_progress = (float)App->audio->getMusicVolume() / 128;
+	float fx_progress = (float)App->audio->getFxVolume() / 128;
 
 	
 
@@ -129,33 +130,100 @@ bool j1UIScene::Start()
 
 	menu* ingameMenu = new menu(INGAME_MENU);
 	{
-		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 428, 209, 27}, this);
+		// margin
+		SDL_Texture* margin_tex = App->tex->Load("gui/TimerMargins.png");
+		UI_element* margin = App->gui->createImage(0, 0, margin_tex, this);
+
+		//player1
+		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 352, 171, 21}, this);
 		hp_bar1 = hp_bar_player1;
 
-		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
+		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
 		sp_bar1 = sp_bar_player1;
 
-		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		UI_element* shield_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		shield_bar1 = shield_bar_player1;
+
+		UI_element* hp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		hp_capsule1 = hp_capsule_bar1;
+
+		UI_element* sp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		sp_capsule1 = sp_capsule_bar1;
+
+		UI_element* shield_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		shield_capsule1 = shield_capsule_bar1;
+
+		//player2
+		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 424, 352, 171, 21 }, this);
 		hp_bar2 = hp_bar_player2;
 
-		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
+		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
 		sp_bar2 = sp_bar_player2;
 
+		UI_element* shield_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		shield_bar2 = shield_bar_player2;
 
-		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		UI_element* hp_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		hp_capsule2 = hp_capsule_bar2;
+
+		UI_element* sp_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		sp_capsule2 = sp_capsule_bar2;
+
+		UI_element* shield_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		shield_capsule2 = shield_capsule_bar2;
+
+		//player3
+		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 424, 352, 171, 21 }, this);
 		hp_bar3 = hp_bar_player3;
 
-		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
+		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
 		sp_bar3 = sp_bar_player3;
 
-		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 424, 428, 209, 27 }, this);
+		UI_element* shield_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		shield_bar3 = shield_bar_player3;
+
+		UI_element* hp_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		hp_capsule3 = hp_capsule_bar3;
+
+		UI_element* sp_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		sp_capsule3 = sp_capsule_bar3;
+
+		UI_element* shield_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		shield_capsule3 = shield_capsule_bar3;
+
+		//player4
+		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 424, 352, 171, 21 }, this);
 		hp_bar4 = hp_bar_player4;
 
-		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 639, 428, 212, 27 }, this);
+		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
 		sp_bar4 = sp_bar_player4;
 
+		UI_element* shield_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		shield_bar4 = shield_bar_player4;
+
+		UI_element* hp_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		hp_capsule4 = hp_capsule_bar4;
+
+		UI_element* sp_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		sp_capsule4 = sp_capsule_bar4;
+
+		UI_element* shield_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		shield_capsule4 = shield_capsule_bar4;
 		
 
+		ingameMenu->elements.push_back(margin);
+		ingameMenu->elements.push_back(hp_capsule_bar1);
+		ingameMenu->elements.push_back(hp_capsule_bar2);
+		ingameMenu->elements.push_back(hp_capsule_bar3);
+		ingameMenu->elements.push_back(hp_capsule_bar4);
+		ingameMenu->elements.push_back(sp_capsule_bar1);
+		ingameMenu->elements.push_back(sp_capsule_bar2);
+		ingameMenu->elements.push_back(sp_capsule_bar3);
+		ingameMenu->elements.push_back(sp_capsule_bar4);
+		ingameMenu->elements.push_back(shield_capsule_bar1);
+		ingameMenu->elements.push_back(shield_capsule_bar2);
+		ingameMenu->elements.push_back(shield_capsule_bar3);
+		ingameMenu->elements.push_back(shield_capsule_bar4);
 		ingameMenu->elements.push_back(hp_bar_player1);
 		ingameMenu->elements.push_back(hp_bar_player2);
 		ingameMenu->elements.push_back(hp_bar_player3);
@@ -164,6 +232,10 @@ bool j1UIScene::Start()
 		ingameMenu->elements.push_back(sp_bar_player2);
 		ingameMenu->elements.push_back(sp_bar_player3);
 		ingameMenu->elements.push_back(sp_bar_player4);
+		ingameMenu->elements.push_back(shield_bar_player1);
+		ingameMenu->elements.push_back(shield_bar_player2);
+		ingameMenu->elements.push_back(shield_bar_player3);
+		ingameMenu->elements.push_back(shield_bar_player4);
 		menus.push_back(ingameMenu);
 
 	}
@@ -235,13 +307,22 @@ bool j1UIScene::Start()
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
-		/*Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
+		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
-		audio_text->setOutlined(true);*/
+		audio_text->setOutlined(true);
+
+		//FX
+		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+		Slider* fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_slider->modify = FX;
+		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_slider);
+
+		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
+		fx_text->setOutlined(true);
 
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
@@ -250,64 +331,32 @@ bool j1UIScene::Start()
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
 		fullscreen_text->setOutlined(true);*/
 
+		//APPLY
+		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		apply_button->function = APPLY;
 
+		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
+		apply_text->setOutlined(true);
+		apply_button->appendChildAtCenter(apply_text);
 		
 		settingsMenu->elements.push_back(settings_image);
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
 		settingsMenu->elements.push_back(back_text);
-		/*settingsMenu->elements.push_back(music_slider_butt);
+		settingsMenu->elements.push_back(music_slider_butt);
 		settingsMenu->elements.push_back(music_slider);
-		settingsMenu->elements.push_back(audio_text);*/
+		settingsMenu->elements.push_back(audio_text);
+		settingsMenu->elements.push_back(fx_slider_butt);
+		settingsMenu->elements.push_back(fx_slider);
+		settingsMenu->elements.push_back(fx_text);
+		settingsMenu->elements.push_back(apply_button);
+		settingsMenu->elements.push_back(apply_text);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
 	}
 
-	menu* pauseMenu = new menu(PAUSE_MENU);
-	{
-		//WINDOW
-		UI_element* pause_window = App->gui->createWindow(140*App->gui->UI_scale, 50*App->gui->UI_scale, App->tex->Load("gui/medium_parchment.png"), { 225,250, 744, 703 }, this);
-		UI_element* pause_text = App->gui->createText("PAUSE", 450, 100, big_buttons_font, brown_color);
-		pause_text->setOutlined(true);
-
-
-		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
-		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
-		back_text->setOutlined(true);
-		back_button->appendChildAtCenter(back_text);
-
-		//AUDIO
-		/*Button* music_slider_butt = App->gui->createButton(500, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
-		Slider* music_slider = App->gui->createSlider(420, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color);
-		music_slider->modify = MUSIC;
-		
-
-		UI_element* audio_text = App->gui->createText("AUDIO", 330, 240, mid_buttons_font, brown_color);
-		audio_text->setOutlined(true);*/
-
-		//FULLSCREEN
-		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
-		
-
-		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 330, 400, mid_buttons_font, brown_color);
-		fullscreen_text->setOutlined(true);*/
-
-
-
-		pauseMenu->elements.push_back(pause_window);
-		pauseMenu->elements.push_back(pause_text);
-		pauseMenu->elements.push_back(back_button);
-		pauseMenu->elements.push_back(back_text);
-		/*pauseMenu->elements.push_back(music_slider_butt);
-		pauseMenu->elements.push_back(music_slider);
-		pauseMenu->elements.push_back(audio_text);*/
-		/*pauseMenu->elements.push_back(full_switch);
-		pauseMenu->elements.push_back(fullscreen_text);*/
-		menus.push_back(pauseMenu);
-	}
+	
 
 	finalMenu = new menu(FINAL_MENU);
 	{
@@ -333,7 +382,11 @@ bool j1UIScene::Start()
 	
 	current_menu = startMenu;
 
-	App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
+	App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
+
+	defaultValues.fx = fx_progress;
+	defaultValues.music = music_progress;
+	newValues = defaultValues;
 
 	return true;
 }
@@ -357,15 +410,15 @@ bool j1UIScene::Update(float dt)
 		else if (actual_menu == INGAME_MENU)
 		{
 			App->on_GamePause = true;
-			actual_menu = PAUSE_MENU;
+			actual_menu = SETTINGS_MENU;
 
 			Mix_PauseMusic();
-			App->transition->menuTransition(PAUSE_MENU, 0.3f);
+			App->transition->menuTransition(SETTINGS_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
 			App->audio->PlayFx(App->audio->fxPause);
 			ret = true;
 		}
-		else if (actual_menu == PAUSE_MENU)
+		else if (actual_menu == SETTINGS_MENU && previous_menu == INGAME_MENU)
 		{
 			App->on_GamePause = false;
 			actual_menu = INGAME_MENU;
@@ -378,7 +431,7 @@ bool j1UIScene::Update(float dt)
 		}
 		else if (actual_menu == SELECTION_MENU)
 		{
-			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
+			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
 			ret = true;
@@ -410,26 +463,68 @@ bool j1UIScene::Update(float dt)
 	{
 		App->on_GamePause = true;
 	}
-		
+	
+	//UPDATING HP CAPSULES POSITION
+	hp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
+	hp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 103;
+	hp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
+	hp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 103;
+	hp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
+	hp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 103;
+	hp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
+	hp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 103;
+
+	//UPDATING SP CAPSULES POSITION
+	sp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
+	sp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;
+	sp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
+	sp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;
+	sp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
+	sp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;
+	sp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
+	sp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+
+	//UPDATING SHIELD CAPSULES POSITION
+	shield_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;
+	shield_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;
+	shield_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;
+	shield_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+
 	//UPDATING HP BARS POSITION
-	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
 	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;				 
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
 	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;				 
-	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
 	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;				 
-	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
 	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;				 
 																								 
 	//UPDATING SP BARS POSITION																	 
-	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
-	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 75;				 
-	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
-	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 75;				 
-	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
-	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 75;				 
-	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 4.25f  * scale);
-	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 75;
+	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
+	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;				 
+	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
+	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;				 
+	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
+	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;				 
+	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
+	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+
+	//UPDATING SHIELD BARS POSITION																	 
+	shield_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
+	shield_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;
+	shield_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
+	shield_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;
+	shield_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
+	shield_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;
+	shield_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
+	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+
+
 	
 	if (player1_select == true)
 	{
@@ -572,11 +667,32 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{			
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
-			App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+
 			App->audio->PlayFx(App->audio->fxConfirm);
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+
+			int music = rand() % 5 + 1;
+
+			switch (music)
+			{
+			case 1:
+				App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+				break;
+			case 2:
+				App->audio->PlayMusic(App->audio->pathMap2_1.data(), 0);
+				break;
+			case 3:
+				App->audio->PlayMusic(App->audio->pathMap2_2.data(), 0);
+				break;
+			case 4:
+				App->audio->PlayMusic(App->audio->pathMap3.data(), 0);
+				break;
+			case 5:
+				App->audio->PlayMusic(App->audio->pathMap4.data(), 0);
+				break;
+			}
 		
 			break;
 		}
@@ -636,20 +752,21 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			break;
 		case APPLY:
-
+			applySettings(newValues);
 			break;
 		case CANCEL:
 
 			break;
 		case BACK:
-			if (actual_menu == SETTINGS_MENU)
+			if (actual_menu == SETTINGS_MENU && previous_menu != INGAME_MENU)
 			{
 				App->transition->menuTransition(previous_menu, 0.3);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(),0);
 				App->audio->PlayFx(App->audio->fxCancel);
 			}
-			if (actual_menu == PAUSE_MENU)
+
+			if (actual_menu == SETTINGS_MENU && previous_menu == INGAME_MENU)
 			{
 				App->on_GamePause = false;
 				App->arena_interactions->DestroyStorm();
@@ -795,7 +912,8 @@ void j1UIScene::applySettings(settings_values values)
 		flag = SDL_WINDOW_FULLSCREEN;
 	SDL_SetWindowFullscreen(App->win->window, flag);
 
-
+	App->audio->setMusicVolume(values.music);
+	App->audio->setFxVolume(values.fx);
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{

@@ -129,6 +129,7 @@ public:
 	const fPoint GetNearestPlayerDirection();
 	void ComputeDistance2players();
 	bool AreOtherPlayersDead();
+	void BlitArrows();
 
 	// --- Collisions Handling ---
 
