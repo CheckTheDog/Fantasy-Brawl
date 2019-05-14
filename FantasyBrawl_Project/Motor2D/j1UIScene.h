@@ -4,6 +4,8 @@
 #include "j1Module.h"
 #include <list>
 
+//Fix later
+#include "j1Input.h"
 
 
 class UI_element;
@@ -29,6 +31,10 @@ struct menu
 	{}
 	std::list <UI_element*> elements;
 	menu_id id;
+
+	//Gamepad traversal
+	std::list<UI_element*> gamepad_tabs[4];
+	UI_element* gamepads_focus[4];
 
 };
 
@@ -69,6 +75,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void CreateScoreBoard(int num);
+
+	void AddControllerSupport(UI_element* element, PLAYER gamepad_supported, menu_id id_menu);
 	
 
 public:

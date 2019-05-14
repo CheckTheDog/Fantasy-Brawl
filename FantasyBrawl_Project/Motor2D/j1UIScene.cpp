@@ -983,3 +983,23 @@ void j1UIScene::CreateScoreBoard(int num)
 
 }
 
+void j1UIScene::AddControllerSupport(UI_element* element, PLAYER gamepad_supported, menu_id id_menu)
+{
+	std::list<menu*>::iterator curr_menu = menus.begin();
+
+	for (; curr_menu != menus.end(); curr_menu++)
+	{
+		if ((*curr_menu)->id == id_menu)
+		{
+			(*curr_menu)->gamepad_tabs[(int)gamepad_supported].push_back(element);
+
+			if ((*curr_menu)->gamepad_tabs[(int)gamepad_supported].size() == 1)
+			{
+				(*curr_menu)->gamepads_focus[(int)gamepad_supported] = element;
+			}
+
+			break;
+		}
+	}
+}
+

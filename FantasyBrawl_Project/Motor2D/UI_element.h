@@ -54,10 +54,6 @@ enum element_state
 struct UI_GTab
 {
 	UI_element* ui_element = nullptr;
-	UI_GTab* tab_above = nullptr;
-	UI_GTab* tab_below = nullptr;
-	UI_GTab* tab_right = nullptr;
-	UI_GTab* tab_left = nullptr;
 };
 
 class UI_element
