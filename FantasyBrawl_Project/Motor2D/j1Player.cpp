@@ -944,52 +944,52 @@ void j1Player::BlitArrows()
 	App->win->GetWindowSize(width,height);
 	width = width / 2;
 
-	uint radius = 175;
+	uint radius = 100;
 
 	switch (ID)
 	{
 	case PLAYER::P1:
 		if (absoluteDistanceP2 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale / 2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->blue_arrow, ((int)ID) + 1, 0,std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w/2 * Entityinfo.scale/2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale/2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0,std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w/2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP3 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale / 2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale / 2.0f), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP4 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale / 2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale / 2.0f), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		break;
 	case PLAYER::P2:
 		if (absoluteDistanceP1 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->red_arrow,((int)ID)+1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow,((int)ID)+1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP3 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP4 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		break;
 	case PLAYER::P3:
 		if (absoluteDistanceP1 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale ), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP2 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale ), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP4 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale ), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		break;
 	case PLAYER::P4:
 		if (absoluteDistanceP1 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP2 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		if (absoluteDistanceP3 > width / 2)
-			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(22 * Entityinfo.scale/2.0f), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale/2.0f), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale / 2.0f), (int)(radius * Entityinfo.scale / 2.0f), Entityinfo.scale / 2.0f);
+			App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(18 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
 
 		break;
 	}
