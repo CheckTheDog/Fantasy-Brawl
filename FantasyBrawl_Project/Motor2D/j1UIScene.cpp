@@ -147,10 +147,10 @@ bool j1UIScene::Start()
 		UI_element* hp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 576, 306, 88, 12 }, this);
 		hp_capsule1 = hp_capsule_bar1;
 
-		UI_element* sp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 577, 318, 43, 8 }, this);
+		UI_element* sp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 577, 318, 45, 8 }, this);
 		sp_capsule1 = sp_capsule_bar1;
 
-		UI_element* shield_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 620, 318, 43, 8 }, this);
+		UI_element* shield_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 620, 318, 44, 8 }, this);
 		shield_capsule1 = shield_capsule_bar1;
 
 		//player2
@@ -465,64 +465,64 @@ bool j1UIScene::Update(float dt)
 	}
 	
 	//UPDATING HP CAPSULES POSITION
-	hp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 42;
-	hp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 72;
-	hp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 42;
-	hp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 72;
-	hp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 42;
-	hp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 72;
-	hp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 42;
-	hp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 72;
+	hp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 47;
+	hp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 47;
+	hp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 47;
+	hp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 47;
 
 	//UPDATING SP CAPSULES POSITION
-	sp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	sp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 60;
-	sp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	sp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 60;
-	sp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	sp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 60;
-	sp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	sp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 60;
+	sp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 40;
+	sp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 40;
+	sp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 40;
+	sp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 	//UPDATING SHIELD CAPSULES POSITION
 	shield_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 60;
+	shield_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 40;
 	shield_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 60;
+	shield_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 40;
 	shield_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 60;
+	shield_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 40;
 	shield_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 60;
+	shield_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 	//UPDATING HP BARS POSITION
-	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 71;				 
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 71;
-	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 71;
-	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 43;
-	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 71;
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 46;				 
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 46;
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 46;
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 46;
 																								 
 	//UPDATING SP BARS POSITION																	 
-	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 44;
-	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 60;
-	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 44;
-	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 60;
-	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 44;
-	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 60;
-	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 44;
-	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 60;
+	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 40;
+	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 40;
+	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 40;
+	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 	//UPDATING SHIELD BARS POSITION																	 
-	shield_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 87;
-	shield_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 60;
-	shield_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 87;
-	shield_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 60;
-	shield_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 87;
-	shield_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 60;
-	shield_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 87;
-	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 60;
+	shield_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 40;
+	shield_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 40;
+	shield_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 40;
+	shield_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
+	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 
 	
@@ -631,12 +631,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		
 		element->state = CLICKED;
 
-		if (element->element_type == SWITCH)
+		/*if (element->element_type == SWITCH)
 		{
 			Button* tmp = (Button*)element;
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
-		}
+		}*/
 		
 	
 		switch (element->function)
@@ -875,11 +875,11 @@ bool j1UIScene::loadMenu(menu_id id)
 			{
 				for (std::list <UI_element*>::const_iterator item2 = current_menu->elements.begin(); item2 != current_menu->elements.end(); ++item2)
 				{
-					if ((*item2)->element_type == SWITCH)
+					/*if ((*item2)->element_type == SWITCH)
 					{
 						Button* full_switch = (Button*)*item2;
 						startValues.fullscreen = full_switch->active;
-					}
+					}*/
 					if ((*item2)->element_type == SLIDER)
 					{
 						Slider* slider = (Slider*)*item2;
@@ -907,10 +907,10 @@ bool j1UIScene::loadMenu(menu_id id)
 
 void j1UIScene::applySettings(settings_values values)
 {
-	Uint32 flag = 0;
+	/*Uint32 flag = 0;
 	if (values.fullscreen)
 		flag = SDL_WINDOW_FULLSCREEN;
-	SDL_SetWindowFullscreen(App->win->window, flag);
+	SDL_SetWindowFullscreen(App->win->window, flag);*/
 
 	App->audio->setMusicVolume(values.music);
 	App->audio->setFxVolume(values.fx);
