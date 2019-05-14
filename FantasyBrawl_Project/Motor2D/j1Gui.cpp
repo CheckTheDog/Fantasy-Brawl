@@ -74,7 +74,8 @@ bool j1Gui::PreUpdate()
 			for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->elements.rbegin(); item != App->ui_scene->current_menu->elements.rend(); ++item)
 			{
 				iPoint globalPos = (*item)->calculateAbsolutePosition();
-				if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && element == nullptr && (*item)->solid)
+				if ( (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && element == nullptr && (*item)->solid)
+					|| (*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[0].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[0]) == (*item)))
 				{
 					element = *item;
 				}
@@ -91,13 +92,45 @@ bool j1Gui::PreUpdate()
 	//Send events related to UI elements
 	if (element != nullptr)
 	{
+		bool is_focused[MAX_GAMEPADS] = { false };
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			if (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false)
+			{
+				if ((*App->ui_scene->current_menu->gamepads_focus[i]) == element)
+				{
+					is_focused[i] = true;
+
+					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_UP)
+					{
+						if(App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
+							App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
+						else
+							App->ui_scene->current_menu->gamepads_focus[i]++;
+						
+					}
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_UP)
+					{
+						if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
+							App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
+						else
+							App->ui_scene->current_menu->gamepads_focus[i]--;
+					}
+				}
+			}
+		}
+
 		if (!element->hovering)
 		{
 			element->hovering = true;
 			if (element->callback != nullptr)
 				element->callback->OnUIEvent(element, MOUSE_ENTER);
 		}
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN
+			|| (is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+			|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+			|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+			|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
 		{
 			if (element->callback != nullptr)
 			{

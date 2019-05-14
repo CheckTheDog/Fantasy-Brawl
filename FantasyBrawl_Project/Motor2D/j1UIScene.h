@@ -33,7 +33,7 @@ struct menu
 
 	//Gamepad traversal
 	std::list<UI_element*> gamepad_tabs[4];
-	UI_element* gamepads_focus[4];
+	std::list<UI_element*>::iterator gamepads_focus[4];
 
 };
 

@@ -119,13 +119,17 @@ bool j1UIScene::Start()
 		startMenu->elements.push_back(background_image);
 		startMenu->elements.push_back(new_game);
 		startMenu->elements.push_back(new_text);
-		startMenu->elements.push_back(continueButton);
 		startMenu->elements.push_back(continue_text);
 		startMenu->elements.push_back(exit_game);
 		startMenu->elements.push_back(exit_text);
 		startMenu->elements.push_back(credits);
 		startMenu->elements.push_back(settings_start_menu);
+
 		menus.push_back(startMenu);
+		AddControllerSupport(new_game, PLAYER::P1, START_MENU);
+		AddControllerSupport(exit_game, PLAYER::P1, START_MENU);
+		AddControllerSupport(credits, PLAYER::P1, START_MENU);
+		AddControllerSupport(settings_start_menu, PLAYER::P1, START_MENU);
 	}
 
 	menu* ingameMenu = new menu(INGAME_MENU);
@@ -1113,7 +1117,7 @@ void j1UIScene::AddControllerSupport(UI_element* element, PLAYER gamepad_support
 
 			if ((*curr_menu)->gamepad_tabs[(int)gamepad_supported].size() == 1)
 			{
-				(*curr_menu)->gamepads_focus[(int)gamepad_supported] = element;
+				(*curr_menu)->gamepads_focus[(int)gamepad_supported] = (*curr_menu)->gamepad_tabs[(int)gamepad_supported].begin();
 			}
 
 			break;
