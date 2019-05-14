@@ -14,7 +14,7 @@ void Image::BlitElement()
 		SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
 	iPoint globalPos = calculateAbsolutePosition();
 
-	float scale = 0.5f;
+	float scale = 1.0f;
 	
 	if (this == App->ui_scene->hp_bar1)
 	{
