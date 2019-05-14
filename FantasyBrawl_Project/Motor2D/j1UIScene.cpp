@@ -144,7 +144,7 @@ bool j1UIScene::Start()
 		UI_element* shield_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 661, 293, 42, 7 }, this);
 		shield_bar1 = shield_bar_player1;
 
-		UI_element* hp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 576, 306, 88, 12 }, this);
+		UI_element* hp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 576, 306, 89, 12 }, this);
 		hp_capsule1 = hp_capsule_bar1;
 
 		UI_element* sp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 577, 318, 45, 8 }, this);
@@ -495,13 +495,13 @@ bool j1UIScene::Update(float dt)
 	shield_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 	//UPDATING HP BARS POSITION
-	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - App->scene->player1->Entityinfo.entitycoll->rect.w + 25;
 	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 46;				 
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - App->scene->player2->Entityinfo.entitycoll->rect.w + 25;
 	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 46;
-	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - App->scene->player3->Entityinfo.entitycoll->rect.w + 25;
 	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 46;
-	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 65;
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - App->scene->player4->Entityinfo.entitycoll->rect.w + 25;
 	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 46;
 																								 
 	//UPDATING SP BARS POSITION																	 

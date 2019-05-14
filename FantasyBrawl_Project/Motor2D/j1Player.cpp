@@ -944,7 +944,7 @@ void j1Player::BlitArrows()
 	App->win->GetWindowSize(width,height);
 	width = width / 2;
 
-	uint radius = 125;
+	uint radius = 100;
 
 	switch (ID)
 	{
