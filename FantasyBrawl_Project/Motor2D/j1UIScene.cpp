@@ -242,28 +242,31 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/vs.png"), this);
-		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 275, 60, big_buttons_font, brown_color);
+		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/ChampSelect.png"), this);
+		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
-		UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 175 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
+		/*UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 175 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
 		champion_button1->function = SELECTING;
 
 		UI_element* champion_button2 = App->gui->createButton(500 * App->gui->UI_scale, 175* App->gui->UI_scale, NULL, { 740,507,180,180 }, { 740,507,180,180 }, { 740,507,180,180 }, this);
 		UI_element* champion_button3 = App->gui->createButton(300 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 560,696,180,180 }, { 560,696,180,180 }, { 560,696,180,180 }, this);
-		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);
+		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);*/
 
 		//PLAYER QUADS
-		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 580, { 18, 904,200,180 }, this);
-		UI_element* player2_quad = App->gui->createImageFromAtlas(280, 580, { 232, 904,200,180 }, this);
-		UI_element* player3_quad = App->gui->createImageFromAtlas(540, 580, { 447, 904,200,180 }, this);
-		UI_element* player4_quad = App->gui->createImageFromAtlas(800, 580, { 666, 904,200,180 }, this);
+		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 20, { 18, 904,200,180 }, this);
+		UI_element* player2_quad = App->gui->createImageFromAtlas(20, 200, { 232, 904,200,180 }, this);
+		UI_element* player3_quad = App->gui->createImageFromAtlas(20, 380, { 447, 904,200,180 }, this);
+		UI_element* player4_quad = App->gui->createImageFromAtlas(20, 560, { 666, 904,200,180 }, this);
+
+		//ARROWS
+		UI_element* arrow = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 
 		//PLAYER IMAGE(?)
-		mark1 = App->gui->createImageFromAtlas(35, 591, { 33, 1107, 169,122 }, this);
+		/*mark1 = App->gui->createImageFromAtlas(35, 591, { 33, 1107, 169,122 }, this);
 		mark2 = App->gui->createImageFromAtlas(293, 591, { 33, 1107, 169,122 }, this);
 		mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
-		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);
+		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);*/
 
 		//READY BUTTON
 		ready = App->gui->createButton(700 * App->gui->UI_scale, 330 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
@@ -271,20 +274,21 @@ bool j1UIScene::Start()
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
-		championSelection->elements.push_back(champion_button1);
+		/*championSelection->elements.push_back(champion_button1);
 		championSelection->elements.push_back(champion_button2);
 		championSelection->elements.push_back(champion_button3);
-		championSelection->elements.push_back(champion_button4);
+		championSelection->elements.push_back(champion_button4);*/
 		championSelection->elements.push_back(player1_quad);
 		championSelection->elements.push_back(player2_quad);
 		championSelection->elements.push_back(player3_quad);
 		championSelection->elements.push_back(player4_quad);
-		championSelection->elements.push_back(mark1);
+		/*championSelection->elements.push_back(mark1);
 		championSelection->elements.push_back(mark2);
 		championSelection->elements.push_back(mark3);
-		championSelection->elements.push_back(mark4);
+		championSelection->elements.push_back(mark4);*/
 		championSelection->elements.push_back(ready);
 		championSelection->elements.push_back(ready_text);
+		championSelection->elements.push_back(arrow);
 		menus.push_back(championSelection);
 	}
 
@@ -526,7 +530,7 @@ bool j1UIScene::Update(float dt)
 
 
 	
-	if (player1_select == true)
+	/*if (player1_select == true)
 	{
 		mark1->section = { 243, 1107, 169,122 };
 	}
@@ -572,7 +576,7 @@ bool j1UIScene::Update(float dt)
 	{
 		ready->section = { 0,28,278,105 };
 		ready->function = NONE;
-	}
+	}*/
 
 
 	//GET TO SCOREBOARD SCREEN
