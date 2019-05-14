@@ -101,20 +101,44 @@ bool j1Gui::PreUpdate()
 				{
 					is_focused[i] = true;
 
-					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_UP)
+					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN)
 					{
+						time_since_press.Start();
+						automatic_traverse_margin.Start();
 						if(App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
 							App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
 						else
 							App->ui_scene->current_menu->gamepads_focus[i]++;
 						
 					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_UP)
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_DOWN)
 					{
+						time_since_press.Start();
+						automatic_traverse_margin.Start();
 						if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
 							App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
 						else
 							App->ui_scene->current_menu->gamepads_focus[i]--;
+					}
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT)
+					{
+						if (ManageAutomaticTraverseTiming() == true)
+						{
+							if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
+								App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
+							else
+								App->ui_scene->current_menu->gamepads_focus[i]++;
+						}
+					}
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT)
+					{
+						if (ManageAutomaticTraverseTiming() == true)
+						{
+							if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
+								App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
+							else
+								App->ui_scene->current_menu->gamepads_focus[i]--;
+						}
 					}
 				}
 			}
@@ -127,10 +151,10 @@ bool j1Gui::PreUpdate()
 				element->callback->OnUIEvent(element, MOUSE_ENTER);
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN
-			|| (is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-			|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-			|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-			|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
+			|| (is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+			|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+			|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+			|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN))
 		{
 			if (element->callback != nullptr)
 			{
@@ -144,7 +168,11 @@ bool j1Gui::PreUpdate()
 			if (element->element_type == BUTTON || element->element_type == SWITCH)
 				App->audio->PlayFx(button_click_fx, 0);
 		}
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP
+			|| (is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+			|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+			|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+			|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
 		{
 			if (element->callback != nullptr)
 			{
@@ -317,6 +345,19 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
 
 	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+bool j1Gui::ManageAutomaticTraverseTiming()
+{
+	bool ret = false;
+	
+	if (time_since_press.ReadSec() >= 1.5f && automatic_traverse_margin.ReadSec() >= 0.1f)
+	{
+		automatic_traverse_margin.Start();
+		ret = true;
+	}
 
 	return ret;
 }
