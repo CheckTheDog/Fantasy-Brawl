@@ -261,12 +261,18 @@ bool j1UIScene::Start()
 
 		//ARROWS
 		UI_element* arrow = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow->function = SELECTING;
 
 		//PLAYER IMAGE(?)
-		/*mark1 = App->gui->createImageFromAtlas(35, 591, { 33, 1107, 169,122 }, this);
-		mark2 = App->gui->createImageFromAtlas(293, 591, { 33, 1107, 169,122 }, this);
-		mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
+		mark1 = App->gui->createImageFromAtlas(35, 31, { 33, 1107, 169,122 }, this);
+		photos[0] = mark1;
+		
+		
+		mark2 = App->gui->createImageFromAtlas(293, 591, { 243, 1107, 169,122 }, this);
+		/*photos[1] = mark2;*/
+		/*mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
 		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);*/
+
 
 		//READY BUTTON
 		ready = App->gui->createButton(700 * App->gui->UI_scale, 330 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
@@ -282,9 +288,9 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(player2_quad);
 		championSelection->elements.push_back(player3_quad);
 		championSelection->elements.push_back(player4_quad);
-		/*championSelection->elements.push_back(mark1);
+		championSelection->elements.push_back(mark1);
 		championSelection->elements.push_back(mark2);
-		championSelection->elements.push_back(mark3);
+		/*championSelection->elements.push_back(mark3);
 		championSelection->elements.push_back(mark4);*/
 		championSelection->elements.push_back(ready);
 		championSelection->elements.push_back(ready_text);
@@ -529,6 +535,27 @@ bool j1UIScene::Update(float dt)
 	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 59;
 
 
+	if(passing1)
+	{
+		if (counter == 1)
+			photos[0]->section = { 243, 1107, 169,122 };
+
+		if (counter == 2)
+			photos[0]->section = { 740,507,180,180 };
+
+		if (counter == 3)
+			photos[0]->section = { 560,696,180,180 };
+
+		if (counter == 4)
+			photos[0]->section = { 740,696,180,180 };
+
+		if (counter > 4)//again to wendolin
+		{
+			counter = 1;
+		}
+	
+		
+	}
 	
 	/*if (player1_select == true)
 	{
@@ -702,7 +729,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		case SELECTING:
 		{	
+			passing1 = true;
 			counter++;
+			
+			/*counter++;
 
 			if (counter == 1)
 			{
@@ -722,7 +752,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			}
 
 			if (counter <= 4)
-				App->audio->PlayFx(App->audio->fxConfirmChamp);
+				App->audio->PlayFx(App->audio->fxConfirmChamp);*/
 
 			break;
 		}

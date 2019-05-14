@@ -125,6 +125,8 @@ public:
 	UI_element* mark3 = nullptr;
 	UI_element* mark4 = nullptr;
 
+	UI_element* photos[4];
+	bool passing1 = false;
 	//READY
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
