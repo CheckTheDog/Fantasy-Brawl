@@ -128,10 +128,10 @@ public:
 
 	// --- Arrows ---
 	SDL_Texture * arrows_tex = nullptr;
-	SDL_Rect red_arrow = { 0,0,54,68 };
-	SDL_Rect green_arrow = { 64,0,54,68 };
-	SDL_Rect yellow_arrow = { 128,0,54,68 };
-	SDL_Rect blue_arrow = { 192,0,54,68 };
+	SDL_Rect red_arrow = { 0,0,18,23 };
+	SDL_Rect green_arrow = { 21,0,18,23 };
+	SDL_Rect yellow_arrow = { 42,0,18,23 };
+	SDL_Rect blue_arrow = { 64,0,18,23 };
 
 };
 
