@@ -423,11 +423,29 @@ void j1Player::Launch1stSuper()
 {
 	if (superTimer.ReadSec() > 5.0f)
 	{
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
 		for (int i = 1; i < 17; ++i)
 		{
 			playerinfo.basic_attack.angle = 22.5f*(M_PI / 180.0f)*i;
 			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f * Entityinfo.scale) , this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
+
+		for (int i = 1; i < 49; ++i)
+		{
+			playerinfo.basic_attack.angle = 11.25*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			i++;
+		}
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
@@ -513,6 +531,9 @@ void j1Player::Launch4thSuper()
 
 		float angle = std::atan2(RJdirection_y, RJdirection_x) - 45.0f*(M_PI / 180.0f);
 
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
 		// --- First round of axes ---
 		for (int i = 1; i < 4; ++i)
 		{
@@ -531,6 +552,9 @@ void j1Player::Launch4thSuper()
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 
 	}
 }

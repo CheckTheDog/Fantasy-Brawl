@@ -917,11 +917,11 @@ void j1UIScene::applySettings(settings_values values)
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{
-		if ((*item)->element_type == SWITCH)
+		/*if ((*item)->element_type == SWITCH)
 		{
 			Button* full_switch = (Button*)*item;
 			full_switch->active = values.fullscreen;
-		}
+		}*/
 		if ((*item)->element_type == SLIDER)
 		{
 			Slider* slider = (Slider*)*item;
