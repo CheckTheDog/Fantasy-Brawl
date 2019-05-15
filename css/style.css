@@ -56,12 +56,12 @@ p
     }
 .navbar-default .navbar-nav li a:hover
     {
-        color: #a8d3f0;
+        color: ##8d7768;
     }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #a8d3f0;
+  color: ##8d7768;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle
@@ -535,8 +535,8 @@ p
 /* start contact */
 #contact
     {
-        background: url('https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png');
-		background-position: 0px 0px;
+        background: url("https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png");
+	background-position: 0px 0px;
         background-size: cover;
         background-repeat: no-repeat;
         color: #000000;
