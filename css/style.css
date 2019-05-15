@@ -535,7 +535,7 @@ p
 /* start contact */
 #contact
     {
-        background: url('.../contact.png');
+        background: url("https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png");
 	background-position: 0px 0px;
         background-size: cover;
         background-repeat: no-repeat;
