@@ -149,6 +149,44 @@ bool j1Gui::PreUpdate()
 								App->ui_scene->current_menu->gamepads_focus[i]--;
 						}
 					}
+
+					if (element->parent != nullptr && element->parent->element_type == SLIDER)
+					{
+						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
+						{
+							time_since_press.Start();
+							automatic_traverse_margin.Start();
+							element->localPosition += {1,0};
+							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+						}
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
+						{
+							time_since_press.Start();
+							automatic_traverse_margin.Start();
+							element->localPosition -= {1, 0};
+							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+						}
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
+						{
+							if (ManageAutomaticTraverseTiming(0.25f,0.01f) == true)
+							{
+								element->localPosition += {5, 0};
+								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							}
+						}
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
+						{
+							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+							{
+								element->localPosition -= {5, 0};
+								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -230,8 +268,8 @@ bool j1Gui::PreUpdate()
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 		{
-			if (element->callback != nullptr)
-				ret = mouse_focus->callback->OnUIEvent(element, MOUSE_RIGHT_CLICK);
+			if (mouse_focus->callback != nullptr)
+				ret = mouse_focus->callback->OnUIEvent(mouse_focus, MOUSE_RIGHT_CLICK);
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 		{
@@ -392,11 +430,11 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 	return ret;
 }
 
-bool j1Gui::ManageAutomaticTraverseTiming()
+bool j1Gui::ManageAutomaticTraverseTiming(float time_to_start, float time_margin)
 {
 	bool ret = false;
 	
-	if (time_since_press.ReadSec() >= 1.5f && automatic_traverse_margin.ReadSec() >= 0.1f)
+	if (time_since_press.ReadSec() >= time_to_start && automatic_traverse_margin.ReadSec() >= time_margin)
 	{
 		automatic_traverse_margin.Start();
 		ret = true;

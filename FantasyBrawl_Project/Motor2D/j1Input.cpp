@@ -376,6 +376,12 @@ void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
 		SDL_HapticRumblePlay(controllers[(int)p].haptic_ptr, intensity, length);
 }
 
+void j1Input::ForceButtonState(PLAYER p, int id, GP_BUTTON_STATE state)
+{
+	if (controllers[(int)p].id_ptr != nullptr)
+		 controllers[(int)p].buttons[id] = state;
+}
+
 void j1Input::StopControllerShake(PLAYER p)
 {
 	if (controllers[(int)p].id_ptr != nullptr)

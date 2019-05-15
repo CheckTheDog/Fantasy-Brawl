@@ -139,6 +139,9 @@ public:
 	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
 	void ShakeController(PLAYER p, float intensity, uint32 length);
 
+	//This function allows you to force a state into a button from a controller, use carefully and only under controlled situations
+	void ForceButtonState(PLAYER p, int id, GP_BUTTON_STATE state);
+
 	//Stop the vibration of a controller
 	void StopControllerShake(PLAYER p);
 

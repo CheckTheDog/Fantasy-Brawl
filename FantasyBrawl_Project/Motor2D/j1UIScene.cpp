@@ -358,6 +358,12 @@ bool j1UIScene::Start()
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
+
+		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
+
 	}
 
 	
