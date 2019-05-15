@@ -121,6 +121,11 @@ Aitor:
 - Auto-Aim
 - Added IDCircle code management
 - Aim path on basic & Super attacks
+- In-game UI adjustments
+- Added margin (code)
+- Added Arrows
+- Added random music at game start
+- In-Game UI multiple adjustments and scaling
 
 Didac:
 
@@ -144,7 +149,8 @@ Pol:
 - Automap feature in Tiled adapted to our Tileset (Automatically creating all layers of tiles including collisions, from a ground basic layer).
 - Shield Animation (Shield desintegration 40 frames + shield vanishing 4 frames).
 - IDCircle Animations (4 colours, 4 different textures per colour).
-
+- Margin + mid-screen texture (ART)
+- Redone UI In-game bars in pixel art
 
 Vladislav: 
 
@@ -166,3 +172,8 @@ Oscar:
 - Character Selection Menu
 - Scoreboard Menu
 - In game UI (HP Bar + Super Attack Bar)
+- In-game UI adjustments
+- Options Menu (sliders + apply button)
+
+Roger:
+- In game UI Art (legacy version)
