@@ -43,6 +43,17 @@ enum GP_BUTTON_STATE
 	BUTTON_UP
 };
 
+enum class GP_AXIS_STATE
+{
+	AXIS_IDLE = 0,
+	AXIS_POSITIVE_DOWN,
+	AXIS_POSITIVE_REPEAT,
+	AXIS_POSITIVE_RELEASE,
+	AXIS_NEGATIVE_DOWN,
+	AXIS_NEGATIVE_REPEAT,
+	AXIS_NEGATIVE_RELEASE
+};
+
 enum class PLAYER
 {
 	P1 = 0,
@@ -61,6 +72,8 @@ struct Gamepad
 	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
 	int* axis = nullptr;
+	GP_BUTTON_STATE* triggers_state = nullptr;
+	GP_AXIS_STATE*   multidirection_axis_state = nullptr;
 	int index = -1;
 };
 
@@ -117,6 +130,11 @@ public:
 		else
 			return 0;
 	}
+
+	// PASS A TRIGGER FROM THE ENUM!
+	GP_BUTTON_STATE GetTriggerState(PLAYER p, int id) const;
+
+	GP_AXIS_STATE GetLRAxisState(PLAYER p, int id) const;
 
 	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
 	void ShakeController(PLAYER p, float intensity, uint32 length);

@@ -101,7 +101,8 @@ bool j1Gui::PreUpdate()
 				{
 					is_focused[i] = true;
 
-					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN)
+					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN
+						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 					{
 						time_since_press.Start();
 						automatic_traverse_margin.Start();
@@ -111,7 +112,8 @@ bool j1Gui::PreUpdate()
 							App->ui_scene->current_menu->gamepads_focus[i]++;
 						
 					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_DOWN)
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_DOWN
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
 					{
 						time_since_press.Start();
 						automatic_traverse_margin.Start();
@@ -120,7 +122,8 @@ bool j1Gui::PreUpdate()
 						else
 							App->ui_scene->current_menu->gamepads_focus[i]--;
 					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT)
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
 					{
 						if (ManageAutomaticTraverseTiming() == true)
 						{
@@ -130,7 +133,8 @@ bool j1Gui::PreUpdate()
 								App->ui_scene->current_menu->gamepads_focus[i]++;
 						}
 					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT)
+					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
 					{
 						if (ManageAutomaticTraverseTiming() == true)
 						{

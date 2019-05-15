@@ -25,6 +25,12 @@ j1Input::j1Input() : j1Module()
 
 		controllers[i].axis = new int[SDL_CONTROLLER_AXIS_MAX];
 		memset(controllers[i].axis, 0, sizeof(int) * SDL_CONTROLLER_AXIS_MAX);
+
+		controllers[i].triggers_state = new GP_BUTTON_STATE[2]; // There are only 2 Triggers in a gamepad
+		memset(controllers[i].triggers_state, BUTTON_IDLE, sizeof(GP_BUTTON_STATE) * 2);
+
+		controllers[i].multidirection_axis_state = new GP_AXIS_STATE[4]; // There are only 4 multidirectional axis in a gamepad, left X & Y, Right X & Y
+		memset(controllers[i].multidirection_axis_state, (int)GP_AXIS_STATE::AXIS_IDLE, sizeof(GP_AXIS_STATE) * 4);
 	}
 }
 
@@ -230,6 +236,62 @@ bool j1Input::PreUpdate()
 				{
 					controllers[i].axis[j] = SDL_GameControllerGetAxis(controllers[i].id_ptr, (SDL_GameControllerAxis)j);
 				}
+
+				// Check Triggers to work as states
+				for (int j = 0; j < 2; ++j)
+				{
+					if (SDL_GameControllerGetAxis(controllers[i].id_ptr, SDL_GameControllerAxis(j + (int)SDL_CONTROLLER_AXIS_TRIGGERLEFT)) > 0.8f * AXISMAX)
+					{
+						if (controllers[i].triggers_state[j] == BUTTON_IDLE)
+							controllers[i].triggers_state[j] = BUTTON_DOWN;
+						else
+							controllers[i].triggers_state[j] = BUTTON_REPEAT;
+					}
+					else
+					{
+						if (controllers[i].triggers_state[j] == BUTTON_REPEAT || controllers[i].triggers_state[j] == BUTTON_DOWN)
+							controllers[i].triggers_state[j] = BUTTON_UP;
+						else
+							controllers[i].triggers_state[j] = BUTTON_IDLE;
+					}
+				}
+
+				// Check Multidirection axis to work as states
+				for (int j = 0; j < 4; ++j)
+				{
+					if (SDL_GameControllerGetAxis(controllers[i].id_ptr, SDL_GameControllerAxis(j)) > 0.8f * AXISMAX) //Stick all the way to the positive
+					{
+						if (controllers[i].multidirection_axis_state[j] == GP_AXIS_STATE::AXIS_IDLE || 
+							IN_RANGE(controllers[i].multidirection_axis_state[j], GP_AXIS_STATE::AXIS_NEGATIVE_DOWN, GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT))
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_POSITIVE_DOWN;
+						else
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_POSITIVE_REPEAT;
+					}
+					else if ( IN_RANGE(controllers[i].multidirection_axis_state[j], GP_AXIS_STATE::AXIS_POSITIVE_DOWN, GP_AXIS_STATE::AXIS_POSITIVE_RELEASE))
+					{
+						if (controllers[i].multidirection_axis_state[j] == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT || controllers[i].multidirection_axis_state[j] == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_POSITIVE_RELEASE;
+						else
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_IDLE;
+					}
+					else if (SDL_GameControllerGetAxis(controllers[i].id_ptr, SDL_GameControllerAxis(j)) < -(0.8f * AXISMAX))// Stick All the way negative
+					{
+						if (controllers[i].multidirection_axis_state[j] == GP_AXIS_STATE::AXIS_IDLE ||
+							IN_RANGE(controllers[i].multidirection_axis_state[j], GP_AXIS_STATE::AXIS_POSITIVE_DOWN, GP_AXIS_STATE::AXIS_POSITIVE_REPEAT))
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_NEGATIVE_DOWN;
+						else
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT;
+					}
+					else if (IN_RANGE(controllers[i].multidirection_axis_state[j], GP_AXIS_STATE::AXIS_NEGATIVE_DOWN, GP_AXIS_STATE::AXIS_NEGATIVE_RELEASE)) // Stick neither all the way negative or positive
+					{
+						if (controllers[i].multidirection_axis_state[j] == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT || controllers[i].multidirection_axis_state[j] == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_NEGATIVE_RELEASE;
+						else
+							controllers[i].multidirection_axis_state[j] = GP_AXIS_STATE::AXIS_IDLE;
+					}
+				}
+
+
 			}
 			else if (controllers[i].id_ptr != nullptr) // Controller disattached, close (and set to nullptr)
 			{
@@ -268,6 +330,8 @@ bool j1Input::CleanUp()
 
 		delete[] controllers[i].buttons;
 		delete[] controllers[i].axis;
+		delete[] controllers[i].triggers_state;
+		delete[] controllers[i].multidirection_axis_state;
 	}
 
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
@@ -283,6 +347,28 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 	return windowEvents[ev];
 }
 
+
+GP_BUTTON_STATE j1Input::GetTriggerState(PLAYER p, int id) const
+{
+	if (id == SDL_CONTROLLER_AXIS_TRIGGERLEFT || SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+	{
+		if (controllers[(int)p].id_ptr != nullptr)
+			return controllers[(int)p].triggers_state[id - (int)SDL_CONTROLLER_AXIS_TRIGGERLEFT];
+	}
+	else
+		return BUTTON_IDLE;
+}
+
+GP_AXIS_STATE j1Input::GetLRAxisState(PLAYER p, int id) const
+{
+	if (IN_RANGE(id,(int)SDL_CONTROLLER_AXIS_LEFTX, (int)SDL_CONTROLLER_AXIS_RIGHTY))
+	{
+		if (controllers[(int)p].id_ptr != nullptr)
+			return controllers[(int)p].multidirection_axis_state[id - (int)SDL_CONTROLLER_AXIS_LEFTX];
+	}
+	else
+		return GP_AXIS_STATE::AXIS_IDLE;
+}
 
 void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
 {
