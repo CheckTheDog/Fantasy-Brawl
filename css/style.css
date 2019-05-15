@@ -442,34 +442,34 @@ p
         line-height: 0px;
     }
 	
-#programming
+#code
     {
         border-top: 1px solid #f6f6f6;
         border-bottom: 1px solid #f6f6f6;
         text-align: center;
     }
-#programming h2
+#code h2
     {
         padding-bottom: 30px;
     }
-#programming img
+#code img
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
         padding: 10px;
         transition: all 0.4s ease-in;
     }
-#programming img:hover
+#code img:hover
     {
         opacity: 0.4;
         cursor: pointer;
     }
-#programming h3
+#code h3
     {
         color: #f0c5a8;
         padding-bottom: 10px;
     }
-#programming h4
+#code h4
     {
         font-size: 14px;
         padding-top: 20px;
