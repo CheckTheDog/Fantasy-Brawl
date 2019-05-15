@@ -554,7 +554,7 @@ p
     }
 #contact .form-control
     {
-        background: #f2f2f2;
+        background: #fff;
         border-radius: 4px;
         box-shadow: none;
         margin-bottom: 20px;
@@ -566,7 +566,7 @@ p
     }
 #contact input[type="submit"]
     {
-        color: #202020;
+        color: #fff;
         font-weight: bold;
         margin-bottom: 80px;
     }
@@ -575,14 +575,14 @@ p
         background: #f0c5a8;
     }
  #contact .form-control::-moz-placeholder {
-  color: #666;
+  color: #fff;
   opacity: 1;
 }
 #contact .form-control:-ms-input-placeholder {
-  color: #666;
+  color: #fff;
 }
 #contact .form-control::-webkit-input-placeholder {
-  color: #666;
+  color: #fff;
 }
 /* end contact */
 
@@ -632,7 +632,7 @@ footer .social-icon
     }
 .social-icon li a:hover
     {
-        background: #f2f2f2;
+        background: #fcf3ed;
     }
 /* end social icon */
 
