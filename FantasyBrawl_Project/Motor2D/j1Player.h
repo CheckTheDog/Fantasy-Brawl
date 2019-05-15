@@ -145,7 +145,7 @@ public:
 
 	void Down_Collision(Collider* entitycollider, const Collider* to_check);
 
-	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
+	void CheckParticleCollision(Collider * hitbox, const Collider* to_check);
 
 
 	// --- Entity Attacks ---

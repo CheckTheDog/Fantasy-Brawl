@@ -117,7 +117,7 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 	
 }
 
-Particle * j1ParticleSystem::GetCollidedParticle(Collider* entitycollider, const Collider * particlecollider)
+Particle * j1ParticleSystem::GetCollidedParticle(Collider* hitbox, const Collider * particlecollider)
 {
 	Particle* to_return = nullptr;
 
@@ -135,7 +135,7 @@ Particle * j1ParticleSystem::GetCollidedParticle(Collider* entitycollider, const
 
 	if (to_return && to_return->originplayer != nullptr)
 	{
-		if (entitycollider != to_return->originplayer->Entityinfo.entitycoll)
+		if (hitbox != to_return->originplayer->Entityinfo.HitBox)
 		{
 			to_return->toDelete = true;
 		}
@@ -154,7 +154,7 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 		
 			if (!c1->ghost)
 			{
-				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER)
+				if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
 					active[i]->toDelete = true;
 
 

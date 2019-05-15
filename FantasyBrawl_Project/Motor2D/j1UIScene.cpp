@@ -581,6 +581,7 @@ bool j1UIScene::Update(float dt)
 
 	if (player_winner != nullptr && scoreboard == false)
 	{
+		player_winner->active = false;
 		scoreboard = true;
 		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 		actual_menu = FINAL_MENU;
