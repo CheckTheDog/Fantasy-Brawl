@@ -120,6 +120,7 @@ bool j1Scene::Start()
 	player1 = (j1Player*)App->entities->CreateEntity(entity_type::PLAYER, player_info, &App->entities->Wendolin);
 	player1->character = CHARACTER::MELIADOUL;
 	player1->AssignCharacter();
+
 	
 	player_info.IDCircle = App->entities->IDCircle_blue;
 	player_info.IDCirclesuper = App->entities->IDCirclesuper_blue;

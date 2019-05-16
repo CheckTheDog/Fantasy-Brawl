@@ -242,39 +242,64 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/vs.png"), this);
-		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 275, 60, big_buttons_font, brown_color);
+		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/ChampSelect.png"), this);
+		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
-		UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 175 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
+		/*UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 175 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
 		champion_button1->function = SELECTING;
 
 		UI_element* champion_button2 = App->gui->createButton(500 * App->gui->UI_scale, 175* App->gui->UI_scale, NULL, { 740,507,180,180 }, { 740,507,180,180 }, { 740,507,180,180 }, this);
 		UI_element* champion_button3 = App->gui->createButton(300 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 560,696,180,180 }, { 560,696,180,180 }, { 560,696,180,180 }, this);
-		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);
+		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);*/
 
 		//PLAYER QUADS
-		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 580, { 18, 904,200,180 }, this);
-		UI_element* player2_quad = App->gui->createImageFromAtlas(280, 580, { 232, 904,200,180 }, this);
-		UI_element* player3_quad = App->gui->createImageFromAtlas(540, 580, { 447, 904,200,180 }, this);
-		UI_element* player4_quad = App->gui->createImageFromAtlas(800, 580, { 666, 904,200,180 }, this);
+		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 20, { 18, 904,200,180 }, this);
+		UI_element* player2_quad = App->gui->createImageFromAtlas(20, 200, { 232, 904,200,180 }, this);
+		UI_element* player3_quad = App->gui->createImageFromAtlas(20, 380, { 447, 904,200,180 }, this);
+		UI_element* player4_quad = App->gui->createImageFromAtlas(20, 560, { 666, 904,200,180 }, this);
+
+		//ARROWS
+		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow1->function = SELECTING1;
+
+		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow2->function = SELECTING2;
+
+		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow3->function = SELECTING3;
+
+		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow4->function = SELECTING4;
 
 		//PLAYER IMAGE(?)
-		mark1 = App->gui->createImageFromAtlas(35, 591, { 33, 1107, 169,122 }, this);
-		mark2 = App->gui->createImageFromAtlas(293, 591, { 33, 1107, 169,122 }, this);
-		mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
-		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);
+		mark1 = App->gui->createImageFromAtlas(35, 31, { 33, 1107, 169,122 }, this);
+		photos[0] = mark1;
+		
+		mark2 = App->gui->createImageFromAtlas(33, 211, { 33, 1107, 169,122 }, this);
+		photos[1] = mark2;
+
+		mark3 = App->gui->createImageFromAtlas(33, 391, { 33, 1107, 169,122 }, this);
+		photos[2] = mark3;
+
+		mark4 = App->gui->createImageFromAtlas(33, 571, { 33, 1107, 169,122 }, this);
+		photos[3] = mark4;
+		/*photos[1] = mark2;*/
+		/*mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
+		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);*/
+
 
 		//READY BUTTON
-		ready = App->gui->createButton(700 * App->gui->UI_scale, 330 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
-		ready_text = App->gui->createText("READY", 780, 350, big_buttons_font, black_color);
+		ready = App->gui->createButton(500 * App->gui->UI_scale, 620 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
+		
 
 		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
-		championSelection->elements.push_back(champion_button1);
+		/*championSelection->elements.push_back(champion_button1);
 		championSelection->elements.push_back(champion_button2);
 		championSelection->elements.push_back(champion_button3);
-		championSelection->elements.push_back(champion_button4);
+		championSelection->elements.push_back(champion_button4);*/
 		championSelection->elements.push_back(player1_quad);
 		championSelection->elements.push_back(player2_quad);
 		championSelection->elements.push_back(player3_quad);
@@ -285,6 +310,10 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(mark4);
 		championSelection->elements.push_back(ready);
 		championSelection->elements.push_back(ready_text);
+		championSelection->elements.push_back(arrow1);
+		championSelection->elements.push_back(arrow2);
+		championSelection->elements.push_back(arrow3);
+		championSelection->elements.push_back(arrow4);
 		menus.push_back(championSelection);
 	}
 
@@ -524,9 +553,185 @@ bool j1UIScene::Update(float dt)
 	shield_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - App->scene->player4->Entityinfo.entitycoll->rect.w  + 47;
 	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 39;
 
+	//SELECTION LOGIC
+	if(passing1 && player1_select == false)
+	{
+		if (counter1 == 0)
+			photos[0]->section = { 33, 1107, 169,122 };
 
+		if (counter1 == 1)
+		{
+			photos[0]->section = { 243, 1107, 169,122 };
+			App->scene->player1->character = CHARACTER::WENDOLIN;
+			App->scene->player1->AssignCharacter();
+		}
+
+		if (counter1 == 2)
+		{
+			photos[0]->section = { 435,1107,169,122 };
+			App->scene->player1->character = CHARACTER::SIMON;
+			App->scene->player1->AssignCharacter();
+		}
+
+		if (counter1 == 3)
+		{
+			photos[0]->section = { 618,1107,169,122 };
+			App->scene->player1->character = CHARACTER::TRAKT;
+			App->scene->player1->AssignCharacter();
+		}
+
+		if (counter1 == 4)
+		{
+			photos[0]->section = { 808,1107,169,122 };
+			App->scene->player1->character = CHARACTER::MELIADOUL;
+			App->scene->player1->AssignCharacter();
+		}
+
+		if (counter1 > 4)//again to wendolin
+		{
+			counter1 = 1;
+		}
 	
-	if (player1_select == true)
+		//IF PLAYER1 INPUT A GAMEPAD, passing1 = false && player1_select = true
+		
+		
+	}
+
+	if (passing2 && player2_select == false)
+	{
+		if (counter2 == 0)
+			photos[1]->section = { 33, 1107, 169,122 };
+
+		if (counter2 == 1)
+		{
+			photos[1]->section = { 243, 1107, 169,122 };
+			App->scene->player2->character = CHARACTER::WENDOLIN;
+			App->scene->player2->AssignCharacter();
+		}
+
+		if (counter2 == 2)
+		{
+			photos[1]->section = { 435,1107,169,122 };
+			App->scene->player2->character = CHARACTER::SIMON;
+			App->scene->player2->AssignCharacter();
+		}
+
+		if (counter2 == 3)
+		{
+			photos[1]->section = { 618,1107,169,122 };
+			App->scene->player2->character = CHARACTER::TRAKT;
+			App->scene->player2->AssignCharacter();
+		}
+
+		if (counter2 == 4)
+		{
+			photos[1]->section = { 808,1107,169,122 };
+			App->scene->player2->character = CHARACTER::MELIADOUL;
+			App->scene->player2->AssignCharacter();
+		}
+
+		if (counter2 > 4)//again to wendolin
+		{
+			counter2 = 1;
+		}
+
+		//IF PLAYER2 INPUT A GAMEPAD, passing2 = false && player2_select = true
+
+
+	}
+
+	if (passing3 && player3_select == false)
+	{
+		if (counter3 == 0)
+			photos[2]->section = { 33, 1107, 169,122 };
+
+		if (counter3 == 1)
+		{
+			photos[2]->section = { 243, 1107, 169,122 };
+			App->scene->player3->character = CHARACTER::WENDOLIN;
+			App->scene->player3->AssignCharacter();
+		}
+
+		if (counter3 == 2)
+		{
+			photos[2]->section = { 435,1107,169,122 };
+			App->scene->player3->character = CHARACTER::SIMON;
+			App->scene->player3->AssignCharacter();
+		}
+
+		if (counter3 == 3)
+		{
+			photos[2]->section = { 618,1107,169,122 };
+			App->scene->player3->character = CHARACTER::TRAKT;
+			App->scene->player3->AssignCharacter();
+		}
+
+		if (counter3 == 4)
+		{
+			photos[2]->section = { 808,1107,169,122 };
+			App->scene->player3->character = CHARACTER::MELIADOUL;
+			App->scene->player3->AssignCharacter();
+		}
+
+		if (counter3 > 4)//again to wendolin
+		{
+			counter3 = 1;
+		}
+
+		//IF PLAYER3 INPUT A GAMEPAD, passing3 = false && player3_select = true
+
+
+	}
+
+	if (passing4 && player4_select == false)
+	{
+		if (counter4 == 0)
+			photos[3]->section = { 33, 1107, 169,122 };
+
+		if (counter4 == 1)
+		{
+			photos[3]->section = { 243, 1107, 169,122 };
+			App->scene->player4->character = CHARACTER::WENDOLIN;
+			App->scene->player4->AssignCharacter();
+		}
+
+		if (counter4 == 2)
+		{
+			photos[3]->section = { 435,1107,169,122 };
+			App->scene->player4->character = CHARACTER::SIMON;
+			App->scene->player4->AssignCharacter();
+		}
+
+		if (counter4 == 3)
+		{
+			photos[3]->section = { 618,1107,169,122 };
+			App->scene->player4->character = CHARACTER::TRAKT;
+			App->scene->player4->AssignCharacter();
+		}
+
+		if (counter4 == 4)
+		{
+			photos[3]->section = { 808,1107,169,122 };
+			App->scene->player4->character = CHARACTER::MELIADOUL;
+			App->scene->player4->AssignCharacter();
+		}
+
+		if (counter4 > 4)//again to wendolin
+		{
+			counter4 = 1;
+		}
+
+		//IF PLAYER4 INPUT A GAMEPAD, passing4 = false && player4_select = true
+
+
+	}
+
+	if (passing1 && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	{
+		ready->function = INGAME;
+	}
+	
+	/*if (player1_select == true)
 	{
 		mark1->section = { 243, 1107, 169,122 };
 	}
@@ -572,7 +777,7 @@ bool j1UIScene::Update(float dt)
 	{
 		ready->section = { 0,28,278,105 };
 		ready->function = NONE;
-	}
+	}*/
 
 
 	//GET TO SCOREBOARD SCREEN
@@ -647,7 +852,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxConfirm);
 
 			//RESET SELECTION BOOLS && COUNTER
-			counter = 0;
+			counter1 = 0;
+			counter2 = 0;
+			counter3 = 0;
+			counter4 = 0;
 			player1_select = false;
 			player2_select = false;
 			player3_select = false;
@@ -697,9 +905,13 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		
 			break;
 		}
-		case SELECTING:
+		case SELECTING1:
 		{	
-			counter++;
+			passing1 = true;
+			counter1++;
+			
+
+			/*counter++;
 
 			if (counter == 1)
 			{
@@ -719,7 +931,28 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			}
 
 			if (counter <= 4)
-				App->audio->PlayFx(App->audio->fxConfirmChamp);
+				App->audio->PlayFx(App->audio->fxConfirmChamp);*/
+
+			break;
+		}
+		case SELECTING2:
+		{
+			passing2 = true;
+			counter2++;
+
+			break;
+		}
+		case SELECTING3:
+		{
+			passing3 = true;
+			counter3++;
+
+			break;
+		}
+		case SELECTING4:
+		{
+			passing4 = true;
+			counter4++;
 
 			break;
 		}
