@@ -86,20 +86,10 @@ void j1Map::Draw()
 
 					if (layerr->name == "ground")
 					{
-						if (data.width == 50 && data.height == 50)
-						{
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-						}
-						else
 						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "beauty_1")
 					{
-						if (data.width == 50 && data.height == 50)
-						{
-							App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-						}
-						else
 						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "beauty_2")

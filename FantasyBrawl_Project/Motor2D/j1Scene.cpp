@@ -395,7 +395,7 @@ bool j1Scene::Update(float dt)
 	//	App->input->StopControllerShake(PLAYER::P4);
 	//}
 	
-	if(App->ui_scene->current_menu != App->ui_scene->championSelection)
+
 	App->map->Draw();
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
