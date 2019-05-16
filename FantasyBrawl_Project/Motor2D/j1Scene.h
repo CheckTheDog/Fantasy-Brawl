@@ -30,7 +30,7 @@ public:
 	bool Update(float dt);
 
 	// Called before all Updates
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 
 	// Called before quitting
 	bool CleanUp();
@@ -62,9 +62,8 @@ public:
 	fPoint initialposP3 = { 0.0f,0.0f };
 	fPoint initialposP4 = { 0.0f,0.0f };
 
-
+	SDL_Texture* champselect_bg;
 private:
-	//SDL_Texture* debug_tex;
 
 	std::vector <std::string*> StageList;
 };

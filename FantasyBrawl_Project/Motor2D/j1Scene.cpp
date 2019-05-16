@@ -88,8 +88,6 @@ bool j1Scene::ChangeMap(int destination_map_id)
 	player4->Entityinfo.HitBox->rect.w = 20;
 	player4->Entityinfo.HitBox->rect.h = 20;
 
-
-
 	App->map->ColliderDrawer();
 
 	return true;
@@ -101,7 +99,7 @@ bool j1Scene::Start()
 	// --- Loading map ---
 
 	App->map->Load(StageList.front()->data());
-
+	champselect_bg = App->tex->Load("gui/ChampSelect.png");
 	//debug_tex = App->tex->Load("maps/path2.png");
 	App->map->ColliderDrawer();
 
@@ -267,21 +265,31 @@ bool j1Scene::PreUpdate()
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
 
-	// --- Center Cameras on respective player ---
-	if(player1->Entityinfo.position.x != 0 && player1->Entityinfo.position.y != 0)
-	App->view->CenterScreen(1, player1->Entityinfo.position.x + player1->Entityinfo.entitycoll->rect.w / 2, player1->Entityinfo.position.y);
-	if (player2->Entityinfo.position.x != 0 && player2->Entityinfo.position.y != 0)
-	App->view->CenterScreen(2, player2->Entityinfo.position.x + player2->Entityinfo.entitycoll->rect.w / 2, player2->Entityinfo.position.y);
-	if (player3->Entityinfo.position.x != 0 && player3->Entityinfo.position.y != 0)
-	App->view->CenterScreen(3, player3->Entityinfo.position.x + player3->Entityinfo.entitycoll->rect.w / 2, player3->Entityinfo.position.y);
-	if (player4->Entityinfo.position.x != 0 && player4->Entityinfo.position.y != 0)
-	App->view->CenterScreen(4, player4->Entityinfo.position.x + player4->Entityinfo.entitycoll->rect.w / 2, player4->Entityinfo.position.y);
+	if (App->ui_scene->actual_menu != SELECTION_MENU)
+	{
+		// --- Center Cameras on respective player ---
+		if (player1->Entityinfo.position.x != 0 && player1->Entityinfo.position.y != 0)
+			App->view->CenterScreen(1, player1->Entityinfo.position.x + player1->Entityinfo.entitycoll->rect.w / 2, player1->Entityinfo.position.y);
+		if (player2->Entityinfo.position.x != 0 && player2->Entityinfo.position.y != 0)
+			App->view->CenterScreen(2, player2->Entityinfo.position.x + player2->Entityinfo.entitycoll->rect.w / 2, player2->Entityinfo.position.y);
+		if (player3->Entityinfo.position.x != 0 && player3->Entityinfo.position.y != 0)
+			App->view->CenterScreen(3, player3->Entityinfo.position.x + player3->Entityinfo.entitycoll->rect.w / 2, player3->Entityinfo.position.y);
+		if (player4->Entityinfo.position.x != 0 && player4->Entityinfo.position.y != 0)
+			App->view->CenterScreen(4, player4->Entityinfo.position.x + player4->Entityinfo.entitycoll->rect.w / 2, player4->Entityinfo.position.y);
 
-	// --- Prevent cameras from leaving map boundaries --- 
-	App->view->KeepCameraOnBounds(1);
-	App->view->KeepCameraOnBounds(2);
-	App->view->KeepCameraOnBounds(3);
-	App->view->KeepCameraOnBounds(4);
+		// --- Prevent cameras from leaving map boundaries --- 
+		App->view->KeepCameraOnBounds(1);
+		App->view->KeepCameraOnBounds(2);
+		App->view->KeepCameraOnBounds(3);
+		App->view->KeepCameraOnBounds(4);
+
+	}
+
+	if (App->ui_scene->actual_menu == SELECTION_MENU)
+	{
+		App->view->screen_1.x = 0;
+		App->view->screen_1.y = 0;
+	}
 
 	return true;
 }
@@ -408,14 +416,16 @@ bool j1Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1Scene::PostUpdate()
+bool j1Scene::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Scene_Post_Update", Profiler::Color::Aquamarine);
 
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (App->ui_scene->actual_menu == SELECTION_MENU)
+	{
+		App->view->PushQueue(1, champselect_bg, 0, 0, SDL_Rect{0,0,1024,768},1);
+	}
 
 	return ret;
 }

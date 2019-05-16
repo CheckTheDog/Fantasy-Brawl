@@ -20,6 +20,7 @@
 #include "j1Player.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
+#include "j1Viewport.h"
 
 
 j1UIScene::j1UIScene()
@@ -242,7 +243,7 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/ChampSelect.png"), this);
+		/*UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/ChampSelect.png"), this);*/
 		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
@@ -294,7 +295,7 @@ bool j1UIScene::Start()
 		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
 		
 
-		championSelection->elements.push_back(selection_image);
+		/*championSelection->elements.push_back(selection_image);*/
 		championSelection->elements.push_back(selection_text);
 		/*championSelection->elements.push_back(champion_button1);
 		championSelection->elements.push_back(champion_button2);
@@ -561,30 +562,42 @@ bool j1UIScene::Update(float dt)
 
 		if (counter1 == 1)
 		{
-			photos[0]->section = { 243, 1107, 169,122 };
-			App->scene->player1->character = CHARACTER::WENDOLIN;
-			App->scene->player1->AssignCharacter();
+			if (App->scene->player1->character != CHARACTER::WENDOLIN)
+			{
+				photos[0]->section = { 243, 1107, 169,122 };
+				App->scene->player1->character = CHARACTER::WENDOLIN;
+				App->scene->player1->AssignCharacter();
+			}
 		}
 
 		if (counter1 == 2)
 		{
-			photos[0]->section = { 435,1107,169,122 };
-			App->scene->player1->character = CHARACTER::SIMON;
-			App->scene->player1->AssignCharacter();
+			if (App->scene->player1->character != CHARACTER::SIMON)
+			{
+				photos[0]->section = { 435,1107,169,122 };
+				App->scene->player1->character = CHARACTER::SIMON;
+				App->scene->player1->AssignCharacter();
+			}
 		}
 
 		if (counter1 == 3)
 		{
-			photos[0]->section = { 618,1107,169,122 };
-			App->scene->player1->character = CHARACTER::TRAKT;
-			App->scene->player1->AssignCharacter();
+			if (App->scene->player1->character != CHARACTER::TRAKT)
+			{
+				photos[0]->section = { 618,1107,169,122 };
+				App->scene->player1->character = CHARACTER::TRAKT;
+				App->scene->player1->AssignCharacter();
+			}
 		}
 
 		if (counter1 == 4)
 		{
-			photos[0]->section = { 808,1107,169,122 };
-			App->scene->player1->character = CHARACTER::MELIADOUL;
-			App->scene->player1->AssignCharacter();
+			if (App->scene->player1->character != CHARACTER::MELIADOUL)
+			{
+				photos[0]->section = { 808,1107,169,122 };
+				App->scene->player1->character = CHARACTER::MELIADOUL;
+				App->scene->player1->AssignCharacter();
+			}
 		}
 
 		if (counter1 > 4)//again to wendolin
@@ -604,30 +617,42 @@ bool j1UIScene::Update(float dt)
 
 		if (counter2 == 1)
 		{
-			photos[1]->section = { 243, 1107, 169,122 };
-			App->scene->player2->character = CHARACTER::WENDOLIN;
-			App->scene->player2->AssignCharacter();
+			if (App->scene->player2->character != CHARACTER::WENDOLIN)
+			{
+				photos[1]->section = { 243, 1107, 169,122 };
+				App->scene->player2->character = CHARACTER::WENDOLIN;
+				App->scene->player2->AssignCharacter();
+			}
 		}
 
 		if (counter2 == 2)
 		{
-			photos[1]->section = { 435,1107,169,122 };
-			App->scene->player2->character = CHARACTER::SIMON;
-			App->scene->player2->AssignCharacter();
+			if (App->scene->player2->character != CHARACTER::SIMON)
+			{
+				photos[1]->section = { 435,1107,169,122 };
+				App->scene->player2->character = CHARACTER::SIMON;
+				App->scene->player2->AssignCharacter();
+			}
 		}
 
 		if (counter2 == 3)
 		{
-			photos[1]->section = { 618,1107,169,122 };
-			App->scene->player2->character = CHARACTER::TRAKT;
-			App->scene->player2->AssignCharacter();
+			if (App->scene->player2->character != CHARACTER::TRAKT)
+			{
+				photos[1]->section = { 618,1107,169,122 };
+				App->scene->player2->character = CHARACTER::TRAKT;
+				App->scene->player2->AssignCharacter();
+			}
 		}
 
 		if (counter2 == 4)
 		{
-			photos[1]->section = { 808,1107,169,122 };
-			App->scene->player2->character = CHARACTER::MELIADOUL;
-			App->scene->player2->AssignCharacter();
+			if (App->scene->player2->character != CHARACTER::MELIADOUL)
+			{
+				photos[1]->section = { 808,1107,169,122 };
+				App->scene->player2->character = CHARACTER::MELIADOUL;
+				App->scene->player2->AssignCharacter();
+			}
 		}
 
 		if (counter2 > 4)//again to wendolin
@@ -647,30 +672,42 @@ bool j1UIScene::Update(float dt)
 
 		if (counter3 == 1)
 		{
-			photos[2]->section = { 243, 1107, 169,122 };
-			App->scene->player3->character = CHARACTER::WENDOLIN;
-			App->scene->player3->AssignCharacter();
+			if (App->scene->player3->character != CHARACTER::WENDOLIN)
+			{
+				photos[2]->section = { 243, 1107, 169,122 };
+				App->scene->player3->character = CHARACTER::WENDOLIN;
+				App->scene->player3->AssignCharacter();
+			}
 		}
 
 		if (counter3 == 2)
 		{
-			photos[2]->section = { 435,1107,169,122 };
-			App->scene->player3->character = CHARACTER::SIMON;
-			App->scene->player3->AssignCharacter();
+			if (App->scene->player3->character != CHARACTER::SIMON)
+			{
+				photos[2]->section = { 435,1107,169,122 };
+				App->scene->player3->character = CHARACTER::SIMON;
+				App->scene->player3->AssignCharacter();
+			}
 		}
 
 		if (counter3 == 3)
 		{
-			photos[2]->section = { 618,1107,169,122 };
-			App->scene->player3->character = CHARACTER::TRAKT;
-			App->scene->player3->AssignCharacter();
+			if (App->scene->player3->character != CHARACTER::TRAKT)
+			{
+				photos[2]->section = { 618,1107,169,122 };
+				App->scene->player3->character = CHARACTER::TRAKT;
+				App->scene->player3->AssignCharacter();
+			}
 		}
 
 		if (counter3 == 4)
 		{
-			photos[2]->section = { 808,1107,169,122 };
-			App->scene->player3->character = CHARACTER::MELIADOUL;
-			App->scene->player3->AssignCharacter();
+			if (App->scene->player3->character != CHARACTER::MELIADOUL)
+			{
+				photos[2]->section = { 808,1107,169,122 };
+				App->scene->player3->character = CHARACTER::MELIADOUL;
+				App->scene->player3->AssignCharacter();
+			}
 		}
 
 		if (counter3 > 4)//again to wendolin
@@ -690,30 +727,42 @@ bool j1UIScene::Update(float dt)
 
 		if (counter4 == 1)
 		{
-			photos[3]->section = { 243, 1107, 169,122 };
-			App->scene->player4->character = CHARACTER::WENDOLIN;
-			App->scene->player4->AssignCharacter();
+			if (App->scene->player4->character != CHARACTER::WENDOLIN)
+			{
+				photos[3]->section = { 243, 1107, 169,122 };
+				App->scene->player4->character = CHARACTER::WENDOLIN;
+				App->scene->player4->AssignCharacter();
+			}
 		}
 
 		if (counter4 == 2)
 		{
-			photos[3]->section = { 435,1107,169,122 };
-			App->scene->player4->character = CHARACTER::SIMON;
-			App->scene->player4->AssignCharacter();
+			if (App->scene->player4->character != CHARACTER::SIMON)
+			{
+				photos[3]->section = { 435,1107,169,122 };
+				App->scene->player4->character = CHARACTER::SIMON;
+				App->scene->player4->AssignCharacter();
+			}
 		}
 
 		if (counter4 == 3)
 		{
-			photos[3]->section = { 618,1107,169,122 };
-			App->scene->player4->character = CHARACTER::TRAKT;
-			App->scene->player4->AssignCharacter();
+			if (App->scene->player4->character != CHARACTER::TRAKT)
+			{
+				photos[3]->section = { 618,1107,169,122 };
+				App->scene->player4->character = CHARACTER::TRAKT;
+				App->scene->player4->AssignCharacter();
+			}
 		}
 
 		if (counter4 == 4)
 		{
-			photos[3]->section = { 808,1107,169,122 };
-			App->scene->player4->character = CHARACTER::MELIADOUL;
-			App->scene->player4->AssignCharacter();
+			if (App->scene->player4->character != CHARACTER::MELIADOUL)
+			{
+				photos[3]->section = { 808,1107,169,122 };
+				App->scene->player4->character = CHARACTER::MELIADOUL;
+				App->scene->player4->AssignCharacter();
+			}
 		}
 
 		if (counter4 > 4)//again to wendolin
@@ -869,14 +918,40 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
 
+			App->scene->ChangeMap(1);
+			App->view->SetViews(1);
+
+			App->scene->player1->Future_position.x = 510;
+			App->scene->player1->Future_position.y = 200;
+			App->scene->player2->Future_position.x = 840;
+			App->scene->player2->Future_position.y = 200;
+			App->scene->player3->Future_position.x = 510;
+			App->scene->player3->Future_position.y = 550;
+			App->scene->player4->Future_position.x = 840;
+			App->scene->player4->Future_position.y = 550;
+
+
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
 		}
 		case INGAME:
-		{			
+		{		
+			if (actual_menu == SELECTION_MENU)
+			{
+				App->view->SetViews(4);
+				App->scene->ChangeMap(0);
+				App->scene->player1->Future_position.x = App->scene->initialposP1.x;
+				App->scene->player1->Future_position.y = App->scene->initialposP1.y;
+				App->scene->player2->Future_position.x = App->scene->initialposP2.x;
+				App->scene->player2->Future_position.y = App->scene->initialposP2.y;
+				App->scene->player3->Future_position.x = App->scene->initialposP3.x;
+				App->scene->player3->Future_position.y = App->scene->initialposP3.y;
+				App->scene->player4->Future_position.x = App->scene->initialposP4.x;
+				App->scene->player4->Future_position.y = App->scene->initialposP4.y;
+			}
+
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
-
 			App->audio->PlayFx(App->audio->fxConfirm);
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();

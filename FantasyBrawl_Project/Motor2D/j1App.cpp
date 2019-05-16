@@ -219,7 +219,7 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 
-	if (on_GamePause == true)
+	if (on_GamePause == true && App->ui_scene->actual_menu != SELECTION_MENU)
 	{
 		if(!App->transition->doingMenuTransition)
 		dt = 0.0f;
