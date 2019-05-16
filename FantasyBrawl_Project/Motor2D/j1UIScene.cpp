@@ -246,7 +246,12 @@ bool j1UIScene::Start()
 		UI_element* player3_quad = App->gui->createImageFromAtlas(40, 385, { 288, 518, 170,191 }, this);
 		UI_element* player4_quad = App->gui->createImageFromAtlas(40, 576, { 288, 518, 170,191 }, this);
 
-		UI_element* player1_text = App->gui->createImageFromAtlas(60, 166, { 512, 864,117, 20 }, this);
+		//PLAYER TEXTS
+		UI_element* player1_text = App->gui->createImageFromAtlas(60, 166, { 296, 799, 117, 20 }, this);
+		UI_element* player2_text = App->gui->createImageFromAtlas(60, 357, { 413, 799,120, 20 }, this);
+		UI_element* player3_text = App->gui->createImageFromAtlas(60, 548, { 534, 799,120, 20 }, this);
+		UI_element* player4_text = App->gui->createImageFromAtlas(60, 739, { 654, 799,120, 20 }, this);
+
 		//ARROWS
 		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 		arrow1->function = SELECTING1;
@@ -312,6 +317,9 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(inv_arrow3);
 		championSelection->elements.push_back(inv_arrow4);
 		championSelection->elements.push_back(player1_text);
+		championSelection->elements.push_back(player2_text);
+		championSelection->elements.push_back(player3_text);
+		championSelection->elements.push_back(player4_text);
 		menus.push_back(championSelection);
 	}
 
@@ -569,7 +577,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::SIMON)
 			{
-				photos[0]->section = { 433,1107,169,122 };
+				photos[0]->section = { 862, 384, 142, 153 };
 				App->scene->player1->character = CHARACTER::SIMON;
 				App->scene->player1->AssignCharacter();
 			}
@@ -579,7 +587,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::TRAKT)
 			{
-				photos[0]->section = { 620,1107,169,122 };
+				photos[0]->section = { 698, 556, 142, 153 };
 				App->scene->player1->character = CHARACTER::TRAKT;
 				App->scene->player1->AssignCharacter();
 			}
@@ -589,7 +597,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::MELIADOUL)
 			{
-				photos[0]->section = { 824,1107,169,122 };
+				photos[0]->section = { 862, 556, 142, 153 };
 				App->scene->player1->character = CHARACTER::MELIADOUL;
 				App->scene->player1->AssignCharacter();
 			}
@@ -604,7 +612,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::MELIADOUL)
 			{
-				photos[0]->section = { 824,1107,169,122 };
+				photos[0]->section = { 862, 556, 142, 153 };
 				App->scene->player1->character = CHARACTER::MELIADOUL;
 				App->scene->player1->AssignCharacter();
 			}
@@ -614,7 +622,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::TRAKT)
 			{
-				photos[0]->section = { 620,1107,169,122 };
+				photos[0]->section = { 698, 556, 142, 153 };
 				App->scene->player1->character = CHARACTER::TRAKT;
 				App->scene->player1->AssignCharacter();
 			}
@@ -624,7 +632,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::SIMON)
 			{
-				photos[0]->section = { 433,1107,169,122 };
+				photos[0]->section = { 862, 384, 142, 153 };
 				App->scene->player1->character = CHARACTER::SIMON;
 				App->scene->player1->AssignCharacter();
 			}
@@ -648,7 +656,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::WENDOLIN)
 			{
-				photos[1]->section = { 243, 1107, 169,122 };
+				photos[1]->section = { 698, 384, 142, 153 };
 				App->scene->player2->character = CHARACTER::WENDOLIN;
 				App->scene->player2->AssignCharacter();
 			}
@@ -658,7 +666,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::SIMON)
 			{
-				photos[1]->section = { 433,1107,169,122 };
+				photos[1]->section = { 862, 384, 142, 153 };
 				App->scene->player2->character = CHARACTER::SIMON;
 				App->scene->player2->AssignCharacter();
 			}
@@ -668,7 +676,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::TRAKT)
 			{
-				photos[1]->section = { 620,1107,169,122 };
+				photos[1]->section = { 698, 556, 142, 153 };
 				App->scene->player2->character = CHARACTER::TRAKT;
 				App->scene->player2->AssignCharacter();
 			}
@@ -678,7 +686,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::MELIADOUL)
 			{
-				photos[1]->section = { 824,1107,169,122 };
+				photos[1]->section = { 862, 556, 142, 153 };
 				App->scene->player2->character = CHARACTER::MELIADOUL;
 				App->scene->player2->AssignCharacter();
 			}
@@ -693,7 +701,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::MELIADOUL)
 			{
-				photos[1]->section = { 824,1107,169,122 };
+				photos[1]->section = { 862, 556, 142, 153 };
 				App->scene->player2->character = CHARACTER::MELIADOUL;
 				App->scene->player2->AssignCharacter();
 			}
@@ -703,7 +711,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::TRAKT)
 			{
-				photos[1]->section = { 620,1107,169,122 };
+				photos[1]->section = { 698, 556, 142, 153 };
 				App->scene->player2->character = CHARACTER::TRAKT;
 				App->scene->player2->AssignCharacter();
 			}
@@ -713,7 +721,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player2->character != CHARACTER::SIMON)
 			{
-				photos[1]->section = { 433,1107,169,122 };
+				photos[1]->section = { 862, 384, 142, 153 };
 				App->scene->player2->character = CHARACTER::SIMON;
 				App->scene->player2->AssignCharacter();
 			}
@@ -737,7 +745,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::WENDOLIN)
 			{
-				photos[2]->section = { 243, 1107, 169,122 };
+				photos[2]->section = { 698, 384, 142, 153 };
 				App->scene->player3->character = CHARACTER::WENDOLIN;
 				App->scene->player3->AssignCharacter();
 			}
@@ -747,7 +755,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::SIMON)
 			{
-				photos[2]->section = { 433,1107,169,122 };
+				photos[2]->section = { 862, 384, 142, 153 };
 				App->scene->player3->character = CHARACTER::SIMON;
 				App->scene->player3->AssignCharacter();
 			}
@@ -757,7 +765,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::TRAKT)
 			{
-				photos[2]->section = { 620,1107,169,122 };
+				photos[2]->section = { 698, 556, 142, 153 };
 				App->scene->player3->character = CHARACTER::TRAKT;
 				App->scene->player3->AssignCharacter();
 			}
@@ -767,7 +775,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::MELIADOUL)
 			{
-				photos[2]->section = { 824,1107,169,122 };
+				photos[2]->section = { 862, 556, 142, 153 };
 				App->scene->player3->character = CHARACTER::MELIADOUL;
 				App->scene->player3->AssignCharacter();
 			}
@@ -782,7 +790,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::MELIADOUL)
 			{
-				photos[2]->section = { 824,1107,169,122 };
+				photos[2]->section = { 862, 556, 142, 153 };
 				App->scene->player3->character = CHARACTER::MELIADOUL;
 				App->scene->player3->AssignCharacter();
 			}
@@ -792,7 +800,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::TRAKT)
 			{
-				photos[2]->section = { 620,1107,169,122 };
+				photos[2]->section = { 698, 556, 142, 153 };
 				App->scene->player3->character = CHARACTER::TRAKT;
 				App->scene->player3->AssignCharacter();
 			}
@@ -802,7 +810,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player3->character != CHARACTER::SIMON)
 			{
-				photos[2]->section = { 433,1107,169,122 };
+				photos[2]->section = { 862, 384, 142, 153 };
 				App->scene->player3->character = CHARACTER::SIMON;
 				App->scene->player3->AssignCharacter();
 			}
@@ -826,7 +834,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::WENDOLIN)
 			{
-				photos[3]->section = { 243, 1107, 169,122 };
+				photos[3]->section = { 698, 384, 142, 153 };
 				App->scene->player4->character = CHARACTER::WENDOLIN;
 				App->scene->player4->AssignCharacter();
 			}
@@ -836,7 +844,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::SIMON)
 			{
-				photos[3]->section = { 433,1107,169,122 };
+				photos[3]->section = { 862, 384, 142, 153 };
 				App->scene->player4->character = CHARACTER::SIMON;
 				App->scene->player4->AssignCharacter();
 			}
@@ -846,7 +854,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::TRAKT)
 			{
-				photos[3]->section = { 620,1107,169,122 };
+				photos[3]->section = { 698, 556, 142, 153 };
 				App->scene->player4->character = CHARACTER::TRAKT;
 				App->scene->player4->AssignCharacter();
 			}
@@ -856,7 +864,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::MELIADOUL)
 			{
-				photos[3]->section = { 824,1107,169,122 };
+				photos[3]->section = { 862, 556, 142, 153 };
 				App->scene->player4->character = CHARACTER::MELIADOUL;
 				App->scene->player4->AssignCharacter();
 			}
@@ -871,7 +879,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::MELIADOUL)
 			{
-				photos[3]->section = { 824,1107,169,122 };
+				photos[3]->section = { 862, 556, 142, 153 };
 				App->scene->player4->character = CHARACTER::MELIADOUL;
 				App->scene->player4->AssignCharacter();
 			}
@@ -881,7 +889,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::TRAKT)
 			{
-				photos[3]->section = { 620,1107,169,122 };
+				photos[3]->section = { 698, 556, 142, 153 };
 				App->scene->player4->character = CHARACTER::TRAKT;
 				App->scene->player4->AssignCharacter();
 			}
@@ -891,7 +899,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player4->character != CHARACTER::SIMON)
 			{
-				photos[2]->section = { 433,1107,169,122 };
+				photos[2]->section = { 862, 384, 142, 153 };
 				App->scene->player4->character = CHARACTER::SIMON;
 				App->scene->player4->AssignCharacter();
 			}
