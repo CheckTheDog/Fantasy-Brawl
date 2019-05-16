@@ -241,11 +241,12 @@ bool j1UIScene::Start()
 
 
 		//PLAYER QUADS
-		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 20, { 18, 904,200,180 }, this);
-		UI_element* player2_quad = App->gui->createImageFromAtlas(20, 200, { 232, 904,200,180 }, this);
-		UI_element* player3_quad = App->gui->createImageFromAtlas(20, 380, { 447, 904,200,180 }, this);
-		UI_element* player4_quad = App->gui->createImageFromAtlas(20, 560, { 666, 904,200,180 }, this);
+		UI_element* player1_quad = App->gui->createImageFromAtlas(40, 3, { 288, 518, 170,191 }, this);
+		UI_element* player2_quad = App->gui->createImageFromAtlas(40, 194, { 288, 518, 170,191 }, this);
+		UI_element* player3_quad = App->gui->createImageFromAtlas(40, 385, { 288, 518, 170,191 }, this);
+		UI_element* player4_quad = App->gui->createImageFromAtlas(40, 576, { 288, 518, 170,191 }, this);
 
+		UI_element* player1_text = App->gui->createImageFromAtlas(60, 166, { 512, 864,117, 20 }, this);
 		//ARROWS
 		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 		arrow1->function = SELECTING1;
@@ -272,16 +273,16 @@ bool j1UIScene::Start()
 		inv_arrow4->function = INV_SELECTING4;
 
 		//PLAYER IMAGE(?)
-		mark1 = App->gui->createImageFromAtlas(35, 31, { 243, 1107, 169,122 }, this);
+		mark1 = App->gui->createImageFromAtlas(58, 15, { 698, 384, 142, 153 }, this);
 		photos[0] = mark1;
 		
-		mark2 = App->gui->createImageFromAtlas(33, 211, { 243, 1107, 169,122 }, this);
+		mark2 = App->gui->createImageFromAtlas(58, 206, { 698, 384, 142, 153 }, this);
 		photos[1] = mark2;
 
-		mark3 = App->gui->createImageFromAtlas(33, 391, { 243, 1107, 169,122 }, this);
+		mark3 = App->gui->createImageFromAtlas(58, 397, { 698, 384, 142, 153 }, this);
 		photos[2] = mark3;
 
-		mark4 = App->gui->createImageFromAtlas(33, 571, { 243, 1107, 169,122 }, this);
+		mark4 = App->gui->createImageFromAtlas(58, 588, { 698, 384, 142, 153 }, this);
 		photos[3] = mark4;
 		
 
@@ -292,14 +293,14 @@ bool j1UIScene::Start()
 		
 
 		championSelection->elements.push_back(selection_text);
-		championSelection->elements.push_back(player1_quad);
-		championSelection->elements.push_back(player2_quad);
-		championSelection->elements.push_back(player3_quad);
-		championSelection->elements.push_back(player4_quad);
 		championSelection->elements.push_back(mark1);
 		championSelection->elements.push_back(mark2);
 		championSelection->elements.push_back(mark3);
 		championSelection->elements.push_back(mark4);
+		championSelection->elements.push_back(player1_quad);
+		championSelection->elements.push_back(player2_quad);
+		championSelection->elements.push_back(player3_quad);
+		championSelection->elements.push_back(player4_quad);
 		championSelection->elements.push_back(ready);
 		championSelection->elements.push_back(ready_text);
 		championSelection->elements.push_back(arrow1);
@@ -310,6 +311,7 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(inv_arrow2);
 		championSelection->elements.push_back(inv_arrow3);
 		championSelection->elements.push_back(inv_arrow4);
+		championSelection->elements.push_back(player1_text);
 		menus.push_back(championSelection);
 	}
 
@@ -557,7 +559,7 @@ bool j1UIScene::Update(float dt)
 		{
 			if (App->scene->player1->character != CHARACTER::WENDOLIN)
 			{
-				photos[0]->section = { 243, 1107, 169,122 };
+				photos[0]->section = { 698, 384, 142, 153 };
 				App->scene->player1->character = CHARACTER::WENDOLIN;
 				App->scene->player1->AssignCharacter();
 			}
