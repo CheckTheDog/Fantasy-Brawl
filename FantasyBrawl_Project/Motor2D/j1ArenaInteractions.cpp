@@ -117,7 +117,8 @@ bool j1ArenaInteractions::Update(float dt)
 
 
 			time_for_timer = std::to_string (UI_storm_countdown);
-			timeFtimer = const_cast<char*>(time_for_timer.c_str());
+			time_for_timer.erase(2,7);
+			timeFtimer = time_for_timer.data();
 			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
 			
 			
