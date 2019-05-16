@@ -62,47 +62,86 @@ bool j1Gui::PreUpdate()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	int scale = App->win->GetScale();
-	UI_element* element = nullptr;
+	UI_element* element[MAX_GAMEPADS] = { nullptr };
 
 	UI_element* mouse_focus = nullptr;
 
-	//Get element to interact with
-	if (draggingElement != nullptr)
-		element = draggingElement;
-	else
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
-		if (App->ui_scene->current_menu != nullptr)
+		//Get element to interact with
+		if (draggingElement != nullptr)
+			element[i] = draggingElement;
+		else
 		{
-			for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->elements.rbegin(); item != App->ui_scene->current_menu->elements.rend(); ++item)
+			if (App->ui_scene->current_menu != nullptr)
 			{
-				iPoint globalPos = (*item)->calculateAbsolutePosition();
-				if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[0].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[0]) == (*item)))
+				for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->elements.rbegin(); item != App->ui_scene->current_menu->elements.rend(); ++item)
 				{
-					element = *item;
-				}
-				else if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
-				{
-					mouse_focus = *item;
-				}
-				else if ((*item)->hovering)
-				{
-					(*item)->hovering = false;
-					if ((*item)->callback != nullptr)
-						(*item)->callback->OnUIEvent(*item, MOUSE_LEAVE);
+
+					if (*item == element[0] || *item == element[1] || *item == element[2] || *item == element[3] )
+						continue;
+
+					iPoint globalPos = (*item)->calculateAbsolutePosition();
+					if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[0].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[0]) == (*item)))
+					{
+						element[i] = *item;
+						if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
+							mouse_focus = *item;
+					}
+					else if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
+					{
+						mouse_focus = *item;
+					}
+					else if ((*item)->hovering && (*item != mouse_focus))
+					{
+						(*item)->hovering = false;
+						if ((*item)->callback != nullptr)
+							(*item)->callback->OnUIEvent(*item, MOUSE_LEAVE);
+					}
 				}
 			}
 		}
 	}
 
-	//Send events related to UI elements
-	if (element != nullptr)
+	//Get element to interact with
+	if (draggingElement != nullptr)
+		mouse_focus = draggingElement;
+	else
 	{
-		bool is_focused[MAX_GAMEPADS] = { false };
-		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		if (App->ui_scene->current_menu != nullptr)
 		{
+			for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->gamepad_tabs[0].rbegin(); item != App->ui_scene->current_menu->gamepad_tabs[0].rend(); ++item)
+			{
+				iPoint globalPos = (*item)->calculateAbsolutePosition();
+				
+				if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
+				{
+					mouse_focus = *item;
+				}
+				else if ((*item)->hovering)
+				{
+					if (last_mouse_focus != nullptr && *item != last_mouse_focus)
+					{
+						(*item)->hovering = false;
+						last_mouse_focus = nullptr;
+						if ((*item)->callback != nullptr)
+							(*item)->callback->OnUIEvent(*item, MOUSE_LEAVE);
+					}
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		//Send events related to UI elements
+		if (element[i] != nullptr)
+		{
+			bool is_focused[MAX_GAMEPADS] = { false };
+
 			if (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false)
 			{
-				if ((*App->ui_scene->current_menu->gamepads_focus[i]) == element)
+				if ((*App->ui_scene->current_menu->gamepads_focus[i]) == element[i])
 				{
 					is_focused[i] = true;
 
@@ -150,14 +189,14 @@ bool j1Gui::PreUpdate()
 						}
 					}
 
-					if (element->parent != nullptr && element->parent->element_type == SLIDER)
+					if (element[i]->parent != nullptr && element[i]->parent->element_type == SLIDER)
 					{
 						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
 							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 						{
 							time_since_press.Start();
 							automatic_traverse_margin.Start();
-							element->localPosition += {1,0};
+							element[i]->localPosition += {1, 0};
 							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 						}
 						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
@@ -165,15 +204,15 @@ bool j1Gui::PreUpdate()
 						{
 							time_since_press.Start();
 							automatic_traverse_margin.Start();
-							element->localPosition -= {1, 0};
+							element[i]->localPosition -= {1, 0};
 							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 						}
 						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
 							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
 						{
-							if (ManageAutomaticTraverseTiming(0.25f,0.01f) == true)
+							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
 							{
-								element->localPosition += {5, 0};
+								element[i]->localPosition += {5, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 						}
@@ -182,51 +221,52 @@ bool j1Gui::PreUpdate()
 						{
 							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
 							{
-								element->localPosition -= {5, 0};
+								element[i]->localPosition -= {5, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 						}
 					}
 				}
 			}
-		}
 
-		if (!element->hovering)
-		{
-			element->hovering = true;
-			if (element->callback != nullptr)
-				element->callback->OnUIEvent(element, MOUSE_ENTER);
-		}
-		else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-			|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-			|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-			|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN))
-		{
-			if (element->callback != nullptr)
+
+			if (!element[i]->hovering)
 			{
-				ret = element->callback->OnUIEvent(element, MOUSE_LEFT_CLICK);
+				element[i]->hovering = true;
+				if (element[i]->callback != nullptr)
+					element[i]->callback->OnUIEvent(element[i], MOUSE_ENTER);
 			}
-			if (element->dragable)
+			else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+				|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+				|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+				|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN))
 			{
-				element->Start_Drag();
-				draggingElement = element;
+				if (element[i]->callback != nullptr)
+				{
+					ret = element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+				}
+				if (element[i]->dragable)
+				{
+					element[i]->Start_Drag();
+					draggingElement = element[i];
+				}
+				if (element[i]->element_type == BUTTON || element[i]->element_type == SWITCH)
+					App->audio->PlayFx(button_click_fx, 0);
 			}
-			if (element->element_type == BUTTON || element->element_type == SWITCH)
-				App->audio->PlayFx(button_click_fx, 0);
-		}
-		else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-			|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-			|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-			|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
-		{
-			if (element->callback != nullptr)
+			else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+				|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+				|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+				|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
 			{
-				element->callback->OnUIEvent(element, MOUSE_LEFT_RELEASE);
-			}
-			if (element->dragable)
-			{
-				element->End_Drag();
-				draggingElement = nullptr;
+				if (element[i]->callback != nullptr)
+				{
+					element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_RELEASE);
+				}
+				if (element[i]->dragable)
+				{
+					element[i]->End_Drag();
+					draggingElement = nullptr;
+				}
 			}
 		}
 	}
@@ -234,9 +274,10 @@ bool j1Gui::PreUpdate()
 	//Evaluate what to do with the mouse focus
 	if (mouse_focus != nullptr)
 	{
-		if (!mouse_focus->hovering)
+		if (mouse_focus->hovering == false)
 		{
 			mouse_focus->hovering = true;
+			last_mouse_focus = mouse_focus;
 			if (mouse_focus->callback != nullptr)
 				mouse_focus->callback->OnUIEvent(mouse_focus, MOUSE_ENTER);
 		}
