@@ -20,6 +20,7 @@
 #include "j1Player.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
+#include "j1Viewport.h"
 
 
 j1UIScene::j1UIScene()
@@ -81,53 +82,48 @@ bool j1UIScene::Start()
 
 
 		//PLAY
-		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		new_game->function = NEW_GAME;
 
-		UI_element* new_text = App->gui->createText("PLAY", 460, 270, big_buttons_font, brown_color);
+		UI_element* new_text = App->gui->createText("PLAY", 588, 270, big_buttons_font, brown_color);
 		new_text->setOutlined(true);
 		
-		//CHAMPIONS
-		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 0,148,281,111 }, { 0,148,281,111 }, this);
-		continueButton->function = CONTINUE;
+		//OPTIONS
+		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		settings_start_menu->function = SETTINGS;
 
 
-		UI_element* continue_text = App->gui->createText("CHAMPIONS", 200, 200, big_buttons_font, brown_color);
+		UI_element* continue_text = App->gui->createText("OPTIONS", 588, 200, big_buttons_font, brown_color);
 		continue_text->setOutlined(true);
-		continueButton->appendChildAtCenter(continue_text);
+		settings_start_menu->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 
 		exit_game->function = EXIT;
 
-		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, brown_color);
+		UI_element* exit_text = App->gui->createText("EXIT", 588, 200, big_buttons_font, brown_color);
 		exit_text->setOutlined(true);
 		exit_game->appendChildAtCenter(exit_text);
 
 		//CREDITS
-		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
+		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
 		credits->function = WEBPAGE;
 
 
 
-		//SETTINGS
-		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, App->gui->UI_scale, NULL, { 250,386,160,157 }, { 250,547,160,157 }, { 250,712,160,157 }, this);
-
-		settings_start_menu->function = SETTINGS;
-
-
 		//BACKGROUND
-		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/background.png"), this);
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/BG.png"), this);
 
 		startMenu->elements.push_back(background_image);
 		startMenu->elements.push_back(new_game);
 		startMenu->elements.push_back(new_text);
-		startMenu->elements.push_back(continue_text);
+
 		startMenu->elements.push_back(exit_game);
 		startMenu->elements.push_back(exit_text);
 		startMenu->elements.push_back(credits);
 		startMenu->elements.push_back(settings_start_menu);
+		startMenu->elements.push_back(continue_text);
 
 		menus.push_back(startMenu);
 		AddControllerSupport(new_game, PLAYER::P1, START_MENU);
@@ -143,79 +139,79 @@ bool j1UIScene::Start()
 		UI_element* margin = App->gui->createImage(0, 0, margin_tex, this);
 
 		//player1
-		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {424, 352, 171, 21}, this);
+		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {70, 0, 43, 4}, this);
 		hp_bar1 = hp_bar_player1;
 
-		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
+		UI_element* sp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 114, 0, 22, 4 }, this);
 		sp_bar1 = sp_bar_player1;
 
-		UI_element* shield_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		UI_element* shield_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 136, 0, 22, 4 }, this);
 		shield_bar1 = shield_bar_player1;
 
-		UI_element* hp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		UI_element* hp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 0, 0, 45, 6 }, this);
 		hp_capsule1 = hp_capsule_bar1;
 
-		UI_element* sp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		UI_element* sp_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		sp_capsule1 = sp_capsule_bar1;
 
-		UI_element* shield_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		UI_element* shield_capsule_bar1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		shield_capsule1 = shield_capsule_bar1;
 
 		//player2
-		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 424, 352, 171, 21 }, this);
+		UI_element* hp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 70, 0, 43, 4 }, this);
 		hp_bar2 = hp_bar_player2;
 
-		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
+		UI_element* sp_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 114, 0, 22, 4 }, this);
 		sp_bar2 = sp_bar_player2;
 
-		UI_element* shield_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		UI_element* shield_bar_player2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 136, 0, 22, 4 }, this);
 		shield_bar2 = shield_bar_player2;
 
-		UI_element* hp_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		UI_element* hp_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player2->Entityinfo.position.y, { 0, 0, 45, 6 }, this);
 		hp_capsule2 = hp_capsule_bar2;
 
-		UI_element* sp_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		UI_element* sp_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		sp_capsule2 = sp_capsule_bar2;
 
-		UI_element* shield_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		UI_element* shield_capsule_bar2 = App->gui->createImageFromAtlas(App->scene->player2->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		shield_capsule2 = shield_capsule_bar2;
 
 		//player3
-		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 424, 352, 171, 21 }, this);
+		UI_element* hp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 70, 0, 43, 4 }, this);
 		hp_bar3 = hp_bar_player3;
 
-		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
+		UI_element* sp_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 114, 0, 22, 4 }, this);
 		sp_bar3 = sp_bar_player3;
 
-		UI_element* shield_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		UI_element* shield_bar_player3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 136, 0, 22, 4 }, this);
 		shield_bar3 = shield_bar_player3;
 
-		UI_element* hp_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		UI_element* hp_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player3->Entityinfo.position.y, { 0, 0, 45, 6 }, this);
 		hp_capsule3 = hp_capsule_bar3;
 
-		UI_element* sp_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		UI_element* sp_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		sp_capsule3 = sp_capsule_bar3;
 
-		UI_element* shield_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		UI_element* shield_capsule_bar3 = App->gui->createImageFromAtlas(App->scene->player3->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		shield_capsule3 = shield_capsule_bar3;
 
 		//player4
-		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 424, 352, 171, 21 }, this);
+		UI_element* hp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 70, 0, 43, 4 }, this);
 		hp_bar4 = hp_bar_player4;
 
-		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 639, 352, 81, 21 }, this);
+		UI_element* sp_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 114, 0, 22, 4 }, this);
 		sp_bar4 = sp_bar_player4;
 
-		UI_element* shield_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 730, 351, 81, 21 }, this);
+		UI_element* shield_bar_player4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 136, 0, 22, 4 }, this);
 		shield_bar4 = shield_bar_player4;
 
-		UI_element* hp_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 548, 400, 177, 25 }, this);
+		UI_element* hp_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player4->Entityinfo.position.y, { 0, 0, 45, 6 }, this);
 		hp_capsule4 = hp_capsule_bar4;
 
-		UI_element* sp_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 550, 426, 88, 17 }, this);
+		UI_element* sp_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		sp_capsule4 = sp_capsule_bar4;
 
-		UI_element* shield_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
+		UI_element* shield_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		shield_capsule4 = shield_capsule_bar4;
 		
 		ingameMenu->elements.push_back(margin);
@@ -249,39 +245,62 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/vs.png"), this);
-		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 275, 60, big_buttons_font, brown_color);
+		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
-		UI_element* champion_button1 = App->gui->createButton(300 * App->gui->UI_scale, 175 * App->gui->UI_scale, NULL, { 560,507,180,180 }, { 560,507,180,180 }, { 560,507,180,180 }, this);
-		champion_button1->function = SELECTING;
-
-		UI_element* champion_button2 = App->gui->createButton(500 * App->gui->UI_scale, 175* App->gui->UI_scale, NULL, { 740,507,180,180 }, { 740,507,180,180 }, { 740,507,180,180 }, this);
-		UI_element* champion_button3 = App->gui->createButton(300 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 560,696,180,180 }, { 560,696,180,180 }, { 560,696,180,180 }, this);
-		UI_element* champion_button4 = App->gui->createButton(500 * App->gui->UI_scale, 375 * App->gui->UI_scale, NULL, { 740,696,180,180 }, { 740,696,180,180 }, { 740,696,180,180 }, this);
 
 		//PLAYER QUADS
-		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 580, { 18, 904,200,180 }, this);
-		UI_element* player2_quad = App->gui->createImageFromAtlas(280, 580, { 232, 904,200,180 }, this);
-		UI_element* player3_quad = App->gui->createImageFromAtlas(540, 580, { 447, 904,200,180 }, this);
-		UI_element* player4_quad = App->gui->createImageFromAtlas(800, 580, { 666, 904,200,180 }, this);
+		UI_element* player1_quad = App->gui->createImageFromAtlas(20, 20, { 18, 904,200,180 }, this);
+		UI_element* player2_quad = App->gui->createImageFromAtlas(20, 200, { 232, 904,200,180 }, this);
+		UI_element* player3_quad = App->gui->createImageFromAtlas(20, 380, { 447, 904,200,180 }, this);
+		UI_element* player4_quad = App->gui->createImageFromAtlas(20, 560, { 666, 904,200,180 }, this);
+
+		//ARROWS
+		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow1->function = SELECTING1;
+
+		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow2->function = SELECTING2;
+
+		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow3->function = SELECTING3;
+
+		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		arrow4->function = SELECTING4;
+
+		UI_element* inv_arrow1 = App->gui->createButton(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		inv_arrow1->function = INV_SELECTING1;
+
+		UI_element* inv_arrow2 = App->gui->createButton(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		inv_arrow2->function = INV_SELECTING2;
+
+		UI_element* inv_arrow3 = App->gui->createButton(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		inv_arrow3->function = INV_SELECTING3;
+
+		UI_element* inv_arrow4 = App->gui->createButton(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		inv_arrow4->function = INV_SELECTING4;
 
 		//PLAYER IMAGE(?)
-		mark1 = App->gui->createImageFromAtlas(35, 591, { 33, 1107, 169,122 }, this);
-		mark2 = App->gui->createImageFromAtlas(293, 591, { 33, 1107, 169,122 }, this);
-		mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
-		mark4 = App->gui->createImageFromAtlas(812, 591, { 33, 1107, 169,122 }, this);
+		mark1 = App->gui->createImageFromAtlas(35, 31, { 243, 1107, 169,122 }, this);
+		photos[0] = mark1;
+		
+		mark2 = App->gui->createImageFromAtlas(33, 211, { 243, 1107, 169,122 }, this);
+		photos[1] = mark2;
+
+		mark3 = App->gui->createImageFromAtlas(33, 391, { 243, 1107, 169,122 }, this);
+		photos[2] = mark3;
+
+		mark4 = App->gui->createImageFromAtlas(33, 571, { 243, 1107, 169,122 }, this);
+		photos[3] = mark4;
+		
+
 
 		//READY BUTTON
-		ready = App->gui->createButton(700 * App->gui->UI_scale, 330 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
-		ready_text = App->gui->createText("READY", 780, 350, big_buttons_font, black_color);
+		ready = App->gui->createButton(500 * App->gui->UI_scale, 620 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
+		
 
-		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
-		championSelection->elements.push_back(champion_button1);
-		championSelection->elements.push_back(champion_button2);
-		championSelection->elements.push_back(champion_button3);
-		championSelection->elements.push_back(champion_button4);
 		championSelection->elements.push_back(player1_quad);
 		championSelection->elements.push_back(player2_quad);
 		championSelection->elements.push_back(player3_quad);
@@ -292,6 +311,14 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(mark4);
 		championSelection->elements.push_back(ready);
 		championSelection->elements.push_back(ready_text);
+		championSelection->elements.push_back(arrow1);
+		championSelection->elements.push_back(arrow2);
+		championSelection->elements.push_back(arrow3);
+		championSelection->elements.push_back(arrow4);
+		championSelection->elements.push_back(inv_arrow1);
+		championSelection->elements.push_back(inv_arrow2);
+		championSelection->elements.push_back(inv_arrow3);
+		championSelection->elements.push_back(inv_arrow4);
 		menus.push_back(championSelection);
 	}
 
@@ -501,115 +528,426 @@ bool j1UIScene::Update(float dt)
 	}
 	
 	//UPDATING HP CAPSULES POSITION
-	hp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
-	hp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 103;
-	hp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
-	hp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 103;
-	hp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
-	hp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 103;
-	hp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) -3;
-	hp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 103;
+	hp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 45;
+	hp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 45;
+	hp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 45;
+	hp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	hp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 45;
 
 	//UPDATING SP CAPSULES POSITION
-	sp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
-	sp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;
-	sp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
-	sp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;
-	sp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
-	sp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;
-	sp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) - 2;
-	sp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+	sp_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 40;
+	sp_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 40;
+	sp_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 40;
+	sp_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 64;
+	sp_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 	//UPDATING SHIELD CAPSULES POSITION
 	shield_capsule1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;
+	shield_capsule1->localPosition.y = App->scene->player1->Entityinfo.position.y - 40;
 	shield_capsule2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;
+	shield_capsule2->localPosition.y = App->scene->player2->Entityinfo.position.y - 40;
 	shield_capsule3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;
+	shield_capsule3->localPosition.y = App->scene->player3->Entityinfo.position.y - 40;
 	shield_capsule4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 86;
-	shield_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+	shield_capsule4->localPosition.y = App->scene->player4->Entityinfo.position.y - 40;
 
 	//UPDATING HP BARS POSITION
-	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
-	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 100;				 
-	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
-	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 100;				 
-	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
-	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 100;				 
-	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale);
-	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 100;				 
+	hp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - App->scene->player1->Entityinfo.entitycoll->rect.w + 25;
+	hp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 44;				 
+	hp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - App->scene->player2->Entityinfo.entitycoll->rect.w + 25;
+	hp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 44;
+	hp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - App->scene->player3->Entityinfo.entitycoll->rect.w + 25;
+	hp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 44;
+	hp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - App->scene->player4->Entityinfo.entitycoll->rect.w + 25;
+	hp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 44;
 																								 
 	//UPDATING SP BARS POSITION																	 
-	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
-	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;				 
-	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
-	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;				 
-	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
-	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;				 
-	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 2;
-	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+	sp_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - App->scene->player1->Entityinfo.entitycoll->rect.w + 25;
+	sp_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 39;
+	sp_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - App->scene->player2->Entityinfo.entitycoll->rect.w + 25;
+	sp_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 39;
+	sp_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - App->scene->player3->Entityinfo.entitycoll->rect.w + 25;
+	sp_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 39;
+	sp_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - App->scene->player4->Entityinfo.entitycoll->rect.w + 25;
+	sp_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 39;
 
 	//UPDATING SHIELD BARS POSITION																	 
-	shield_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - (int)(App->scene->player1->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
-	shield_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 78;
-	shield_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - (int)(App->scene->player2->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
-	shield_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 78;
-	shield_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - (int)(App->scene->player3->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
-	shield_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 78;
-	shield_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - (int)(App->scene->player4->Entityinfo.entitycoll->rect.w * 3.5f  * scale) + 89;
-	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 78;
+	shield_bar1->localPosition.x = App->scene->player1->Entityinfo.position.x - App->scene->player1->Entityinfo.entitycoll->rect.w + 47;
+	shield_bar1->localPosition.y = App->scene->player1->Entityinfo.position.y - 39;
+	shield_bar2->localPosition.x = App->scene->player2->Entityinfo.position.x - App->scene->player2->Entityinfo.entitycoll->rect.w + 47;
+	shield_bar2->localPosition.y = App->scene->player2->Entityinfo.position.y - 39;
+	shield_bar3->localPosition.x = App->scene->player3->Entityinfo.position.x - App->scene->player3->Entityinfo.entitycoll->rect.w + 47;
+	shield_bar3->localPosition.y = App->scene->player3->Entityinfo.position.y - 39;
+	shield_bar4->localPosition.x = App->scene->player4->Entityinfo.position.x - App->scene->player4->Entityinfo.entitycoll->rect.w  + 47;
+	shield_bar4->localPosition.y = App->scene->player4->Entityinfo.position.y - 39;
 
+	//SELECTION CHAMPION LOGIC
+	if(passing1 && player1_select == false)
+	{
+		
+		if (counter1 == 1)
+		{
+			if (App->scene->player1->character != CHARACTER::WENDOLIN)
+			{
+				photos[0]->section = { 243, 1107, 169,122 };
+				App->scene->player1->character = CHARACTER::WENDOLIN;
+				App->scene->player1->AssignCharacter();
+			}
+		}
 
+		if (counter1 == 2)
+		{
+			if (App->scene->player1->character != CHARACTER::SIMON)
+			{
+				photos[0]->section = { 433,1107,169,122 };
+				App->scene->player1->character = CHARACTER::SIMON;
+				App->scene->player1->AssignCharacter();
+			}
+		}
+
+		if (counter1 == 3)
+		{
+			if (App->scene->player1->character != CHARACTER::TRAKT)
+			{
+				photos[0]->section = { 620,1107,169,122 };
+				App->scene->player1->character = CHARACTER::TRAKT;
+				App->scene->player1->AssignCharacter();
+			}
+		}
+
+		if (counter1 == 4)
+		{
+			if (App->scene->player1->character != CHARACTER::MELIADOUL)
+			{
+				photos[0]->section = { 824,1107,169,122 };
+				App->scene->player1->character = CHARACTER::MELIADOUL;
+				App->scene->player1->AssignCharacter();
+			}
+		}
+
+		if (counter1 > 4)//again to wendolin
+		{
+			counter1 = 1;
+		}
+
+		if (counter1 == 0)
+		{
+			if (App->scene->player1->character != CHARACTER::MELIADOUL)
+			{
+				photos[0]->section = { 824,1107,169,122 };
+				App->scene->player1->character = CHARACTER::MELIADOUL;
+				App->scene->player1->AssignCharacter();
+			}
+		}
+
+		if (counter1 == -1)
+		{
+			if (App->scene->player1->character != CHARACTER::TRAKT)
+			{
+				photos[0]->section = { 620,1107,169,122 };
+				App->scene->player1->character = CHARACTER::TRAKT;
+				App->scene->player1->AssignCharacter();
+			}
+		}
+
+		if (counter1 == -2)
+		{
+			if (App->scene->player1->character != CHARACTER::SIMON)
+			{
+				photos[0]->section = { 433,1107,169,122 };
+				App->scene->player1->character = CHARACTER::SIMON;
+				App->scene->player1->AssignCharacter();
+			}
+		}
+
+		if (counter1 < -2)//again to wendolin
+		{
+			counter1 = 1;
+		}
 	
-	if (player1_select == true)
-	{
-		mark1->section = { 243, 1107, 169,122 };
-	}
-	else if (player1_select == false)
-	{
-		mark1->section = { 33, 1107, 169,122 };
-	}
-
-	if (player2_select == true)
-	{
-		mark2->section = { 243, 1107, 169,122 };
-	}
-	else if (player2_select == false)
-	{
-		mark2->section = { 33, 1107, 169,122 };
-	}
-
-	if (player3_select == true)
-	{
-		mark3->section = { 243, 1107, 169,122 };
-	}
-	else if (player3_select == false)
-	{
-		mark3->section = { 33, 1107, 169,122 };
-	}
-
-	if (player4_select == true)
-	{
-		mark4->section = { 243, 1107, 169,122 };
-	}
-	else if (player4_select == false)
-	{
-		mark4->section = { 33, 1107, 169,122 };
-	}
-
-	if (player1_select == true && player2_select == true && player3_select == true && player4_select == true)
-	{
-		ready->section = { 281,148,281,111 };
-		ready->function = INGAME;
+		//IF PLAYER1 INPUT A GAMEPAD, passing1 = false && player1_select = true
+		
 		
 	}
-	else
+
+	if (passing2 && player2_select == false)
 	{
-		ready->section = { 0,28,278,105 };
-		ready->function = NONE;
+		
+
+		if (counter2 == 1)
+		{
+			if (App->scene->player2->character != CHARACTER::WENDOLIN)
+			{
+				photos[1]->section = { 243, 1107, 169,122 };
+				App->scene->player2->character = CHARACTER::WENDOLIN;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 == 2)
+		{
+			if (App->scene->player2->character != CHARACTER::SIMON)
+			{
+				photos[1]->section = { 433,1107,169,122 };
+				App->scene->player2->character = CHARACTER::SIMON;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 == 3)
+		{
+			if (App->scene->player2->character != CHARACTER::TRAKT)
+			{
+				photos[1]->section = { 620,1107,169,122 };
+				App->scene->player2->character = CHARACTER::TRAKT;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 == 4)
+		{
+			if (App->scene->player2->character != CHARACTER::MELIADOUL)
+			{
+				photos[1]->section = { 824,1107,169,122 };
+				App->scene->player2->character = CHARACTER::MELIADOUL;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 > 4)//again to wendolin
+		{
+			counter2 = 1;
+		}
+
+		if (counter2 == 0)
+		{
+			if (App->scene->player2->character != CHARACTER::MELIADOUL)
+			{
+				photos[1]->section = { 824,1107,169,122 };
+				App->scene->player2->character = CHARACTER::MELIADOUL;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 == -1)
+		{
+			if (App->scene->player2->character != CHARACTER::TRAKT)
+			{
+				photos[1]->section = { 620,1107,169,122 };
+				App->scene->player2->character = CHARACTER::TRAKT;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 == -2)
+		{
+			if (App->scene->player2->character != CHARACTER::SIMON)
+			{
+				photos[1]->section = { 433,1107,169,122 };
+				App->scene->player2->character = CHARACTER::SIMON;
+				App->scene->player2->AssignCharacter();
+			}
+		}
+
+		if (counter2 < -2)//again to wendolin
+		{
+			counter2 = 1;
+		}
+
+		//IF PLAYER2 INPUT A GAMEPAD, passing2 = false && player2_select = true
+
+
 	}
 
+	if (passing3 && player3_select == false)
+	{
+		
+
+		if (counter3 == 1)
+		{
+			if (App->scene->player3->character != CHARACTER::WENDOLIN)
+			{
+				photos[2]->section = { 243, 1107, 169,122 };
+				App->scene->player3->character = CHARACTER::WENDOLIN;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 == 2)
+		{
+			if (App->scene->player3->character != CHARACTER::SIMON)
+			{
+				photos[2]->section = { 433,1107,169,122 };
+				App->scene->player3->character = CHARACTER::SIMON;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 == 3)
+		{
+			if (App->scene->player3->character != CHARACTER::TRAKT)
+			{
+				photos[2]->section = { 620,1107,169,122 };
+				App->scene->player3->character = CHARACTER::TRAKT;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 == 4)
+		{
+			if (App->scene->player3->character != CHARACTER::MELIADOUL)
+			{
+				photos[2]->section = { 824,1107,169,122 };
+				App->scene->player3->character = CHARACTER::MELIADOUL;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 > 4)//again to wendolin
+		{
+			counter3 = 1;
+		}
+
+		if (counter3 == 0)
+		{
+			if (App->scene->player3->character != CHARACTER::MELIADOUL)
+			{
+				photos[2]->section = { 824,1107,169,122 };
+				App->scene->player3->character = CHARACTER::MELIADOUL;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 == -1)
+		{
+			if (App->scene->player3->character != CHARACTER::TRAKT)
+			{
+				photos[2]->section = { 620,1107,169,122 };
+				App->scene->player3->character = CHARACTER::TRAKT;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 == -2)
+		{
+			if (App->scene->player3->character != CHARACTER::SIMON)
+			{
+				photos[2]->section = { 433,1107,169,122 };
+				App->scene->player3->character = CHARACTER::SIMON;
+				App->scene->player3->AssignCharacter();
+			}
+		}
+
+		if (counter3 < -2)//again to wendolin
+		{
+			counter3 = 1;
+		}
+
+		//IF PLAYER3 INPUT A GAMEPAD, passing3 = false && player3_select = true
+
+
+	}
+
+	if (passing4 && player4_select == false)
+	{
+		
+
+		if (counter4 == 1)
+		{
+			if (App->scene->player4->character != CHARACTER::WENDOLIN)
+			{
+				photos[3]->section = { 243, 1107, 169,122 };
+				App->scene->player4->character = CHARACTER::WENDOLIN;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 == 2)
+		{
+			if (App->scene->player4->character != CHARACTER::SIMON)
+			{
+				photos[3]->section = { 433,1107,169,122 };
+				App->scene->player4->character = CHARACTER::SIMON;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 == 3)
+		{
+			if (App->scene->player4->character != CHARACTER::TRAKT)
+			{
+				photos[3]->section = { 620,1107,169,122 };
+				App->scene->player4->character = CHARACTER::TRAKT;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 == 4)
+		{
+			if (App->scene->player4->character != CHARACTER::MELIADOUL)
+			{
+				photos[3]->section = { 824,1107,169,122 };
+				App->scene->player4->character = CHARACTER::MELIADOUL;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 > 4)//again to wendolin
+		{
+			counter4 = 1;
+		}
+
+		if (counter4 == 0)
+		{
+			if (App->scene->player4->character != CHARACTER::MELIADOUL)
+			{
+				photos[3]->section = { 824,1107,169,122 };
+				App->scene->player4->character = CHARACTER::MELIADOUL;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 == -1)
+		{
+			if (App->scene->player4->character != CHARACTER::TRAKT)
+			{
+				photos[3]->section = { 620,1107,169,122 };
+				App->scene->player4->character = CHARACTER::TRAKT;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 == -2)
+		{
+			if (App->scene->player4->character != CHARACTER::SIMON)
+			{
+				photos[2]->section = { 433,1107,169,122 };
+				App->scene->player4->character = CHARACTER::SIMON;
+				App->scene->player4->AssignCharacter();
+			}
+		}
+
+		if (counter4 < -2)//again to wendolin
+		{
+			counter4 = 1;
+		}
+		//IF PLAYER4 INPUT A GAMEPAD, passing4 = false && player4_select = true
+
+
+	}
+
+	if (passing1 && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	{
+		ready->function = INGAME;
+	}
+	
+	
 
 	//GET TO SCOREBOARD SCREEN
 
@@ -617,6 +955,7 @@ bool j1UIScene::Update(float dt)
 
 	if (player_winner != nullptr && scoreboard == false)
 	{
+		player_winner->active = false;
 		scoreboard = true;
 		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 		actual_menu = FINAL_MENU;
@@ -667,12 +1006,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		
 		element->state = CLICKED;
 
-		if (element->element_type == SWITCH)
+		/*if (element->element_type == SWITCH)
 		{
 			Button* tmp = (Button*)element;
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
-		}
+		}*/
 		
 	
 		switch (element->function)
@@ -682,7 +1021,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxConfirm);
 
 			//RESET SELECTION BOOLS && COUNTER
-			counter = 0;
+			counter1 = 1;
+			counter2 = 1;
+			counter3 = 1;
+			counter4 = 1;
 			player1_select = false;
 			player2_select = false;
 			player3_select = false;
@@ -696,14 +1038,40 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			actual_menu = SELECTION_MENU;
 			App->transition->menuTransition(SELECTION_MENU, 0.3);
 
+			App->scene->ChangeMap(1);
+			App->view->SetViews(1);
+
+			App->scene->player1->Future_position.x = 510;
+			App->scene->player1->Future_position.y = 200;
+			App->scene->player2->Future_position.x = 840;
+			App->scene->player2->Future_position.y = 200;
+			App->scene->player3->Future_position.x = 510;
+			App->scene->player3->Future_position.y = 550;
+			App->scene->player4->Future_position.x = 840;
+			App->scene->player4->Future_position.y = 550;
+
+
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
 		}
 		case INGAME:
-		{			
+		{		
+			if (actual_menu == SELECTION_MENU)
+			{
+				App->view->SetViews(4);
+				App->scene->ChangeMap(0);
+				App->scene->player1->Future_position.x = App->scene->initialposP1.x;
+				App->scene->player1->Future_position.y = App->scene->initialposP1.y;
+				App->scene->player2->Future_position.x = App->scene->initialposP2.x;
+				App->scene->player2->Future_position.y = App->scene->initialposP2.y;
+				App->scene->player3->Future_position.x = App->scene->initialposP3.x;
+				App->scene->player3->Future_position.y = App->scene->initialposP3.y;
+				App->scene->player4->Future_position.x = App->scene->initialposP4.x;
+				App->scene->player4->Future_position.y = App->scene->initialposP4.y;
+			}
+
 			actual_menu = INGAME_MENU;
 			App->transition->menuTransition(INGAME_MENU, 0.3);
-
 			App->audio->PlayFx(App->audio->fxConfirm);
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
@@ -732,9 +1100,13 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		
 			break;
 		}
-		case SELECTING:
+		case SELECTING1:
 		{	
-			counter++;
+			passing1 = true;
+			counter1++;
+			
+
+			/*counter++;
 
 			if (counter == 1)
 			{
@@ -754,7 +1126,56 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			}
 
 			if (counter <= 4)
-				App->audio->PlayFx(App->audio->fxConfirmChamp);
+				App->audio->PlayFx(App->audio->fxConfirmChamp);*/
+
+			break;
+		}
+		case SELECTING2:
+		{
+			passing2 = true;
+			counter2++;
+
+			break;
+		}
+		case SELECTING3:
+		{
+			passing3 = true;
+			counter3++;
+
+			break;
+		}
+		case SELECTING4:
+		{
+			passing4 = true;
+			counter4++;
+
+			break;
+		}
+		case INV_SELECTING1:
+		{
+			passing1 = true;
+			counter1--;
+
+			break;
+		}
+		case INV_SELECTING2:
+		{
+			passing2 = true;
+			counter2--;
+
+			break;
+		}
+		case INV_SELECTING3:
+		{
+			passing3 = true;
+			counter3--;
+
+			break;
+		}
+		case INV_SELECTING4:
+		{
+			passing4 = true;
+			counter4--;
 
 			break;
 		}
@@ -911,11 +1332,11 @@ bool j1UIScene::loadMenu(menu_id id)
 			{
 				for (std::list <UI_element*>::const_iterator item2 = current_menu->elements.begin(); item2 != current_menu->elements.end(); ++item2)
 				{
-					if ((*item2)->element_type == SWITCH)
+					/*if ((*item2)->element_type == SWITCH)
 					{
 						Button* full_switch = (Button*)*item2;
 						startValues.fullscreen = full_switch->active;
-					}
+					}*/
 					if ((*item2)->element_type == SLIDER)
 					{
 						Slider* slider = (Slider*)*item2;
@@ -943,21 +1364,21 @@ bool j1UIScene::loadMenu(menu_id id)
 
 void j1UIScene::applySettings(settings_values values)
 {
-	Uint32 flag = 0;
+	/*Uint32 flag = 0;
 	if (values.fullscreen)
 		flag = SDL_WINDOW_FULLSCREEN;
-	SDL_SetWindowFullscreen(App->win->window, flag);
+	SDL_SetWindowFullscreen(App->win->window, flag);*/
 
 	App->audio->setMusicVolume(values.music);
 	App->audio->setFxVolume(values.fx);
 
 	for (std::list <UI_element*>::const_iterator item = current_menu->elements.begin(); item != current_menu->elements.end(); ++item)
 	{
-		if ((*item)->element_type == SWITCH)
+		/*if ((*item)->element_type == SWITCH)
 		{
 			Button* full_switch = (Button*)*item;
 			full_switch->active = values.fullscreen;
-		}
+		}*/
 		if ((*item)->element_type == SLIDER)
 		{
 			Slider* slider = (Slider*)*item;

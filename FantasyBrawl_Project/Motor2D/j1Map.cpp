@@ -561,52 +561,6 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
-{
-	bool ret = false;
-	std::list<MapLayer*>::const_iterator item = data.layers.begin();
-
-	for(; item != data.layers.end(); item++)
-	{
-		MapLayer* layer = *item;
-
-		if(layer->properties.Get("Navigation", 0) == 0)
-			continue;
-
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
-
-		for(int y = 0; y < data.height; ++y)
-		{
-			for(int x = 0; x < data.width; ++x)
-			{
-				int i = (y*layer->width) + x;
-
-				int tile_id = layer->Get(x, y);
-				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
-				
-				if(tileset != NULL)
-				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
-					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
-					{
-						map[i] = ts->properties.Get("walkable", 1);
-					}*/
-				}
-			}
-		}
-
-		*buffer = map;
-		width = data.width;
-		height = data.height;
-		ret = true;
-
-		break;
-	}
-
-	return ret;
-}
 
 bool j1Map::ColliderDrawer()
 {
@@ -635,13 +589,24 @@ bool j1Map::ColliderDrawer()
 
 							iPoint pos = MapToWorld(x, y);
 
-							if (tile_id == redCollider)
-								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
-							else if (tile_id == greenCollider)
-								LOG("");
-							else if (tile_id == blueCollider)
-								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
-
+							if (data.width == 50 && data.height == 50)
+							{
+								if (tile_id == 3)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+								//else if (tile_id == greenCollider)
+								//	LOG("");
+								else if (tile_id == 4)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
+							}
+							else
+							{
+								if (tile_id == redCollider)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+								//else if (tile_id == greenCollider)
+								//	LOG("");
+								else if (tile_id == blueCollider)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
+							}
 						}
 					}
 				}

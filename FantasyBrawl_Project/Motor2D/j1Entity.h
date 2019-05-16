@@ -45,6 +45,7 @@ struct entity_info
 
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;
+	Collider* HitBox = nullptr;
 	SDL_Rect entitycollrect = { 0,0,0,0 };
 
 	// --- IDCircle anims ---
