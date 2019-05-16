@@ -263,13 +263,13 @@ bool j1UIScene::Start()
 		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 		arrow1->function = SELECTING1;
 
-		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 200 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 		arrow2->function = SELECTING2;
 
-		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 300 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 		arrow3->function = SELECTING3;
 
-		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
 		arrow4->function = SELECTING4;
 
 		//PLAYER IMAGE(?)
@@ -556,17 +556,36 @@ bool j1UIScene::Update(float dt)
 	//SELECTION LOGIC
 	if(passing1 && player1_select == false)
 	{
+		if (counter1 == 0)
+			photos[0]->section = { 33, 1107, 169,122 };
+
 		if (counter1 == 1)
+		{
 			photos[0]->section = { 243, 1107, 169,122 };
+			App->scene->player1->character = CHARACTER::WENDOLIN;
+			App->scene->player1->AssignCharacter();
+		}
 
 		if (counter1 == 2)
+		{
 			photos[0]->section = { 435,1107,169,122 };
+			App->scene->player1->character = CHARACTER::SIMON;
+			App->scene->player1->AssignCharacter();
+		}
 
 		if (counter1 == 3)
+		{
 			photos[0]->section = { 618,1107,169,122 };
+			App->scene->player1->character = CHARACTER::TRAKT;
+			App->scene->player1->AssignCharacter();
+		}
 
 		if (counter1 == 4)
+		{
 			photos[0]->section = { 808,1107,169,122 };
+			App->scene->player1->character = CHARACTER::MELIADOUL;
+			App->scene->player1->AssignCharacter();
+		}
 
 		if (counter1 > 4)//again to wendolin
 		{
@@ -580,17 +599,36 @@ bool j1UIScene::Update(float dt)
 
 	if (passing2 && player2_select == false)
 	{
+		if (counter2 == 0)
+			photos[1]->section = { 33, 1107, 169,122 };
+
 		if (counter2 == 1)
+		{
 			photos[1]->section = { 243, 1107, 169,122 };
+			App->scene->player2->character = CHARACTER::WENDOLIN;
+			App->scene->player2->AssignCharacter();
+		}
 
 		if (counter2 == 2)
+		{
 			photos[1]->section = { 435,1107,169,122 };
+			App->scene->player2->character = CHARACTER::SIMON;
+			App->scene->player2->AssignCharacter();
+		}
 
 		if (counter2 == 3)
+		{
 			photos[1]->section = { 618,1107,169,122 };
+			App->scene->player2->character = CHARACTER::TRAKT;
+			App->scene->player2->AssignCharacter();
+		}
 
 		if (counter2 == 4)
+		{
 			photos[1]->section = { 808,1107,169,122 };
+			App->scene->player2->character = CHARACTER::MELIADOUL;
+			App->scene->player2->AssignCharacter();
+		}
 
 		if (counter2 > 4)//again to wendolin
 		{
@@ -604,17 +642,36 @@ bool j1UIScene::Update(float dt)
 
 	if (passing3 && player3_select == false)
 	{
+		if (counter3 == 0)
+			photos[2]->section = { 33, 1107, 169,122 };
+
 		if (counter3 == 1)
+		{
 			photos[2]->section = { 243, 1107, 169,122 };
+			App->scene->player3->character = CHARACTER::WENDOLIN;
+			App->scene->player3->AssignCharacter();
+		}
 
 		if (counter3 == 2)
+		{
 			photos[2]->section = { 435,1107,169,122 };
+			App->scene->player3->character = CHARACTER::SIMON;
+			App->scene->player3->AssignCharacter();
+		}
 
 		if (counter3 == 3)
+		{
 			photos[2]->section = { 618,1107,169,122 };
+			App->scene->player3->character = CHARACTER::TRAKT;
+			App->scene->player3->AssignCharacter();
+		}
 
 		if (counter3 == 4)
+		{
 			photos[2]->section = { 808,1107,169,122 };
+			App->scene->player3->character = CHARACTER::MELIADOUL;
+			App->scene->player3->AssignCharacter();
+		}
 
 		if (counter3 > 4)//again to wendolin
 		{
@@ -628,17 +685,36 @@ bool j1UIScene::Update(float dt)
 
 	if (passing4 && player4_select == false)
 	{
+		if (counter4 == 0)
+			photos[3]->section = { 33, 1107, 169,122 };
+
 		if (counter4 == 1)
+		{
 			photos[3]->section = { 243, 1107, 169,122 };
+			App->scene->player4->character = CHARACTER::WENDOLIN;
+			App->scene->player4->AssignCharacter();
+		}
 
 		if (counter4 == 2)
+		{
 			photos[3]->section = { 435,1107,169,122 };
+			App->scene->player4->character = CHARACTER::SIMON;
+			App->scene->player4->AssignCharacter();
+		}
 
 		if (counter4 == 3)
+		{
 			photos[3]->section = { 618,1107,169,122 };
+			App->scene->player4->character = CHARACTER::TRAKT;
+			App->scene->player4->AssignCharacter();
+		}
 
 		if (counter4 == 4)
+		{
 			photos[3]->section = { 808,1107,169,122 };
+			App->scene->player4->character = CHARACTER::MELIADOUL;
+			App->scene->player4->AssignCharacter();
+		}
 
 		if (counter4 > 4)//again to wendolin
 		{
@@ -648,6 +724,11 @@ bool j1UIScene::Update(float dt)
 		//IF PLAYER4 INPUT A GAMEPAD, passing4 = false && player4_select = true
 
 
+	}
+
+	if (passing1 && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	{
+		ready->function = INGAME;
 	}
 	
 	/*if (player1_select == true)
@@ -771,6 +852,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			//RESET SELECTION BOOLS && COUNTER
 			counter1 = 0;
+			counter2 = 0;
+			counter3 = 0;
+			counter4 = 0;
 			player1_select = false;
 			player2_select = false;
 			player3_select = false;
