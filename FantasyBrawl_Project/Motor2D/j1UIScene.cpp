@@ -78,54 +78,47 @@ bool j1UIScene::Start()
 
 
 		//PLAY
-		UI_element* new_game = App->gui->createButton(372 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 		new_game->function = NEW_GAME;
 
-		UI_element* new_text = App->gui->createText("PLAY", 460, 270, big_buttons_font, brown_color);
+		UI_element* new_text = App->gui->createText("PLAY", 588, 270, big_buttons_font, brown_color);
 		new_text->setOutlined(true);
 		
-		//CHAMPIONS
-		continueButton = App->gui->createButton(372 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 0,148,281,111 }, { 0,148,281,111 }, this);
-		continueButton->function = CONTINUE;
+		//OPTIONS
+		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		settings_start_menu->function = SETTINGS;
 
 
-		UI_element* continue_text = App->gui->createText("CHAMPIONS", 200, 200, big_buttons_font, brown_color);
+		UI_element* continue_text = App->gui->createText("OPTIONS", 588, 200, big_buttons_font, brown_color);
 		continue_text->setOutlined(true);
-		continueButton->appendChildAtCenter(continue_text);
+		settings_start_menu->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(372 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 
 		exit_game->function = EXIT;
 
-		UI_element* exit_text = App->gui->createText("EXIT", 200, 200, big_buttons_font, brown_color);
+		UI_element* exit_text = App->gui->createText("EXIT", 588, 200, big_buttons_font, brown_color);
 		exit_text->setOutlined(true);
 		exit_game->appendChildAtCenter(exit_text);
 
 		//CREDITS
-		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 647 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
+		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
 		credits->function = WEBPAGE;
 
 
 
-		//SETTINGS
-		UI_element* settings_start_menu = App->gui->createButton(823 * App->gui->UI_scale, App->gui->UI_scale, NULL, { 250,386,160,157 }, { 250,547,160,157 }, { 250,712,160,157 }, this);
-
-		settings_start_menu->function = SETTINGS;
-
-
 		//BACKGROUND
-		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/background.png"), this);
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/BG.png"), this);
 
 		startMenu->elements.push_back(background_image);
 		startMenu->elements.push_back(new_game);
 		startMenu->elements.push_back(new_text);
-		startMenu->elements.push_back(continueButton);
-		startMenu->elements.push_back(continue_text);
 		startMenu->elements.push_back(exit_game);
 		startMenu->elements.push_back(exit_text);
 		startMenu->elements.push_back(credits);
 		startMenu->elements.push_back(settings_start_menu);
+		startMenu->elements.push_back(continue_text);
 		menus.push_back(startMenu);
 	}
 
