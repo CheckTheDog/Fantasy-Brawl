@@ -42,14 +42,18 @@ bool j1UIScene::Start()
 
 	
 	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 50);
-	
-	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
-	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
-	
-	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
-	_TTF_Font* special_text_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
+	 small_font = App->fonts->Load("fonts/Minecraft.ttf",30);
+	 big_font = App->fonts->Load("fonts/Minecraft.ttf", 70);
+	 mid_font = App->fonts->Load("fonts/Minecraft.ttf", 50);
+	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
+	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
+	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
+	_TTF_Font* special_text_font = App->fonts->Load("fonts/finalf.ttf", 55);
+	
+
+
 	
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
@@ -128,7 +132,7 @@ bool j1UIScene::Start()
 		menus.push_back(startMenu);
 	}
 
-	menu* ingameMenu = new menu(INGAME_MENU);
+	ingameMenu = new menu(INGAME_MENU);
 	{
 		// margin
 		SDL_Texture* margin_tex = App->tex->Load("gui/TimerMargins.png");
@@ -210,7 +214,6 @@ bool j1UIScene::Start()
 		UI_element* shield_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 638, 426, 86, 17 }, this);
 		shield_capsule4 = shield_capsule_bar4;
 		
-
 		ingameMenu->elements.push_back(margin);
 		ingameMenu->elements.push_back(hp_capsule_bar1);
 		ingameMenu->elements.push_back(hp_capsule_bar2);
@@ -457,6 +460,29 @@ bool j1UIScene::Update(float dt)
 	}
 	else if (actual_menu == INGAME_MENU)
 	{
+		//if (timer != nullptr)
+			//delete timer;
+		if (timer)
+		{
+			App->tex->UnLoad(timer->texture);
+
+			std::list <UI_element*>::iterator item = App->gui->UI_elements.begin();
+
+			while (item != App->gui->UI_elements.end())
+			{
+				if (*item == timer)
+				{
+					delete *item;
+					App->gui->UI_elements.erase(item);
+					break;
+				}
+				item++;
+			}
+		}
+			//timer
+			timer = App->gui->createText(App->arena_interactions->timeFtimer, 472, 372, small_font, { 0,0,0,1 }, this);
+			//ingameMenu->elements.push_back(timer);
+			
 		App->on_GamePause = false;
 	}
 	else if (actual_menu == FINAL_MENU)
