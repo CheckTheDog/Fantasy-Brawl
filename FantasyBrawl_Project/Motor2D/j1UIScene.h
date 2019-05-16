@@ -127,12 +127,19 @@ public:
 
 	UI_element* photos[4];
 	bool passing1 = false;
+	bool passing2 = false;
+	bool passing3 = false;
+	bool passing4 = false;
+
 	//READY
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
 
 	//SELECTION BOOLS
-	int counter = 0;
+	int counter1 = 0;
+	int counter2 = 0;
+	int counter3 = 0;
+	int counter4 = 0;
 	bool player1_select = false;
 	bool player2_select = false;
 	bool player3_select = false;
