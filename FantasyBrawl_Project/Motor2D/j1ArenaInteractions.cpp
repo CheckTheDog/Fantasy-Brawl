@@ -7,6 +7,7 @@
 #include "j1Viewport.h"
 #include "j1Collision.h"
 #include "j1Audio.h"
+#include <string>
 
 j1ArenaInteractions::j1ArenaInteractions() : j1Module()
 {
@@ -107,11 +108,31 @@ bool j1ArenaInteractions::Update(float dt)
 			current_phase++;
 			target_time = (*phase_iterator)->waiting_time;
 		}
-
+		
 		if (storm_moving == false)
 		{
 			float test = storm_timer.ReadSec();
+			
+
+
+
+			time_for_timer = std::to_string (UI_storm_countdown);
+			
+			if (UI_storm_countdown >= 10)
+			{
+				time_for_timer.erase(2,7);
+			}
+			else
+			{
+				time_for_timer.erase(3, 7);
+			}
+			
+			timeFtimer = time_for_timer.data();
 			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
+			
+			
+
+
 
 			if ( alarm_hasplayed == false && UI_storm_countdown < 6)
 			{

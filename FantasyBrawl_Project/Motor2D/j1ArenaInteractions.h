@@ -92,8 +92,10 @@ public: /// Variables
 	uint target_time = 0;
 	float UI_storm_countdown = 0;
 
-private: /// Variables
-	
+	std::string time_for_timer;
+	const char* timeFtimer;
+ /// Variables
+private:	
 	//Storm timers ------
 	j1Timer storm_timer;
 	j1Timer ticks_timer;

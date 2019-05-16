@@ -156,7 +156,16 @@ public:
 	_TTF_Font* big_buttons_font = nullptr;
 	_TTF_Font* mid_buttons_font = nullptr;
 
+	_TTF_Font* small_font = nullptr;
+	_TTF_Font* big_font = nullptr;
+	_TTF_Font* mid_font = nullptr;
+
 	float scale = 0.66f;
+
+	//Menu
+	menu* ingameMenu;
 	
+	//timer
+	UI_element* timer;
 };
 #endif // !__j1UISCENE_H__ 

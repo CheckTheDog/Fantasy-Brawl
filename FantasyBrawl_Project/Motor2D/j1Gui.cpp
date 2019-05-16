@@ -18,6 +18,7 @@
 #include "UI_Clock.h"
 #include "j1Entity.h"
 #include "j1EntityManager.h"
+#include "j1Transition.h"
 
 
 
@@ -353,6 +354,9 @@ bool j1Gui::PostUpdate(float dt)
 	}
 	if (UI_Debug)
 		UIDebugDraw();
+
+	if (App->ui_scene->actual_menu == INGAME_MENU && !App->transition->doingMenuTransition )
+		App->ui_scene->timer->BlitElement();
 
 	return true;
 }
