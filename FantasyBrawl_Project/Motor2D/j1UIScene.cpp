@@ -274,16 +274,16 @@ bool j1UIScene::Start()
 		arrow4->function = SELECTING4;
 
 		//PLAYER IMAGE(?)
-		mark1 = App->gui->createImageFromAtlas(35, 31, { 33, 1107, 169,122 }, this);
+		mark1 = App->gui->createImageFromAtlas(35, 31, { 243, 1107, 169,122 }, this);
 		photos[0] = mark1;
 		
-		mark2 = App->gui->createImageFromAtlas(33, 211, { 33, 1107, 169,122 }, this);
+		mark2 = App->gui->createImageFromAtlas(33, 211, { 243, 1107, 169,122 }, this);
 		photos[1] = mark2;
 
-		mark3 = App->gui->createImageFromAtlas(33, 391, { 33, 1107, 169,122 }, this);
+		mark3 = App->gui->createImageFromAtlas(33, 391, { 243, 1107, 169,122 }, this);
 		photos[2] = mark3;
 
-		mark4 = App->gui->createImageFromAtlas(33, 571, { 33, 1107, 169,122 }, this);
+		mark4 = App->gui->createImageFromAtlas(33, 571, { 243, 1107, 169,122 }, this);
 		photos[3] = mark4;
 		/*photos[1] = mark2;*/
 		/*mark3 = App->gui->createImageFromAtlas(552, 591, { 33, 1107, 169,122 }, this);
@@ -557,9 +557,7 @@ bool j1UIScene::Update(float dt)
 	//SELECTION LOGIC
 	if(passing1 && player1_select == false)
 	{
-		if (counter1 == 0)
-			photos[0]->section = { 33, 1107, 169,122 };
-
+		
 		if (counter1 == 1)
 		{
 			if (App->scene->player1->character != CHARACTER::WENDOLIN)
@@ -612,8 +610,7 @@ bool j1UIScene::Update(float dt)
 
 	if (passing2 && player2_select == false)
 	{
-		if (counter2 == 0)
-			photos[1]->section = { 33, 1107, 169,122 };
+		
 
 		if (counter2 == 1)
 		{
@@ -667,8 +664,7 @@ bool j1UIScene::Update(float dt)
 
 	if (passing3 && player3_select == false)
 	{
-		if (counter3 == 0)
-			photos[2]->section = { 33, 1107, 169,122 };
+		
 
 		if (counter3 == 1)
 		{
@@ -722,8 +718,7 @@ bool j1UIScene::Update(float dt)
 
 	if (passing4 && player4_select == false)
 	{
-		if (counter4 == 0)
-			photos[3]->section = { 33, 1107, 169,122 };
+		
 
 		if (counter4 == 1)
 		{
@@ -901,10 +896,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxConfirm);
 
 			//RESET SELECTION BOOLS && COUNTER
-			counter1 = 0;
-			counter2 = 0;
-			counter3 = 0;
-			counter4 = 0;
+			counter1 = 1;
+			counter2 = 1;
+			counter3 = 1;
+			counter4 = 1;
 			player1_select = false;
 			player2_select = false;
 			player3_select = false;

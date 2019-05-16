@@ -136,10 +136,10 @@ public:
 	UI_element* ready_text = nullptr;
 
 	//SELECTION BOOLS
-	int counter1 = 0;
-	int counter2 = 0;
-	int counter3 = 0;
-	int counter4 = 0;
+	int counter1 = 1;
+	int counter2 = 1;
+	int counter3 = 1;
+	int counter4 = 1;
 	bool player1_select = false;
 	bool player2_select = false;
 	bool player3_select = false;
