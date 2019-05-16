@@ -1,7 +1,7 @@
 rules_beauty_1_scale_1.tmx
-rules_frontier_scale_1.tmx
 rules_beauty_2_scale_1.tmx
 rules_beauty_3_scale_1.tmx
+rules_frontier_scale_1.tmx
 rules_shadows_1_scale_1.tmx
 rules_shadows_2_scale_1.tmx
 rules_walls_scale_1.tmx
