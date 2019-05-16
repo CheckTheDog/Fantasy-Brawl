@@ -13,7 +13,6 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Collision.h"
-#include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1ArenaInteractions.h"
 #include "j1ParticleSystem.h"
@@ -43,7 +42,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new j1EntityManager();
 	arena_interactions = new j1ArenaInteractions();
 	buff = new j1BuffManager();
-	pathfinding = new j1PathFinding();
 	particlesys = new j1ParticleSystem();
 	view = new j1Viewport();
 	fonts = new j1Fonts();
@@ -65,7 +63,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(arena_interactions);
 
 	AddModule(particlesys);
-	AddModule(pathfinding);
 	
 	AddModule(view);
 	AddModule(fonts);

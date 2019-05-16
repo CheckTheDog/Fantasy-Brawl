@@ -53,7 +53,7 @@ struct MapLayer
 
 	inline uint Get(int x, int y) const
 	{
-		if (((y*width) + x) < 0)
+		if (((y*width) + x) < 0 || width*height < ((y*width) + x))
 			return 0;
 		else
 		return data[(y*width) + x];
@@ -124,7 +124,6 @@ public:
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
-	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 	bool ColliderDrawer();
 
 public:

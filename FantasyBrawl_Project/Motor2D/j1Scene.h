@@ -37,9 +37,6 @@ public:
 
 public:
 
-	// Set new Walkability map
-	bool SetWalkabilityMap();
-
 	// Change current map
 	bool ChangeMap(int destination_map_id);
 

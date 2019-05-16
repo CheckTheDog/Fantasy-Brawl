@@ -7,13 +7,13 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "j1PathFinding.h"
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1EntityManager.h"
 #include "j1Viewport.h"
 #include "j1UIScene.h"
 #include "j1BuffManager.h"
+#include "j1ArenaInteractions.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -53,28 +53,44 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool j1Scene::SetWalkabilityMap()
-{
-	int w, h;
-	uchar* data = NULL;
-	if (App->map->CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
-
-	RELEASE_ARRAY(data);
-
-	return true;
-}
-
 bool j1Scene::ChangeMap(int destination_map_id)
 {
 	App->map->CleanUp();
 	App->coll->CleanUp();
-	App->map->ColliderDrawer();
 
-	if(App->map->Load(StageList.at(destination_map_id)->data()))
-	{
-		SetWalkabilityMap();
-	}
+	App->map->Load(StageList.at(destination_map_id)->data());
+
+	player1->Entityinfo.entitycoll = App->coll->AddCollider(player1->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)App->entities);
+	player1->Entityinfo.entitycoll->rect.w *= player1->Entityinfo.scale;
+	player1->Entityinfo.entitycoll->rect.h *= player1->Entityinfo.scale;
+	player1->Entityinfo.HitBox = App->coll->AddCollider(player1->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_HITBOX, (j1Module*)App->entities);
+	player1->Entityinfo.HitBox->rect.w = 20;
+	player1->Entityinfo.HitBox->rect.h = 20;
+
+	player2->Entityinfo.entitycoll = App->coll->AddCollider(player2->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)App->entities);
+	player2->Entityinfo.entitycoll->rect.w *= player2->Entityinfo.scale;
+	player2->Entityinfo.entitycoll->rect.h *= player2->Entityinfo.scale;
+	player2->Entityinfo.HitBox = App->coll->AddCollider(player2->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_HITBOX, (j1Module*)App->entities);
+	player2->Entityinfo.HitBox->rect.w = 20;
+	player2->Entityinfo.HitBox->rect.h = 20;
+
+	player3->Entityinfo.entitycoll = App->coll->AddCollider(player3->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)App->entities);
+	player3->Entityinfo.entitycoll->rect.w *= player3->Entityinfo.scale;
+	player3->Entityinfo.entitycoll->rect.h *= player3->Entityinfo.scale;
+	player3->Entityinfo.HitBox = App->coll->AddCollider(player3->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_HITBOX, (j1Module*)App->entities);
+	player3->Entityinfo.HitBox->rect.w = 20;
+	player3->Entityinfo.HitBox->rect.h = 20;
+
+	player4->Entityinfo.entitycoll = App->coll->AddCollider(player4->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)App->entities);
+	player4->Entityinfo.entitycoll->rect.w *= player4->Entityinfo.scale;
+	player4->Entityinfo.entitycoll->rect.h *= player4->Entityinfo.scale;
+	player4->Entityinfo.HitBox = App->coll->AddCollider(player4->Entityinfo.entitycollrect, COLLIDER_TYPE::COLLIDER_HITBOX, (j1Module*)App->entities);
+	player4->Entityinfo.HitBox->rect.w = 20;
+	player4->Entityinfo.HitBox->rect.h = 20;
+
+
+
+	App->map->ColliderDrawer();
 
 	return true;
 }
@@ -84,10 +100,7 @@ bool j1Scene::Start()
 {
 	// --- Loading map ---
 
-	if(App->map->Load(StageList.front()->data()) == true)
-	{
-		SetWalkabilityMap();
-	}
+	App->map->Load(StageList.front()->data());
 
 	//debug_tex = App->tex->Load("maps/path2.png");
 	App->map->ColliderDrawer();
@@ -283,8 +296,6 @@ bool j1Scene::Update(float dt)
 	//if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	//	App->SaveGame("save_game.xml");
 
-	/*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		ChangeMap(1);*/
 
 	//Make the camera movement independent of framerate
 	//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
@@ -385,6 +396,9 @@ bool j1Scene::Update(float dt)
 	
 
 	App->map->Draw();
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		ChangeMap(1);
 
 	int x, y;
 	App->input->GetMousePosition(x, y);

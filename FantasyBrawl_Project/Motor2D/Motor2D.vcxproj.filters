@@ -40,9 +40,6 @@
     <ClCompile Include="j1Window.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="j1Pathfinding.cpp">
-      <Filter>Development  ========\Entities\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
@@ -54,7 +51,7 @@
     </ClCompile>
     <ClCompile Include="j1ParticleSystem.cpp">
       <Filter>Development  ========\Entities\Tools</Filter>
-   </ClCompile>
+    </ClCompile>
     <ClCompile Include="j1Viewport.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
     </ClCompile>
@@ -143,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="j1Window.h">
       <Filter>Development  ========\Modules\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Pathfinding.h">
-      <Filter>Development  ========\Entities\Tools</Filter>
     </ClInclude>
     <ClInclude Include="j1EntityManager.h">
       <Filter>Development  ========\Modules</Filter>
