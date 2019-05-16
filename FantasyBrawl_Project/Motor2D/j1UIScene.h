@@ -73,6 +73,7 @@ public:
 public:
 	std::list <menu*> menus;
 	menu* current_menu = nullptr;
+	menu* championSelection = nullptr;
 	settings_values newValues;
 	settings_values startValues;
 	settings_values defaultValues;
@@ -82,6 +83,7 @@ public:
 	menu_id actual_menu = START_MENU;
 	bool ui_id1 = false;
 	bool ui_id2 = false;
+
 
 	//PLAYER HP BARS
 	UI_element* hp_bar1 = nullptr;

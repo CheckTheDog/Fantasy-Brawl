@@ -240,7 +240,7 @@ bool j1UIScene::Start()
 
 	}
 
-	menu* championSelection = new menu(SELECTION_MENU);
+	championSelection = new menu(SELECTION_MENU);
 	{
 		UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/ChampSelect.png"), this);
 		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);

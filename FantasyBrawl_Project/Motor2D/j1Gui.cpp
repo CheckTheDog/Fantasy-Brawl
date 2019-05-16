@@ -18,6 +18,7 @@
 #include "UI_Clock.h"
 #include "j1Entity.h"
 #include "j1EntityManager.h"
+#include "j1Map.h"
 
 
 
@@ -170,6 +171,11 @@ bool j1Gui::PostUpdate(float dt)
 	}
 	if (UI_Debug)
 		UIDebugDraw();
+
+	if (App->ui_scene->current_menu == App->ui_scene->championSelection)
+	{
+		App->map->Draw();
+	}
 
 	return true;
 }
