@@ -253,28 +253,28 @@ bool j1UIScene::Start()
 		UI_element* player4_text = App->gui->createImageFromAtlas(60, 739, { 654, 799,120, 20 }, this);
 
 		//ARROWS
-		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21}, this);
 		arrow1->function = SELECTING1;
 
-		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21 }, this);
 		arrow2->function = SELECTING2;
 
-		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21 }, this);
 		arrow3->function = SELECTING3;
 
-		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21 }, this);
 		arrow4->function = SELECTING4;
 
-		UI_element* inv_arrow1 = App->gui->createButton(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* inv_arrow1 = App->gui->createButton(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
 		inv_arrow1->function = INV_SELECTING1;
 
-		UI_element* inv_arrow2 = App->gui->createButton(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* inv_arrow2 = App->gui->createButton(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
 		inv_arrow2->function = INV_SELECTING2;
 
-		UI_element* inv_arrow3 = App->gui->createButton(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* inv_arrow3 = App->gui->createButton(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
 		inv_arrow3->function = INV_SELECTING3;
 
-		UI_element* inv_arrow4 = App->gui->createButton(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 341,287,16,32 }, { 341,287,16,32 }, { 341,287,16,32 }, this);
+		UI_element* inv_arrow4 = App->gui->createButton(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
 		inv_arrow4->function = INV_SELECTING4;
 
 		//PLAYER IMAGE(?)
