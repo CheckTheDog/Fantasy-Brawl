@@ -389,13 +389,24 @@ void j1Player::BlitSuperAimPaths(float dt)
 	switch (character)
 	{
 	case CHARACTER::WENDOLIN:
+		if (App->ui_scene->actual_menu == SELECTION_MENU)
+		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{ 0,0,260,260 }, 1, 0, 0, 0, 0, Entityinfo.scale);
+		else
 		App->view->PushQueue(3, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale);
 		break;
 	case CHARACTER::SIMON:
-		if(last_particle && !last_particle->toDelete)
-		App->view->PushQueue(3, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y -  (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
+		if (last_particle && !last_particle->toDelete)
+		{
+			if (App->ui_scene->actual_menu == SELECTION_MENU)
+			App->view->PushQueue(3, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2);
+			else
+			App->view->PushQueue(3, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
+		}
 		break;
 	case CHARACTER::TRAKT:
+		if (App->ui_scene->actual_menu == SELECTION_MENU)
+		App->view->PushQueue(3, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },1, 0, 0, 0, 0);
+		else
 		App->view->PushQueue(3, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0);
 
 		// --- All gamepads vibrate on trakt's super (heart pulsation) ---
@@ -417,7 +428,12 @@ void j1Player::BlitSuperAimPaths(float dt)
 		break;
 	case CHARACTER::MELIADOUL:
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-		App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+		{
+			if (App->ui_scene->actual_menu == SELECTION_MENU)
+				App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+			else
+			App->view->PushQueue(3, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+		}
 		break;
 	default:
 		break;
@@ -473,17 +489,20 @@ void j1Player::Launch2ndSuper()
 
 			ComputeDistance2players();
 
-			if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
-				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
+			if (App->ui_scene->actual_menu != SELECTION_MENU)
+			{
+				if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
+					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
 
-			if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
-				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
+				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
+					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
 
-			if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
-				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
+				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
+					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
 
-			if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
-				App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
+					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+			}
 		}
 	}
 }
@@ -658,13 +677,19 @@ bool j1Player::PostUpdate(float dt)
 	// --- Basic Attack aim path ---
 	if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
 	{
-		bool blit_aimpath = true;
+		
+			bool blit_aimpath = true;
 
-		if (this->character == CHARACTER::MELIADOUL && superON)
-			blit_aimpath = false;
+			if (this->character == CHARACTER::MELIADOUL && superON)
+				blit_aimpath = false;
 
-		if(blit_aimpath)
-		App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+			if (blit_aimpath)
+			{
+				if (App->ui_scene->actual_menu == SELECTION_MENU)
+				App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+				else
+				App->view->PushQueue(3, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+			}
 	}
 	// --- Super Attack ---
 	if(superON)
