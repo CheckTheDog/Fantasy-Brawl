@@ -9,6 +9,9 @@
 #include "j1Collision.h"
 #include "j1Viewport.h"
 #include "j1Scene.h"
+#include "j1UIScene.h"
+#include "j1Gui.h"
+#include "j1Transition.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -80,6 +83,12 @@ void j1Map::Draw()
 				if(tile_id > 0)
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+					if (App->ui_scene->actual_menu == SELECTION_MENU && App->transition->doingMenuTransition)
+					{
+						//SDL_SetTextureAlphaMod(tileset->texture, App->gui->alpha_value);
+						continue;
+					}
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);

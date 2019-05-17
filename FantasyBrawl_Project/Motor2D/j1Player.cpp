@@ -17,6 +17,7 @@
 #include "j1BuffManager.h"
 #include "j1Map.h"
 #include "j1UIScene.h"
+#include "j1Gui.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -599,6 +600,12 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
+
+	if (App->ui_scene->actual_menu == SELECTION_MENU)
+	{
+		SDL_SetTextureAlphaMod(this->playerinfo.tex, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->circlesprites, App->gui->alpha_value);
+	}
 
 	if (PlayerPrintOnTop == true)
 		App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt),0,0,0,0,0,Entityinfo.scale);
