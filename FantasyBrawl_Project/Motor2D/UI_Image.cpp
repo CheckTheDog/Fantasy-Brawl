@@ -22,9 +22,10 @@ void Image::BlitElement()
 	if (App->transition->doingMenuTransition)
 	{
 		if ((App->ui_scene->actual_menu == menu_id::SETTINGS_MENU 
-			|| App->ui_scene->actual_menu == menu_id::START_MENU)
-			&& App->ui_scene->previous_menu != menu_id::INGAMESETTINGS_MENU
-			)
+			&&  App->ui_scene->previous_menu == menu_id::INGAMESETTINGS_MENU)
+			|| (App->ui_scene->actual_menu == menu_id::START_MENU
+				&&  App->ui_scene->previous_menu == menu_id::SETTINGS_MENU)
+			|| App->ui_scene->actual_menu == menu_id::SETTINGS_MENU)
 		{
 			uint w, h;
 			App->win->GetWindowSize(w, h);
@@ -260,7 +261,7 @@ void Image::BlitElement()
 		}
 
 		else
-		App->view->PushQueue(1, texture, 0, 0, section, 1);
+		App->view->PushQueue(0, texture, 0, 0, section, 1);
 	}
 
 	else
