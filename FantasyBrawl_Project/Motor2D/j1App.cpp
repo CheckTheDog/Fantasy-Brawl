@@ -64,10 +64,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(particlesys);
 	
-	AddModule(view);
+
 	AddModule(fonts);
 	AddModule(gui);
 	AddModule(transition);
+	AddModule(view);
 	AddModule(ui_scene);
 
 

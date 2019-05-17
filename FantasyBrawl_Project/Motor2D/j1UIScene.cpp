@@ -51,7 +51,8 @@ bool j1UIScene::Start()
 	_TTF_Font* special_text_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
-	
+	 panel = App->tex->Load("gui/big_parchment.png");
+	 champselect_bg = App->tex->Load("gui/ChampSelect.png");
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color white_color = { 255, 255, 255, 0 };
@@ -132,8 +133,8 @@ bool j1UIScene::Start()
 	menu* ingameMenu = new menu(INGAME_MENU);
 	{
 		// margin
-		SDL_Texture* margin_tex = App->tex->Load("gui/TimerMargins.png");
-		UI_element* margin = App->gui->createImage(0, 0, margin_tex, this);
+		margin_tex = App->tex->Load("gui/TimerMargins.png");
+		margin = App->gui->createImage(0, 0, margin_tex, this);
 
 		//player1
 		UI_element* hp_bar_player1 = App->gui->createImageFromAtlas(App->scene->player1->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y,  {70, 0, 43, 4}, this);
@@ -243,7 +244,7 @@ bool j1UIScene::Start()
 
 	menu* championSelection = new menu(SELECTION_MENU);
 	{
-		/*UI_element* selection_image = App->gui->createImage(0, 0, App->tex->Load("gui/ChampSelect.png"), this);*/
+		selection_image = App->gui->createImage(0, 0, champselect_bg, this);
 		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);
 		selection_text->setOutlined(true);
 
@@ -295,7 +296,7 @@ bool j1UIScene::Start()
 		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
 		
 
-		/*championSelection->elements.push_back(selection_image);*/
+		championSelection->elements.push_back(selection_image);
 		championSelection->elements.push_back(selection_text);
 		/*championSelection->elements.push_back(champion_button1);
 		championSelection->elements.push_back(champion_button2);
@@ -324,7 +325,7 @@ bool j1UIScene::Start()
 
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
-		UI_element* settings_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
 		UI_element* settings_text = App->gui->createText("OPTIONS", 425, 60, big_buttons_font, brown_color);
 		settings_text->setOutlined(true);
 
@@ -862,6 +863,7 @@ bool j1UIScene::Update(float dt)
 
 bool j1UIScene::PostUpdate(float dt)
 {
+
 	return true;
 }
 

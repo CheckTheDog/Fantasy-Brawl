@@ -11,6 +11,7 @@ class Clock;
 class Button;
 class j1Player;
 struct _TTF_Font;
+struct SDL_Texture;
 
 
 enum menu_id
@@ -158,6 +159,12 @@ public:
 	_TTF_Font* mid_buttons_font = nullptr;
 
 	float scale = 0.66f;
+
+	SDL_Texture* panel = nullptr;
+	SDL_Texture* margin_tex = nullptr;
+	UI_element* margin = nullptr;
+	SDL_Texture* champselect_bg = nullptr;
+	UI_element* selection_image = nullptr;
 	
 };
 #endif // !__j1UISCENE_H__ 

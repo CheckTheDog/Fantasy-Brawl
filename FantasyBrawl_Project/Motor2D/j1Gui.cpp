@@ -59,6 +59,9 @@ bool j1Gui::PreUpdate()
 	bool ret = true;
 
 	SDL_SetTextureAlphaMod(atlas, alpha_value);
+	SDL_SetTextureAlphaMod(App->ui_scene->margin_tex, alpha_value);
+	SDL_SetTextureAlphaMod(App->ui_scene->panel, alpha_value);
+	SDL_SetTextureAlphaMod(App->ui_scene->champselect_bg, alpha_value);
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	int scale = App->win->GetScale();
@@ -149,6 +152,7 @@ bool j1Gui::Update(float dt)
 // Called after all Updates
 bool j1Gui::PostUpdate(float dt)
 {
+
 	if (App->ui_scene->current_menu != nullptr)
 	{
 		for (std::list <UI_element*>::const_iterator item = App->ui_scene->current_menu->elements.begin(); item != App->ui_scene->current_menu->elements.end(); ++item)

@@ -14,7 +14,6 @@
 #include "j1UIScene.h"
 #include "j1BuffManager.h"
 #include "j1ArenaInteractions.h"
-#include "j1Transition.h"
 #include "j1Gui.h"
 
 #include "Brofiler/Brofiler.h"
@@ -101,7 +100,6 @@ bool j1Scene::Start()
 	// --- Loading map ---
 
 	App->map->Load(StageList.front()->data());
-	champselect_bg = App->tex->Load("gui/ChampSelect.png");
 	//debug_tex = App->tex->Load("maps/path2.png");
 	App->map->ColliderDrawer();
 
@@ -292,6 +290,11 @@ bool j1Scene::PreUpdate()
 		App->view->screen_1.x = 0;
 		App->view->screen_1.y = 0;
 	}
+	if (App->view->number_of_views == 1)
+	{
+		App->view->screen_1.x = 0;
+		App->view->screen_1.y = 0;
+	}
 
 	return true;
 }
@@ -420,13 +423,6 @@ bool j1Scene::PostUpdate(float dt)
 	BROFILER_CATEGORY("Scene_Post_Update", Profiler::Color::Aquamarine);
 
 	bool ret = true;
-
-	if (App->ui_scene->actual_menu == SELECTION_MENU || (App->ui_scene->actual_menu == START_MENU && App->transition->doingMenuTransition))
-	{
-		SDL_Rect tmp = { 0,0,1024,768 };
-		SDL_SetTextureAlphaMod(champselect_bg, App->gui->alpha_value);
-		App->render->Blit(champselect_bg, 0, 0, &tmp);
-	}
 
 	return ret;
 }
