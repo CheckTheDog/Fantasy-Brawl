@@ -84,7 +84,7 @@ void j1Map::Draw()
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					if (App->ui_scene->actual_menu == SELECTION_MENU && App->transition->doingMenuTransition)
+					if ((App->ui_scene->actual_menu == SELECTION_MENU && App->transition->doingMenuTransition) || App->ui_scene->actual_menu == menu_id::START_MENU)
 					{
 						//SDL_SetTextureAlphaMod(tileset->texture, App->gui->alpha_value);
 						continue;
