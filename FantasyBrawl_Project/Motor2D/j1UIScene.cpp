@@ -1162,7 +1162,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			break;
 		case WEBPAGE:
 
-			App->RequestBrowser("https://github.com/CheckTheDog/Fantasy-Brawl");
+			App->RequestBrowser("https://checkthedog.github.io/Fantasy-Brawl/");
 			App->audio->PlayFx(App->audio->fxConfirm);
 			break;
 		}
