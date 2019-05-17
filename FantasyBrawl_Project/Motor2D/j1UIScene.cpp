@@ -127,9 +127,9 @@ bool j1UIScene::Start()
 
 		menus.push_back(startMenu);
 		AddControllerSupport(new_game, PLAYER::P1, START_MENU);
+		AddControllerSupport(settings_start_menu, PLAYER::P1, START_MENU);
 		AddControllerSupport(exit_game, PLAYER::P1, START_MENU);
 		AddControllerSupport(credits, PLAYER::P1, START_MENU);
-		AddControllerSupport(settings_start_menu, PLAYER::P1, START_MENU);
 	}
 
 	ingameMenu = new menu(INGAME_MENU);
@@ -320,6 +320,15 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(inv_arrow3);
 		championSelection->elements.push_back(inv_arrow4);
 		menus.push_back(championSelection);
+
+		AddControllerSupport(arrow1,PLAYER::P1,SELECTION_MENU);
+		AddControllerSupport(inv_arrow1, PLAYER::P1, SELECTION_MENU);
+		AddControllerSupport(arrow2, PLAYER::P2, SELECTION_MENU);
+		AddControllerSupport(inv_arrow2, PLAYER::P2, SELECTION_MENU);
+		AddControllerSupport(arrow3, PLAYER::P3, SELECTION_MENU);
+		AddControllerSupport(inv_arrow3, PLAYER::P3, SELECTION_MENU);
+		AddControllerSupport(arrow4, PLAYER::P4, SELECTION_MENU);
+		AddControllerSupport(inv_arrow4, PLAYER::P4, SELECTION_MENU);
 	}
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);

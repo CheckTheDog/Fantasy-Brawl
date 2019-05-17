@@ -93,6 +93,7 @@ private:
 	std::list <UI_element*> UI_elements;
 	UI_element* draggingElement = nullptr;
 	UI_element* last_mouse_focus = nullptr;
+	UI_element* gamepad_last_focus[4] = { nullptr };
 };
 
 #endif // __j1GUI_H__

@@ -83,19 +83,21 @@ bool j1Gui::PreUpdate()
 						continue;
 
 					iPoint globalPos = (*item)->calculateAbsolutePosition();
-					if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[0].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[0]) == (*item)))
+					if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[i]) == (*item)))
 					{
 						element[i] = *item;
 						if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
 							mouse_focus = *item;
+						break;
 					}
 					else if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
 					{
 						mouse_focus = *item;
 					}
-					else if ((*item)->hovering && (*item != mouse_focus))
+					else if ((*item)->hovering && (*item != mouse_focus) && gamepad_last_focus != nullptr && *item == gamepad_last_focus[i])
 					{
 						(*item)->hovering = false;
+						gamepad_last_focus[i] = nullptr;
 						if ((*item)->callback != nullptr)
 							(*item)->callback->OnUIEvent(*item, MOUSE_LEAVE);
 					}
@@ -111,7 +113,7 @@ bool j1Gui::PreUpdate()
 	{
 		if (App->ui_scene->current_menu != nullptr)
 		{
-			for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->gamepad_tabs[0].rbegin(); item != App->ui_scene->current_menu->gamepad_tabs[0].rend(); ++item)
+			for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->elements.rbegin(); item != App->ui_scene->current_menu->elements.rend(); ++item)
 			{
 				iPoint globalPos = (*item)->calculateAbsolutePosition();
 				
@@ -234,6 +236,7 @@ bool j1Gui::PreUpdate()
 			if (!element[i]->hovering)
 			{
 				element[i]->hovering = true;
+				gamepad_last_focus[i] = element[i];
 				if (element[i]->callback != nullptr)
 					element[i]->callback->OnUIEvent(element[i], MOUSE_ENTER);
 			}
