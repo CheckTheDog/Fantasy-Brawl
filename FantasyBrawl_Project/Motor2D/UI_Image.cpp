@@ -14,10 +14,10 @@ void Image::BlitElement()
 
 	if (texture != App->gui->GetAtlas())
 		SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
+
 	iPoint globalPos = calculateAbsolutePosition();
 
 	float scale = 1.0f;
-
 
 	if (App->transition->doingMenuTransition)
 	{
@@ -254,6 +254,12 @@ void Image::BlitElement()
 
 	else if (this == App->ui_scene->selection_image)
 	{
+		if (App->ui_scene->actual_menu == INGAME_MENU)
+		{
+			App->render->Blit(texture, globalPos.x, globalPos.y, &section);
+		}
+
+		else
 		App->view->PushQueue(1, texture, 0, 0, section, 1);
 	}
 

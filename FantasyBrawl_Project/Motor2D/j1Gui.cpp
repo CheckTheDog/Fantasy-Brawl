@@ -59,9 +59,7 @@ bool j1Gui::PreUpdate()
 	bool ret = true;
 
 	SDL_SetTextureAlphaMod(atlas, alpha_value);
-	SDL_SetTextureAlphaMod(App->ui_scene->margin_tex, alpha_value);
-	SDL_SetTextureAlphaMod(App->ui_scene->panel, alpha_value);
-	SDL_SetTextureAlphaMod(App->ui_scene->champselect_bg, alpha_value);
+
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	int scale = App->win->GetScale();

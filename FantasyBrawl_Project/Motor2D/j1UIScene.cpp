@@ -1020,7 +1020,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			}
 
 			actual_menu = INGAME_MENU;
-			App->transition->menuTransition(INGAME_MENU, 0.3);
+			App->transition->menuTransition(INGAME_MENU, 1.5);
 			App->audio->PlayFx(App->audio->fxConfirm);
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();

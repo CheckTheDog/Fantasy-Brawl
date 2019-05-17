@@ -285,11 +285,6 @@ bool j1Scene::PreUpdate()
 
 	}
 
-	if (App->ui_scene->actual_menu == SELECTION_MENU)
-	{
-		App->view->screen_1.x = 0;
-		App->view->screen_1.y = 0;
-	}
 	if (App->view->number_of_views == 1)
 	{
 		App->view->screen_1.x = 0;
