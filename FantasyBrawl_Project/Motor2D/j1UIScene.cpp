@@ -298,6 +298,19 @@ bool j1UIScene::Start()
 		//READY BUTTON
 		ready = App->gui->createButton(500 * App->gui->UI_scale, 620 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
 		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
+
+
+		player1_quad->appendChild(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, arrow1);
+		player1_quad->appendChild(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, inv_arrow1);
+
+		player2_quad->appendChild(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, arrow2);
+		player2_quad->appendChild(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, inv_arrow2);
+
+		player3_quad->appendChild(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, arrow3);
+		player3_quad->appendChild(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, inv_arrow3);
+
+		player4_quad->appendChild(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, arrow4);
+		player4_quad->appendChild(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, inv_arrow4);
 		
 
 		championSelection->elements.push_back(selection_text);
@@ -319,16 +332,29 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(inv_arrow2);
 		championSelection->elements.push_back(inv_arrow3);
 		championSelection->elements.push_back(inv_arrow4);
+
+
+
 		menus.push_back(championSelection);
 
-		AddControllerSupport(arrow1,PLAYER::P1,SELECTION_MENU);
-		AddControllerSupport(inv_arrow1, PLAYER::P1, SELECTION_MENU);
+		
+		AddControllerSupport(player1_quad,PLAYER::P1,SELECTION_MENU);
+
+		
+		AddControllerSupport(player2_quad, PLAYER::P2, SELECTION_MENU);
+
+		
+		AddControllerSupport(player3_quad, PLAYER::P3, SELECTION_MENU);
+
+		
+		AddControllerSupport(player4_quad, PLAYER::P4, SELECTION_MENU);
+		/*AddControllerSupport(inv_arrow1, PLAYER::P1, SELECTION_MENU);
 		AddControllerSupport(arrow2, PLAYER::P2, SELECTION_MENU);
 		AddControllerSupport(inv_arrow2, PLAYER::P2, SELECTION_MENU);
 		AddControllerSupport(arrow3, PLAYER::P3, SELECTION_MENU);
 		AddControllerSupport(inv_arrow3, PLAYER::P3, SELECTION_MENU);
 		AddControllerSupport(arrow4, PLAYER::P4, SELECTION_MENU);
-		AddControllerSupport(inv_arrow4, PLAYER::P4, SELECTION_MENU);
+		AddControllerSupport(inv_arrow4, PLAYER::P4, SELECTION_MENU);*/
 	}
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);

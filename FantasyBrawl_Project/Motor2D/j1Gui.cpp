@@ -72,6 +72,13 @@ bool j1Gui::PreUpdate()
 		//Get element to interact with
 		if (draggingElement != nullptr)
 			element[i] = draggingElement;
+		else if (gamepad_last_focus[i] != nullptr && gamepad_last_focus[i] != *App->ui_scene->current_menu->gamepads_focus[i])
+		{
+			gamepad_last_focus[i]->hovering = false;
+			if (gamepad_last_focus[i]->callback != nullptr)
+				gamepad_last_focus[i]->callback->OnUIEvent(gamepad_last_focus[i], MOUSE_LEAVE);
+			gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
+		}
 		else
 		{
 			if (App->ui_scene->current_menu != nullptr)
@@ -94,13 +101,7 @@ bool j1Gui::PreUpdate()
 					{
 						mouse_focus = *item;
 					}
-					else if ((*item)->hovering && (*item != mouse_focus) && gamepad_last_focus != nullptr && *item == gamepad_last_focus[i])
-					{
-						(*item)->hovering = false;
-						gamepad_last_focus[i] = nullptr;
-						if ((*item)->callback != nullptr)
-							(*item)->callback->OnUIEvent(*item, MOUSE_LEAVE);
-					}
+					
 				}
 			}
 		}
@@ -123,7 +124,7 @@ bool j1Gui::PreUpdate()
 				}
 				else if ((*item)->hovering)
 				{
-					if (last_mouse_focus != nullptr && *item != last_mouse_focus)
+					if (last_mouse_focus != nullptr && *item == last_mouse_focus && last_mouse_focus != mouse_focus)
 					{
 						(*item)->hovering = false;
 						last_mouse_focus = nullptr;
@@ -151,17 +152,18 @@ bool j1Gui::PreUpdate()
 					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 					{
+						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
 						time_since_press.Start();
 						automatic_traverse_margin.Start();
 						if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
 							App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
 						else
 							App->ui_scene->current_menu->gamepads_focus[i]++;
-
 					}
 					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_DOWN
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
 					{
+						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
 						time_since_press.Start();
 						automatic_traverse_margin.Start();
 						if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
@@ -172,6 +174,7 @@ bool j1Gui::PreUpdate()
 					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
 					{
+						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
 						if (ManageAutomaticTraverseTiming() == true)
 						{
 							if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
@@ -183,6 +186,7 @@ bool j1Gui::PreUpdate()
 					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
 					{
+						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
 						if (ManageAutomaticTraverseTiming() == true)
 						{
 							if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
@@ -191,85 +195,121 @@ bool j1Gui::PreUpdate()
 								App->ui_scene->current_menu->gamepads_focus[i]--;
 						}
 					}
-
-					if (element[i]->parent != nullptr && element[i]->parent->element_type == SLIDER)
+					if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
 					{
-						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
+						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN)
 						{
 							time_since_press.Start();
 							automatic_traverse_margin.Start();
-							element[i]->localPosition += {1, 0};
-							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							element[i] = element[i]->children.front();
+							element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
 						{
 							time_since_press.Start();
 							automatic_traverse_margin.Start();
-							element[i]->localPosition -= {1, 0};
-							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							element[i] = element[i]->children.back();
+							element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
 						{
 							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
 							{
-								element[i]->localPosition += {5, 0};
+								element[i] = element[i]->children.front();
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 						{
 							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
 							{
-								element[i]->localPosition -= {5, 0};
+								element[i] = element[i]->children.back();
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 						}
 					}
+
+					if (element[i]->parent != nullptr)
+					{
+						if (element[i]->parent->element_type == SLIDER)
+						{
+							if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
+							{
+								time_since_press.Start();
+								automatic_traverse_margin.Start();
+								element[i]->localPosition += {1, 0};
+								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
+							{
+								time_since_press.Start();
+								automatic_traverse_margin.Start();
+								element[i]->localPosition -= {1, 0};
+								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
+							{
+								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{
+									element[i]->localPosition += {5, 0};
+									App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+								}
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
+							{
+								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{
+									element[i]->localPosition -= {5, 0};
+									App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+								}
+							}
+						}
+					}
 				}
-			}
 
 
-			if (!element[i]->hovering)
-			{
-				element[i]->hovering = true;
-				gamepad_last_focus[i] = element[i];
-				if (element[i]->callback != nullptr)
-					element[i]->callback->OnUIEvent(element[i], MOUSE_ENTER);
-			}
-			else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-				|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-				|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-				|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN))
-			{
-				if (element[i]->callback != nullptr)
+				if (!element[i]->hovering)
 				{
-					ret = element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+					element[i]->hovering = true;
+					gamepad_last_focus[i] = element[i];
+					if (element[i]->callback != nullptr)
+						element[i]->callback->OnUIEvent(element[i], MOUSE_ENTER);
 				}
-				if (element[i]->dragable)
+				else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+					|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+					|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+					|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN))
 				{
-					element[i]->Start_Drag();
-					draggingElement = element[i];
+					if (element[i]->callback != nullptr)
+					{
+						ret = element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+					}
+					if (element[i]->dragable)
+					{
+						element[i]->Start_Drag();
+						draggingElement = element[i];
+					}
+					if (element[i]->element_type == BUTTON || element[i]->element_type == SWITCH)
+						App->audio->PlayFx(button_click_fx, 0);
 				}
-				if (element[i]->element_type == BUTTON || element[i]->element_type == SWITCH)
-					App->audio->PlayFx(button_click_fx, 0);
-			}
-			else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-				|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-				|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
-				|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
-			{
-				if (element[i]->callback != nullptr)
+				else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+					|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+					|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP)
+					|| (is_focused[3] == true && App->input->GetButton(PLAYER::P4, SDL_CONTROLLER_BUTTON_A) == BUTTON_UP))
 				{
-					element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_RELEASE);
-				}
-				if (element[i]->dragable)
-				{
-					element[i]->End_Drag();
-					draggingElement = nullptr;
+					if (element[i]->callback != nullptr)
+					{
+						element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_RELEASE);
+					}
+					if (element[i]->dragable)
+					{
+						element[i]->End_Drag();
+						draggingElement = nullptr;
+					}
 				}
 			}
 		}
