@@ -1141,15 +1141,18 @@ void j1Player::LogicUpdate(float dt)
 {
 	// --- Update we may not do every frame ---
 
-	EntityMovement = MOVEMENT::STATIC;
+	if (dt != 0.0f)
+	{
+		EntityMovement = MOVEMENT::STATIC;
 
-	HandleAttacks();
+		HandleAttacks();
 
-	HandleShield();
+		HandleShield();
 
-	PlayerState = PSTATE::IDLE;
+		PlayerState = PSTATE::IDLE;
 
-	if (!shieldON)
-		Update(dt);
+		if (!shieldON)
+			Update(dt);
+	}
 
 }

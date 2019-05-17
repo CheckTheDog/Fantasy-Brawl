@@ -23,8 +23,8 @@ void Image::BlitElement()
 	{
 		if ((App->ui_scene->actual_menu == menu_id::SETTINGS_MENU 
 			|| App->ui_scene->actual_menu == menu_id::START_MENU)
-			&& App->ui_scene->previous_menu == menu_id::SELECTION_MENU
-			&& App->ui_scene->previous_menu == menu_id::SETTINGS_MENU)
+			&& App->ui_scene->previous_menu != menu_id::INGAMESETTINGS_MENU
+			)
 		{
 			uint w, h;
 			App->win->GetWindowSize(w, h);
