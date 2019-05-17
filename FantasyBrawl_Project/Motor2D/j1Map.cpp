@@ -95,17 +95,21 @@ void j1Map::Draw()
 
 					if (layerr->name == "ground")
 					{
-						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(0,tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "beauty_1")
 					{
-						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(1, tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "beauty_2")
 					{
-						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "shadows_1")
+					{
+						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layerr->name == "frontier")
 					{
 						App->view->PushQueue(4, tileset->texture, pos.x, pos.y, r);
 					}
@@ -159,12 +163,12 @@ void j1Map::Draw()
 							App->scene->player4->PlayerPrintOnTop = true;
 						}
 
-						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(7, tileset->texture, pos.x, pos.y, r);
 
 					}
 					else
 					{
-						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(9, tileset->texture, pos.x, pos.y, r);
 					}
 						
 
