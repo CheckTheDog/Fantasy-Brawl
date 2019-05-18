@@ -17,6 +17,7 @@ public:
 		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target)
 	{
 		is_valid_iterator = true;
+		movement_timer.Start();
 	}
 
 	~Marker() {}
@@ -27,6 +28,11 @@ public:
 public:
 	std::list<UI_element*>::iterator* target;
 	iPoint margin = {0,0};
+
+	j1Timer movement_timer;
+	int speed = 60;
+	int distance_moved = 0;
+	int max_movement_distance = 30;
 
 protected:
 	bool is_valid_iterator = false;
