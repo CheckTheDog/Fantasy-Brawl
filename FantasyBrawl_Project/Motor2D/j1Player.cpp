@@ -546,14 +546,25 @@ void j1Player::Launch3rdSuper()
 
 void j1Player::Launch4thSuper()
 {
-	if ((abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
-		|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE)
-		&& superTimer.ReadSec() > 5.0f)
+	if (superTimer.ReadSec() > 5.0f)
 	{
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
 
-		float angle = std::atan2(RJdirection_y, RJdirection_x) - 45.0f*(M_PI / 180.0f);
+		fPoint direction = { 0.0f,0.0f };
+
+		if (!(abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
+			|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE))
+		{
+			direction = GetNearestPlayerDirection();
+		}
+		else
+		{
+			direction.x = RJdirection_x;
+			direction.y = RJdirection_y;
+		}
+
+		float angle = std::atan2(direction.y, direction.x) - 45.0f*(M_PI / 180.0f);
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
