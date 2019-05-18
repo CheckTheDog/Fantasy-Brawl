@@ -305,6 +305,12 @@ void j1Player::HandleInput()
 	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
 	//LOG("direction_x: %f", RJdirection_x);
 	//LOG("direction_y: %f", RJdirection_y);
+
+	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_START) == BUTTON_DOWN && (App->ui_scene->current_menu->id == INGAME_MENU 
+		|| App->ui_scene->current_menu->id == SETTINGS_MENU))
+	{
+		App->input->ForceKeyboardKeyState(SDL_SCANCODE_ESCAPE, KEY_DOWN);
+	}
 }
 
 void j1Player::HandleAttacks()

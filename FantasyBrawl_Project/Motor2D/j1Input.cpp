@@ -347,6 +347,11 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 	return windowEvents[ev];
 }
 
+void j1Input::ForceKeyboardKeyState(int id, j1KeyState state)
+{
+	keyboard[id] = state;
+}
+
 
 GP_BUTTON_STATE j1Input::GetTriggerState(PLAYER p, int id) const
 {

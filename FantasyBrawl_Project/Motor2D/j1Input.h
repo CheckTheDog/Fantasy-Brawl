@@ -108,6 +108,8 @@ public:
 		return keyboard[id];
 	}
 
+	void ForceKeyboardKeyState(int id, j1KeyState state);
+
 	j1KeyState GetMouseButtonDown(int id) const
 	{
 		return mouse_buttons[id - 1];
