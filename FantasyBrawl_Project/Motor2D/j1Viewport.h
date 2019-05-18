@@ -181,6 +181,11 @@ public:
 	// Views
 	uint				 number_of_views = 1;
 
+	SDL_Rect			 four_views_1 = { 0,0,0,0 };
+	SDL_Rect			 four_views_2 = { 0,0,0,0 };
+	SDL_Rect			 four_views_3 = { 0,0,0,0 };
+	SDL_Rect			 four_views_4 = { 0,0,0,0 };
+
 private:
 
 	// Layer Blit list
@@ -207,11 +212,6 @@ private:
 	// Win Size
 	uint                 win_w = 0, win_h = 0;
 
-
-	SDL_Rect			 four_views_1 = { 0,0,0,0 };
-	SDL_Rect			 four_views_2 = { 0,0,0,0 };
-	SDL_Rect			 four_views_3 = { 0,0,0,0 };
-	SDL_Rect			 four_views_4 = { 0,0,0,0 };
 
 	float				 scale = -1.0;
 

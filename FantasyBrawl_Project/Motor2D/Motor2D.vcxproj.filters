@@ -91,6 +91,9 @@
     <ClCompile Include="j1ArenaInteractions.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1FadeToBlack.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -199,6 +202,9 @@
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1ArenaInteractions.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1FadeToBlack.h">
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
