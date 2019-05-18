@@ -300,17 +300,17 @@ bool j1UIScene::Start()
 		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
 
 
-		player1_quad->appendChild(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, arrow1);
-		player1_quad->appendChild(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, inv_arrow1);
+		player1_quad->appendChild(- 20, 75, arrow1);
+		player1_quad->appendChild(200, 75, inv_arrow1);
 
-		player2_quad->appendChild(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, arrow2);
-		player2_quad->appendChild(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, inv_arrow2);
+		player2_quad->appendChild(-20, 75, arrow2);
+		player2_quad->appendChild(200, 75, inv_arrow2);
 
-		player3_quad->appendChild(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, arrow3);
-		player3_quad->appendChild(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, inv_arrow3);
+		player3_quad->appendChild(-20, 75, arrow3);
+		player3_quad->appendChild(200, 75, inv_arrow3);
 
-		player4_quad->appendChild(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, arrow4);
-		player4_quad->appendChild(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, inv_arrow4);
+		player4_quad->appendChild(-20, 75, arrow4);
+		player4_quad->appendChild(200, 75, inv_arrow4);
 		
 
 		championSelection->elements.push_back(selection_text);
@@ -379,7 +379,7 @@ bool j1UIScene::Start()
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(500 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
@@ -388,7 +388,7 @@ bool j1UIScene::Start()
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_slider);
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
 		fx_text->setOutlined(true);

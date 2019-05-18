@@ -319,13 +319,13 @@ bool j1Gui::PreUpdate()
 					}
 				}
 				//Character selection and somebody presses A to lock their character selection or B to unlock the selection
-				if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
+				/*if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
 				{
 					if (App->ui_scene->champ_selected[i] == false && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
 						App->ui_scene->champ_selected[i] = true;
 					else if (App->ui_scene->champ_selected[i] == true && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
 						App->ui_scene->champ_selected[i] = false;
-				}
+				}*/
 			}
 		}
 	}
@@ -406,7 +406,7 @@ bool j1Gui::PostUpdate(float dt)
 				(*item)->state = CLICKED;
 			}
 
-			if ((*item)->parent == nullptr)
+			/*if ((*item)->parent == nullptr)*/
 				(*item)->BlitElement();
 		}
 	}
