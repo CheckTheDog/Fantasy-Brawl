@@ -388,7 +388,7 @@ bool j1UIScene::Start()
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(430 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_slider);
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
 		fx_text->setOutlined(true);
@@ -987,8 +987,15 @@ bool j1UIScene::Update(float dt)
 		if (champ_selected[i] == false)
 			break;
 		
-		if (i == MAX_GAMEPADS - 1)
+		if (i == MAX_GAMEPADS - 1 && current_menu->id == SELECTION_MENU)
+		{
 			ready->function = INGAME;
+			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+			for (int j = 0; j < MAX_GAMEPADS; ++j)
+			{
+				champ_selected[j] = false;
+			}
+		}
 	}
 	
 	

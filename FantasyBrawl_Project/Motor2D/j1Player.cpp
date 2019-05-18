@@ -336,7 +336,7 @@ void j1Player::HandleAttacks()
 void j1Player::HandleShield()
 {
 	// --- Shield according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
 	{
 		shieldTimer.Start();
 		shieldDuration.Start();
@@ -346,7 +346,7 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldAnim;
 		shieldendAnim.Reset();
 	}
-	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
+	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldON)
 	{
 		//LOG("shield off");
 		CurrentShieldAnimation = &shieldendAnim;
