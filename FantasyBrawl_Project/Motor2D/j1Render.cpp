@@ -145,6 +145,8 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	else
 		scale = custom_scale;
 
+	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * 1.0f; // position scale always 1
 	rect.y = (int)(camera.y * speed) + y * 1.0f;

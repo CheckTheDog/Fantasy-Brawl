@@ -5,6 +5,8 @@
 #include "j1UIScene.h"
 #include "j1Scene.h"
 #include "j1Viewport.h"
+#include "j1Transition.h"
+#include "j1Window.h"
 
 void Image::BlitElement()
 {
@@ -12,9 +14,26 @@ void Image::BlitElement()
 
 	if (texture != App->gui->GetAtlas())
 		SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
+
 	iPoint globalPos = calculateAbsolutePosition();
 
 	float scale = 1.0f;
+
+	if (App->transition->doingMenuTransition)
+	{
+		if ((App->ui_scene->actual_menu == menu_id::SETTINGS_MENU 
+			&&  App->ui_scene->previous_menu == menu_id::INGAMESETTINGS_MENU)
+			|| (App->ui_scene->actual_menu == menu_id::START_MENU
+				&&  App->ui_scene->previous_menu == menu_id::SETTINGS_MENU)
+			|| App->ui_scene->actual_menu == menu_id::SETTINGS_MENU)
+		{
+			uint w, h;
+			App->win->GetWindowSize(w, h);
+			SDL_Rect tmp = { 0,0,w,h };
+
+			App->render->DrawQuad(tmp, 0, 0, 0, 255);
+		}
+	}
 	
 	if (this == App->ui_scene->hp_bar1)
 	{
@@ -227,6 +246,22 @@ void Image::BlitElement()
 	{
 		if (App->scene->player4->active)
 		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 4, 0, 0, 0, 0, scale);
+	}
+
+	else if (this == App->ui_scene->margin)
+	{
+		App->render->Blit(texture, localPosition.x, localPosition.y, &section);
+	}
+
+	else if (this == App->ui_scene->selection_image)
+	{
+		if (App->ui_scene->actual_menu == INGAME_MENU)
+		{
+			App->render->Blit(texture, globalPos.x, globalPos.y, &section);
+		}
+
+		else
+		App->view->PushQueue(0, texture, 0, 0, section, 1);
 	}
 
 	else

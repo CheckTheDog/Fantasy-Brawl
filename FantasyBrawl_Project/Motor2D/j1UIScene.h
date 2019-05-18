@@ -11,7 +11,8 @@ class Clock;
 class Button;
 class j1Player;
 struct _TTF_Font;
-
+struct SDL_Texture;
+class Slider;
 
 enum menu_id
 {
@@ -20,7 +21,8 @@ enum menu_id
 	INGAME_MENU,
 	SELECTION_MENU,
 	CREDITS_MENU,
-	FINAL_MENU
+	FINAL_MENU,
+	INGAMESETTINGS_MENU
 };
 struct menu
 {
@@ -158,6 +160,18 @@ public:
 	_TTF_Font* mid_buttons_font = nullptr;
 
 	float scale = 0.66f;
+
+	SDL_Texture* panel = nullptr;
+	SDL_Texture* margin_tex = nullptr;
+	UI_element* margin = nullptr;
+	SDL_Texture* champselect_bg = nullptr;
+	UI_element* selection_image = nullptr;
+
+	// --- Slider pointers ---
+	Slider* music_slider = nullptr;
+	Slider* fx_slider = nullptr;
+	Slider* music_sliderMM = nullptr;
+	Slider* fx_sliderMM = nullptr;
 	
 };
 #endif // !__j1UISCENE_H__ 

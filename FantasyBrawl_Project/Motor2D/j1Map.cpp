@@ -9,6 +9,9 @@
 #include "j1Collision.h"
 #include "j1Viewport.h"
 #include "j1Scene.h"
+#include "j1UIScene.h"
+#include "j1Gui.h"
+#include "j1Transition.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -81,22 +84,32 @@ void j1Map::Draw()
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
+					if ((App->ui_scene->actual_menu == SELECTION_MENU && App->transition->doingMenuTransition) || App->ui_scene->actual_menu == menu_id::START_MENU)
+					{
+						//SDL_SetTextureAlphaMod(tileset->texture, App->gui->alpha_value);
+						continue;
+					}
+
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
 					if (layerr->name == "ground")
 					{
-						App->view->PushQueue(1,tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(0,tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "beauty_1")
 					{
-						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(1, tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "beauty_2")
 					{
-						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "shadows_1")
+					{
+						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layerr->name == "frontier")
 					{
 						App->view->PushQueue(4, tileset->texture, pos.x, pos.y, r);
 					}
@@ -150,12 +163,12 @@ void j1Map::Draw()
 							App->scene->player4->PlayerPrintOnTop = true;
 						}
 
-						App->view->PushQueue(6, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
 
 					}
 					else
 					{
-						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(9, tileset->texture, pos.x, pos.y, r);
 					}
 						
 

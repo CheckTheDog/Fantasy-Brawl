@@ -3,6 +3,7 @@
 #include "j1Gui.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Viewport.h"
 
 j1Transition::j1Transition()
 {
@@ -22,6 +23,7 @@ bool j1Transition::Update(float dt)
 			uint w, h;
 			App->win->GetWindowSize(w, h);
 			SDL_Rect tmp = { 0,0,w,h };
+
 			App->render->DrawQuad(tmp, 0, 0, 0, 255);
 		}
 
