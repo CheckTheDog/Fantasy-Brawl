@@ -9,6 +9,9 @@
 #include "j1Collision.h"
 #include "j1Viewport.h"
 #include "j1Scene.h"
+#include "j1UIScene.h"
+#include "j1Gui.h"
+#include "j1Transition.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -80,6 +83,12 @@ void j1Map::Draw()
 				if(tile_id > 0)
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+					if ((App->ui_scene->actual_menu == SELECTION_MENU && App->transition->doingMenuTransition) || App->ui_scene->actual_menu == menu_id::START_MENU)
+					{
+						//SDL_SetTextureAlphaMod(tileset->texture, App->gui->alpha_value);
+						continue;
+					}
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
@@ -154,7 +163,7 @@ void j1Map::Draw()
 							App->scene->player4->PlayerPrintOnTop = true;
 						}
 
-						App->view->PushQueue(7, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
 
 					}
 					else
@@ -565,52 +574,6 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
-{
-	bool ret = false;
-	std::list<MapLayer*>::const_iterator item = data.layers.begin();
-
-	for(; item != data.layers.end(); item++)
-	{
-		MapLayer* layer = *item;
-
-		if(layer->properties.Get("Navigation", 0) == 0)
-			continue;
-
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
-
-		for(int y = 0; y < data.height; ++y)
-		{
-			for(int x = 0; x < data.width; ++x)
-			{
-				int i = (y*layer->width) + x;
-
-				int tile_id = layer->Get(x, y);
-				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
-				
-				if(tileset != NULL)
-				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
-					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
-					{
-						map[i] = ts->properties.Get("walkable", 1);
-					}*/
-				}
-			}
-		}
-
-		*buffer = map;
-		width = data.width;
-		height = data.height;
-		ret = true;
-
-		break;
-	}
-
-	return ret;
-}
 
 bool j1Map::ColliderDrawer()
 {
@@ -639,13 +602,24 @@ bool j1Map::ColliderDrawer()
 
 							iPoint pos = MapToWorld(x, y);
 
-							if (tile_id == redCollider)
-								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
-							else if (tile_id == greenCollider)
-								LOG("");
-							else if (tile_id == blueCollider)
-								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
-
+							if (data.width == 50 && data.height == 50)
+							{
+								if (tile_id == 3)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+								//else if (tile_id == greenCollider)
+								//	LOG("");
+								else if (tile_id == 4)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
+							}
+							else
+							{
+								if (tile_id == redCollider)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_FLOOR, this);
+								//else if (tile_id == greenCollider)
+								//	LOG("");
+								else if (tile_id == blueCollider)
+									App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_WATER, this);
+							}
 						}
 					}
 				}

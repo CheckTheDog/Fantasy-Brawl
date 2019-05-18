@@ -11,7 +11,8 @@ class Clock;
 class Button;
 class j1Player;
 struct _TTF_Font;
-
+struct SDL_Texture;
+class Slider;
 
 enum menu_id
 {
@@ -21,8 +22,8 @@ enum menu_id
 	SELECTION_MENU,
 	CREDITS_MENU,
 	FINAL_MENU,
-	SCOREBOARD_MENU
-
+	SCOREBOARD_MENU,
+	INGAMESETTINGS_MENU
 };
 struct menu
 {
@@ -129,12 +130,21 @@ public:
 	UI_element* mark3 = nullptr;
 	UI_element* mark4 = nullptr;
 
+	UI_element* photos[4];
+	bool passing1 = false;
+	bool passing2 = false;
+	bool passing3 = false;
+	bool passing4 = false;
+
 	//READY
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
 
 	//SELECTION BOOLS
-	int counter = 0;
+	int counter1 = 1;
+	int counter2 = 1;
+	int counter3 = 1;
+	int counter4 = 1;
 	bool player1_select = false;
 	bool player2_select = false;
 	bool player3_select = false;
@@ -153,6 +163,18 @@ public:
 	_TTF_Font* mid_buttons_font = nullptr;
 
 	float scale = 0.66f;
+
+	SDL_Texture* panel = nullptr;
+	SDL_Texture* margin_tex = nullptr;
+	UI_element* margin = nullptr;
+	SDL_Texture* champselect_bg = nullptr;
+	UI_element* selection_image = nullptr;
+
+	// --- Slider pointers ---
+	Slider* music_slider = nullptr;
+	Slider* fx_slider = nullptr;
+	Slider* music_sliderMM = nullptr;
+	Slider* fx_sliderMM = nullptr;
 	
 };
 #endif // !__j1UISCENE_H__ 

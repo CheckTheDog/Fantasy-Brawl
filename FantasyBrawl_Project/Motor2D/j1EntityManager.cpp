@@ -456,7 +456,7 @@ void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
 
 	while (entity != entities.end())
 	{
-		if ((*entity)->Entityinfo.entitycoll == c1)
+		if ((*entity)->Entityinfo.entitycoll == c1 || (*entity)->Entityinfo.HitBox == c1)
 		{
 			(*entity)->OnCollision(c1, c2);
 			break;

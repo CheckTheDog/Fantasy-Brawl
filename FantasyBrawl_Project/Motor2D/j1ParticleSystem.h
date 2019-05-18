@@ -55,7 +55,7 @@ public:
 
 	Particle* AddParticle(Particle& particle, int x, int y, COLLIDER_TYPE type, uint delay, j1Player* porigin = nullptr);
 
-	Particle* GetCollidedParticle(Collider* entitycollider, const Collider* particlecollider);
+	Particle* GetCollidedParticle(Collider* hitbox, const Collider* particlecollider);
 
 private:
 
