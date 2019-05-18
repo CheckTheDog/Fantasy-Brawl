@@ -532,9 +532,8 @@ bool j1UIScene::Update(float dt)
 	}
 	else if (actual_menu == INGAME_MENU)
 	{
-		//if (timer != nullptr)
-			//delete timer;
-		if (timer)
+
+		if (timer != nullptr)
 		{
 			App->tex->UnLoad(timer->texture);
 
