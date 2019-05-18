@@ -578,27 +578,53 @@ bool j1UIScene::Update(float dt)
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
-
-	if (player_winner != nullptr && scoreboard == false)
+	if (rounds >= 3)
 	{
-		scoreboard = true;
-		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
-		actual_menu = FINAL_MENU;
-		App->transition->menuTransition(FINAL_MENU, 0.3);
-		if (player_winner == App->scene->player1)
-			CreateScoreBoard(1);
-		else if (player_winner == App->scene->player2)
-			CreateScoreBoard(2);
-		else if (player_winner == App->scene->player3)
-			CreateScoreBoard(3);
-		else if (player_winner == App->scene->player4)
-			CreateScoreBoard(4);
-		//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
-		//from the previous game when we play again
-		App->arena_interactions->DestroyStorm();
-		App->arena_interactions->PauseStorm();
-	}
+		if (player_winner != nullptr && scoreboard == false)
+		{
 
+			scoreboard = true;
+			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 0.3);
+			if (player_winner == App->scene->player1)
+				CreateFinalScoreBoard(1);
+			else if (player_winner == App->scene->player2)
+				CreateFinalScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateFinalScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateFinalScoreBoard(4);
+			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+			//from the previous game when we play again
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+			rounds = 0;
+		}
+	}
+	else if (rounds < 3)
+	{
+		if (player_winner != nullptr && scoreboard == false)
+		{
+
+			scoreboard = true;
+			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 0.3);
+			if (player_winner == App->scene->player1)
+				CreateScoreBoard(1);
+			else if (player_winner == App->scene->player2)
+				CreateScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateScoreBoard(4);
+			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+			//from the previous game when we play again
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+		}
+	}
 	
 
 
@@ -694,6 +720,40 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				break;
 			}
 		
+			break;
+		}
+		case INGAME_NEW_GAME:
+		{
+			actual_menu = INGAME_MENU;
+			App->transition->menuTransition(INGAME_MENU, 0.3);
+
+			App->audio->PlayFx(App->audio->fxConfirm);
+			App->audio->PlayFx(App->audio->fxBrawlStart);
+			App->arena_interactions->StartStorm();
+			App->arena_interactions->ContinueStorm();
+			App->scene->ResetAll();
+			scoreboard = false;
+			int music = rand() % 5 + 1;
+
+			switch (music)
+			{
+			case 1:
+				App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+				break;
+			case 2:
+				App->audio->PlayMusic(App->audio->pathMap2_1.data(), 0);
+				break;
+			case 3:
+				App->audio->PlayMusic(App->audio->pathMap2_2.data(), 0);
+				break;
+			case 4:
+				App->audio->PlayMusic(App->audio->pathMap3.data(), 0);
+				break;
+			case 5:
+				App->audio->PlayMusic(App->audio->pathMap4.data(), 0);
+				break;
+			}
+
 			break;
 		}
 		case SELECTING:
@@ -996,6 +1056,53 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	//WINDOW
 
+	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
+
+	//END BUTTON
+	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+	end_button->function = INGAME_NEW_GAME;
+
+	finalMenu->elements.push_back(final_image);
+	finalMenu->elements.push_back(end_button);
+
+	rounds++;
+
+
+	LOG("%i", finalMenu->elements.size());
+
+}
+
+void j1UIScene::CreateFinalScoreBoard(int num)
+{
+
+	SDL_Color brown_color = { 139,69,19 };
+	SDL_Color black_color = { 0, 0, 0, 255 };
+
+	std::list <UI_element*>::iterator item = App->gui->UI_elements.begin();
+
+	std::list <UI_element*>::iterator item_finalmenu = finalMenu->elements.begin();
+
+	while (item != App->gui->UI_elements.end())
+	{
+		if (*item == *item_finalmenu)
+		{
+			if (App->gui->GetAtlas() != (*item)->texture)
+				App->tex->UnLoad((*item)->texture);
+
+			delete *item;
+			App->gui->UI_elements.erase(item);
+			finalMenu->elements.erase(item_finalmenu);
+
+			item_finalmenu++;
+		}
+
+		item++;
+	}
+
+	finalMenu->elements.clear();
+
+	//WINDOW
+
 	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
 
 	UI_element* final_text = App->gui->createText("SCOREBOARD", 400, 60, big_buttons_font, brown_color);
@@ -1008,38 +1115,38 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	switch (num)
 	{
-		case 1:
-		{
-			win_text = App->gui->createText("PLAYER 1", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-		case 2:
-		{
-			win_text = App->gui->createText("PLAYER 2", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-		case 3:
-		{
-			win_text = App->gui->createText("PLAYER 3", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-		case 4:
-		{
-			win_text = App->gui->createText("PLAYER 4", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
+	case 1:
+	{
+		win_text = App->gui->createText("PLAYER 1", 500, 240, small_texts_font, brown_color);
+		win_text->setOutlined(true);
+		break;
 	}
-	
+	case 2:
+	{
+		win_text = App->gui->createText("PLAYER 2", 500, 240, small_texts_font, brown_color);
+		win_text->setOutlined(true);
+		break;
+	}
+	case 3:
+	{
+		win_text = App->gui->createText("PLAYER 3", 500, 240, small_texts_font, brown_color);
+		win_text->setOutlined(true);
+		break;
+	}
+	case 4:
+	{
+		win_text = App->gui->createText("PLAYER 4", 500, 240, small_texts_font, brown_color);
+		win_text->setOutlined(true);
+		break;
+	}
+	}
+
 	//PLAYER1 KILLS
 
-	UI_element* player1kills = App->gui->createText("PLAYER 1 kills:" ,260, 300, small_texts_font, brown_color);
+	UI_element* player1kills = App->gui->createText("PLAYER 1 kills:", 260, 300, small_texts_font, brown_color);
 	player1kills->setOutlined(true);
 
-	std::string p1kills  = std::to_string(App->scene->player1->kills);
+	std::string p1kills = std::to_string(App->scene->player1->kills);
 
 	UI_element* p1_kills = App->gui->createText(p1kills.data(), 600, 300, small_texts_font, black_color);
 	p1_kills->setOutlined(true);
@@ -1070,7 +1177,7 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	UI_element* p4_kills = App->gui->createText(p4kills.data(), 600, 510, small_texts_font, black_color);
 	p4_kills->setOutlined(true);
-	
+
 
 	//END BUTTON
 	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
@@ -1100,4 +1207,3 @@ void j1UIScene::CreateScoreBoard(int num)
 	LOG("%i", finalMenu->elements.size());
 
 }
-

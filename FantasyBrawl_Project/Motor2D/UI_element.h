@@ -28,6 +28,7 @@ enum element_function
 	NONE,
 	NEW_GAME,
 	INGAME,
+	INGAME_NEW_GAME,
 	SELECTING,
 	CONTINUE,
 	SETTINGS,

@@ -20,7 +20,9 @@ enum menu_id
 	INGAME_MENU,
 	SELECTION_MENU,
 	CREDITS_MENU,
-	FINAL_MENU
+	FINAL_MENU,
+	SCOREBOARD_MENU
+
 };
 struct menu
 {
@@ -68,6 +70,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void CreateScoreBoard(int num);
+	void CreateFinalScoreBoard(int num);
 	
 
 public:
@@ -82,6 +85,7 @@ public:
 	menu_id actual_menu = START_MENU;
 	bool ui_id1 = false;
 	bool ui_id2 = false;
+	int rounds = 0;
 
 	//PLAYER HP BARS
 	UI_element* hp_bar1 = nullptr;
