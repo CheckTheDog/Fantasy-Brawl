@@ -59,6 +59,11 @@ enum element_state
 	CLICKED
 };
 
+struct UI_GTab
+{
+	UI_element* ui_element = nullptr;
+};
+
 class UI_element
 {
 public:
@@ -168,6 +173,7 @@ public:
 	element_function function = NONE;
 	j1Module* callback = nullptr;
 	UI_element* parent = nullptr;
+	std::list<UI_element*> children;
 	bool hovering = false;
 	bool moving = false;
 	bool dragable = false;

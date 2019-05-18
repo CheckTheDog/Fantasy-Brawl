@@ -24,6 +24,7 @@ public:
 
 	void BlitElement();
 
+	void appendChild(int x, int y, UI_element* child);
 
 	float multiplier;
 	int player_hp = 300;

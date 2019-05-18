@@ -77,8 +77,7 @@ public:
 	//NULL texture to use atlas
 	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress = 0.5f, j1Module* callback = nullptr, char* text = "");
 
-
-
+	bool ManageAutomaticTraverseTiming(int player_timer, float time_to_start = 1.5f, float time_margin = 0.1f);
 public:
 	bool UI_Debug = false;
 	float UI_scale;
@@ -86,11 +85,15 @@ public:
 	uint button_click_fx = 0;
 
 private:
+	j1Timer time_since_press[4];
+	j1Timer automatic_traverse_margin[4];
 
 	SDL_Texture * atlas;
 	std::string atlas_file_name;
 	std::list <UI_element*> UI_elements;
 	UI_element* draggingElement = nullptr;
+	UI_element* last_mouse_focus = nullptr;
+	UI_element* gamepad_last_focus[4] = { nullptr };
 };
 
 #endif // __j1GUI_H__
