@@ -163,7 +163,7 @@ void j1Map::Draw()
 							App->scene->player4->PlayerPrintOnTop = true;
 						}
 
-						App->view->PushQueue(7, tileset->texture, pos.x, pos.y, r);
+						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
 
 					}
 					else
