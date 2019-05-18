@@ -12,7 +12,7 @@ class Button;
 class j1Player;
 struct _TTF_Font;
 struct SDL_Texture;
-
+class Slider;
 
 enum menu_id
 {
@@ -166,6 +166,12 @@ public:
 	UI_element* margin = nullptr;
 	SDL_Texture* champselect_bg = nullptr;
 	UI_element* selection_image = nullptr;
+
+	// --- Slider pointers ---
+	Slider* music_slider = nullptr;
+	Slider* fx_slider = nullptr;
+	Slider* music_sliderMM = nullptr;
+	Slider* fx_sliderMM = nullptr;
 	
 };
 #endif // !__j1UISCENE_H__ 
