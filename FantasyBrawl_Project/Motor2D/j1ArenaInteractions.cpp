@@ -124,7 +124,6 @@ bool j1ArenaInteractions::Update(float dt)
 				time_for_timer.erase(3, 7);
 			}
 			
-			timeFtimer = time_for_timer.data();
 			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
 			
 			if ( alarm_hasplayed == false && UI_storm_countdown < 6)
@@ -190,7 +189,7 @@ void j1ArenaInteractions::StartStorm()
 
 	//Start the timer
 	storm_timer.Start();
-
+	storm_moving = false;
 	current_phase = 0;
 
 	//Start the ticks

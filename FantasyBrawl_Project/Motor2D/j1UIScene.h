@@ -177,6 +177,6 @@ public:
 	menu* ingameMenu;
 	
 	//timer
-	UI_element* timer;
+	UI_element* timer = nullptr;
 };
 #endif // !__j1UISCENE_H__ 

@@ -93,7 +93,6 @@ public: /// Variables
 	float UI_storm_countdown = 0;
 
 	std::string time_for_timer;
-	const char* timeFtimer;
  /// Variables
 private:	
 	//Storm timers ------
