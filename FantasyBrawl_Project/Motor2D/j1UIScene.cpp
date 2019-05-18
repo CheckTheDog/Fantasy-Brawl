@@ -551,7 +551,7 @@ bool j1UIScene::Update(float dt)
 			}
 		}
 			//timer
-			timer = App->gui->createText(App->arena_interactions->timeFtimer, 496, 372, small_font, { 0,0,0,1 }, this);
+			timer = App->gui->createText(App->arena_interactions->time_for_timer.data(), 496, 372, small_font, { 0,0,0,1 }, this);
 			//ingameMenu->elements.push_back(timer);
 			
 		App->on_GamePause = false;
