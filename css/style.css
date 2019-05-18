@@ -24,32 +24,6 @@ p
         line-height: 26px;
     }
 
-.photo-place {
-	max-width: 300px;
-	background-color:  #f0c5a8;
-	height: 530px;
-}
-.photo-container {
-	max-width: 1000px;
-	margin-left: auto;
-    margin-right: auto;
-}
-#about {
-	margin-bottom: 100px;
-	background-color: #f0c5a8;
-	font-size: 22px
-}
-#aboout {
-		background-color: #f0c5a8;
-		margin-top: -50px;
-}
-.title-about {
-	background-color:  #a8d3f0;
-	width: 100%;
-	position: center;
-	height: 100px;
-	margin-top: 50px;
-}
 .w3-wide {letter-spacing: 10px;}
 .w3-hover-opacity {cursor: pointer;}
 
@@ -504,6 +478,86 @@ p
         line-height: 0px;
     }
 /* end team */
+
+/* button image Aitor*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Vlad*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Pol*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Oscar*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Didac*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Roger*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Jacobo*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
+
+/* button image Marc*/
+.myButton{
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+/* end button image*/
 
 /*filter css*/
 .filter-wrapper {
