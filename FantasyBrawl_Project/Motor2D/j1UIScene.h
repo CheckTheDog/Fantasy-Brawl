@@ -180,7 +180,7 @@ public:
 	_TTF_Font* mid_font = nullptr;
 
 	float scale = 0.66f;
-
+	SDL_Texture* A_Butt = nullptr;
 	SDL_Texture* panel = nullptr;
 	SDL_Texture* margin_tex = nullptr;
 	UI_element* margin = nullptr;
