@@ -2,9 +2,10 @@
 #define __j1UISCENE_H__
 
 #include "j1Module.h"
+#include "SDL\include\SDL.h"
 #include <list>
 
-
+struct SDL_Rect;
 
 class UI_element;
 class Clock;
@@ -131,6 +132,10 @@ public:
 	UI_element* mark4 = nullptr;
 
 	UI_element* photos[4];
+	SDL_Rect photo_back_up1 = {0,0,0,0};
+	SDL_Rect photo_back_up2 = { 0,0,0,0 };
+	SDL_Rect photo_back_up3 = { 0,0,0,0 };
+	SDL_Rect photo_back_up4 = { 0,0,0,0 };
 	bool passing1 = false;
 	bool passing2 = false;
 	bool passing3 = false;

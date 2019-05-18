@@ -326,6 +326,7 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(player3_text);
 		championSelection->elements.push_back(player4_text);
 		menus.push_back(championSelection);
+
 	}
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);
@@ -941,6 +942,11 @@ bool j1UIScene::Update(float dt)
 				App->scene->player4->AssignCharacter();
 			}
 		}
+
+		photo_back_up1 = photos[0]->section;
+		photo_back_up2 = photos[1]->section;
+		photo_back_up3 = photos[2]->section;
+		photo_back_up4 = photos[3]->section;
 
 		if (counter4 > 4)//again to wendolin
 		{
@@ -1648,12 +1654,50 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
 
+
+	//PLAYER QUADS
+	UI_element* player1_quad = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+	UI_element* player2_quad = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+	UI_element* player3_quad = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+	UI_element* player4_quad = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+
+	//PLAYER TEXTS
+	UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
+	UI_element* player2_text = App->gui->createImageFromAtlas(40, 357, { 413, 799,120, 20 }, this);
+	UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
+	UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
+
+	//PLAYER IMAGE(?)
+	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
+	photos[0] = mark1;
+
+	mark2 = App->gui->createImageFromAtlas(38, 206, photo_back_up2, this);
+	photos[1] = mark2;
+
+	mark3 = App->gui->createImageFromAtlas(38, 397, photo_back_up3, this);
+	photos[2] = mark3;
+
+	mark4 = App->gui->createImageFromAtlas(38, 588, photo_back_up4, this);
+	photos[3] = mark4;
+
 	//END BUTTON
 	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
 	end_button->function = INGAME_NEW_GAME;
 
 	finalMenu->elements.push_back(final_image);
 	finalMenu->elements.push_back(end_button);
+	finalMenu->elements.push_back(mark1);
+	finalMenu->elements.push_back(mark2);
+	finalMenu->elements.push_back(mark3);
+	finalMenu->elements.push_back(mark4);
+	finalMenu->elements.push_back(player1_quad);
+	finalMenu->elements.push_back(player2_quad);
+	finalMenu->elements.push_back(player3_quad);
+	finalMenu->elements.push_back(player4_quad);
+	finalMenu->elements.push_back(player1_text);
+	finalMenu->elements.push_back(player2_text);
+	finalMenu->elements.push_back(player3_text);
+	finalMenu->elements.push_back(player4_text);
 
 	rounds++;
 
