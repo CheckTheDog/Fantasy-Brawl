@@ -209,13 +209,17 @@ bool j1Gui::PreUpdate()
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.front();
+								element[i]->hovering = true;
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+
+
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
 							{
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.back();
+								element[i]->hovering = true;
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
@@ -223,6 +227,7 @@ bool j1Gui::PreUpdate()
 								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.front();
+									element[i]->hovering = true;
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 								}
 							}
@@ -231,6 +236,7 @@ bool j1Gui::PreUpdate()
 								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.back();
+									element[i]->hovering = true;
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 								}
 							}
