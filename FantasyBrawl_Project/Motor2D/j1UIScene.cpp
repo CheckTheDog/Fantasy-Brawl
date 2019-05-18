@@ -907,7 +907,7 @@ bool j1UIScene::Update(float dt)
 		scoreboard = true;
 		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 		actual_menu = FINAL_MENU;
-		App->transition->menuTransition(FINAL_MENU, 0.3);
+		App->transition->menuTransition(FINAL_MENU, 2.0);
 		if (player_winner == App->scene->player1)
 			CreateScoreBoard(1);
 		else if (player_winner == App->scene->player2)
@@ -992,12 +992,27 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			App->scene->player1->Future_position.x = 510;
 			App->scene->player1->Future_position.y = 200;
+			App->scene->player1->superTimer.Start();
+			App->scene->player1->shieldON = false;
+			App->scene->player1->shieldTimer.Start();
+
 			App->scene->player2->Future_position.x = 840;
 			App->scene->player2->Future_position.y = 200;
+			App->scene->player2->superTimer.Start();
+			App->scene->player2->shieldON = false;
+			App->scene->player2->shieldTimer.Start();
+
 			App->scene->player3->Future_position.x = 510;
 			App->scene->player3->Future_position.y = 550;
+			App->scene->player3->superTimer.Start();
+			App->scene->player3->shieldON = false;
+			App->scene->player3->shieldTimer.Start();
+
 			App->scene->player4->Future_position.x = 840;
 			App->scene->player4->Future_position.y = 550;
+			App->scene->player4->superTimer.Start();
+			App->scene->player4->shieldON = false;
+			App->scene->player4->shieldTimer.Start();
 
 
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
@@ -1011,12 +1026,27 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->scene->ChangeMap(0);
 				App->scene->player1->Future_position.x = App->scene->initialposP1.x;
 				App->scene->player1->Future_position.y = App->scene->initialposP1.y;
+				App->scene->player1->superTimer.Start();
+				App->scene->player1->shieldON = false;
+				App->scene->player1->shieldTimer.Start();
+
 				App->scene->player2->Future_position.x = App->scene->initialposP2.x;
 				App->scene->player2->Future_position.y = App->scene->initialposP2.y;
+				App->scene->player2->superTimer.Start();
+				App->scene->player2->shieldON = false;
+				App->scene->player2->shieldTimer.Start();
+
 				App->scene->player3->Future_position.x = App->scene->initialposP3.x;
 				App->scene->player3->Future_position.y = App->scene->initialposP3.y;
+				App->scene->player3->superTimer.Start();
+				App->scene->player3->shieldON = false;
+				App->scene->player3->shieldTimer.Start();
+
 				App->scene->player4->Future_position.x = App->scene->initialposP4.x;
 				App->scene->player4->Future_position.y = App->scene->initialposP4.y;
+				App->scene->player4->superTimer.Start();
+				App->scene->player4->shieldON = false;
+				App->scene->player4->shieldTimer.Start();
 			}
 
 			actual_menu = INGAME_MENU;
