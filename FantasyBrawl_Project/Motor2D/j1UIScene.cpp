@@ -1332,21 +1332,36 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			switch (tmp->modify)
 			{
 			case MUSIC:
-	/*			newValues.music = tmp->progress;
+				newValues.music = tmp->progress;
 
 				if (music_slider != tmp)
+				{
 					music_slider->progress = newValues.music;
+					music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+				}
 				else if (music_sliderMM != tmp)
-					music_sliderMM->progress = newValues.music;*/
+				{
+					music_sliderMM->progress = newValues.music;
+					music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
+				}
 
+				tmp->button->localPosition.x = ((tmp->section.w * App->gui->UI_scale) - 5 - tmp->button->section.w / (2 / App->gui->UI_scale)) * tmp->progress;
 				break;
 			case FX:
-			/*	newValues.fx = tmp->progress;
+				newValues.fx = tmp->progress;
 
 				if (fx_slider != tmp)
-					music_slider->progress = newValues.fx;
+				{
+					fx_slider->progress = newValues.fx;
+					fx_slider->button->localPosition.x = ((fx_slider->section.w * App->gui->UI_scale) - 5 - fx_slider->button->section.w / (2 / App->gui->UI_scale)) * fx_slider->progress;
+				}
 				else if (fx_sliderMM != tmp)
-					music_sliderMM->progress = newValues.fx;*/
+				{
+					fx_sliderMM->progress = newValues.fx;
+					fx_sliderMM->button->localPosition.x = ((fx_sliderMM->section.w * App->gui->UI_scale) - 5 - fx_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * fx_sliderMM->progress;
+				}
+
+				tmp->button->localPosition.x = ((tmp->section.w * App->gui->UI_scale) - 5 - tmp->button->section.w / (2 / App->gui->UI_scale)) * tmp->progress;
 				break;
 			}
 		}
@@ -1419,23 +1434,33 @@ bool j1UIScene::loadMenu(menu_id id)
 			{
 				for (std::list <UI_element*>::const_iterator item2 = current_menu->elements.begin(); item2 != current_menu->elements.end(); ++item2)
 				{
-					/*if ((*item2)->element_type == SWITCH)
-					{
-						Button* full_switch = (Button*)*item2;
-						startValues.fullscreen = full_switch->active;
-					}*/
+
 					if ((*item2)->element_type == SLIDER)
 					{
-						Slider* slider = (Slider*)*item2;
+						/*Slider* slider = (Slider*)*item2;
 						switch (slider->modify)
 						{
 						case MUSIC:
-							startValues.music = slider->getProgress();
+							if (music_slider == slider)
+								music_slider->progress = music_sliderMM->progress;
+							
+							else if (music_sliderMM == slider)
+								music_sliderMM->progress = music_slider->progress;
+							
+
+							slider->button->localPosition.x = ((slider->section.w * App->gui->UI_scale) - 5 - slider->button->section.w / (2 / App->gui->UI_scale)) * slider->progress;
 							break;
 						case FX:
-							startValues.fx = slider->getProgress();
+							if (fx_slider == slider)
+								fx_slider->progress = fx_sliderMM->progress;
+							else if (fx_sliderMM == slider)
+								fx_sliderMM->progress = fx_slider->progress;
+
+							slider->button->localPosition.x = ((slider->section.w * App->gui->UI_scale) - 5 - slider->button->section.w / (2 / App->gui->UI_scale)) * slider->progress;
 							break;
-						}
+
+
+						}*/
 					}
 				}
 			}
@@ -1464,13 +1489,6 @@ void j1UIScene::applySettings(settings_values values)
 			switch (slider->modify)
 			{
 			case MUSIC:
-				newValues.music = slider->progress;
-
-				if (music_slider != slider)
-					music_slider->progress = newValues.music;
-				else if (music_sliderMM != slider)
-					music_sliderMM->progress = newValues.music;
-
 
 				slider->setProgress(values.music);
 
@@ -1488,14 +1506,6 @@ void j1UIScene::applySettings(settings_values values)
 				slider->button->localPosition.x = ((slider->section.w * App->gui->UI_scale) - 5 - slider->button->section.w / (2 / App->gui->UI_scale)) * slider->progress;
 				break;
 			case FX:
-
-				newValues.fx = slider->progress;
-
-				if (fx_slider != slider)
-					music_slider->progress = newValues.fx;
-				else if (fx_sliderMM != slider)
-					music_sliderMM->progress = newValues.fx;
-
 
 				slider->setProgress(values.fx);
 
