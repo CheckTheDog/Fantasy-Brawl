@@ -69,39 +69,43 @@ bool j1Gui::PreUpdate()
 
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
-		//Get element to interact with
-		if (draggingElement != nullptr)
-			element[i] = draggingElement;
-		else if (gamepad_last_focus[i] != nullptr && gamepad_last_focus[i] != *App->ui_scene->current_menu->gamepads_focus[i])
+		if (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false)
 		{
-			gamepad_last_focus[i]->hovering = false;
-			if (gamepad_last_focus[i]->callback != nullptr)
-				gamepad_last_focus[i]->callback->OnUIEvent(gamepad_last_focus[i], MOUSE_LEAVE);
-			gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-		}
-		else
-		{
-			if (App->ui_scene->current_menu != nullptr)
+			//Get element to interact with
+			if (draggingElement != nullptr)
+				element[i] = draggingElement;
+			else if (gamepad_last_focus[i] != nullptr && *App->ui_scene->current_menu->gamepads_focus[i] != nullptr && 
+				gamepad_last_focus[i] != *App->ui_scene->current_menu->gamepads_focus[i])
 			{
-				for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->elements.rbegin(); item != App->ui_scene->current_menu->elements.rend(); ++item)
+				gamepad_last_focus[i]->hovering = false;
+				if (gamepad_last_focus[i]->callback != nullptr)
+					gamepad_last_focus[i]->callback->OnUIEvent(gamepad_last_focus[i], MOUSE_LEAVE);
+				gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
+			}
+			else
+			{
+				if (App->ui_scene->current_menu != nullptr)
 				{
-
-					if (*item == element[0] || *item == element[1] || *item == element[2] || *item == element[3] )
-						continue;
-
-					iPoint globalPos = (*item)->calculateAbsolutePosition();
-					if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[i]) == (*item)))
+					for (std::list <UI_element*>::reverse_iterator item = App->ui_scene->current_menu->elements.rbegin(); item != App->ui_scene->current_menu->elements.rend(); ++item)
 					{
-						element[i] = *item;
-						if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
+
+						if (*item == element[0] || *item == element[1] || *item == element[2] || *item == element[3])
+							continue;
+
+						iPoint globalPos = (*item)->calculateAbsolutePosition();
+						if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[i]) == (*item)))
+						{
+							element[i] = *item;
+							if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
+								mouse_focus = *item;
+							break;
+						}
+						else if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
+						{
 							mouse_focus = *item;
-						break;
+						}
+
 					}
-					else if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
-					{
-						mouse_focus = *item;
-					}
-					
 				}
 			}
 		}
@@ -197,34 +201,37 @@ bool j1Gui::PreUpdate()
 					}
 					if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
 					{
-						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN)
+						if (App->ui_scene->champ_selected[i] == false)
 						{
-							time_since_press.Start();
-							automatic_traverse_margin.Start();
-							element[i] = element[i]->children.front();
-							element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
-						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
-						{
-							time_since_press.Start();
-							automatic_traverse_margin.Start();
-							element[i] = element[i]->children.back();
-							element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
-						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
-						{
-							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+							if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN)
 							{
+								time_since_press.Start();
+								automatic_traverse_margin.Start();
 								element[i] = element[i]->children.front();
-								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 							}
-						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
-						{
-							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
 							{
+								time_since_press.Start();
+								automatic_traverse_margin.Start();
 								element[i] = element[i]->children.back();
-								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
+							{
+								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{
+									element[i] = element[i]->children.front();
+									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+								}
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
+							{
+								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{
+									element[i] = element[i]->children.back();
+									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+								}
 							}
 						}
 					}
@@ -310,6 +317,14 @@ bool j1Gui::PreUpdate()
 						element[i]->End_Drag();
 						draggingElement = nullptr;
 					}
+				}
+				//Character selection and somebody presses A to lock their character selection or B to unlock the selection
+				if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
+				{
+					if (App->ui_scene->champ_selected[i] == false && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
+						App->ui_scene->champ_selected[i] = true;
+					else if (App->ui_scene->champ_selected[i] == true && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+						App->ui_scene->champ_selected[i] = false;
 				}
 			}
 		}

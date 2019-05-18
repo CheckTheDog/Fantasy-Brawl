@@ -76,7 +76,7 @@ public:
 	void CreateScoreBoard(int num);
 
 	void AddControllerSupport(UI_element* element, PLAYER gamepad_supported, menu_id id_menu);
-	
+
 
 public:
 	std::list <menu*> menus;
@@ -152,6 +152,8 @@ public:
 	bool player2_select = false;
 	bool player3_select = false;
 	bool player4_select = false;
+
+	bool champ_selected[4] = { false };
 
 	//PLAYER FOR SCOREBOARD
 	j1Player* player_winner = nullptr;

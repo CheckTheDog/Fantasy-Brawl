@@ -977,9 +977,18 @@ bool j1UIScene::Update(float dt)
 
 	}
 
-	if (passing1 && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	//if (champ_selected[0] && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	//{
+	//	ready->function = INGAME;
+	//}
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
-		ready->function = INGAME;
+		if (champ_selected[i] == false)
+			break;
+		
+		if (i == MAX_GAMEPADS - 1)
+			ready->function = INGAME;
 	}
 	
 	
@@ -1355,6 +1364,12 @@ bool j1UIScene::loadMenu(menu_id id)
 	bool ret = false;
 	
 	previous_menu = current_menu->id;
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		current_menu->gamepads_focus[i] = current_menu->gamepad_tabs[i].begin();
+	}
+	
 	pauseClock();
 	for (std::list <menu*>::const_iterator item = menus.begin(); item != menus.end(); item++)
 	{
