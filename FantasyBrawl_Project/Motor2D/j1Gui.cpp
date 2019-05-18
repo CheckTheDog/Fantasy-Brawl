@@ -326,11 +326,32 @@ bool j1Gui::PreUpdate()
 					{
 					App->ui_scene->champ_selected[i] = true;
 					App->audio->PlayFx(App->audio->fxConfirmChamp);
+
+					if (i == 0)
+						App->ui_scene->player1_quad->section = { 494, 518, 170,191 };
+					if (i == 1)
+						App->ui_scene->player2_quad->section = { 494, 518, 170,191 };
+					if (i == 2)
+						App->ui_scene->player3_quad->section = { 494, 518, 170,191 };
+					if (i == 3)
+						App->ui_scene->player4_quad->section = { 494, 518, 170,191 };
+					
 					}
 					else if (App->ui_scene->champ_selected[i] == true && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
 					{
 						App->ui_scene->champ_selected[i] = false;
 						App->audio->PlayFx(App->audio->fxCancelChamp);
+
+						if (i == 0)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 1)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 2)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 3)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+
+						
 					}
 				}
 			}

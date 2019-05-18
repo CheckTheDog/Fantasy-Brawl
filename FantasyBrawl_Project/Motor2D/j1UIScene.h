@@ -187,6 +187,12 @@ public:
 	Slider* fx_slider = nullptr;
 	Slider* music_sliderMM = nullptr;
 	Slider* fx_sliderMM = nullptr;
+
+	//marks
+	UI_element* player1_quad = nullptr;
+	UI_element* player2_quad = nullptr;
+	UI_element* player3_quad = nullptr;
+	UI_element* player4_quad = nullptr;
 	
 	//timer
 	UI_element* timer = nullptr;
