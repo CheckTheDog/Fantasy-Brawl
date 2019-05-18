@@ -92,8 +92,9 @@ public: /// Variables
 	uint target_time = 0;
 	float UI_storm_countdown = 0;
 
-private: /// Variables
-	
+	std::string time_for_timer;
+ /// Variables
+private:	
 	//Storm timers ------
 	j1Timer storm_timer;
 	j1Timer ticks_timer;
@@ -105,7 +106,7 @@ private: /// Variables
 	//Start and total time for storm areas color blending purposes
 	float start_time = 0;
 	float total_time = 0;
-	float s_between_blinks;
+	float s_between_blinks = 0;
 
 	/// DAMAGE & STORM related data -----------------------------
 	SDL_Rect safe_area = { 0,0,0,0 };

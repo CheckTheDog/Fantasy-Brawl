@@ -43,16 +43,21 @@ bool j1UIScene::Start()
 
 	
 	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 50);
-	
+	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
+	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
+	 small_font = App->fonts->Load("fonts/Minecraft.ttf",30);
+	 big_font = App->fonts->Load("fonts/Minecraft.ttf", 70);
+	 mid_font = App->fonts->Load("fonts/Minecraft.ttf", 50);
 	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
-	
 	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
 	_TTF_Font* special_text_font = App->fonts->Load("fonts/finalf.ttf", 55);
+
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
 	 panel = App->tex->Load("gui/big_parchment.png");
 	 champselect_bg = App->tex->Load("gui/ChampSelect.png");
+
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color white_color = { 255, 255, 255, 0 };
@@ -115,15 +120,21 @@ bool j1UIScene::Start()
 		startMenu->elements.push_back(background_image);
 		startMenu->elements.push_back(new_game);
 		startMenu->elements.push_back(new_text);
+
 		startMenu->elements.push_back(exit_game);
 		startMenu->elements.push_back(exit_text);
 		startMenu->elements.push_back(credits);
 		startMenu->elements.push_back(settings_start_menu);
 		startMenu->elements.push_back(continue_text);
+
 		menus.push_back(startMenu);
+		AddControllerSupport(new_game, PLAYER::P1, START_MENU);
+		AddControllerSupport(settings_start_menu, PLAYER::P1, START_MENU);
+		AddControllerSupport(exit_game, PLAYER::P1, START_MENU);
+		AddControllerSupport(credits, PLAYER::P1, START_MENU);
 	}
 
-	menu* ingameMenu = new menu(INGAME_MENU);
+	ingameMenu = new menu(INGAME_MENU);
 	{
 		// margin
 		margin_tex = App->tex->Load("gui/TimerMargins.png");
@@ -205,7 +216,6 @@ bool j1UIScene::Start()
 		UI_element* shield_capsule_bar4 = App->gui->createImageFromAtlas(App->scene->player4->Entityinfo.position.x, App->scene->player1->Entityinfo.position.y, { 46, 0, 23, 6 }, this);
 		shield_capsule4 = shield_capsule_bar4;
 		
-
 		ingameMenu->elements.push_back(margin);
 		ingameMenu->elements.push_back(hp_capsule_bar1);
 		ingameMenu->elements.push_back(hp_capsule_bar2);
@@ -296,8 +306,21 @@ bool j1UIScene::Start()
 
 
 		//READY BUTTON
-		ready = App->gui->createButton(500 * App->gui->UI_scale, 620 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
-		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
+		ready = App->gui->createButton(500 * App->gui->UI_scale, 2000 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready_text = App->gui->createText("READY", 2000, 640, big_buttons_font, black_color);
+
+
+		player1_quad->appendChild(175, 90, arrow1);
+		player1_quad->appendChild(-30, 90, inv_arrow1);
+
+		player2_quad->appendChild(175, 90, arrow2);
+		player2_quad->appendChild(-30, 90, inv_arrow2);
+
+		player3_quad->appendChild(175, 90, arrow3);
+		player3_quad->appendChild(-30, 90, inv_arrow3);
+
+		player4_quad->appendChild(175, 90, arrow4);
+		player4_quad->appendChild(-30, 90, inv_arrow4);
 		
 
 
@@ -325,7 +348,27 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(player2_text);
 		championSelection->elements.push_back(player3_text);
 		championSelection->elements.push_back(player4_text);
+
 		menus.push_back(championSelection);
+
+		
+		AddControllerSupport(player1_quad,PLAYER::P1,SELECTION_MENU);
+
+		
+		AddControllerSupport(player2_quad, PLAYER::P2, SELECTION_MENU);
+
+		
+		AddControllerSupport(player3_quad, PLAYER::P3, SELECTION_MENU);
+
+		
+		AddControllerSupport(player4_quad, PLAYER::P4, SELECTION_MENU);
+		/*AddControllerSupport(inv_arrow1, PLAYER::P1, SELECTION_MENU);
+		AddControllerSupport(arrow2, PLAYER::P2, SELECTION_MENU);
+		AddControllerSupport(inv_arrow2, PLAYER::P2, SELECTION_MENU);
+		AddControllerSupport(arrow3, PLAYER::P3, SELECTION_MENU);
+		AddControllerSupport(inv_arrow3, PLAYER::P3, SELECTION_MENU);
+		AddControllerSupport(arrow4, PLAYER::P4, SELECTION_MENU);
+		AddControllerSupport(inv_arrow4, PLAYER::P4, SELECTION_MENU);*/
 	}
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);
@@ -348,18 +391,22 @@ bool j1UIScene::Start()
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+
 		music_sliderMM = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_sliderMM);
+		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_sliderMM);
+
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
 
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
+
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_sliderMM);
+		settings_image->appendChild(430 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_sliderMM);
+
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
 		fx_text->setOutlined(true);
@@ -394,6 +441,12 @@ bool j1UIScene::Start()
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
+
+		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
+
 	}
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);
@@ -564,6 +617,28 @@ bool j1UIScene::Update(float dt)
 	}
 	else if (actual_menu == INGAME_MENU)
 	{
+
+		if (timer != nullptr)
+		{
+			//App->tex->UnLoad(timer->texture);
+
+			std::list <UI_element*>::iterator item = App->gui->UI_elements.begin();
+
+			while (item != App->gui->UI_elements.end())
+			{
+				if (*item == timer)
+				{
+					delete *item;
+					App->gui->UI_elements.erase(item);
+					break;
+				}
+				item++;
+			}
+		}
+			//timer
+			timer = App->gui->createText(App->arena_interactions->time_for_timer.data(), 496, 372, small_font, { 0,0,0,1 }, this);
+			//ingameMenu->elements.push_back(timer);
+			
 		App->on_GamePause = false;
 	}
 	else if (actual_menu == FINAL_MENU)
@@ -986,9 +1061,35 @@ bool j1UIScene::Update(float dt)
 
 	}
 
-	if (passing1 && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	//if (champ_selected[0] && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	//{
+	//	ready->function = INGAME;
+	//}
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
-		ready->function = INGAME;
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		{
+			ready->function = INGAME;
+			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+			for (int j = 0; j < MAX_GAMEPADS; ++j)
+			{
+				champ_selected[j] = false;
+			}
+		}
+		
+		if (champ_selected[i] == false)
+			break;
+		
+		if (i == MAX_GAMEPADS - 1 && current_menu->id == SELECTION_MENU)
+		{
+			ready->function = INGAME;
+			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+			for (int j = 0; j < MAX_GAMEPADS; ++j)
+			{
+				champ_selected[j] = false;
+			}
+		}
 	}
 	
 	
@@ -1422,6 +1523,12 @@ bool j1UIScene::loadMenu(menu_id id)
 	bool ret = false;
 	
 	previous_menu = current_menu->id;
+
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	{
+		current_menu->gamepads_focus[i] = current_menu->gamepad_tabs[i].begin();
+	}
+	
 	pauseClock();
 	for (std::list <menu*>::const_iterator item = menus.begin(); item != menus.end(); item++)
 	{
@@ -1687,7 +1794,35 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(end_button);
 	finalMenu->elements.push_back(end_text);
 
+	if(finalMenu->gamepad_tabs[0].empty() == true)
+	AddControllerSupport(end_button,PLAYER::P1,FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[0].clear();
+		AddControllerSupport(end_button, PLAYER::P1, FINAL_MENU);
+	}
+
 	LOG("%i", finalMenu->elements.size());
 
+}
+
+void j1UIScene::AddControllerSupport(UI_element* element, PLAYER gamepad_supported, menu_id id_menu)
+{
+	std::list<menu*>::iterator curr_menu = menus.begin();
+
+	for (; curr_menu != menus.end(); curr_menu++)
+	{
+		if ((*curr_menu)->id == id_menu)
+		{
+			(*curr_menu)->gamepad_tabs[(int)gamepad_supported].push_back(element);
+
+			if ((*curr_menu)->gamepad_tabs[(int)gamepad_supported].size() == 1)
+			{
+				(*curr_menu)->gamepads_focus[(int)gamepad_supported] = (*curr_menu)->gamepad_tabs[(int)gamepad_supported].begin();
+			}
+
+			break;
+		}
+	}
 }
 

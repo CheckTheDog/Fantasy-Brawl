@@ -4,6 +4,8 @@
 #include "j1Module.h"
 #include <list>
 
+//Fix later
+#include "j1Input.h"
 
 
 class UI_element;
@@ -30,6 +32,10 @@ struct menu
 	{}
 	std::list <UI_element*> elements;
 	menu_id id;
+
+	//Gamepad traversal
+	std::list<UI_element*> gamepad_tabs[4];
+	std::list<UI_element*>::iterator gamepads_focus[4];
 
 };
 
@@ -70,11 +76,14 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void CreateScoreBoard(int num);
-	
+
+	void AddControllerSupport(UI_element* element, PLAYER gamepad_supported, menu_id id_menu);
+
 
 public:
 	std::list <menu*> menus;
 	menu* current_menu = nullptr;
+	menu* ingameMenu = nullptr;
 	settings_values newValues;
 	settings_values startValues;
 	settings_values defaultValues;
@@ -147,6 +156,8 @@ public:
 	bool player3_select = false;
 	bool player4_select = false;
 
+	bool champ_selected[4] = { false };
+
 	//PLAYER FOR SCOREBOARD
 	j1Player* player_winner = nullptr;
 	menu* finalMenu = nullptr;
@@ -158,6 +169,10 @@ public:
 	_TTF_Font* small_texts_font = nullptr;
 	_TTF_Font* big_buttons_font = nullptr;
 	_TTF_Font* mid_buttons_font = nullptr;
+
+	_TTF_Font* small_font = nullptr;
+	_TTF_Font* big_font = nullptr;
+	_TTF_Font* mid_font = nullptr;
 
 	float scale = 0.66f;
 
@@ -173,5 +188,7 @@ public:
 	Slider* music_sliderMM = nullptr;
 	Slider* fx_sliderMM = nullptr;
 	
+	//timer
+	UI_element* timer = nullptr;
 };
 #endif // !__j1UISCENE_H__ 

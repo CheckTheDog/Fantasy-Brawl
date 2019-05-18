@@ -7,6 +7,7 @@
 #include "j1Viewport.h"
 #include "j1Collision.h"
 #include "j1Audio.h"
+#include <string>
 
 j1ArenaInteractions::j1ArenaInteractions() : j1Module()
 {
@@ -107,12 +108,24 @@ bool j1ArenaInteractions::Update(float dt)
 			current_phase++;
 			target_time = (*phase_iterator)->waiting_time;
 		}
-
+		
 		if (storm_moving == false)
 		{
 			float test = storm_timer.ReadSec();
-			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
 
+			time_for_timer = std::to_string (UI_storm_countdown);
+			
+			if (UI_storm_countdown >= 10)
+			{
+				time_for_timer.erase(2,7);
+			}
+			else
+			{
+				time_for_timer.erase(3, 7);
+			}
+			
+			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
+			
 			if ( alarm_hasplayed == false && UI_storm_countdown < 6)
 			{
 				App->audio->PlayFx(App->audio->fxStormCloseCount);
@@ -176,7 +189,7 @@ void j1ArenaInteractions::StartStorm()
 
 	//Start the timer
 	storm_timer.Start();
-
+	storm_moving = false;
 	current_phase = 0;
 
 	//Start the ticks
@@ -201,8 +214,8 @@ void j1ArenaInteractions::DestroyStorm()
 	}
 
 	//In case the storm was stopped
-	ticks_timer.Stop();
-	storm_timer.Stop();
+	/*ticks_timer.Stop();
+	storm_timer.Stop();*/
 
 	current_phase = 0;
 }
@@ -278,10 +291,6 @@ void j1ArenaInteractions::DrawStorm()
 	//Draw the 4 quads
 	for (int i = 0; i < 4; ++i)
 	{
-		// @JACOBO!!!! This DrawQuad will need to use the 4 screen DrawQuad function! nothing else,
-		// just use this values with whatever adaptation is needed! uwu
-		//App->render->DrawQuad(storm_areas[i], r, g, b, (Uint8)(normalized * a));
-
 		App->view->LayerDrawQuad(storm_areas[i], r, g, b, (uint)(normalized * a), true);
 	}
 
