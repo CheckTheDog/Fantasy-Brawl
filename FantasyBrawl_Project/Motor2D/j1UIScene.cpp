@@ -296,8 +296,8 @@ bool j1UIScene::Start()
 
 
 		//READY BUTTON
-		ready = App->gui->createButton(500 * App->gui->UI_scale, 620 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
-		ready_text = App->gui->createText("READY", 580, 640, big_buttons_font, black_color);
+		ready = App->gui->createButton(500 * App->gui->UI_scale, 2000 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready_text = App->gui->createText("READY", 2000, 640, big_buttons_font, black_color);
 
 
 		player1_quad->appendChild(- 20, 75, arrow1);
