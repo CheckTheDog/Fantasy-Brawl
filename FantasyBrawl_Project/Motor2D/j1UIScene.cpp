@@ -1854,13 +1854,36 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 	//WINDOW
 
-	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
+	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/Bg.png"), this);
 
 	//Text
-	UI_element* text1 = App->gui->createText("Press      to continue to next round", 432, 670, small_font, { 0, 0, 0, 1 });
+	UI_element* text1 = App->gui->createText("Winner", 347, 100, big_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
 
-	UI_element* text2 = App->gui->createText("Player Spawns", 482, 620, small_font, { 0, 0, 0, 1 });
+	UI_element* text2 = nullptr;
+
+	if (App->scene->GetWinner() == App->scene->player1)
+	{
+		text2 = App->gui->createText("Player 1", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	else if (App->scene->GetWinner() == App->scene->player2)
+	{
+		text2 = App->gui->createText("Player 2", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	else if (App->scene->GetWinner() == App->scene->player3)
+	{
+		text2 = App->gui->createText("Player 3", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	else if (App->scene->GetWinner() == App->scene->player4)
+	{
+		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	
+	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
 
 	//PLAYER QUADS
@@ -1889,7 +1912,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	photos[3] = mark4;
 
 	//END BUTTON
-	UI_element* last_button = App->gui->createButton(522, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+	UI_element* last_button = App->gui->createButton(447, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
 	last_button->function = RESTART;
 
 
@@ -1909,6 +1932,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(player4_text);
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
+	finalMenu->elements.push_back(text3);
 
 	rounds++;
 
