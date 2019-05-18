@@ -494,14 +494,26 @@ void j1Player::Launch2ndSuper()
 				if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
 
+				if (App->scene->player1->Entityinfo.health < 0 && App->scene->player1->active)
+					this->kills++;
+
 				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
+
+				if (App->scene->player2->Entityinfo.health < 0 && App->scene->player2->active)
+					this->kills++;
 
 				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
 
+				if (App->scene->player3->Entityinfo.health < 0 && App->scene->player3->active)
+					this->kills++;
+
 				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+
+				if (App->scene->player4->Entityinfo.health < 0 && App->scene->player4->active)
+					this->kills++;
 			}
 		}
 	}
@@ -802,17 +814,6 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			}
 		}
 
-		// --- On player death, deactivate it ---
-		if (this->Entityinfo.health <= 0.0f && !AreOtherPlayersDead())
-		{
-			P_rank = RANK::LOSER;
-			this->active = false;
-			this->Entityinfo.entitycoll->rect.x = 0;
-			this->Entityinfo.entitycoll->rect.y = 0;
-			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
-
-			App->audio->PlayFx(this->playerinfo.basic_fx);
-		}
 
 		break;
 	}
@@ -1204,6 +1205,18 @@ void j1Player::LogicUpdate(float dt)
 
 		if (!shieldON)
 			Update(dt);
+
+		// --- On player death, deactivate it ---
+		if (this->Entityinfo.health <= 0.0f && !AreOtherPlayersDead())
+		{
+			P_rank = RANK::LOSER;
+			this->active = false;
+			this->Entityinfo.entitycoll->rect.x = 0;
+			this->Entityinfo.entitycoll->rect.y = 0;
+			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
+
+			App->audio->PlayFx(this->playerinfo.basic_fx);
+		}
 	}
 
 }

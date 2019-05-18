@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1Viewport.h"
 #include "j1BuffManager.h"
+#include "j1EntityManager.h"
 
 #include "SDL/include//SDL_timer.h"
 
@@ -25,8 +26,6 @@ j1ParticleSystem::~j1ParticleSystem()
 
 bool j1ParticleSystem::Start()
 {
-
-
 	return true;
 }
 
