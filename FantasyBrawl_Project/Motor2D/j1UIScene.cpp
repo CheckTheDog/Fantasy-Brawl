@@ -310,17 +310,17 @@ bool j1UIScene::Start()
 		ready_text = App->gui->createText("READY", 2000, 640, big_buttons_font, black_color);
 
 
-		player1_quad->appendChild(- 20, 75, arrow1);
-		player1_quad->appendChild(200, 75, inv_arrow1);
+		player1_quad->appendChild(175, 90, arrow1);
+		player1_quad->appendChild(-30, 90, inv_arrow1);
 
-		player2_quad->appendChild(-20, 75, arrow2);
-		player2_quad->appendChild(200, 75, inv_arrow2);
+		player2_quad->appendChild(175, 90, arrow2);
+		player2_quad->appendChild(-30, 90, inv_arrow2);
 
-		player3_quad->appendChild(-20, 75, arrow3);
-		player3_quad->appendChild(200, 75, inv_arrow3);
+		player3_quad->appendChild(175, 90, arrow3);
+		player3_quad->appendChild(-30, 90, inv_arrow3);
 
-		player4_quad->appendChild(-20, 75, arrow4);
-		player4_quad->appendChild(200, 75, inv_arrow4);
+		player4_quad->appendChild(175, 90, arrow4);
+		player4_quad->appendChild(-30, 90, inv_arrow4);
 		
 
 

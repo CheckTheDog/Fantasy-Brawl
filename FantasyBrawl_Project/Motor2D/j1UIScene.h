@@ -83,6 +83,7 @@ public:
 public:
 	std::list <menu*> menus;
 	menu* current_menu = nullptr;
+	menu* ingameMenu = nullptr;
 	settings_values newValues;
 	settings_values startValues;
 	settings_values defaultValues;
