@@ -983,6 +983,16 @@ bool j1UIScene::Update(float dt)
 
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		{
+			ready->function = INGAME;
+			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+			for (int j = 0; j < MAX_GAMEPADS; ++j)
+			{
+				champ_selected[j] = false;
+			}
+		}
+		
 		if (champ_selected[i] == false)
 			break;
 		

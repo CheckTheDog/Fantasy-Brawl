@@ -348,7 +348,7 @@ bool j1Gui::PreUpdate()
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			if (mouse_focus->callback != nullptr)
+			 if (mouse_focus->callback != nullptr)
 			{
 				ret = mouse_focus->callback->OnUIEvent(mouse_focus, MOUSE_LEFT_CLICK);
 			}
