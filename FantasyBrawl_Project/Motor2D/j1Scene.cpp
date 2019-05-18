@@ -14,6 +14,7 @@
 #include "j1UIScene.h"
 #include "j1BuffManager.h"
 #include "j1ArenaInteractions.h"
+#include "j1Gui.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -99,7 +100,6 @@ bool j1Scene::Start()
 	// --- Loading map ---
 
 	App->map->Load(StageList.front()->data());
-	champselect_bg = App->tex->Load("gui/ChampSelect.png");
 	//debug_tex = App->tex->Load("maps/path2.png");
 	App->map->ColliderDrawer();
 
@@ -285,7 +285,7 @@ bool j1Scene::PreUpdate()
 
 	}
 
-	if (App->ui_scene->actual_menu == SELECTION_MENU)
+	if (App->view->number_of_views == 1)
 	{
 		App->view->screen_1.x = 0;
 		App->view->screen_1.y = 0;
@@ -402,16 +402,13 @@ bool j1Scene::Update(float dt)
 	//{
 	//	App->input->StopControllerShake(PLAYER::P4);
 	//}
-	
 
 	App->map->Draw();
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		ChangeMap(1);
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+
 	return true;
 }
 
@@ -421,11 +418,6 @@ bool j1Scene::PostUpdate(float dt)
 	BROFILER_CATEGORY("Scene_Post_Update", Profiler::Color::Aquamarine);
 
 	bool ret = true;
-
-	if (App->ui_scene->actual_menu == SELECTION_MENU)
-	{
-		App->view->PushQueue(1, champselect_bg, 0, 0, SDL_Rect{0,0,1024,768},1);
-	}
 
 	return ret;
 }
