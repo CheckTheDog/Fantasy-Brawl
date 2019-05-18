@@ -103,6 +103,7 @@
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Clock.cpp" />
     <ClCompile Include="UI_Image.cpp" />
+    <ClCompile Include="UI_Marker.cpp" />
     <ClCompile Include="UI_Slider.cpp" />
     <ClCompile Include="UI_Text.cpp" />
     <ClCompile Include="UI_Window.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="UI_Clock.h" />
     <ClInclude Include="UI_element.h" />
     <ClInclude Include="UI_Image.h" />
+    <ClInclude Include="UI_Marker.h" />
     <ClInclude Include="UI_Slider.h" />
     <ClInclude Include="UI_Text.h" />
     <ClInclude Include="UI_Window.h" />

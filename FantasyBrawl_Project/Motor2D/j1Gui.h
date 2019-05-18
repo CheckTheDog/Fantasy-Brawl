@@ -15,6 +15,7 @@ class Button;
 class Window;
 class Slider;
 class Clock;
+class Marker;
 
 
 enum event_type
@@ -77,6 +78,7 @@ public:
 	//NULL texture to use atlas
 	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress = 0.5f, j1Module* callback = nullptr, char* text = "");
 
+	Marker* createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture* texture, SDL_Rect rect, j1Module* callback);
 	bool ManageAutomaticTraverseTiming(int player_timer, float time_to_start = 1.5f, float time_margin = 0.1f);
 public:
 	bool UI_Debug = false;

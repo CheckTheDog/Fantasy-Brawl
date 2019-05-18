@@ -16,6 +16,7 @@
 #include "j1UIScene.h"
 #include "UI_Slider.h"
 #include "UI_Clock.h"
+#include "UI_Marker.h"
 #include "j1Entity.h"
 #include "j1EntityManager.h"
 #include "j1Transition.h"
@@ -536,6 +537,16 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 
 	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
 
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+Marker* j1Gui::createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture * texture, SDL_Rect rect, j1Module * callback)
+{
+	Marker* ret = nullptr;
+
+	ret = new Marker(texture,x,y,margin,target,rect,nullptr);
 	UI_elements.push_back(ret);
 
 	return ret;

@@ -20,7 +20,8 @@ enum element_type
 	WINDOW,
 	CLOCK,
 	PLAYERINFO,
-	FINALINFO
+	FINALINFO,
+	MARKER
 };
 
 enum element_function
@@ -56,11 +57,6 @@ enum element_state
 	STANDBY,
 	MOUSEOVER,
 	CLICKED
-};
-
-struct UI_GTab
-{
-	UI_element* ui_element = nullptr;
 };
 
 class UI_element

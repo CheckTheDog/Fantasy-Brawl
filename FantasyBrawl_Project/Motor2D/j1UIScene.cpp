@@ -16,6 +16,7 @@
 #include "UI_Slider.h"
 #include "UI_Window.h"
 #include "UI_Clock.h"
+#include "UI_Marker.h"
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -112,6 +113,9 @@ bool j1UIScene::Start()
 		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
 		credits->function = WEBPAGE;
 
+		//MARKER
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 },&startMenu->gamepads_focus[0],App->gui->atlas, {875,174,84,47},nullptr);
+
 
 
 		//BACKGROUND
@@ -126,12 +130,16 @@ bool j1UIScene::Start()
 		startMenu->elements.push_back(credits);
 		startMenu->elements.push_back(settings_start_menu);
 		startMenu->elements.push_back(continue_text);
+		startMenu->elements.push_back(feather);
+
 
 		menus.push_back(startMenu);
 		AddControllerSupport(new_game, PLAYER::P1, START_MENU);
 		AddControllerSupport(settings_start_menu, PLAYER::P1, START_MENU);
 		AddControllerSupport(exit_game, PLAYER::P1, START_MENU);
 		AddControllerSupport(credits, PLAYER::P1, START_MENU);
+
+		
 	}
 
 	ingameMenu = new menu(INGAME_MENU);
