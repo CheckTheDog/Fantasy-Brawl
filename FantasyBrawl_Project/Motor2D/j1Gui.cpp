@@ -157,8 +157,8 @@ bool j1Gui::PreUpdate()
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 					{
 						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						time_since_press.Start();
-						automatic_traverse_margin.Start();
+						time_since_press[i].Start();
+						automatic_traverse_margin[i].Start();
 						if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
 							App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
 						else
@@ -168,8 +168,8 @@ bool j1Gui::PreUpdate()
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
 					{
 						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						time_since_press.Start();
-						automatic_traverse_margin.Start();
+						time_since_press[i].Start();
+						automatic_traverse_margin[i].Start();
 						if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
 							App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
 						else
@@ -179,7 +179,7 @@ bool j1Gui::PreUpdate()
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
 					{
 						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						if (ManageAutomaticTraverseTiming() == true)
+						if (ManageAutomaticTraverseTiming(i) == true)
 						{
 							if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
 								App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
@@ -191,7 +191,7 @@ bool j1Gui::PreUpdate()
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
 					{
 						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						if (ManageAutomaticTraverseTiming() == true)
+						if (ManageAutomaticTraverseTiming(i) == true)
 						{
 							if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
 								App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
@@ -205,21 +205,21 @@ bool j1Gui::PreUpdate()
 						{
 							if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN)
 							{
-								time_since_press.Start();
-								automatic_traverse_margin.Start();
+								time_since_press[i].Start();
+								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.front();
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
 							{
-								time_since_press.Start();
-								automatic_traverse_margin.Start();
+								time_since_press[i].Start();
+								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.back();
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
 							{
-								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.front();
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
@@ -227,7 +227,7 @@ bool j1Gui::PreUpdate()
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 							{
-								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.back();
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
@@ -243,16 +243,16 @@ bool j1Gui::PreUpdate()
 							if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
 								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 							{
-								time_since_press.Start();
-								automatic_traverse_margin.Start();
+								time_since_press[i].Start();
+								automatic_traverse_margin[i].Start();
 								element[i]->localPosition += {1, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
 								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
 							{
-								time_since_press.Start();
-								automatic_traverse_margin.Start();
+								time_since_press[i].Start();
+								automatic_traverse_margin[i].Start();
 								element[i]->localPosition -= {1, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
@@ -322,9 +322,15 @@ bool j1Gui::PreUpdate()
 				if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
 				{
 					if (App->ui_scene->champ_selected[i] == false && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
-						App->ui_scene->champ_selected[i] = true;
+					{
+					App->ui_scene->champ_selected[i] = true;
+					App->audio->PlayFx(App->audio->fxConfirmChamp);
+					}
 					else if (App->ui_scene->champ_selected[i] == true && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
+					{
 						App->ui_scene->champ_selected[i] = false;
+						App->audio->PlayFx(App->audio->fxCancelChamp);
+					}
 				}
 			}
 		}
@@ -533,13 +539,13 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 	return ret;
 }
 
-bool j1Gui::ManageAutomaticTraverseTiming(float time_to_start, float time_margin)
+bool j1Gui::ManageAutomaticTraverseTiming(int player_timer, float time_to_start, float time_margin)
 {
 	bool ret = false;
 	
-	if (time_since_press.ReadSec() >= time_to_start && automatic_traverse_margin.ReadSec() >= time_margin)
+	if (time_since_press[player_timer].ReadSec() >= time_to_start && automatic_traverse_margin[player_timer].ReadSec() >= time_margin)
 	{
-		automatic_traverse_margin.Start();
+		automatic_traverse_margin[player_timer].Start();
 		ret = true;
 	}
 
