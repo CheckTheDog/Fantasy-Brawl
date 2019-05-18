@@ -107,7 +107,7 @@ private:
 	//Start and total time for storm areas color blending purposes
 	float start_time = 0;
 	float total_time = 0;
-	float s_between_blinks;
+	float s_between_blinks = 0;
 
 	/// DAMAGE & STORM related data -----------------------------
 	SDL_Rect safe_area = { 0,0,0,0 };

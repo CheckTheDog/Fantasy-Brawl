@@ -112,9 +112,6 @@ bool j1ArenaInteractions::Update(float dt)
 		if (storm_moving == false)
 		{
 			float test = storm_timer.ReadSec();
-			
-
-
 
 			time_for_timer = std::to_string (UI_storm_countdown);
 			
@@ -130,10 +127,6 @@ bool j1ArenaInteractions::Update(float dt)
 			timeFtimer = time_for_timer.data();
 			UI_storm_countdown = (*phase_iterator)->waiting_time - test;
 			
-			
-
-
-
 			if ( alarm_hasplayed == false && UI_storm_countdown < 6)
 			{
 				App->audio->PlayFx(App->audio->fxStormCloseCount);
@@ -222,8 +215,8 @@ void j1ArenaInteractions::DestroyStorm()
 	}
 
 	//In case the storm was stopped
-	ticks_timer.Stop();
-	storm_timer.Stop();
+	/*ticks_timer.Stop();
+	storm_timer.Stop();*/
 
 	current_phase = 0;
 }
@@ -299,10 +292,6 @@ void j1ArenaInteractions::DrawStorm()
 	//Draw the 4 quads
 	for (int i = 0; i < 4; ++i)
 	{
-		// @JACOBO!!!! This DrawQuad will need to use the 4 screen DrawQuad function! nothing else,
-		// just use this values with whatever adaptation is needed! uwu
-		//App->render->DrawQuad(storm_areas[i], r, g, b, (Uint8)(normalized * a));
-
 		App->view->LayerDrawQuad(storm_areas[i], r, g, b, (uint)(normalized * a), true);
 	}
 

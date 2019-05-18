@@ -379,7 +379,7 @@ bool j1UIScene::Start()
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		Slider* music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(500 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
@@ -536,7 +536,7 @@ bool j1UIScene::Update(float dt)
 			//delete timer;
 		if (timer)
 		{
-			App->tex->UnLoad(timer->texture);
+			//App->tex->UnLoad(timer->texture);
 
 			std::list <UI_element*>::iterator item = App->gui->UI_elements.begin();
 
@@ -1610,6 +1610,14 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(p4_kills);
 	finalMenu->elements.push_back(end_button);
 	finalMenu->elements.push_back(end_text);
+
+	if(finalMenu->gamepad_tabs[0].empty() == true)
+	AddControllerSupport(end_button,PLAYER::P1,FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[0].clear();
+		AddControllerSupport(end_button, PLAYER::P1, FINAL_MENU);
+	}
 
 	LOG("%i", finalMenu->elements.size());
 
