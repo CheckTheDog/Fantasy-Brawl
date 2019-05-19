@@ -1107,6 +1107,8 @@ bool j1UIScene::Update(float dt)
 		player4_quad->section = { 288, 518, 170,191 };
 	}
 
+
+
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
@@ -1132,6 +1134,7 @@ bool j1UIScene::Update(float dt)
 				champ_selected[j] = false;
 			}
 		}
+
 	}
 	
 	if (current_menu->id == INGAMESETTINGS_MENU)
@@ -1143,7 +1146,37 @@ bool j1UIScene::Update(float dt)
 		}
 	}
 
-	
+	if (player1lock == true && current_menu->id == FINAL_MENU)
+	{
+		player1_quads->section = { 288, 842, 169, 191 };
+	}
+	if (player2lock == true && current_menu->id == FINAL_MENU)
+	{
+		player2_quads->section = { 288, 842, 169, 191 };
+	}
+	if (player3lock == true && current_menu->id == FINAL_MENU)
+	{
+		player3_quads->section = { 288, 842, 169, 191 };
+	}
+	if (player4lock == true && current_menu->id == FINAL_MENU)
+	{
+		player4_quads->section = { 288, 842, 169, 191 };
+	}
+	if (player1lock == true && player2lock == true && player3lock == true && player4lock == true && current_menu->id == FINAL_MENU)
+	{
+		if(rounds >= 3)
+			ready->function = RESTART;
+
+		if(rounds < 3)
+			ready->function = INGAME_NEW_GAME;
+
+		ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+		player1lock = false;
+		player2lock = false;
+		player3lock = false;
+		player4lock = false;
+
+	}
 
 	//GET TO SCOREBOARD SCREEN
 
@@ -1259,7 +1292,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			P4stars = 0;
 
 			//Reset rounds
-			rounds = 3;
+			rounds = 0;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();
@@ -1544,6 +1577,22 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			App->RequestBrowser("https://checkthedog.github.io/Fantasy-Brawl/");
 			App->audio->PlayFx(App->audio->fxConfirm);
+			break;
+		case Last_Button_1:
+
+			player1lock = true;			
+			break;
+		case Last_Button_2:
+
+			player2lock = true;
+			break;
+		case Last_Button_3:
+
+			player3lock = true;	
+			break;
+		case Last_Button_4:
+
+			player4lock = true;
 			break;
 		}
 	}
@@ -1853,11 +1902,11 @@ void j1UIScene::CreateScoreBoard(int num)
 	UI_element* stars3 = App->gui->createImageFromAtlas(215, 433, { 0, 874, 55, 54 }, this);
 	UI_element* stars4 = App->gui->createImageFromAtlas(215, 614, { 0, 874, 55, 54 }, this);
 
-	//PLAYER QUADS
-	UI_element* player1_quad = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
-	UI_element* player2_quad = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
-	UI_element* player3_quad = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
-	UI_element* player4_quad = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+	//PLAYER QUADS No Butt
+	player1_quads = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+	player2_quads = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+	player3_quads = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+	player4_quads = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
 
 	//PLAYER TEXTS
 	UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
@@ -1890,8 +1939,17 @@ void j1UIScene::CreateScoreBoard(int num)
 	photos[3] = mark4;
 
 	//END BUTTON
-	UI_element* last_button = App->gui->createButton(522,664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
-	last_button->function = INGAME_NEW_GAME;
+	UI_element* last_button1 = App->gui->createButton(522,664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+	last_button1->function = Last_Button_1;
+
+	UI_element* last_button2 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+	last_button2->function = Last_Button_2;
+
+	UI_element* last_button3 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+	last_button3->function = Last_Button_3;
+
+	UI_element* last_button4 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+	last_button4->function = Last_Button_4;
 
 	
 	finalMenu->elements.push_back(final_image);
@@ -1900,17 +1958,20 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(mark2);
 	finalMenu->elements.push_back(mark3);
 	finalMenu->elements.push_back(mark4);
-	finalMenu->elements.push_back(player1_quad);
-	finalMenu->elements.push_back(player2_quad);
-	finalMenu->elements.push_back(player3_quad);
-	finalMenu->elements.push_back(player4_quad);
+	finalMenu->elements.push_back(player1_quads);
+	finalMenu->elements.push_back(player2_quads);
+	finalMenu->elements.push_back(player3_quads);
+	finalMenu->elements.push_back(player4_quads);
 	finalMenu->elements.push_back(player1_text);
 	finalMenu->elements.push_back(player2_text);
 	finalMenu->elements.push_back(player3_text);
 	finalMenu->elements.push_back(player4_text);
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
-	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(last_button1);
+	finalMenu->elements.push_back(last_button2);
+	finalMenu->elements.push_back(last_button3);
+	finalMenu->elements.push_back(last_button4);
 	finalMenu->elements.push_back(stars1);
 	finalMenu->elements.push_back(stars2);
 	finalMenu->elements.push_back(stars3);
@@ -1921,11 +1982,35 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(player4_stars);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
-		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+		AddControllerSupport(last_button1, PLAYER::P1, FINAL_MENU);
 	else
 	{
 		finalMenu->gamepad_tabs[0].clear();
-		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+		AddControllerSupport(last_button1, PLAYER::P1, FINAL_MENU);
+	}
+
+	if (finalMenu->gamepad_tabs[1].empty() == true)
+		AddControllerSupport(last_button2, PLAYER::P2, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[1].clear();
+		AddControllerSupport(last_button2, PLAYER::P2, FINAL_MENU);
+	}
+
+	if (finalMenu->gamepad_tabs[2].empty() == true)
+		AddControllerSupport(last_button3, PLAYER::P3, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[2].clear();
+		AddControllerSupport(last_button3, PLAYER::P3, FINAL_MENU);
+	}
+
+	if (finalMenu->gamepad_tabs[3].empty() == true)
+		AddControllerSupport(last_button4, PLAYER::P4, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[3].clear();
+		AddControllerSupport(last_button4, PLAYER::P4, FINAL_MENU);
 	}
 
 	rounds++;
@@ -2020,11 +2105,18 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
 
-	//PLAYER QUADS
-	UI_element* player1_quad = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
-	UI_element* player2_quad = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
-	UI_element* player3_quad = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
-	UI_element* player4_quad = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+	//PLAYER QUADS No Butt
+	player1_quads = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+	player2_quads = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+	player3_quads = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+	player4_quads = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+
+	//PLAYER QUADS Butt
+	UI_element* player1_quad_green = App->gui->createImageFromAtlas(20, 3, { 288, 842, 169, 191 }, this);
+	UI_element* player2_quad_green = App->gui->createImageFromAtlas(20, 194, { 288, 842, 169, 191 }, this);
+	UI_element* player3_quad_green = App->gui->createImageFromAtlas(20, 385, { 288, 842, 169, 191 }, this);
+	UI_element* player4_quad_green = App->gui->createImageFromAtlas(20, 576, { 288, 842, 169, 191 }, this);
+
 
 	//PLAYER TEXTS
 	UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
@@ -2064,8 +2156,17 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	photos[3] = mark4;
 
 	//END BUTTON
-	UI_element* last_button = App->gui->createButton(447, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
-	last_button->function = RESTART;
+	UI_element* last_button1 = App->gui->createButton(522, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+	last_button1->function = Last_Button_1;
+
+	UI_element* last_button2 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+	last_button2->function = Last_Button_2;
+
+	UI_element* last_button3 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+	last_button3->function = Last_Button_3;
+
+	UI_element* last_button4 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+	last_button4->function = Last_Button_4;
 
 
 	
@@ -2085,7 +2186,10 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
 	finalMenu->elements.push_back(text3);
-	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(last_button1);
+	finalMenu->elements.push_back(last_button2);
+	finalMenu->elements.push_back(last_button3);
+	finalMenu->elements.push_back(last_button4);
 	finalMenu->elements.push_back(stars1);
 	finalMenu->elements.push_back(stars2);
 	finalMenu->elements.push_back(stars3);
@@ -2096,11 +2200,35 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(player4_stars);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
-		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+		AddControllerSupport(last_button1, PLAYER::P1, FINAL_MENU);
 	else
 	{
 		finalMenu->gamepad_tabs[0].clear();
-		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+		AddControllerSupport(last_button1, PLAYER::P1, FINAL_MENU);
+	}
+
+	if (finalMenu->gamepad_tabs[1].empty() == true)
+		AddControllerSupport(last_button2, PLAYER::P2, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[1].clear();
+		AddControllerSupport(last_button2, PLAYER::P2, FINAL_MENU);
+	}
+
+	if (finalMenu->gamepad_tabs[2].empty() == true)
+		AddControllerSupport(last_button3, PLAYER::P3, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[2].clear();
+		AddControllerSupport(last_button3, PLAYER::P3, FINAL_MENU);
+	}
+
+	if (finalMenu->gamepad_tabs[3].empty() == true)
+		AddControllerSupport(last_button4, PLAYER::P4, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[3].clear();
+		AddControllerSupport(last_button4, PLAYER::P4, FINAL_MENU);
 	}
 
 	rounds++;

@@ -159,6 +159,16 @@ public:
 	bool passing3 = false;
 	bool passing4 = false;
 
+	bool player1lock = false;
+	bool player2lock = false;
+	bool player3lock = false;
+	bool player4lock = false;
+
+	UI_element* player1_quads;
+	UI_element* player2_quads;
+	UI_element* player3_quads;
+	UI_element* player4_quads;
+
 	//READY
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
