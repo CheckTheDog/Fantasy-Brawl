@@ -162,27 +162,6 @@ p
 
 /* end home */
 
-/* buttons */
-.container {
-	position: relative;
-	width: 100%;
-}
-
-.container img {
-	width: 100%;
-	height: auto;
-}
-
-.container .btn {
-	positions: relative;
-	color: #fff;
-	border: none;
-}
-
-.container .btn:hover {
-	background-color: #000000
-}
-
 /* start service */
 #game .media
     {
