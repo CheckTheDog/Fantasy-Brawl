@@ -2,11 +2,12 @@
 #define __j1UISCENE_H__
 
 #include "j1Module.h"
+#include "SDL\include\SDL.h"
 #include <list>
 
+struct SDL_Rect;
 //Fix later
 #include "j1Input.h"
-
 
 class UI_element;
 class Clock;
@@ -24,6 +25,7 @@ enum menu_id
 	SELECTION_MENU,
 	CREDITS_MENU,
 	FINAL_MENU,
+	SCOREBOARD_MENU,
 	INGAMESETTINGS_MENU
 };
 struct menu
@@ -76,10 +78,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	void CreateScoreBoard(int num);
-
+	void CreateFinalScoreBoard(int num);
 	void AddControllerSupport(UI_element* element, PLAYER gamepad_supported, menu_id id_menu);
-
-
 public:
 	std::list <menu*> menus;
 	menu* current_menu = nullptr;
@@ -93,6 +93,19 @@ public:
 	menu_id actual_menu = START_MENU;
 	bool ui_id1 = false;
 	bool ui_id2 = false;
+	int rounds = 3;
+
+	//Player Stars
+	int P1stars = 0;
+	int P2stars = 0;
+	int P3stars = 0;
+	int P4stars = 0;
+
+	//Stars
+	std::string star1;
+	std::string star2;
+	std::string star3;
+	std::string star4;
 
 	//PLAYER HP BARS
 	UI_element* hp_bar1 = nullptr;
@@ -137,6 +150,10 @@ public:
 	UI_element* mark4 = nullptr;
 
 	UI_element* photos[4];
+	SDL_Rect photo_back_up1 = {0,0,0,0};
+	SDL_Rect photo_back_up2 = { 0,0,0,0 };
+	SDL_Rect photo_back_up3 = { 0,0,0,0 };
+	SDL_Rect photo_back_up4 = { 0,0,0,0 };
 	bool passing1 = false;
 	bool passing2 = false;
 	bool passing3 = false;
@@ -175,7 +192,7 @@ public:
 	_TTF_Font* mid_font = nullptr;
 
 	float scale = 0.66f;
-
+	SDL_Texture* A_Butt = nullptr;
 	SDL_Texture* panel = nullptr;
 	SDL_Texture* margin_tex = nullptr;
 	UI_element* margin = nullptr;

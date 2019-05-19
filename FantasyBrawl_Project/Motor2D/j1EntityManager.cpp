@@ -332,7 +332,7 @@ bool j1EntityManager::Start()
 	shield_texture = App->tex->Load(shield_texturepath.data());
 	arrows_tex = App->tex->Load("textures/Arrows2.png");
 
-	death_screen_cover = App->tex->Load("gui/DEath.png");
+	death_tex = App->tex->Load("gui/Death.png");
 
 	return ret;
 }

@@ -22,6 +22,7 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
 #include "j1Viewport.h"
+#include <string>
 
 
 j1UIScene::j1UIScene()
@@ -56,8 +57,9 @@ bool j1UIScene::Start()
 
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
-	 panel = App->tex->Load("gui/big_parchment.png");
+	 panel = App->tex->Load("gui/Options.png");
 	 champselect_bg = App->tex->Load("gui/ChampSelect.png");
+	 A_Butt = App->tex->Load("gui/controller_buttons.png");
 
 
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
@@ -85,14 +87,14 @@ bool j1UIScene::Start()
 
 
 		//PLAY
-		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		new_game->function = NEW_GAME;
 
 		UI_element* new_text = App->gui->createText("PLAY", 588, 270, big_buttons_font, brown_color);
 		new_text->setOutlined(true);
 		
 		//OPTIONS
-		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		settings_start_menu->function = SETTINGS;
 
 
@@ -101,7 +103,7 @@ bool j1UIScene::Start()
 		settings_start_menu->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 
 		exit_game->function = EXIT;
 
@@ -110,7 +112,7 @@ bool j1UIScene::Start()
 		exit_game->appendChildAtCenter(exit_text);
 
 		//CREDITS
-		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
+		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
 		credits->function = WEBPAGE;
 
 		//MARKER
@@ -119,7 +121,7 @@ bool j1UIScene::Start()
 
 
 		//BACKGROUND
-		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/BG.png"), this);
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MenuStart.png"), this);
 
 		startMenu->elements.push_back(background_image);
 		startMenu->elements.push_back(new_game);
@@ -391,7 +393,7 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
 		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
@@ -400,9 +402,9 @@ bool j1UIScene::Start()
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 
-		music_sliderMM = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_sliderMM);
+		settings_image->appendChild(500 * App->gui->UI_scale, 125 * App->gui->UI_scale, music_sliderMM);
 
 		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
@@ -419,7 +421,7 @@ bool j1UIScene::Start()
 
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_image->appendChild(400 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_sliderMM);
+		settings_image->appendChild(500 * App->gui->UI_scale, 175 * App->gui->UI_scale, fx_sliderMM);
 
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
@@ -433,7 +435,7 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
@@ -478,7 +480,7 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
 		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
@@ -514,7 +516,7 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
@@ -1095,6 +1097,17 @@ bool j1UIScene::Update(float dt)
 
 	}
 
+
+	photo_back_up1 = photos[0]->section;
+	photo_back_up2 = photos[1]->section;
+	photo_back_up3 = photos[2]->section;
+	photo_back_up4 = photos[3]->section;
+
+	//if (champ_selected[0] && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
+	//{
+	//	ready->function = INGAME;
+	//}
+
 	//MARKS RESET AND LOGIC
 	if (marks_reset == false)
 	{
@@ -1145,29 +1158,53 @@ bool j1UIScene::Update(float dt)
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
-
-	if (player_winner != nullptr && scoreboard == false)
+	if (rounds >= 3)
 	{
-		player_winner->active = false;
-		scoreboard = true;
-		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
-		actual_menu = FINAL_MENU;
-		App->transition->menuTransition(FINAL_MENU, 2.0);
-		if (player_winner == App->scene->player1)
-			CreateScoreBoard(1);
-		else if (player_winner == App->scene->player2)
-			CreateScoreBoard(2);
-		else if (player_winner == App->scene->player3)
-			CreateScoreBoard(3);
-		else if (player_winner == App->scene->player4)
-			CreateScoreBoard(4);
-		//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
-		//from the previous game when we play again
-		App->arena_interactions->DestroyStorm();
-		App->arena_interactions->PauseStorm();
+		if (player_winner != nullptr && scoreboard == false)
+		{
+			player_winner->active = false;
+			scoreboard = true;
+			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 3.0);
+			if (player_winner == App->scene->player1)
+				CreateFinalScoreBoard(1);
+			else if (player_winner == App->scene->player2)
+				CreateFinalScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateFinalScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateFinalScoreBoard(4);
+			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+			//from the previous game when we play again
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+			rounds = 0;
+		}
 	}
-
-	
+	else if (rounds < 3)
+	{
+		if (player_winner != nullptr && scoreboard == false)
+		{
+			player_winner->active = false;
+			scoreboard = true;
+			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 3.0);
+			if (player_winner == App->scene->player1)
+				CreateScoreBoard(1);
+			else if (player_winner == App->scene->player2)
+				CreateScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateScoreBoard(4);
+			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+			//from the previous game when we play again
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+		}
+	}
 
 
 	return ret;
@@ -1224,6 +1261,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player3_select = false;
 			player4_select = false;
 			marks_reset = true;
+
+			//Reset Stars
+			P1stars = 0;
+			P2stars = 0;
+			P3stars = 0;
+			P4stars = 0;
+
+			//Reset rounds
+			rounds = 3;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();
@@ -1329,6 +1375,41 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		
 			break;
 		}
+		case INGAME_NEW_GAME:
+		{
+			actual_menu = INGAME_MENU;
+			App->transition->menuTransition(INGAME_MENU, 0.3);
+
+			App->audio->PlayFx(App->audio->fxConfirm);
+			App->audio->PlayFx(App->audio->fxBrawlStart);
+			App->arena_interactions->StartStorm();
+			App->arena_interactions->ContinueStorm();
+			App->scene->ResetAll();
+			scoreboard = false;
+			int music = rand() % 5 + 1;
+
+			switch (music)
+			{
+			case 1:
+				App->audio->PlayMusic(App->audio->pathMap1.data(), 0);
+				break;
+			case 2:
+				App->audio->PlayMusic(App->audio->pathMap2_1.data(), 0);
+				break;
+			case 3:
+				App->audio->PlayMusic(App->audio->pathMap2_2.data(), 0);
+				break;
+			case 4:
+				App->audio->PlayMusic(App->audio->pathMap3.data(), 0);
+				break;
+			case 5:
+				App->audio->PlayMusic(App->audio->pathMap4.data(), 0);
+				break;
+			}
+
+			break;
+		}
+
 		case SELECTING1:
 		{	
 			passing1 = true;
@@ -1718,7 +1799,7 @@ void j1UIScene::playClock()
 
 void j1UIScene::CreateScoreBoard(int num)
 {
-	
+
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
 
@@ -1736,7 +1817,7 @@ void j1UIScene::CreateScoreBoard(int num)
 			delete *item;
 			App->gui->UI_elements.erase(item);
 			finalMenu->elements.erase(item_finalmenu);
-			
+
 			item_finalmenu++;
 		}
 
@@ -1745,120 +1826,294 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	finalMenu->elements.clear();
 
+	P1stars = P1stars + App->scene->player1->kills;
+	P2stars = P2stars + App->scene->player2->kills;
+	P3stars = P3stars + App->scene->player3->kills;
+	P4stars = P4stars + App->scene->player4->kills;
+	if (App->scene->GetWinner() == App->scene->player1)
+	{
+		P1stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player2)
+	{
+		P2stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player3)
+	{
+		P3stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player4)
+	{
+		P4stars += 3;
+	}
 	//WINDOW
 
-	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/big_parchment.png"), this);
+	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
 
-	UI_element* final_text = App->gui->createText("SCOREBOARD", 400, 60, big_buttons_font, brown_color);
-	final_text->setOutlined(true);
+	//Text
+	UI_element* text1 = App->gui->createText("Press      to continue to next round", 432, 670, small_font, {0, 0, 0, 1});
+	text1->setOutlined(false);
 
-	//SCOREBOARD INFO
-	UI_element* winner_text = App->gui->createText("WINNER:", 260, 230, big_buttons_font, brown_color);
-	winner_text->setOutlined(true);
+	UI_element* text2 = App->gui->createText("Player Spawns", 482, 620, small_font, { 0, 0, 0, 1 });
+	text1->setOutlined(false);
 
+	//Stars
+	UI_element* stars1 = App->gui->createImageFromAtlas(215, 48, { 0, 874, 55, 54 }, this);
+	UI_element* stars2 = App->gui->createImageFromAtlas(215, 242, { 0, 874, 55, 54 }, this);
+	UI_element* stars3 = App->gui->createImageFromAtlas(215, 433, { 0, 874, 55, 54 }, this);
+	UI_element* stars4 = App->gui->createImageFromAtlas(215, 614, { 0, 874, 55, 54 }, this);
 
-	switch (num)
-	{
-		case 1:
-		{
-			win_text = App->gui->createText("PLAYER 1", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-		case 2:
-		{
-			win_text = App->gui->createText("PLAYER 2", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-		case 3:
-		{
-			win_text = App->gui->createText("PLAYER 3", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-		case 4:
-		{
-			win_text = App->gui->createText("PLAYER 4", 500, 240, small_texts_font, brown_color);
-			win_text->setOutlined(true);
-			break;
-		}
-	}
-	
-	//PLAYER1 KILLS
+	//PLAYER QUADS
+	UI_element* player1_quad = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+	UI_element* player2_quad = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+	UI_element* player3_quad = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+	UI_element* player4_quad = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
 
-	UI_element* player1kills = App->gui->createText("PLAYER 1 kills:" ,260, 300, small_texts_font, brown_color);
-	player1kills->setOutlined(true);
+	//PLAYER TEXTS
+	UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
+	UI_element* player2_text = App->gui->createImageFromAtlas(40, 357, { 413, 799,120, 20 }, this);
+	UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
+	UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
 
-	std::string p1kills  = std::to_string(App->scene->player1->kills);
+	//PlayerStars
+	star1 = std::to_string(P1stars);
+	star2 = std::to_string(P2stars);
+	star3 = std::to_string(P3stars);
+	star4 = std::to_string(P4stars);
 
-	UI_element* p1_kills = App->gui->createText(p1kills.data(), 600, 300, small_texts_font, black_color);
-	p1_kills->setOutlined(true);
+	UI_element* player1_stars = App->gui->createText(star1.data(), 235, 118, small_font, { 0, 0, 0, 1 });
+	UI_element* player2_stars = App->gui->createText(star2.data(), 235, 312, small_font, { 0, 0, 0, 1 });
+	UI_element* player3_stars = App->gui->createText(star3.data(), 235, 503, small_font, { 0, 0, 0, 1 });
+	UI_element* player4_stars = App->gui->createText(star4.data(), 235, 684, small_font, { 0, 0, 0, 1 });
 
-	//PLAYER2 KILLS
-	UI_element* player2kills = App->gui->createText("PLAYER 2 kills:", 260, 370, small_texts_font, brown_color);
-	player2kills->setOutlined(true);
+	//PLAYER IMAGE(?)
+	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
+	photos[0] = mark1;
 
-	std::string p2kills = std::to_string(App->scene->player2->kills);
+	mark2 = App->gui->createImageFromAtlas(38, 206, photo_back_up2, this);
+	photos[1] = mark2;
 
-	UI_element* p2_kills = App->gui->createText(p2kills.data(), 600, 370, small_texts_font, black_color);
-	p2_kills->setOutlined(true);
+	mark3 = App->gui->createImageFromAtlas(38, 397, photo_back_up3, this);
+	photos[2] = mark3;
 
-	//PLAYER3 KILLS
-	UI_element* player3kills = App->gui->createText("PLAYER 3 kills:", 260, 440, small_texts_font, brown_color);
-	player3kills->setOutlined(true);
-
-	std::string p3kills = std::to_string(App->scene->player3->kills);
-
-	UI_element* p3_kills = App->gui->createText(p3kills.data(), 600, 440, small_texts_font, black_color);
-	p3_kills->setOutlined(true);
-
-	//PLAYER4 KILLS
-	UI_element* player4kills = App->gui->createText("PLAYER 4 kills:", 260, 510, small_texts_font, brown_color);
-	player4kills->setOutlined(true);
-
-	std::string p4kills = std::to_string(App->scene->player4->kills);
-
-	UI_element* p4_kills = App->gui->createText(p4kills.data(), 600, 510, small_texts_font, black_color);
-	p4_kills->setOutlined(true);
-	
+	mark4 = App->gui->createImageFromAtlas(38, 588, photo_back_up4, this);
+	photos[3] = mark4;
 
 	//END BUTTON
-	UI_element* end_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
-	end_button->function = RESTART;
-	UI_element* end_text = App->gui->createText("END", 300, 300, mid_buttons_font, brown_color);
-	end_text->setOutlined(true);
-	end_button->appendChildAtCenter(end_text);
+	UI_element* last_button = App->gui->createButton(522,664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+	last_button->function = INGAME_NEW_GAME;
 
-	//MARKER
-	UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &finalMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
-
-
-
-
+	
 	finalMenu->elements.push_back(final_image);
-	finalMenu->elements.push_back(final_text);
-	finalMenu->elements.push_back(winner_text);
-	finalMenu->elements.push_back(win_text);
-	finalMenu->elements.push_back(player1kills);
-	finalMenu->elements.push_back(p1_kills);
-	finalMenu->elements.push_back(player2kills);
-	finalMenu->elements.push_back(p2_kills);
-	finalMenu->elements.push_back(player3kills);
-	finalMenu->elements.push_back(p3_kills);
-	finalMenu->elements.push_back(player4kills);
-	finalMenu->elements.push_back(p4_kills);
-	finalMenu->elements.push_back(end_button);
-	finalMenu->elements.push_back(end_text);
-	finalMenu->elements.push_back(feather);
+	
+	finalMenu->elements.push_back(mark1);
+	finalMenu->elements.push_back(mark2);
+	finalMenu->elements.push_back(mark3);
+	finalMenu->elements.push_back(mark4);
+	finalMenu->elements.push_back(player1_quad);
+	finalMenu->elements.push_back(player2_quad);
+	finalMenu->elements.push_back(player3_quad);
+	finalMenu->elements.push_back(player4_quad);
+	finalMenu->elements.push_back(player1_text);
+	finalMenu->elements.push_back(player2_text);
+	finalMenu->elements.push_back(player3_text);
+	finalMenu->elements.push_back(player4_text);
+	finalMenu->elements.push_back(text1);
+	finalMenu->elements.push_back(text2);
+	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(stars1);
+	finalMenu->elements.push_back(stars2);
+	finalMenu->elements.push_back(stars3);
+	finalMenu->elements.push_back(stars4);
+	finalMenu->elements.push_back(player1_stars);
+	finalMenu->elements.push_back(player2_stars);
+	finalMenu->elements.push_back(player3_stars);
+	finalMenu->elements.push_back(player4_stars);
 
-	if(finalMenu->gamepad_tabs[0].empty() == true)
-	AddControllerSupport(end_button,PLAYER::P1,FINAL_MENU);
+	if (finalMenu->gamepad_tabs[0].empty() == true)
+		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
 	else
 	{
 		finalMenu->gamepad_tabs[0].clear();
-		AddControllerSupport(end_button, PLAYER::P1, FINAL_MENU);
+		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
 	}
+
+	rounds++;
+
+
+	LOG("%i", finalMenu->elements.size());
+
+}
+
+void j1UIScene::CreateFinalScoreBoard(int num)
+{
+
+
+	SDL_Color brown_color = { 139,69,19 };
+	SDL_Color black_color = { 0, 0, 0, 255 };
+
+	std::list <UI_element*>::iterator item = App->gui->UI_elements.begin();
+
+	std::list <UI_element*>::iterator item_finalmenu = finalMenu->elements.begin();
+
+	while (item != App->gui->UI_elements.end())
+	{
+		if (*item == *item_finalmenu)
+		{
+			if (App->gui->GetAtlas() != (*item)->texture)
+				App->tex->UnLoad((*item)->texture);
+
+			delete *item;
+			App->gui->UI_elements.erase(item);
+			finalMenu->elements.erase(item_finalmenu);
+
+			item_finalmenu++;
+		}
+
+		item++;
+	}
+
+	finalMenu->elements.clear();
+
+	P1stars = P1stars + App->scene->player1->kills;
+	P2stars = P2stars + App->scene->player2->kills;
+	P3stars = P3stars + App->scene->player3->kills;
+	P4stars = P4stars + App->scene->player4->kills;
+	if (App->scene->GetWinner() == App->scene->player1)
+	{
+		P1stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player2)
+	{
+		P2stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player3)
+	{
+		P3stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player4)
+	{
+		P4stars += 3;
+	}
+
+	//WINDOW
+
+	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/Bg.png"), this);
+
+	//Text
+	UI_element* text1 = App->gui->createText("Winner", 347, 100, big_font, { 0, 0, 0, 1 });
+	text1->setOutlined(false);
+
+	UI_element* text2 = nullptr;
+
+	if (P1stars > P2stars && P1stars > P3stars && P1stars > P4stars)
+	{
+		text2 = App->gui->createText("Player 1", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	else if (P2stars > P1stars && P2stars > P3stars && P2stars > P4stars)
+	{
+		text2 = App->gui->createText("Player 2", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	else if (P3stars > P2stars && P3stars > P1stars && P3stars > P4stars)
+	{
+		text2 = App->gui->createText("Player 3", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	else if (P4stars > P2stars && P4stars > P3stars && P4stars > P1stars)
+	{
+		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
+	}
+	
+	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
+	text1->setOutlined(false);
+
+	//PLAYER QUADS
+	UI_element* player1_quad = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+	UI_element* player2_quad = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+	UI_element* player3_quad = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+	UI_element* player4_quad = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+
+	//PLAYER TEXTS
+	UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
+	UI_element* player2_text = App->gui->createImageFromAtlas(40, 357, { 413, 799,120, 20 }, this);
+	UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
+	UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
+
+	//Stars
+	UI_element* stars1 = App->gui->createImageFromAtlas(215, 48, { 0, 874, 55, 54 }, this);
+	UI_element* stars2 = App->gui->createImageFromAtlas(215, 242, { 0, 874, 55, 54 }, this);
+	UI_element* stars3 = App->gui->createImageFromAtlas(215, 433, { 0, 874, 55, 54 }, this);
+	UI_element* stars4 = App->gui->createImageFromAtlas(215, 614, { 0, 874, 55, 54 }, this);
+
+	//PlayerStars
+	star1 = std::to_string(P1stars);
+	star2 = std::to_string(P2stars);
+	star3 = std::to_string(P3stars);
+	star4 = std::to_string(P4stars);
+
+	UI_element* player1_stars = App->gui->createText(star1.data(), 235, 118, small_font, { 0, 0, 0, 1 });
+	UI_element* player2_stars = App->gui->createText(star2.data(), 235, 312, small_font, { 0, 0, 0, 1 });
+	UI_element* player3_stars = App->gui->createText(star3.data(), 235, 503, small_font, { 0, 0, 0, 1 });
+	UI_element* player4_stars = App->gui->createText(star4.data(), 235, 684, small_font, { 0, 0, 0, 1 });
+
+
+	//PLAYER IMAGE(?)
+	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
+	photos[0] = mark1;
+
+	mark2 = App->gui->createImageFromAtlas(38, 206, photo_back_up2, this);
+	photos[1] = mark2;
+
+	mark3 = App->gui->createImageFromAtlas(38, 397, photo_back_up3, this);
+	photos[2] = mark3;
+
+	mark4 = App->gui->createImageFromAtlas(38, 588, photo_back_up4, this);
+	photos[3] = mark4;
+
+	//END BUTTON
+	UI_element* last_button = App->gui->createButton(447, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+	last_button->function = RESTART;
+
+
+	
+	finalMenu->elements.push_back(final_image);
+	finalMenu->elements.push_back(mark1);
+	finalMenu->elements.push_back(mark2);
+	finalMenu->elements.push_back(mark3);
+	finalMenu->elements.push_back(mark4);
+	finalMenu->elements.push_back(player1_quad);
+	finalMenu->elements.push_back(player2_quad);
+	finalMenu->elements.push_back(player3_quad);
+	finalMenu->elements.push_back(player4_quad);
+	finalMenu->elements.push_back(player1_text);
+	finalMenu->elements.push_back(player2_text);
+	finalMenu->elements.push_back(player3_text);
+	finalMenu->elements.push_back(player4_text);
+	finalMenu->elements.push_back(text1);
+	finalMenu->elements.push_back(text2);
+	finalMenu->elements.push_back(text3);
+	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(stars1);
+	finalMenu->elements.push_back(stars2);
+	finalMenu->elements.push_back(stars3);
+	finalMenu->elements.push_back(stars4);
+	finalMenu->elements.push_back(player1_stars);
+	finalMenu->elements.push_back(player2_stars);
+	finalMenu->elements.push_back(player3_stars);
+	finalMenu->elements.push_back(player4_stars);
+
+	if (finalMenu->gamepad_tabs[0].empty() == true)
+		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[0].clear();
+		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+	}
+
+	rounds++;
 
 	LOG("%i", finalMenu->elements.size());
 
