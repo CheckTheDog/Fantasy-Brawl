@@ -1154,13 +1154,13 @@ bool j1UIScene::Update(float dt)
 	//}
 
 	//MARKS RESET AND LOGIC
-	if (marks_reset == false)
-	{
-		player1_quad->section = { 288, 518, 170,191 };
-		player2_quad->section = { 288, 518, 170,191 };
-		player3_quad->section = { 288, 518, 170,191 };
-		player4_quad->section = { 288, 518, 170,191 };
-	}
+	//if (marks_reset == false)
+	//{
+	//	player1_quad->section = { 288, 518, 170,191 };
+	//	player2_quad->section = { 288, 518, 170,191 };
+	//	player3_quad->section = { 288, 518, 170,191 };
+	//	player4_quad->section = { 288, 518, 170,191 };
+	//}
 	
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && current_menu->id == FINAL_MENU)
@@ -1345,6 +1345,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case NEW_GAME:
 		{
 			App->audio->PlayFx(App->audio->fxConfirm);
+
+			player1_quad->section = { 288, 518, 170,191 };
+			player2_quad->section = { 288, 518, 170,191 };
+			player3_quad->section = { 288, 518, 170,191 };
+			player4_quad->section = { 288, 518, 170,191 };
 
 			//RESET SELECTION BOOLS && COUNTER
 			counter1 = 1;
