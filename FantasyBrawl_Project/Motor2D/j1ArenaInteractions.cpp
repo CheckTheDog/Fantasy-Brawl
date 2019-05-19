@@ -190,6 +190,8 @@ void j1ArenaInteractions::StartStorm()
 	//Start the timer
 	storm_timer.Start();
 	storm_moving = false;
+	accumulated_movement = 0;
+	px_moved = 0;
 	current_phase = 0;
 
 	//Start the ticks
