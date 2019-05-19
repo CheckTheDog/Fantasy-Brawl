@@ -165,7 +165,7 @@ p
 /* buttons */
 .container {
 	position: relative;
-	width: 50%;
+	width: 100%;
 }
 
 .container img {
@@ -174,7 +174,7 @@ p
 }
 
 .container .btn {
-	positions: absolute;
+	positions: relative;
 	color: #fff;
 	border: none;
 }
