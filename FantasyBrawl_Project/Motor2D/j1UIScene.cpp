@@ -394,6 +394,14 @@ bool j1UIScene::Start()
 		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 600, small_font, black_color);
 
 		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
+
+		UI_element* text6 = App->gui->createText("CONFIRM", 40, 145, small_font, black_color);
+
+		UI_element* text7 = App->gui->createText("CANCEL", 40, 195, small_font, black_color);
+
+		UI_element* text8 = App->gui->createText("NAVIGATE", 40, 260, small_font, black_color);
+
+		UI_element* text9 = App->gui->createText("PAUSE", 40, 315, small_font, black_color);
 		
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
@@ -412,7 +420,7 @@ bool j1UIScene::Start()
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 
-		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
 		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_sliderMM);
 
@@ -423,7 +431,7 @@ bool j1UIScene::Start()
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 
-		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
 		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_sliderMM);
 
@@ -468,6 +476,10 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(text3);
 		settingsMenu->elements.push_back(text4);
 		settingsMenu->elements.push_back(text5);
+		settingsMenu->elements.push_back(text6);
+		settingsMenu->elements.push_back(text7);
+		settingsMenu->elements.push_back(text8);
+		settingsMenu->elements.push_back(text9);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
@@ -492,6 +504,14 @@ bool j1UIScene::Start()
 
 		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
 
+		UI_element* text6 = App->gui->createText("CONFIRM", 40, 145, small_font, black_color);
+
+		UI_element* text7 = App->gui->createText("CANCEL", 40, 195, small_font, black_color);
+
+		UI_element* text8 = App->gui->createText("NAVIGATE", 40, 260, small_font, black_color);
+
+		UI_element* text9 = App->gui->createText("PAUSE", 40, 315, small_font, black_color);
+
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
 		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
@@ -508,7 +528,7 @@ bool j1UIScene::Start()
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_slider);
 
@@ -517,7 +537,7 @@ bool j1UIScene::Start()
 
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
 		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_slider);
 
@@ -563,6 +583,10 @@ bool j1UIScene::Start()
 		ingamesettingsMenu->elements.push_back(text3);
 		ingamesettingsMenu->elements.push_back(text4);
 		ingamesettingsMenu->elements.push_back(text5);
+		ingamesettingsMenu->elements.push_back(text6);
+		ingamesettingsMenu->elements.push_back(text7);
+		ingamesettingsMenu->elements.push_back(text8);
+		ingamesettingsMenu->elements.push_back(text9);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(ingamesettingsMenu);
@@ -619,15 +643,8 @@ bool j1UIScene::Update(float dt)
 
 	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
-		if (actual_menu == SELECTION_MENU)
-		{
-			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
-			actual_menu = START_MENU;
-			App->transition->menuTransition(START_MENU, 0.3f);
-			/*marks_reset = false;*/
-			ret = true;
-		}
-		else if (actual_menu == INGAME_MENU && !App->transition->doingMenuTransition)
+		
+		if (actual_menu == INGAME_MENU && !App->transition->doingMenuTransition)
 		{
 			App->on_GamePause = true;
 			actual_menu = INGAMESETTINGS_MENU;
