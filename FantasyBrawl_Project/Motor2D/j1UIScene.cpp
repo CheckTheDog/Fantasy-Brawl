@@ -413,7 +413,7 @@ bool j1UIScene::Start()
 
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_image->appendChild(430 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_sliderMM);
+		settings_image->appendChild(400 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_sliderMM);
 
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
@@ -433,6 +433,9 @@ bool j1UIScene::Start()
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
+
+		//MARKER
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
 		
 		settingsMenu->elements.push_back(settings_image);
 		settingsMenu->elements.push_back(settings_text);
@@ -446,12 +449,13 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(fx_text);
 		settingsMenu->elements.push_back(apply_button);
 		settingsMenu->elements.push_back(apply_text);
+		settingsMenu->elements.push_back(feather);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
 
-		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(music_sliderMM, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(fx_sliderMM, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 
@@ -478,7 +482,7 @@ bool j1UIScene::Start()
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
@@ -487,7 +491,7 @@ bool j1UIScene::Start()
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, { 341, 287, 15, 40 }, this);
 		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(430 * App->gui->UI_scale, 160 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(400 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_slider);
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
 		fx_text->setOutlined(true);
@@ -507,6 +511,12 @@ bool j1UIScene::Start()
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
 
+		//MARKER
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
+
+
+
+
 		ingamesettingsMenu->elements.push_back(settings_image);
 		ingamesettingsMenu->elements.push_back(settings_text);
 		ingamesettingsMenu->elements.push_back(back_button);
@@ -519,9 +529,15 @@ bool j1UIScene::Start()
 		ingamesettingsMenu->elements.push_back(fx_text);
 		ingamesettingsMenu->elements.push_back(apply_button);
 		ingamesettingsMenu->elements.push_back(apply_text);
+		ingamesettingsMenu->elements.push_back(feather);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(ingamesettingsMenu);
+
+		AddControllerSupport(music_slider, PLAYER::P1, INGAMESETTINGS_MENU);
+		AddControllerSupport(fx_slider, PLAYER::P1, INGAMESETTINGS_MENU);
+		AddControllerSupport(apply_button, PLAYER::P1, INGAMESETTINGS_MENU);
+		AddControllerSupport(back_button, PLAYER::P1, INGAMESETTINGS_MENU);
 	}
 
 	
@@ -1074,6 +1090,7 @@ bool j1UIScene::Update(float dt)
 	//	ready->function = INGAME;
 	//}
 
+	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -1784,6 +1801,9 @@ void j1UIScene::CreateScoreBoard(int num)
 	end_text->setOutlined(true);
 	end_button->appendChildAtCenter(end_text);
 
+	//MARKER
+	UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &finalMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
+
 
 
 
@@ -1801,6 +1821,7 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(p4_kills);
 	finalMenu->elements.push_back(end_button);
 	finalMenu->elements.push_back(end_text);
+	finalMenu->elements.push_back(feather);
 
 	if(finalMenu->gamepad_tabs[0].empty() == true)
 	AddControllerSupport(end_button,PLAYER::P1,FINAL_MENU);
