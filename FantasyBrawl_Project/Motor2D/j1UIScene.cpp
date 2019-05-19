@@ -617,12 +617,15 @@ bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
 
-
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1,SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
+	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
-		if (actual_menu == START_MENU)
+		if (actual_menu == SELECTION_MENU)
 		{
-			ret = false;
+			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU, 0.3f);
+			/*marks_reset = false;*/
+			ret = true;
 		}
 		else if (actual_menu == INGAME_MENU && !App->transition->doingMenuTransition)
 		{
@@ -645,14 +648,6 @@ bool j1UIScene::Update(float dt)
 			App->arena_interactions->ContinueStorm();
 			ret = true;
 
-		}
-		else if (actual_menu == SELECTION_MENU)
-		{
-			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
-			actual_menu = START_MENU;
-			App->transition->menuTransition(START_MENU, 0.3f);
-			marks_reset = false;
-			ret = true;
 		}
 	}
 
