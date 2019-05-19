@@ -344,7 +344,7 @@ bool j1Scene::Update(float dt)
 	App->view->ScreenPosition(3, player3->Entityinfo.position.x, player3->Entityinfo.position.y);
 	App->view->ScreenPosition(4, player4->Entityinfo.position.x, player4->Entityinfo.position.y);*/
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		if (App->view->number_of_views == 4) 
 		{
@@ -354,7 +354,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->view->number_of_views = 4;
 		}
-	}
+	}*/
 
 	/*if (App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT)
 		App->view->ScreenMove(1, ceil(150.0*dt), 0);

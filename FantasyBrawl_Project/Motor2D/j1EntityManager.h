@@ -133,6 +133,9 @@ public:
 	SDL_Rect yellow_arrow = { 42,0,18,23 };
 	SDL_Rect blue_arrow = { 64,0,18,23 };
 
+
+	// --- Death texture ---
+	SDL_Texture* death_screen_cover = nullptr;
 };
 
 #endif // __J1ENTITYMANAGER_H__
