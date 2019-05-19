@@ -3,6 +3,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Textures.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 #include "j1Viewport.h"
@@ -21,6 +22,8 @@ j1FadeToBlack::~j1FadeToBlack()
 bool j1FadeToBlack::Start()
 {
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+
+	textures[(int)FADE_TEX::PLAYER_DEATH] = App->tex->Load("gui/Death.png");
 	return true;
 }
 
@@ -30,10 +33,17 @@ bool j1FadeToBlack::Update(float dt)
 	return true;
 }
 
-bool j1FadeToBlack::PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Texture* tex)
+bool j1FadeToBlack::PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step)
 {
 	if (current_step == fade_step::none)
 		return true;
+
+	SDL_Texture* tex = nullptr;
+	
+	if (texture_to_use != FADE_TEX::NONE && texture_to_use != FADE_TEX::MAX_TEXS)
+	{
+		tex = textures[(int)texture_to_use];
+	}
 
 	Uint32 now = SDL_GetTicks() - start_time;
 	float normalized = MIN(1.0f, (float)now / (float)total_time);
@@ -77,14 +87,22 @@ bool j1FadeToBlack::PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 
 		SDL_SetTextureAlphaMod(tex, 255);
 	}
 
+	texture_to_use = FADE_TEX::NONE;
+
 	return true;
 }
 
 
 // Fade to the desired color & max alpha occupying all screen.
-bool j1FadeToBlack::FadeCustom(int r, int g, int b, float a, float time, Uint32 &start_time, Uint32 &total_time, fade_step &current_step)
+bool j1FadeToBlack::FadeCustom(int r, int g, int b, float a, float time, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, FADE_TEX texture_from_enum)
 {
 	bool ret = false;
+
+	texture_to_use = texture_from_enum;
+	if (texture_from_enum != FADE_TEX::NONE)
+	{
+		current_step = fade_step::none;
+	}
 
 	if (current_step == fade_step::none)
 	{
@@ -102,4 +120,14 @@ bool j1FadeToBlack::FadeCustom(int r, int g, int b, float a, float time, Uint32 
 	}
 
 	return ret;
+}
+
+bool j1FadeToBlack::CleanUp()
+{
+	for (int i = 0; i < MAX_FADE_TEXTURES; ++i)
+	{
+		if(textures[i] != nullptr)
+		App->tex->UnLoad(textures[i]);
+	}
+	return true;
 }
