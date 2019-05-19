@@ -10,6 +10,7 @@ struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
 enum class fade_step;
+enum class FADE_TEX;
 
 #define JOYSTICK_DEAD_ZONE 8000
 
@@ -245,6 +246,15 @@ public:
 	fade_step current_step;
 	Uint32 start_time = 0;
 	Uint32 total_time = 0;
+	SDL_Color colA;
+	float alphaA = 0;
+
+	fade_step current_stepD;
+	Uint32 start_timeD = 0;
+	Uint32 total_timeD = 0;
+	SDL_Color colB;
+	float alphaB = 0;
+
 	bool damage_received = false;
 };
 

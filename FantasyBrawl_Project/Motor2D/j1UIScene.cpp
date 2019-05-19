@@ -1142,7 +1142,7 @@ bool j1UIScene::Update(float dt)
 		scoreboard = true;
 		App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 		actual_menu = FINAL_MENU;
-		App->transition->menuTransition(FINAL_MENU, 2.0);
+		App->transition->menuTransition(FINAL_MENU, 3.0);
 		if (player_winner == App->scene->player1)
 			CreateScoreBoard(1);
 		else if (player_winner == App->scene->player2)
