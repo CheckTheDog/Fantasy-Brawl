@@ -1164,10 +1164,9 @@ bool j1UIScene::Update(float dt)
 	}
 	if (player1lock == true && player2lock == true && player3lock == true && player4lock == true && current_menu->id == FINAL_MENU)
 	{
-		if(rounds >= 3)
+		if(rounds >= 4)
 			ready->function = RESTART;
-
-		if(rounds < 3)
+		else if(rounds < 3)
 			ready->function = INGAME_NEW_GAME;
 
 		ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
@@ -2110,12 +2109,6 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	player2_quads = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
 	player3_quads = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
 	player4_quads = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
-
-	//PLAYER QUADS Butt
-	UI_element* player1_quad_green = App->gui->createImageFromAtlas(20, 3, { 288, 842, 169, 191 }, this);
-	UI_element* player2_quad_green = App->gui->createImageFromAtlas(20, 194, { 288, 842, 169, 191 }, this);
-	UI_element* player3_quad_green = App->gui->createImageFromAtlas(20, 385, { 288, 842, 169, 191 }, this);
-	UI_element* player4_quad_green = App->gui->createImageFromAtlas(20, 576, { 288, 842, 169, 191 }, this);
 
 
 	//PLAYER TEXTS
