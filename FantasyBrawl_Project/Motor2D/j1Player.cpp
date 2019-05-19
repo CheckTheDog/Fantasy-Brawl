@@ -1282,6 +1282,7 @@ void j1Player::LogicUpdate(float dt)
 			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
 
 			App->audio->PlayFx(this->playerinfo.basic_fx);
+			App->fade->FadeCustom(0, 0, 0, 255, 2.0f, start_time, total_time, current_step, FADE_TEX::PLAYER_DEATH);
 		}
 
 	}

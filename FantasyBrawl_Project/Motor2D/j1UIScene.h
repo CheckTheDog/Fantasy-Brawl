@@ -193,7 +193,8 @@ public:
 	UI_element* player2_quad = nullptr;
 	UI_element* player3_quad = nullptr;
 	UI_element* player4_quad = nullptr;
-	
+	bool marks_reset = false;
+
 	//timer
 	UI_element* timer = nullptr;
 };
