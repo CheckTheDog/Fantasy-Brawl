@@ -512,7 +512,7 @@ bool j1UIScene::Start()
 		apply_button->appendChildAtCenter(apply_text);
 
 		//MARKER
-		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
+		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
 
 
 

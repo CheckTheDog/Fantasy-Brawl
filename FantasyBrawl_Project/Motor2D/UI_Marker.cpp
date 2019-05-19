@@ -20,7 +20,7 @@ void Marker::BlitElement()
 			(*(*target))->parent->element_type == SLIDER)
 		{
 			globalPos.x = (*(*target))->parent->localPosition.x + (*(*target))->parent->section.w + margin.x + distance_moved;
-			globalPos.y = (*(*target))->parent->localPosition.y + ((*(*target))->parent->section.h / 6) + margin.y;
+			globalPos.y = (*(*target))->parent->localPosition.y - ((*(*target))->parent->section.h / 6) + margin.y - 20;
 		}
 		else
 		{
