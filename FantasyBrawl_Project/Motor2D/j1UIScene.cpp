@@ -1384,12 +1384,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->particlesys->CleanUp();
 			}
 
-			actual_menu = INGAME_MENU;
-			App->transition->menuTransition(INGAME_MENU, 1.5);
-			App->audio->PlayFx(App->audio->fxConfirm);
-			App->audio->PlayFx(App->audio->fxBrawlStart);
-			App->arena_interactions->StartStorm();
-			App->arena_interactions->ContinueStorm();
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 1.5);
+			//App->audio->PlayFx(App->audio->fxConfirm);
+			//App->audio->PlayFx(App->audio->fxBrawlStart);
+			//App->arena_interactions->StartStorm();
+			//App->arena_interactions->ContinueStorm();
 
 			int music = rand() % 5 + 1;
 
