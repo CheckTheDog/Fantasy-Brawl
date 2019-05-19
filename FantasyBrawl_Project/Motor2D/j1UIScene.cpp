@@ -1275,6 +1275,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->scene->player4->superTimer.Start();
 				App->scene->player4->shieldON = false;
 				App->scene->player4->shieldTimer.Start();
+
+				App->particlesys->CleanUp();
 			}
 
 			actual_menu = INGAME_MENU;

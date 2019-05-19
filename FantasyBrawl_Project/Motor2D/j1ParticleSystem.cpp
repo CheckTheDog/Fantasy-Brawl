@@ -37,6 +37,7 @@ bool j1ParticleSystem::CleanUp()
 	{
 		if (active[i] != nullptr)
 		{
+			active[i]->pCol->to_delete = true;
 			delete active[i];
 			active[i] = nullptr;
 		}

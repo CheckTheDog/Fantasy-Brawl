@@ -668,6 +668,17 @@ bool j1Player::PostUpdate(float dt)
 	{
 		SDL_SetTextureAlphaMod(this->playerinfo.tex, App->gui->alpha_value);
 		SDL_SetTextureAlphaMod(this->manager->circlesprites, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->arrows_tex, App->gui->alpha_value);
+
+		SDL_SetTextureAlphaMod(this->manager->MeliadoulSuper_aimpath, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->WendolinSuper_aimpath, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->TraktSuper_aimpath, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->SimonSuper_aimpath, App->gui->alpha_value);
+
+		SDL_SetTextureAlphaMod(this->manager->Dagger_texture, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->axe_texture, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->inkball_texture, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(this->manager->budu_texture, App->gui->alpha_value);
 	}
 
 	if (App->ui_scene->actual_menu == START_MENU)
@@ -766,6 +777,7 @@ bool j1Player::PostUpdate(float dt)
 	default:
 		break;
 	}
+
 
 
 	return ret;
@@ -1113,7 +1125,9 @@ void j1Player::BlitArrows()
 		App->win->GetWindowSize(width, height);
 		width = width / 2;
 
-		uint radius = 100;
+		uint radius = 75;
+
+		Entityinfo.scale = 1.0f;
 
 		switch (ID)
 		{
@@ -1162,6 +1176,8 @@ void j1Player::BlitArrows()
 
 			break;
 		}
+
+		Entityinfo.scale = 0.66f;
 
 	}
 
