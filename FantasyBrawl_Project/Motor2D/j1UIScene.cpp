@@ -384,8 +384,17 @@ bool j1UIScene::Start()
 
 	menu* settingsMenu = new menu(SETTINGS_MENU);
 	{
+		//WORDS KEYPAD
+		UI_element* text1 = App->gui->createText("MOVE", 40, 375, small_font, black_color);
 		
+		UI_element* text2 = App->gui->createText("AIM", 40, 460, small_font, black_color);
 
+		UI_element* text3 = App->gui->createText("ATTACK", 40, 540, small_font, black_color);
+
+		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 600, small_font, black_color);
+
+		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
+		
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
 		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
@@ -440,6 +449,7 @@ bool j1UIScene::Start()
 		//MARKER
 		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
 		
+
 		settingsMenu->elements.push_back(settings_image);
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
@@ -453,6 +463,11 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(apply_button);
 		settingsMenu->elements.push_back(apply_text);
 		settingsMenu->elements.push_back(feather);
+		settingsMenu->elements.push_back(text1);
+		settingsMenu->elements.push_back(text2);
+		settingsMenu->elements.push_back(text3);
+		settingsMenu->elements.push_back(text4);
+		settingsMenu->elements.push_back(text5);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
@@ -466,6 +481,16 @@ bool j1UIScene::Start()
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);
 	{
+		//WORDS PAUSE
+		UI_element* text1 = App->gui->createText("MOVE", 40, 375, small_font, black_color);
+
+		UI_element* text2 = App->gui->createText("AIM", 40, 460, small_font, black_color);
+
+		UI_element* text3 = App->gui->createText("ATTACK", 40, 540, small_font, black_color);
+
+		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 600, small_font, black_color);
+
+		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
 
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
@@ -533,6 +558,11 @@ bool j1UIScene::Start()
 		ingamesettingsMenu->elements.push_back(apply_button);
 		ingamesettingsMenu->elements.push_back(apply_text);
 		ingamesettingsMenu->elements.push_back(feather);
+		ingamesettingsMenu->elements.push_back(text1);
+		ingamesettingsMenu->elements.push_back(text2);
+		ingamesettingsMenu->elements.push_back(text3);
+		ingamesettingsMenu->elements.push_back(text4);
+		ingamesettingsMenu->elements.push_back(text5);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(ingamesettingsMenu);
@@ -621,7 +651,7 @@ bool j1UIScene::Update(float dt)
 			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
-			marks_reset = true;
+			marks_reset = false;
 			ret = true;
 		}
 	}
