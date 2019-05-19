@@ -102,6 +102,8 @@ public:
 	SDL_Texture * axe_texture = nullptr;
 	SDL_Texture * inkball_texture = nullptr;
 
+	Animation particle_hitanim;
+	SDL_Texture* particle_hittex = nullptr;
 
 	// --- ID Circle animations ---
 	std::string circle_texturepath;

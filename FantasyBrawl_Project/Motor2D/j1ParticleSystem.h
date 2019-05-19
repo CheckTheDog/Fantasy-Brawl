@@ -7,11 +7,12 @@
 #include "p2Point.h"
 #include "j1Collision.h"
 
-#define MAX_PARTICLES 150
+#define MAX_PARTICLES 250
 
 struct SDL_Texture;
 class j1Player;
 struct Effect;
+
 
 struct Particle
 {
@@ -23,7 +24,6 @@ struct Particle
 	uint born = 0;
 	uint life = 0;
 	uint delay = 0;
-	Animation hit;
 
 	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
@@ -61,7 +61,6 @@ public:
 private:
 
 	Particle* active[MAX_PARTICLES];
-	Animation particle_hit;
 	float scale = 0.66;
 
 };

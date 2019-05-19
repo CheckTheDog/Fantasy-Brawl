@@ -47,6 +47,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	shieldEnd_anim.loop = false;
 	shieldEnd_anim.speed = 16.0f;
 
+	// --- Particle hit ---
+	particle_hitanim = *LoadAnimation("Animations/Hit.tmx", "Hit");
+	
+
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
 
@@ -296,6 +300,7 @@ bool j1EntityManager::Start()
 	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
 	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
 	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
+	particle_hittex = App->tex->Load("particles/Weapon hit.png");
 
 	// --- Loading Character Specific Textures ---
 	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
