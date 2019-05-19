@@ -130,6 +130,20 @@ Aitor:
 - Added Arrows
 - Added random music at game start
 - In-Game UI multiple adjustments and scaling
+- Solve problems with sliders and storm
+- Adapt UI to viewports
+- Champion selection "playground"
+- Modified all aim paths
+- Hitbox for all players
+- Changes in arrows, IDCircle and shield
+- Sprite ordering adjustments
+- Character Super adjustments and balancing
+- Screen blinking when being hit
+- Adjusted UI transitions
+- Implemented skull anim on player death
+- Implemented particle hit marker
+- HP bar blinking when being damaged
+- Solved bugs in champion selection screen
 
 Didac:
 
@@ -138,6 +152,12 @@ Didac:
 - Fx plays
 - Gamepad Vibration
 - Scale system 
+- UI Movement through gamepads
+- Feather
+- Helped Implementing skull anim on player death
+- Helped Implementing particle hit marker
+- Music and SFX balancing
+- Added shield and super fx
 
 Pol:
 
@@ -155,11 +175,19 @@ Pol:
 - IDCircle Animations (4 colours, 4 different textures per colour).
 - Margin + mid-screen texture (ART)
 - Redone UI In-game bars in pixel art
+- Redone UI In-game arrows in smaller size
+- Distinct map zones (all 3 tilesets + zone design)
+- Champion Selection Screen Design + arrows
+- Book (UI image)
+- Map preview design (art)
+- Main Menu Design (art)
+- Death skull texture
+- Options Menu Art
 
 Vladislav: 
 
 - Basic Particle System (rough)
-- Basic Website
+- Website
 
 Jacobo:
 
@@ -167,6 +195,11 @@ Jacobo:
 - 4 camera system
 - Camera culling
 - Improved Sprite Ordering
+- Round System
+- New Score System
+- Map Preview (code)
+- Final Scoreboard
+- Game Timer
 
 Oscar:
 
@@ -178,6 +211,14 @@ Oscar:
 - In game UI (HP Bar + Super Attack Bar)
 - In-game UI adjustments
 - Options Menu (sliders + apply button)
+- Main Menu
+- Champion Selection screen (except "playground")
+- Replaced some placeholders for new art (sliders)
+- Replaced some placeholders for new art
+- New button art
+- Adjustments in Champion Selection Screen
 
 Roger:
 - In game UI Art (legacy version)
+- Sliders art
+- Rectangles for champ select screen

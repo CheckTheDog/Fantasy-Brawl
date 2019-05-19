@@ -1442,6 +1442,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->scene->player4->shieldON = false;
 				App->scene->player4->shieldTimer.Start();
 
+				App->scene->player1->CurrentAnimation = &App->scene->player1->playerinfo.idleDown;
+				App->scene->player2->CurrentAnimation = &App->scene->player2->playerinfo.idleDown;
+				App->scene->player3->CurrentAnimation = &App->scene->player3->playerinfo.idleDown;
+				App->scene->player4->CurrentAnimation = &App->scene->player4->playerinfo.idleDown;
+
 				App->particlesys->CleanUp();
 			}
 
