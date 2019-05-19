@@ -625,11 +625,11 @@ footer .social-icon
 .social-icon li a
     {
         color: #000000;
-        font-size: 13px;
+        font-size: 16px;
         text-decoration: none;
         transition: all 0.4s ease-in-out;
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         line-height: 40px;
         text-align: center;
     }
