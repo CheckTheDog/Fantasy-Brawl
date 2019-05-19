@@ -68,6 +68,7 @@ void Text::BlitElement()
 	BROFILER_CATEGORY("Text Blit", Profiler::Color::AliceBlue);
 
 	SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
+	SDL_SetTextureAlphaMod(outline, App->gui->alpha_value);
 
 	if (texture != nullptr)
 	{

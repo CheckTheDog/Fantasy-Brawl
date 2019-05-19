@@ -1086,6 +1086,7 @@ bool j1UIScene::Update(float dt)
 
 	}
 
+
 	photo_back_up1 = photos[0]->section;
 	photo_back_up2 = photos[1]->section;
 	photo_back_up3 = photos[2]->section;
@@ -1096,6 +1097,14 @@ bool j1UIScene::Update(float dt)
 	//	ready->function = INGAME;
 	//}
 
+	//MARKS RESET AND LOGIC
+	if (marks_reset == false)
+	{
+		player1_quad->section = { 288, 518, 170,191 };
+		player2_quad->section = { 288, 518, 170,191 };
+		player3_quad->section = { 288, 518, 170,191 };
+		player4_quad->section = { 288, 518, 170,191 };
+	}
 
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
@@ -1241,6 +1250,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player2_select = false;
 			player3_select = false;
 			player4_select = false;
+			marks_reset = true;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();
@@ -1283,6 +1293,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		}
 		case INGAME:
 		{		
+			
+
 			if (actual_menu == SELECTION_MENU)
 			{
 				App->view->SetViews(4);
@@ -1310,6 +1322,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->scene->player4->superTimer.Start();
 				App->scene->player4->shieldON = false;
 				App->scene->player4->shieldTimer.Start();
+
+				App->particlesys->CleanUp();
 			}
 
 			actual_menu = INGAME_MENU;
@@ -1503,6 +1517,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (actual_menu == INGAMESETTINGS_MENU && previous_menu == INGAME_MENU)
 			{
 				App->on_GamePause = false;
+				marks_reset = false;
 				App->arena_interactions->DestroyStorm();
 				App->transition->menuTransition(START_MENU, 0.3);
 				actual_menu = START_MENU;

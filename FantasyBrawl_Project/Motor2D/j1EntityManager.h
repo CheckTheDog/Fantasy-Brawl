@@ -128,11 +128,14 @@ public:
 
 	// --- Arrows ---
 	SDL_Texture * arrows_tex = nullptr;
-	SDL_Rect red_arrow = { 0,0,18,23 };
-	SDL_Rect green_arrow = { 21,0,18,23 };
-	SDL_Rect yellow_arrow = { 42,0,18,23 };
-	SDL_Rect blue_arrow = { 64,0,18,23 };
+	SDL_Rect red_arrow = { 0,0,11,16 };
+	SDL_Rect green_arrow = { 11,0,11,16 };
+	SDL_Rect yellow_arrow = { 23,0,11,16 };
+	SDL_Rect blue_arrow = { 35,0,11,16 };
 
+
+	// --- Death texture ---
+	SDL_Texture* death_screen_cover = nullptr;
 };
 
 #endif // __J1ENTITYMANAGER_H__

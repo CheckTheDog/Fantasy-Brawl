@@ -4,6 +4,8 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
 
+struct SDL_Texture;
+
 enum class fade_step
 {
 	none,
@@ -19,7 +21,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step);
+	bool PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Texture* tex = nullptr);
 	bool FadeCustom(int r, int g, int b, float a, float time, Uint32 &start_time, Uint32 &total_time, fade_step &current_step);
 
 private:
