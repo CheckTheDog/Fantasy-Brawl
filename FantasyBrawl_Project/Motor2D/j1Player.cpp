@@ -321,6 +321,8 @@ void j1Player::HandleInput()
 	{
 		App->input->ForceKeyboardKeyState(SDL_SCANCODE_ESCAPE, KEY_DOWN);
 	}
+
+	
 }
 
 void j1Player::HandleAttacks()
