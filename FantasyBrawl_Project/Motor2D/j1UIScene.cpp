@@ -1259,6 +1259,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			P3stars = 0;
 			P4stars = 0;
 
+			//Reset rounds
+			rounds = 0;
+
 			// --- Reset everything ---
 			App->scene->ResetAll();
 			
