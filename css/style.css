@@ -316,21 +316,22 @@ p
 #team h2
     {
         padding-bottom: 30px;
+	tex-align: center;
     }
 #team img
     {
         display: inline-block;
-	border: 2px solid #000000;
+	border: 20px solid #000000;
         transition: all 0.4s ease-in;
     }
 #team img:hover
     {
-        opacity: 0.4;
+        opacity: 0.5;
         cursor: pointer;
     }
 #team h3
     {
-        color: #f0c5a8;
+        color: #000000;
         padding-bottom: 10px;
     }
 #team h4
