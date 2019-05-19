@@ -93,7 +93,7 @@ public:
 	menu_id actual_menu = START_MENU;
 	bool ui_id1 = false;
 	bool ui_id2 = false;
-	int rounds = 3;
+	int rounds = 0;
 
 	//Player Stars
 	int P1stars = 0;

@@ -1308,7 +1308,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			P4stars = 0;
 
 			//Reset rounds
-			rounds = 3;
+			rounds = 0;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();
@@ -2166,7 +2166,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	photos[3] = mark4;
 
 	//END BUTTON
-	UI_element* last_button1 = App->gui->createButton(522, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+	UI_element* last_button1 = App->gui->createButton(450, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
 	last_button1->function = Last_Button_1;
 
 	UI_element* last_button2 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
