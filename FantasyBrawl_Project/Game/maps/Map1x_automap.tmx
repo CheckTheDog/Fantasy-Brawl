@@ -61251,7 +61251,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="256" name="collisions" width="101" height="101" visible="0">
+ <layer id="256" name="collisions" width="101" height="101">
   <properties>
    <property name="Nodraw" type="int" value="1"/>
   </properties>
@@ -61305,9 +61305,9 @@
    <tile gid="424"/>
    <tile gid="424"/>
    <tile gid="424"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
+   <tile gid="423"/>
+   <tile gid="423"/>
+   <tile gid="423"/>
    <tile gid="424"/>
    <tile gid="424"/>
    <tile gid="424"/>
@@ -66205,12 +66205,7 @@
    <tile gid="424"/>
    <tile gid="424"/>
    <tile gid="424"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
+   <tile gid="423"/>
    <tile gid="422"/>
    <tile gid="422"/>
    <tile gid="422"/>
@@ -66310,6 +66305,8 @@
    <tile gid="422"/>
    <tile gid="422"/>
    <tile gid="422"/>
+   <tile gid="423"/>
+   <tile gid="423"/>
    <tile gid="422"/>
    <tile gid="422"/>
    <tile gid="422"/>
@@ -66409,6 +66406,8 @@
    <tile gid="422"/>
    <tile gid="422"/>
    <tile gid="422"/>
+   <tile gid="423"/>
+   <tile gid="423"/>
    <tile gid="422"/>
    <tile gid="422"/>
    <tile gid="422"/>
@@ -66508,6 +66507,7 @@
    <tile gid="422"/>
    <tile gid="422"/>
    <tile gid="422"/>
+   <tile gid="423"/>
    <tile gid="424"/>
    <tile gid="424"/>
    <tile gid="424"/>
@@ -71405,9 +71405,9 @@
    <tile gid="424"/>
    <tile gid="424"/>
    <tile gid="424"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
-   <tile gid="422"/>
+   <tile gid="423"/>
+   <tile gid="423"/>
+   <tile gid="423"/>
    <tile gid="424"/>
    <tile gid="424"/>
    <tile gid="424"/>
