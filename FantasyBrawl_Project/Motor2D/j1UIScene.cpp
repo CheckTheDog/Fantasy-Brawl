@@ -1148,7 +1148,7 @@ bool j1UIScene::Update(float dt)
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
-	if (rounds < 3)
+	if (rounds >= 3)
 	{
 		if (player_winner != nullptr && scoreboard == false)
 		{
@@ -1172,7 +1172,7 @@ bool j1UIScene::Update(float dt)
 			rounds = 0;
 		}
 	}
-	else if (rounds >= 3)
+	else if (rounds < 3)
 	{
 		if (player_winner != nullptr && scoreboard == false)
 		{
