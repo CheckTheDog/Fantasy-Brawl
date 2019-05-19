@@ -162,6 +162,27 @@ p
 
 /* end home */
 
+/* buttons */
+.container {
+	position: relative;
+	width: 50%;
+}
+
+.container img {
+	width: 100%;
+	height: auto;
+}
+
+.container .btn {
+	positions: absolute;
+	color: #fff;
+	border: none;
+}
+
+.container .btn:hover {
+	background-color: #000000
+}
+
 /* start service */
 #game .media
     {
