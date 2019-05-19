@@ -355,11 +355,11 @@ bool j1Gui::PreUpdate()
 						if (i == 0)
 							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
 						if (i == 1)
-							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+							App->ui_scene->player2_quad->section = { 288, 518, 170,191 };
 						if (i == 2)
-							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+							App->ui_scene->player3_quad->section = { 288, 518, 170,191 };
 						if (i == 3)
-							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+							App->ui_scene->player4_quad->section = { 288, 518, 170,191 };
 						
 
 						
