@@ -267,3 +267,11 @@ void Image::BlitElement()
 	else
 		App->render->Blit(texture, globalPos.x, globalPos.y, &section);
 }
+
+void Image::appendChild(int x, int y, UI_element * child)
+{
+	child->localPosition = { x, y };
+	child->setOriginalPos(x, y);
+	child->parent = this;
+	children.push_back(child);
+}

@@ -18,6 +18,7 @@
 #include "j1Map.h"
 #include "j1UIScene.h"
 #include "j1Gui.h"
+#include "j1FadeToBlack.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -78,6 +79,8 @@ bool j1Player::Start()
 	shieldTimer.Start();
 	basicTimer.Start();
 	Traktpulsation.Start();
+
+	current_step = fade_step::none;
 
 	return true;
 }
@@ -306,6 +309,12 @@ void j1Player::HandleInput()
 	//LOG("angle: %f", playerinfo.characterdata.basic_attack.angle);
 	//LOG("direction_x: %f", RJdirection_x);
 	//LOG("direction_y: %f", RJdirection_y);
+
+	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_START) == BUTTON_DOWN && (App->ui_scene->current_menu->id == INGAME_MENU 
+		|| App->ui_scene->current_menu->id == SETTINGS_MENU))
+	{
+		App->input->ForceKeyboardKeyState(SDL_SCANCODE_ESCAPE, KEY_DOWN);
+	}
 }
 
 void j1Player::HandleAttacks()
@@ -337,7 +346,7 @@ void j1Player::HandleAttacks()
 void j1Player::HandleShield()
 {
 	// --- Shield according to input ---
-	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
+	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
 	{
 		shieldTimer.Start();
 		shieldDuration.Start();
@@ -347,7 +356,7 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldAnim;
 		shieldendAnim.Reset();
 	}
-	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && shieldON)
+	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldON)
 	{
 		//LOG("shield off");
 		CurrentShieldAnimation = &shieldendAnim;
@@ -492,16 +501,40 @@ void j1Player::Launch2ndSuper()
 			if (App->ui_scene->actual_menu != SELECTION_MENU)
 			{
 				if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
+				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
+					App->scene->player1->damage_received = true;
+				}
+			
+				if (App->scene->player1->Entityinfo.health < 0 && App->scene->player1->active)
+					this->kills++;
 
 				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
+				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
+					App->scene->player2->damage_received = true;
+				}
+
+				if (App->scene->player2->Entityinfo.health < 0 && App->scene->player2->active)
+					this->kills++;
 
 				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
+				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
+					App->scene->player3->damage_received = true;
+				}
+
+				if (App->scene->player3->Entityinfo.health < 0 && App->scene->player3->active)
+					this->kills++;
 
 				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
+				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+					App->scene->player4->damage_received = true;
+				}
+
+				if (App->scene->player4->Entityinfo.health < 0 && App->scene->player4->active)
+					this->kills++;
 			}
 		}
 	}
@@ -716,6 +749,25 @@ bool j1Player::PostUpdate(float dt)
 
 	BlitArrows();
 
+	switch (ID)
+	{
+	case PLAYER::P1:
+		App->fade->PostUpdate(App->view->four_views_1, start_time, total_time, current_step);
+		break;
+	case PLAYER::P2:
+		App->fade->PostUpdate(App->view->four_views_2, start_time, total_time, current_step);
+		break;
+	case PLAYER::P3:
+		App->fade->PostUpdate(App->view->four_views_3, start_time, total_time, current_step);
+		break;
+	case PLAYER::P4:
+		App->fade->PostUpdate(App->view->four_views_4, start_time, total_time, current_step);
+		break;
+	default:
+		break;
+	}
+
+
 	return ret;
 }
 
@@ -802,17 +854,6 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			}
 		}
 
-		// --- On player death, deactivate it ---
-		if (this->Entityinfo.health <= 0.0f && !AreOtherPlayersDead())
-		{
-			P_rank = RANK::LOSER;
-			this->active = false;
-			this->Entityinfo.entitycoll->rect.x = 0;
-			this->Entityinfo.entitycoll->rect.y = 0;
-			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
-
-			App->audio->PlayFx(this->playerinfo.basic_fx);
-		}
 
 		break;
 	}
@@ -949,8 +990,11 @@ void j1Player::CheckParticleCollision(Collider * hitbox, const Collider * to_che
 	{
 		if (this->Entityinfo.health > 0.0f && !AreOtherPlayersDead())
 		{
-			if(App->ui_scene->actual_menu != SELECTION_MENU)
-			App->buff->ApplyEffect(pcollided->particle_effect, this);
+			if (App->ui_scene->actual_menu != SELECTION_MENU)
+			{
+				damage_received = true;
+				App->buff->ApplyEffect(pcollided->particle_effect, this);
+			}
 
 			App->input->ShakeController(ID, 0.5, 100);
 			App->buff->LimitAttributes(this);
@@ -1171,6 +1215,7 @@ const fPoint j1Player::GetNearestPlayerDirection()
 }
 
 
+
 bool j1Player::CleanUp()
 {
 	/*App->tex->UnLoad(spritesheet);*/
@@ -1204,6 +1249,25 @@ void j1Player::LogicUpdate(float dt)
 
 		if (!shieldON)
 			Update(dt);
+
+		if (damage_received)
+		{
+			damage_received = false;
+			App->fade->FadeCustom(255, 0, 0, 75, 0.01f, start_time, total_time, current_step);
+		}
+
+		// --- On player death, deactivate it ---
+		if (this->Entityinfo.health <= 0.0f && !AreOtherPlayersDead())
+		{
+			P_rank = RANK::LOSER;
+			this->active = false;
+			this->Entityinfo.entitycoll->rect.x = 0;
+			this->Entityinfo.entitycoll->rect.y = 0;
+			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
+
+			App->audio->PlayFx(this->playerinfo.basic_fx);
+		}
+
 	}
 
 }

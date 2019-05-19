@@ -9,6 +9,7 @@
 struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
+enum class fade_step;
 
 #define JOYSTICK_DEAD_ZONE 8000
 
@@ -129,6 +130,8 @@ public:
 	const fPoint GetNearestPlayerDirection();
 	void ComputeDistance2players();
 	bool AreOtherPlayersDead();
+
+	// --- Visuals ---
 	void BlitArrows();
 
 	// --- Collisions Handling ---
@@ -159,6 +162,7 @@ public:
 	void Launch2ndSuper();
 	void Launch3rdSuper();
 	void Launch4thSuper();
+
 
 public:
 
@@ -237,6 +241,11 @@ public:
 	// --- Others ---
 	bool teleported = false;
 
+	// --- Fade ---
+	fade_step current_step;
+	Uint32 start_time = 0;
+	Uint32 total_time = 0;
+	bool damage_received = false;
 };
 
 #endif // __j1Player_H__
