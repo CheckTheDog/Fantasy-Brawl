@@ -1107,7 +1107,13 @@ bool j1UIScene::Update(float dt)
 		player4_quad->section = { 288, 518, 170,191 };
 	}
 
-
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && current_menu->id == FINAL_MENU)
+	{
+		player1lock = true;
+		player2lock = true;
+		player3lock = true;
+		player4lock = true;
+	}
 
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
@@ -1148,19 +1154,31 @@ bool j1UIScene::Update(float dt)
 
 	if (player1lock == true && current_menu->id == FINAL_MENU)
 	{
-		player1_quads->section = { 288, 842, 169, 191 };
+		if(rounds >3)
+			player1_quads->section = { 288, 842, 169, 191 };
+		else if (rounds <= 3)
+			player1_quadsF->section = { 288, 842, 169, 191 };
 	}
 	if (player2lock == true && current_menu->id == FINAL_MENU)
 	{
-		player2_quads->section = { 288, 842, 169, 191 };
+		if (rounds > 3)
+			player2_quads->section = { 288, 842, 169, 191 };
+		else if (rounds <= 3)
+			player2_quadsF->section = { 288, 842, 169, 191 };
 	}
 	if (player3lock == true && current_menu->id == FINAL_MENU)
 	{
-		player3_quads->section = { 288, 842, 169, 191 };
+		if (rounds > 3)
+			player3_quads->section = { 288, 842, 169, 191 };
+		else if (rounds <= 3)
+			player3_quadsF->section = { 288, 842, 169, 191 };
 	}
 	if (player4lock == true && current_menu->id == FINAL_MENU)
 	{
-		player4_quads->section = { 288, 842, 169, 191 };
+		if (rounds > 3)
+			player4_quads->section = { 288, 842, 169, 191 };
+		else if (rounds <= 3)
+			player4_quadsF->section = { 288, 842, 169, 191 };
 	}
 	if (player1lock == true && player2lock == true && player3lock == true && player4lock == true && current_menu->id == FINAL_MENU)
 	{
@@ -1901,10 +1919,10 @@ void j1UIScene::CreateScoreBoard(int num)
 	UI_element* stars4 = App->gui->createImageFromAtlas(215, 614, { 0, 874, 55, 54 }, this);
 
 	//PLAYER QUADS No Butt
-	player1_quads = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
-	player2_quads = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
-	player3_quads = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
-	player4_quads = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+	player1_quadsF = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+	player2_quadsF = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+	player3_quadsF = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+	player4_quadsF = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
 
 	//PLAYER TEXTS
 	UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
@@ -1956,10 +1974,10 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(mark2);
 	finalMenu->elements.push_back(mark3);
 	finalMenu->elements.push_back(mark4);
-	finalMenu->elements.push_back(player1_quads);
-	finalMenu->elements.push_back(player2_quads);
-	finalMenu->elements.push_back(player3_quads);
-	finalMenu->elements.push_back(player4_quads);
+	finalMenu->elements.push_back(player1_quadsF);
+	finalMenu->elements.push_back(player2_quadsF);
+	finalMenu->elements.push_back(player3_quadsF);
+	finalMenu->elements.push_back(player4_quadsF);
 	finalMenu->elements.push_back(player1_text);
 	finalMenu->elements.push_back(player2_text);
 	finalMenu->elements.push_back(player3_text);
@@ -2167,10 +2185,10 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(mark2);
 	finalMenu->elements.push_back(mark3);
 	finalMenu->elements.push_back(mark4);
-	finalMenu->elements.push_back(player1_quad);
-	finalMenu->elements.push_back(player2_quad);
-	finalMenu->elements.push_back(player3_quad);
-	finalMenu->elements.push_back(player4_quad);
+	finalMenu->elements.push_back(player1_quads);
+	finalMenu->elements.push_back(player2_quads);
+	finalMenu->elements.push_back(player3_quads);
+	finalMenu->elements.push_back(player4_quads);
 	finalMenu->elements.push_back(player1_text);
 	finalMenu->elements.push_back(player2_text);
 	finalMenu->elements.push_back(player3_text);

@@ -169,6 +169,11 @@ public:
 	UI_element* player3_quads;
 	UI_element* player4_quads;
 
+	UI_element* player1_quadsF;
+	UI_element* player2_quadsF;
+	UI_element* player3_quadsF;
+	UI_element* player4_quadsF;
+
 	//READY
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
