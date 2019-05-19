@@ -1201,7 +1201,6 @@ bool j1UIScene::Update(float dt)
 			//from the previous game when we play again
 			App->arena_interactions->DestroyStorm();
 			App->arena_interactions->PauseStorm();
-			rounds = 0;
 		}
 	}
 	else if (rounds < 3)
