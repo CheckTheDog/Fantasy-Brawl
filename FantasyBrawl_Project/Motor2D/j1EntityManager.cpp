@@ -48,7 +48,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	shieldEnd_anim.speed = 16.0f;
 
 	// --- Particle hit ---
-	particle_hitanim = *LoadAnimation("Animations/hit.tmx", "hit");
+	particle_hitanim = *LoadAnimation("Animations/Hit.tmx", "Hit");
 	
 
 	// --- IDCircle ---

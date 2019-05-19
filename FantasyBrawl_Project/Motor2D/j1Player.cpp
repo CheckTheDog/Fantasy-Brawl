@@ -1057,7 +1057,9 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 
 void j1Player::CheckParticleCollision(Collider * hitbox, const Collider * to_check)
 {
-	Particle* pcollided = App->particlesys->GetCollidedParticle(Entityinfo.HitBox, to_check);
+	Particle* pcollided = nullptr;
+
+	pcollided = App->particlesys->GetCollidedParticle(Entityinfo.HitBox, to_check);
 
 	if (pcollided && pcollided->originplayer != this && this->active)
 	{

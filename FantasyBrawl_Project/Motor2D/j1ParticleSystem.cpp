@@ -67,14 +67,15 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			if(p->pCol->type == COLLIDER_TYPE::COLLIDER_NONE)
-			App->view->PushQueue(6,p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt),0,0);
+			if(p->pCol->type == COLLIDER_TYPE::COLLIDER_PNI)
+			App->view->PushQueue(9,p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt),0,0);
 			else
 			App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2, scale);
 
 			//LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
 		}
+
 	}
 
 	return true;
@@ -165,10 +166,10 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 					Particle hit;
 					hit.anim = App->entities->particle_hitanim;
 					hit.anim.loop = false;
-					hit.anim.speed = 0.1f;
+					hit.anim.speed = 30.0f;
 					hit.tex= App->entities->particle_hittex;
-					hit.life = 4000;
-					AddParticle(hit, c1->rect.x, c1->rect.y, COLLIDER_TYPE::COLLIDER_NONE, 0);
+					hit.life = 100;
+					AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
 				}
 
 				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER && active[i]->originplayer->Entityinfo.HitBox != c2)
@@ -176,10 +177,10 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 					Particle hit;
 					hit.anim = App->entities->particle_hitanim;
 					hit.anim.loop = false;
-					hit.anim.speed = 0.1f;
+					hit.anim.speed = 30.0f;
 					hit.tex = App->entities->particle_hittex;
-					hit.life = 4000;
-					AddParticle(hit,c1->rect.x, c1->rect.y, COLLIDER_TYPE::COLLIDER_NONE,0);
+					hit.life = 100;
+					AddParticle(hit,c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI,0);
 				}
 
 				if (active[i]->toDelete) {

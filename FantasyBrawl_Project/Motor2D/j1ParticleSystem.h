@@ -7,7 +7,7 @@
 #include "p2Point.h"
 #include "j1Collision.h"
 
-#define MAX_PARTICLES 150
+#define MAX_PARTICLES 250
 
 struct SDL_Texture;
 class j1Player;
