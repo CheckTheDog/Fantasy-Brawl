@@ -22,6 +22,7 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
 #include "j1Viewport.h"
+#include <string>
 
 
 j1UIScene::j1UIScene()
@@ -1147,7 +1148,7 @@ bool j1UIScene::Update(float dt)
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
-	if (rounds >= 3)
+	if (rounds < 3)
 	{
 		if (player_winner != nullptr && scoreboard == false)
 		{
@@ -1171,7 +1172,7 @@ bool j1UIScene::Update(float dt)
 			rounds = 0;
 		}
 	}
-	else if (rounds < 3)
+	else if (rounds >= 3)
 	{
 		if (player_winner != nullptr && scoreboard == false)
 		{
@@ -1251,6 +1252,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player3_select = false;
 			player4_select = false;
 			marks_reset = true;
+
+			//Reset Stars
+			P1stars = 0;
+			P2stars = 0;
+			P3stars = 0;
+			P4stars = 0;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();
@@ -1807,6 +1814,26 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	finalMenu->elements.clear();
 
+	P1stars = P1stars + App->scene->player1->kills;
+	P2stars = P2stars + App->scene->player2->kills;
+	P3stars = P3stars + App->scene->player3->kills;
+	P4stars = P4stars + App->scene->player4->kills;
+	if (App->scene->GetWinner() == App->scene->player1)
+	{
+		P1stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player2)
+	{
+		P2stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player3)
+	{
+		P3stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player4)
+	{
+		P4stars += 3;
+	}
 	//WINDOW
 
 	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
@@ -1817,6 +1844,12 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	UI_element* text2 = App->gui->createText("Player Spawns", 482, 620, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
+
+	//Stars
+	UI_element* stars1 = App->gui->createImageFromAtlas(215, 48, { 0, 874, 55, 54 }, this);
+	UI_element* stars2 = App->gui->createImageFromAtlas(215, 242, { 0, 874, 55, 54 }, this);
+	UI_element* stars3 = App->gui->createImageFromAtlas(215, 433, { 0, 874, 55, 54 }, this);
+	UI_element* stars4 = App->gui->createImageFromAtlas(215, 614, { 0, 874, 55, 54 }, this);
 
 	//PLAYER QUADS
 	UI_element* player1_quad = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
@@ -1829,6 +1862,17 @@ void j1UIScene::CreateScoreBoard(int num)
 	UI_element* player2_text = App->gui->createImageFromAtlas(40, 357, { 413, 799,120, 20 }, this);
 	UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
 	UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
+
+	//PlayerStars
+	star1 = std::to_string(P1stars);
+	star2 = std::to_string(P2stars);
+	star3 = std::to_string(P3stars);
+	star4 = std::to_string(P4stars);
+
+	UI_element* player1_stars = App->gui->createText(star1.data(), 235, 118, small_font, { 0, 0, 0, 1 });
+	UI_element* player2_stars = App->gui->createText(star2.data(), 235, 312, small_font, { 0, 0, 0, 1 });
+	UI_element* player3_stars = App->gui->createText(star3.data(), 235, 503, small_font, { 0, 0, 0, 1 });
+	UI_element* player4_stars = App->gui->createText(star4.data(), 235, 684, small_font, { 0, 0, 0, 1 });
 
 	//PLAYER IMAGE(?)
 	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
@@ -1865,6 +1909,14 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
 	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(stars1);
+	finalMenu->elements.push_back(stars2);
+	finalMenu->elements.push_back(stars3);
+	finalMenu->elements.push_back(stars4);
+	finalMenu->elements.push_back(player1_stars);
+	finalMenu->elements.push_back(player2_stars);
+	finalMenu->elements.push_back(player3_stars);
+	finalMenu->elements.push_back(player4_stars);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
 		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
@@ -1911,6 +1963,27 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 	finalMenu->elements.clear();
 
+	P1stars = P1stars + App->scene->player1->kills;
+	P2stars = P2stars + App->scene->player2->kills;
+	P3stars = P3stars + App->scene->player3->kills;
+	P4stars = P4stars + App->scene->player4->kills;
+	if (App->scene->GetWinner() == App->scene->player1)
+	{
+		P1stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player2)
+	{
+		P2stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player3)
+	{
+		P3stars += 3;
+	}
+	else if (App->scene->GetWinner() == App->scene->player4)
+	{
+		P4stars += 3;
+	}
+
 	//WINDOW
 
 	UI_element* final_image = App->gui->createImage(0, 0, App->tex->Load("gui/Bg.png"), this);
@@ -1921,22 +1994,22 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 	UI_element* text2 = nullptr;
 
-	if (App->scene->GetWinner() == App->scene->player1)
+	if (P1stars > P2stars && P1stars > P3stars && P1stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 1", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
 	}
-	else if (App->scene->GetWinner() == App->scene->player2)
+	else if (P2stars > P1stars && P2stars > P3stars && P2stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 2", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
 	}
-	else if (App->scene->GetWinner() == App->scene->player3)
+	else if (P3stars > P2stars && P3stars > P1stars && P3stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 3", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
 	}
-	else if (App->scene->GetWinner() == App->scene->player4)
+	else if (P4stars > P2stars && P4stars > P3stars && P4stars > P1stars)
 	{
 		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
@@ -1957,6 +2030,24 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
 	UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
 
+	//Stars
+	UI_element* stars1 = App->gui->createImageFromAtlas(215, 48, { 0, 874, 55, 54 }, this);
+	UI_element* stars2 = App->gui->createImageFromAtlas(215, 242, { 0, 874, 55, 54 }, this);
+	UI_element* stars3 = App->gui->createImageFromAtlas(215, 433, { 0, 874, 55, 54 }, this);
+	UI_element* stars4 = App->gui->createImageFromAtlas(215, 614, { 0, 874, 55, 54 }, this);
+
+	//PlayerStars
+	star1 = std::to_string(P1stars);
+	star2 = std::to_string(P2stars);
+	star3 = std::to_string(P3stars);
+	star4 = std::to_string(P4stars);
+
+	UI_element* player1_stars = App->gui->createText(star1.data(), 235, 118, small_font, { 0, 0, 0, 1 });
+	UI_element* player2_stars = App->gui->createText(star2.data(), 235, 312, small_font, { 0, 0, 0, 1 });
+	UI_element* player3_stars = App->gui->createText(star3.data(), 235, 503, small_font, { 0, 0, 0, 1 });
+	UI_element* player4_stars = App->gui->createText(star4.data(), 235, 684, small_font, { 0, 0, 0, 1 });
+
+
 	//PLAYER IMAGE(?)
 	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
 	photos[0] = mark1;
@@ -1976,7 +2067,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 
 	
-	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(final_image);
 	finalMenu->elements.push_back(mark1);
 	finalMenu->elements.push_back(mark2);
 	finalMenu->elements.push_back(mark3);
@@ -1992,7 +2083,15 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
 	finalMenu->elements.push_back(text3);
-	finalMenu->elements.push_back(final_image);
+	finalMenu->elements.push_back(last_button);
+	finalMenu->elements.push_back(stars1);
+	finalMenu->elements.push_back(stars2);
+	finalMenu->elements.push_back(stars3);
+	finalMenu->elements.push_back(stars4);
+	finalMenu->elements.push_back(player1_stars);
+	finalMenu->elements.push_back(player2_stars);
+	finalMenu->elements.push_back(player3_stars);
+	finalMenu->elements.push_back(player4_stars);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
 		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);

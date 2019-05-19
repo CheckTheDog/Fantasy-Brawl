@@ -95,6 +95,18 @@ public:
 	bool ui_id2 = false;
 	int rounds = 0;
 
+	//Player Stars
+	int P1stars = 0;
+	int P2stars = 0;
+	int P3stars = 0;
+	int P4stars = 0;
+
+	//Stars
+	std::string star1;
+	std::string star2;
+	std::string star3;
+	std::string star4;
+
 	//PLAYER HP BARS
 	UI_element* hp_bar1 = nullptr;
 	UI_element* hp_bar2 = nullptr;
