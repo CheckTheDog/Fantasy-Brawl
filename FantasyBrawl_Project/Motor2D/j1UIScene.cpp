@@ -404,6 +404,12 @@ bool j1UIScene::Start()
 		music_sliderMM->modify = MUSIC;
 		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_sliderMM);
 
+		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
+		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
+
+		/*fx_slider->setProgress(App->audio->getFxVolume());
+		fx_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+*/
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
@@ -483,6 +489,10 @@ bool j1UIScene::Start()
 		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
+
+		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
+		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);

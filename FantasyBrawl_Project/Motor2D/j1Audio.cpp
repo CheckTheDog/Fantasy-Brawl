@@ -52,6 +52,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 	LoadAudio(config);
 
+	setMusicVolume(80.0f/ 255.0f);
+
 	return ret;
 }
 
