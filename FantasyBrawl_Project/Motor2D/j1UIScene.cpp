@@ -1834,7 +1834,7 @@ void j1UIScene::CreateScoreBoard(int num)
 
 	
 	finalMenu->elements.push_back(final_image);
-	finalMenu->elements.push_back(last_button);
+	
 	finalMenu->elements.push_back(mark1);
 	finalMenu->elements.push_back(mark2);
 	finalMenu->elements.push_back(mark3);
@@ -1849,6 +1849,15 @@ void j1UIScene::CreateScoreBoard(int num)
 	finalMenu->elements.push_back(player4_text);
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
+	finalMenu->elements.push_back(last_button);
+
+	if (finalMenu->gamepad_tabs[0].empty() == true)
+		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+	else
+	{
+		finalMenu->gamepad_tabs[0].clear();
+		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);
+	}
 
 	rounds++;
 
@@ -1933,9 +1942,6 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
 	UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
 
-	//MARKER
-	UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &finalMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
-
 	//PLAYER IMAGE(?)
 	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
 	photos[0] = mark1;
@@ -1954,7 +1960,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	last_button->function = RESTART;
 
 
-	finalMenu->elements.push_back(final_image);
+	
 	finalMenu->elements.push_back(last_button);
 	finalMenu->elements.push_back(mark1);
 	finalMenu->elements.push_back(mark2);
@@ -1971,7 +1977,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(text1);
 	finalMenu->elements.push_back(text2);
 	finalMenu->elements.push_back(text3);
-	finalMenu->elements.push_back(feather);
+	finalMenu->elements.push_back(final_image);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
 		AddControllerSupport(last_button, PLAYER::P1, FINAL_MENU);

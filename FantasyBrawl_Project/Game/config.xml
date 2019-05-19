@@ -74,9 +74,9 @@
     <map_name path="Map1x_automap.tmx"/>
     <map_name path="Champ_Select_Map.tmx"/>
 	<initialposP1 x="620" y="620"/>
-    <initialposP2 x="2184" y="620"/>
-    <initialposP3 x="620" y="2184"/>
-    <initialposP4 x="2184" y="2184"/>
+    <initialposP2 x="620" y="620"/>
+    <initialposP3 x="620" y="620"/>
+    <initialposP4 x="620" y="620"/>
   </scene>
 
   <gui>
