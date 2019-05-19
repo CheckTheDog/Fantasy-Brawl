@@ -1164,9 +1164,9 @@ bool j1UIScene::Update(float dt)
 	}
 	if (player1lock == true && player2lock == true && player3lock == true && player4lock == true && current_menu->id == FINAL_MENU)
 	{
-		if(rounds >= 4)
+		if(rounds > 3)
 			ready->function = RESTART;
-		else if(rounds < 3)
+		else if(rounds <= 3)
 			ready->function = INGAME_NEW_GAME;
 
 		ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
