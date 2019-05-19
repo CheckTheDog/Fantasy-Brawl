@@ -31,7 +31,7 @@ p
 #game, #divider, #about, #teamlead, #art, #ui, #code, #qa, #design,
  #pricing, #portfolio, #client, #contact, #team
     {
-        padding-top: 10px;
+        padding-top: 130px;
         padding-bottom: 100px;
         position: relative;
     }
@@ -255,7 +255,7 @@ p
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #art img:hover
@@ -289,7 +289,7 @@ p
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #teamleader img:hover
@@ -323,7 +323,7 @@ p
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #team img:hover
@@ -356,7 +356,7 @@ p
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #ui img:hover
@@ -390,7 +390,7 @@ p
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #qa img:hover
@@ -424,7 +424,7 @@ p
     {
         border: 1px solid #f0c5a8;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #design img:hover
@@ -458,7 +458,7 @@ p
     {
         border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 10px;
+        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #code img:hover
@@ -597,7 +597,7 @@ footer
     }
 footer p
     {
-        line-height: 12px;
+        line-height: 16px;
     }
 footer .social-icon
     {
@@ -624,12 +624,12 @@ footer .social-icon
     }
 .social-icon li a
     {
-        color: #fff;
+        color: #000000;
         font-size: 13px;
         text-decoration: none;
         transition: all 0.4s ease-in-out;
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
         line-height: 40px;
         text-align: center;
     }
