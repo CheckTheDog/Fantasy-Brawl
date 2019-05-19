@@ -81,6 +81,8 @@ bool j1Player::Start()
 	Traktpulsation.Start();
 
 	current_step = fade_step::none;
+	colA = { 255,0,0,75 };
+	colB = { 0,0,0,255 };
 
 	return true;
 }
@@ -763,16 +765,16 @@ bool j1Player::PostUpdate(float dt)
 	switch (ID)
 	{
 	case PLAYER::P1:
-		App->fade->PostUpdate(App->view->four_views_1, start_time, total_time, current_step);
+		App->fade->PostUpdate(App->view->four_views_1, start_time, total_time, current_step,colA,alphaA);
 		break;
 	case PLAYER::P2:
-		App->fade->PostUpdate(App->view->four_views_2, start_time, total_time, current_step);
+		App->fade->PostUpdate(App->view->four_views_2, start_time, total_time, current_step, colA, alphaA);
 		break;
 	case PLAYER::P3:
-		App->fade->PostUpdate(App->view->four_views_3, start_time, total_time, current_step);
+		App->fade->PostUpdate(App->view->four_views_3, start_time, total_time, current_step, colA, alphaA);
 		break;
 	case PLAYER::P4:
-		App->fade->PostUpdate(App->view->four_views_4, start_time, total_time, current_step);
+		App->fade->PostUpdate(App->view->four_views_4, start_time, total_time, current_step, colA, alphaA);
 		break;
 	default:
 		break;
@@ -1255,6 +1257,9 @@ void j1Player::LogicUpdate(float dt)
 
 	if (dt != 0.0f)
 	{
+		if (this->current_stepD == fade_step::maintain)
+			this->current_stepD = fade_step::none;
+
 		EntityMovement = MOVEMENT::STATIC;
 
 		HandleAttacks();
@@ -1269,7 +1274,7 @@ void j1Player::LogicUpdate(float dt)
 		if (damage_received)
 		{
 			damage_received = false;
-			App->fade->FadeCustom(255, 0, 0, 75, 0.01f, start_time, total_time, current_step);
+			App->fade->FadeCustom(255, 0, 0, alphaA, 0.01f, start_time, total_time, current_step, colA);
 		}
 
 		// --- On player death, deactivate it ---
@@ -1280,6 +1285,7 @@ void j1Player::LogicUpdate(float dt)
 			this->Entityinfo.entitycoll->rect.x = 0;
 			this->Entityinfo.entitycoll->rect.y = 0;
 			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
+			App->fade->FadeCustom(255, 0, 0, alphaB, 2.0f, start_timeD, total_timeD, current_stepD,colB);
 
 			App->audio->PlayFx(this->playerinfo.basic_fx);
 		}
