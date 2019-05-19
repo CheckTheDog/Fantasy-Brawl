@@ -311,8 +311,6 @@ p
 	
 #team
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
         text-align: center;
     }
 #team h2
@@ -321,9 +319,7 @@ p
     }
 #team img
     {
-        border: 1px solid #f6f6f6;
         display: inline-block;
-        padding: 50px;
         transition: all 0.4s ease-in;
     }
 #team img:hover
