@@ -102,8 +102,8 @@ p
 }
 .flexslider .slides img {
   width: 100%;
-  min-width: 648px;
-  min-height: 270px;
+  min-width: 0px;
+  min-height: 0px;
   display: block;
 }
 .flexslider .slides > li {
@@ -114,10 +114,9 @@ p
 }
 .flexslider img {
   position: relative;
-  width: 100%;
 }
 .slider-caption {
-  color:white;
+  color:#fff;
   margin: 0;
   position: absolute;
   top: 0;
@@ -319,7 +318,7 @@ p
     }
 #team img
     {
-        display: inline-block;
+        display: block;
         transition: all 0.4s ease-in;
     }
 #team img:hover
@@ -533,10 +532,6 @@ p
 
 /* start contact */
 #contact
-
-.flexslider {
-  background: url("https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png");
-}
     {
         background-image: url("https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png");
 	background-position: 0px 0px;
@@ -628,8 +623,8 @@ footer .social-icon
         font-size: 16px;
         text-decoration: none;
         transition: all 0.4s ease-in-out;
-        width: 40px;
-        height: 40px;
+        width: 25px;
+        height: 25;
         line-height: 40px;
         text-align: center;
     }
