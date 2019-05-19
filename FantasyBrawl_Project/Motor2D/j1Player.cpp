@@ -354,6 +354,7 @@ void j1Player::HandleAttacks()
 
 void j1Player::HandleShield()
 {
+	bool previous_shield_available = shield_available;
 	// --- Shield according to input ---
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
 	{
@@ -365,7 +366,8 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldAnim;
 		shieldendAnim.Reset();
 
-		App->audio->PlayFx(App->audio->fxShieldHit1);
+		App->audio->PlayFx(App->audio->fxPowerUpAppear1);
+		shield_available = false;
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldON)
 	{
@@ -382,6 +384,12 @@ void j1Player::HandleShield()
 		shieldAnim.Reset();
 		shieldON = false;
 		App->audio->PlayFx(App->audio->fxCancel);
+	}
+
+	if (shield_available == false && shieldTimer.ReadSec() >= 10.0f)
+	{
+		App->audio->PlayFx(App->audio->fxPowerUpPick);
+		shield_available = true;
 	}
 }
 
