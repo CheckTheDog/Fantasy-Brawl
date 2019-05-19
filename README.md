@@ -26,6 +26,10 @@ Tips: Auto-aim will be activated when being near enemy players, no need to move 
 
 - ESC opens pause menu (to be changed in future versions of the game)
 
+
+
+F5 -> In character selection screen, lock all champion selections, independently of how many gamepads are connected
+
 ### AUTHORS: CheckTheDog
 
 A pleasure! We are a team of 8 university students of UPC Barcelona with a clear mindset, 

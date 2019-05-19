@@ -22,6 +22,7 @@
 #include "j1UIScene.h"
 #include "j1BuffManager.h"
 #include "j1App.h"
+#include "j1FadeToBlack.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -48,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	gui = new j1Gui();
 	transition = new j1Transition();
 	ui_scene = new j1UIScene();
+	fade = new j1FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -70,6 +72,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(transition);
 	AddModule(view);
 	AddModule(ui_scene);
+	AddModule(fade);
 
 
 	// render last to swap buffer

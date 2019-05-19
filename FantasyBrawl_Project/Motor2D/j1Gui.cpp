@@ -16,6 +16,7 @@
 #include "j1UIScene.h"
 #include "UI_Slider.h"
 #include "UI_Clock.h"
+#include "UI_Marker.h"
 #include "j1Entity.h"
 #include "j1EntityManager.h"
 #include "j1Transition.h"
@@ -209,13 +210,17 @@ bool j1Gui::PreUpdate()
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.front();
+								element[i]->hovering = true;
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+
+
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
 							{
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.back();
+								element[i]->hovering = true;
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
@@ -223,6 +228,7 @@ bool j1Gui::PreUpdate()
 								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.front();
+									element[i]->hovering = true;
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 								}
 							}
@@ -231,6 +237,7 @@ bool j1Gui::PreUpdate()
 								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.back();
+									element[i]->hovering = true;
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 								}
 							}
@@ -246,7 +253,7 @@ bool j1Gui::PreUpdate()
 							{
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
-								element[i]->localPosition += {1, 0};
+								element[i]->localPosition += {4, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
@@ -254,29 +261,31 @@ bool j1Gui::PreUpdate()
 							{
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
-								element[i]->localPosition -= {1, 0};
+								element[i]->localPosition -= {4, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
 								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
 							{
-								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
-								{
-									element[i]->localPosition += {5, 0};
+								/*if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{*/
+									
+									element[i]->localPosition += {2, 0};
 									App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
-								}
+								/*}*/
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT
 								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
 							{
-								if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
-								{
-									element[i]->localPosition -= {5, 0};
+								/*if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{*/
+									element[i]->localPosition -= {2, 0};
 									App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
-								}
+								/*}*/
 							}
 						}
 					}
+					
 				}
 
 
@@ -326,11 +335,32 @@ bool j1Gui::PreUpdate()
 					{
 					App->ui_scene->champ_selected[i] = true;
 					App->audio->PlayFx(App->audio->fxConfirmChamp);
+
+					if (i == 0)
+						App->ui_scene->player1_quad->section = { 494, 518, 170,191 };
+					if (i == 1)
+						App->ui_scene->player2_quad->section = { 494, 518, 170,191 };
+					if (i == 2)
+						App->ui_scene->player3_quad->section = { 494, 518, 170,191 };
+					if (i == 3)
+						App->ui_scene->player4_quad->section = { 494, 518, 170,191 };
+					
 					}
 					else if (App->ui_scene->champ_selected[i] == true && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
 					{
 						App->ui_scene->champ_selected[i] = false;
 						App->audio->PlayFx(App->audio->fxCancelChamp);
+
+						if (i == 0)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 1)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 2)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 3)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+
+						
 					}
 				}
 			}
@@ -536,6 +566,16 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 
 	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
 
+	UI_elements.push_back(ret);
+
+	return ret;
+}
+
+Marker* j1Gui::createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture * texture, SDL_Rect rect, j1Module * callback)
+{
+	Marker* ret = nullptr;
+
+	ret = new Marker(texture,x,y,margin,target,rect,nullptr);
 	UI_elements.push_back(ret);
 
 	return ret;

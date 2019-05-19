@@ -23,6 +23,7 @@ struct Particle
 	uint born = 0;
 	uint life = 0;
 	uint delay = 0;
+	Animation hit;
 
 	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
@@ -60,7 +61,7 @@ public:
 private:
 
 	Particle* active[MAX_PARTICLES];
-
+	Animation particle_hit;
 	float scale = 0.66;
 
 };

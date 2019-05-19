@@ -80,6 +80,7 @@
     <ClCompile Include="j1BuffManager.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -103,6 +104,7 @@
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Clock.cpp" />
     <ClCompile Include="UI_Image.cpp" />
+    <ClCompile Include="UI_Marker.cpp" />
     <ClCompile Include="UI_Slider.cpp" />
     <ClCompile Include="UI_Text.cpp" />
     <ClCompile Include="UI_Window.cpp" />
@@ -114,6 +116,7 @@
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Map.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="UI_Clock.h" />
     <ClInclude Include="UI_element.h" />
     <ClInclude Include="UI_Image.h" />
+    <ClInclude Include="UI_Marker.h" />
     <ClInclude Include="UI_Slider.h" />
     <ClInclude Include="UI_Text.h" />
     <ClInclude Include="UI_Window.h" />
