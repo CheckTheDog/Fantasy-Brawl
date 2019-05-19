@@ -355,6 +355,8 @@ void j1Player::HandleShield()
 		GetIdleAnimation();
 		CurrentShieldAnimation = &shieldAnim;
 		shieldendAnim.Reset();
+
+		App->audio->PlayFx(App->audio->fxShieldHit1);
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldON)
 	{
@@ -362,6 +364,7 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldendAnim;
 		shieldAnim.Reset();
 		shieldON = false;
+		App->audio->PlayFx(App->audio->fxCancel);
 	}
 	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
 	{
@@ -369,6 +372,7 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldendAnim;
 		shieldAnim.Reset();
 		shieldON = false;
+		App->audio->PlayFx(App->audio->fxCancel);
 	}
 }
 
