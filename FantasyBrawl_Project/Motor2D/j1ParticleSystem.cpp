@@ -67,7 +67,10 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			App->view->PushQueue(6,p->tex, p->pCol->rect.x, p->pCol->rect.y, p->anim.GetCurrentFrame(dt),0,0,p->angle*(180.0f / M_PI) - 180.0f,p->pCol->rect.w/2, p->pCol->rect.h / 2,scale);
+			if(p->pCol->type == COLLIDER_TYPE::COLLIDER_NONE)
+			App->view->PushQueue(6,p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt),0,0);
+			else
+			App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2, scale);
 
 			//LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
@@ -99,6 +102,7 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 			p->direction.y *= p->speed.y;
 			p->tex = particle.tex;
 			p->ghost = particle.ghost;
+			p->anim = particle.anim;
 
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
@@ -155,8 +159,28 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 			if (!c1->ghost)
 			{
 				if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
+				{
 					active[i]->toDelete = true;
+				//Create Hit Particle here
+					Particle hit;
+					hit.anim = App->entities->particle_hitanim;
+					hit.anim.loop = false;
+					hit.anim.speed = 0.1f;
+					hit.tex= App->entities->particle_hittex;
+					hit.life = 4000;
+					AddParticle(hit, c1->rect.x, c1->rect.y, COLLIDER_TYPE::COLLIDER_NONE, 0);
+				}
 
+				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER && active[i]->originplayer->Entityinfo.HitBox != c2)
+				{
+					Particle hit;
+					hit.anim = App->entities->particle_hitanim;
+					hit.anim.loop = false;
+					hit.anim.speed = 0.1f;
+					hit.tex = App->entities->particle_hittex;
+					hit.life = 4000;
+					AddParticle(hit,c1->rect.x, c1->rect.y, COLLIDER_TYPE::COLLIDER_NONE,0);
+				}
 
 				if (active[i]->toDelete) {
 					active[i]->pCol->to_delete = true;
