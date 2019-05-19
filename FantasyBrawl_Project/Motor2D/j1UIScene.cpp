@@ -262,10 +262,10 @@ bool j1UIScene::Start()
 
 
 		//PLAYER QUADS
-		UI_element* player1_quad = App->gui->createImageFromAtlas(40, 3, { 288, 518, 170,191 }, this);
-		UI_element* player2_quad = App->gui->createImageFromAtlas(40, 194, { 288, 518, 170,191 }, this);
-		UI_element* player3_quad = App->gui->createImageFromAtlas(40, 385, { 288, 518, 170,191 }, this);
-		UI_element* player4_quad = App->gui->createImageFromAtlas(40, 576, { 288, 518, 170,191 }, this);
+		player1_quad = App->gui->createImageFromAtlas(40, 3, { 288, 518, 170,191 }, this);
+		player2_quad = App->gui->createImageFromAtlas(40, 194, { 288, 518, 170,191 }, this);
+		player3_quad = App->gui->createImageFromAtlas(40, 385, { 288, 518, 170,191 }, this);
+		player4_quad = App->gui->createImageFromAtlas(40, 576, { 288, 518, 170,191 }, this);
 
 		//PLAYER TEXTS
 		UI_element* player1_text = App->gui->createImageFromAtlas(60, 166, { 296, 799, 117, 20 }, this);
@@ -1085,10 +1085,7 @@ bool j1UIScene::Update(float dt)
 
 	}
 
-	//if (champ_selected[0] && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
-	//{
-	//	ready->function = INGAME;
-	//}
+	
 
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)

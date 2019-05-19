@@ -56,4 +56,11 @@ void Button::BlitElement()
 	{
 		text->BlitElement();
 	}
+
+	if (parent != nullptr && parent->element_type == IMAGE && parent->children.size() == 2)
+	{
+		state = STANDBY;
+	}
+
+	
 }

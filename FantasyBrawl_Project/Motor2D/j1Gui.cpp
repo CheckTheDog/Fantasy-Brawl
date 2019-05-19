@@ -212,12 +212,15 @@ bool j1Gui::PreUpdate()
 								element[i] = element[i]->children.front();
 								element[i]->hovering = true;
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
+
+
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN)
 							{
 								time_since_press[i].Start();
 								automatic_traverse_margin[i].Start();
 								element[i] = element[i]->children.back();
+								element[i]->hovering = true;
 								element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 							}
 							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT)
@@ -225,6 +228,7 @@ bool j1Gui::PreUpdate()
 								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.front();
+									element[i]->hovering = true;
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 								}
 							}
@@ -233,6 +237,7 @@ bool j1Gui::PreUpdate()
 								if (ManageAutomaticTraverseTiming(i,0.75f, 0.1f) == true)
 								{
 									element[i] = element[i]->children.back();
+									element[i]->hovering = true;
 									element[i]->callback->OnUIEvent(element[i], MOUSE_LEFT_CLICK);
 								}
 							}
@@ -330,11 +335,32 @@ bool j1Gui::PreUpdate()
 					{
 					App->ui_scene->champ_selected[i] = true;
 					App->audio->PlayFx(App->audio->fxConfirmChamp);
+
+					if (i == 0)
+						App->ui_scene->player1_quad->section = { 494, 518, 170,191 };
+					if (i == 1)
+						App->ui_scene->player2_quad->section = { 494, 518, 170,191 };
+					if (i == 2)
+						App->ui_scene->player3_quad->section = { 494, 518, 170,191 };
+					if (i == 3)
+						App->ui_scene->player4_quad->section = { 494, 518, 170,191 };
+					
 					}
 					else if (App->ui_scene->champ_selected[i] == true && App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_B) == BUTTON_DOWN)
 					{
 						App->ui_scene->champ_selected[i] = false;
 						App->audio->PlayFx(App->audio->fxCancelChamp);
+
+						if (i == 0)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 1)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 2)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 3)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+
+						
 					}
 				}
 			}
