@@ -50,6 +50,7 @@ bool j1UIScene::Start()
 	 small_font = App->fonts->Load("fonts/Minecraft.ttf",30);
 	 big_font = App->fonts->Load("fonts/Minecraft.ttf", 70);
 	 mid_font = App->fonts->Load("fonts/Minecraft.ttf", 50);
+	 perfect_font = App->fonts->Load("fonts/Minecraft.ttf", 40);
 	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
 	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
@@ -87,27 +88,27 @@ bool j1UIScene::Start()
 
 
 		//PLAY
-		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 410 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		new_game->function = NEW_GAME;
 
-		UI_element* new_text = App->gui->createText("PLAY", 540, 275, big_font, brown_color);
+		UI_element* new_text = App->gui->createText("PLAY", 580, 445, perfect_font, brown_color);
 		new_text->setOutlined(true);
 		
 		//OPTIONS
-		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 510 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		settings_start_menu->function = SETTINGS;
 
 
-		UI_element* continue_text = App->gui->createText("OPTIONS", 520, 435, mid_font, brown_color);
+		UI_element* continue_text = App->gui->createText("OPTIONS", 540, 550, perfect_font, brown_color);
 		continue_text->setOutlined(true);
 		
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 610 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 
 		exit_game->function = EXIT;
 
-		UI_element* exit_text = App->gui->createText("EXIT", 540, 575, big_font, brown_color);
+		UI_element* exit_text = App->gui->createText("EXIT", 580, 645, perfect_font, brown_color);
 		exit_text->setOutlined(true);
 		
 
@@ -395,9 +396,9 @@ bool j1UIScene::Start()
 		//BACK BUTTON
 		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 370, 300, mid_font, brown_color);
+		UI_element* back_text = App->gui->createText("BACK", 710, 70, mid_font, brown_color);
 		back_text->setOutlined(true);
-		back_button->appendChildAtCenter(back_text);
+		
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
@@ -432,9 +433,9 @@ bool j1UIScene::Start()
 		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 400, 70, mid_font, yellow_color);
 		apply_text->setOutlined(true);
-		apply_button->appendChildAtCenter(apply_text);
+		
 
 		//MARKER
 		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
@@ -617,6 +618,7 @@ bool j1UIScene::Update(float dt)
 		}
 		else if (actual_menu == SELECTION_MENU)
 		{
+			marks_reset = false;
 			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
@@ -1106,6 +1108,17 @@ bool j1UIScene::Update(float dt)
 		player3_quad->section = { 288, 518, 170,191 };
 		player4_quad->section = { 288, 518, 170,191 };
 	}
+	else if (marks_reset == true)
+	{
+		
+			App->ui_scene->player1_quad->section = { 484, 518, 170,191 };
+		
+			App->ui_scene->player2_quad->section = { 484, 518, 170,191 };
+		
+			App->ui_scene->player3_quad->section = { 484, 518, 170,191 };
+		
+			App->ui_scene->player4_quad->section = { 484, 518, 170,191 };
+	}
 
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
@@ -1228,7 +1241,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player2_select = false;
 			player3_select = false;
 			player4_select = false;
-			marks_reset = true;
+			marks_reset = false;
 
 			//Reset Stars
 			P1stars = 0;
