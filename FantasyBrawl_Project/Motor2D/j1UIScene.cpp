@@ -57,7 +57,7 @@ bool j1UIScene::Start()
 
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
-	 panel = App->tex->Load("gui/big_parchment.png");
+	 panel = App->tex->Load("gui/Options.png");
 	 champselect_bg = App->tex->Load("gui/ChampSelect.png");
 	 A_Butt = App->tex->Load("gui/controller_buttons.png");
 
@@ -87,14 +87,14 @@ bool j1UIScene::Start()
 
 
 		//PLAY
-		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		new_game->function = NEW_GAME;
 
 		UI_element* new_text = App->gui->createText("PLAY", 588, 270, big_buttons_font, brown_color);
 		new_text->setOutlined(true);
 		
 		//OPTIONS
-		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* settings_start_menu = App->gui->createButton(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		settings_start_menu->function = SETTINGS;
 
 
@@ -103,7 +103,7 @@ bool j1UIScene::Start()
 		settings_start_menu->appendChildAtCenter(continue_text);
 
 		//EXIT GAME
-		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 
 		exit_game->function = EXIT;
 
@@ -112,7 +112,7 @@ bool j1UIScene::Start()
 		exit_game->appendChildAtCenter(exit_text);
 
 		//CREDITS
-		UI_element* credits = App->gui->createButton(App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
+		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
 		credits->function = WEBPAGE;
 
 		//MARKER
@@ -121,7 +121,7 @@ bool j1UIScene::Start()
 
 
 		//BACKGROUND
-		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/BG.png"), this);
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MenuStart.png"), this);
 
 		startMenu->elements.push_back(background_image);
 		startMenu->elements.push_back(new_game);
@@ -393,7 +393,7 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
 		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
@@ -402,10 +402,16 @@ bool j1UIScene::Start()
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 
-		music_sliderMM = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_sliderMM);
+		settings_image->appendChild(500 * App->gui->UI_scale, 125 * App->gui->UI_scale, music_sliderMM);
 
+		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
+		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
+
+		/*fx_slider->setProgress(App->audio->getFxVolume());
+		fx_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+*/
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
@@ -415,7 +421,7 @@ bool j1UIScene::Start()
 
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_image->appendChild(400 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_sliderMM);
+		settings_image->appendChild(500 * App->gui->UI_scale, 175 * App->gui->UI_scale, fx_sliderMM);
 
 
 		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
@@ -429,7 +435,7 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
@@ -474,7 +480,7 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
 		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
 		back_text->setOutlined(true);
@@ -485,6 +491,10 @@ bool j1UIScene::Start()
 		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
+
+		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
+		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
 		audio_text->setOutlined(true);
@@ -506,7 +516,7 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0,148,278,106 }, { 286,148,278,106 }, { 570,148,278,106 }, this);
+		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
@@ -1148,8 +1158,31 @@ bool j1UIScene::Update(float dt)
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
-
-	if (rounds < 3)
+	if (rounds >= 3)
+	{
+		if (player_winner != nullptr && scoreboard == false)
+		{
+			player_winner->active = false;
+			scoreboard = true;
+			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 3.0);
+			if (player_winner == App->scene->player1)
+				CreateFinalScoreBoard(1);
+			else if (player_winner == App->scene->player2)
+				CreateFinalScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateFinalScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateFinalScoreBoard(4);
+			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+			//from the previous game when we play again
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+			rounds = 0;
+		}
+	}
+	else if (rounds < 3)
 	{
 		if (player_winner != nullptr && scoreboard == false)
 		{
@@ -1172,7 +1205,6 @@ bool j1UIScene::Update(float dt)
 			App->arena_interactions->PauseStorm();
 		}
 	}
-	
 
 
 	return ret;
@@ -1237,7 +1269,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			P4stars = 0;
 
 			//Reset rounds
-			rounds = 0;
+			rounds = 3;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();

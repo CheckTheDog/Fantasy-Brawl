@@ -73,7 +73,7 @@ bool j1FadeToBlack::Update(float dt)
 	return true;
 }
 
-bool j1FadeToBlack::PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Color &color, float &alpha, SDL_Texture* tex)
+bool j1FadeToBlack::PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Color &color, float &alpha, SDL_Texture* tex, int viewport)
 {
 	if (current_step == fade_step::none)
 		return true;
@@ -107,9 +107,17 @@ bool j1FadeToBlack::PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 
 	if (tex == nullptr)
 	{
 		// Finally render the color square with alpha on the screen
-		SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, (Uint8)(normalized * alpha));
 
-		SDL_RenderFillRect(App->render->renderer, &screen_rect);
+		if (viewport == -1)
+		{
+			SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, (Uint8)(normalized * alpha));
+
+			SDL_RenderFillRect(App->render->renderer, &screen_rect);
+		}
+		else
+		{
+			App->view->LayerDrawQuad(screen_rect, color.r, color.g, color.b, alpha, true, 15);
+		}
 	}
 	else
 	{
