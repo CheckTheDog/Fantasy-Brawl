@@ -208,6 +208,7 @@ public:
 	j1Timer Traktpulsation;
 	bool shieldON = false;
 	bool superON = false;
+	bool super_available = false;
 
 	// --- Score ---
 	uint kills = 0;

@@ -333,13 +333,22 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
+	bool before_iteration = super_available;
+
 	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN)
 		superON = true;
 
 	else if (superON && App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_UP)
 	{
 		superON = false;
+		super_available = false;
 		HandleSuperAttacks();
+	}
+
+	if (super_available == false && superTimer.ReadSec() >= 5.0f)
+	{
+		App->audio->PlayFx(App->audio->fxPowerUpActivate);
+		super_available = true;
 	}
 }
 
@@ -483,6 +492,7 @@ void j1Player::Launch1stSuper()
 
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
+		super_available = false;
 	}
 }
 
@@ -541,6 +551,7 @@ void j1Player::Launch2ndSuper()
 					this->kills++;
 			}
 		}
+		super_available = false;
 	}
 }
 
@@ -578,6 +589,7 @@ void j1Player::Launch3rdSuper()
 			App->scene->player4->RJinverted = true;
 			App->scene->player4->RJinversion.Start();
 		}
+		super_available = false;
 	}
 }
 
@@ -628,6 +640,7 @@ void j1Player::Launch4thSuper()
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 
+		super_available = false;
 	}
 }
 
