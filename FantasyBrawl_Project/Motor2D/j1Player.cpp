@@ -308,7 +308,7 @@ void j1Player::HandleInput()
 	//LOG("direction_y: %f", RJdirection_y);
 
 	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_START) == BUTTON_DOWN && (App->ui_scene->current_menu->id == INGAME_MENU 
-		|| App->ui_scene->current_menu->id == SETTINGS_MENU))
+		|| App->ui_scene->current_menu->id == INGAMESETTINGS_MENU))
 	{
 		App->input->ForceKeyboardKeyState(SDL_SCANCODE_ESCAPE, KEY_DOWN);
 	}

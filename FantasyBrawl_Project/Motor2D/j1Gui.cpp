@@ -95,7 +95,7 @@ bool j1Gui::PreUpdate()
 							continue;
 
 						iPoint globalPos = (*item)->calculateAbsolutePosition();
-						if (/*(*item)->solid &&*/ (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[i]) == (*item)))
+						if ((*item)->solid && (App->ui_scene->current_menu->gamepad_tabs[i].empty() == false && (*App->ui_scene->current_menu->gamepads_focus[i]) == (*item)))
 						{
 							element[i] = *item;
 							if (x > globalPos.x && x < globalPos.x + (*item)->section.w / scale && y > globalPos.y && y < globalPos.y + (*item)->section.h / scale && mouse_focus == nullptr && (*item)->solid)
@@ -239,45 +239,44 @@ bool j1Gui::PreUpdate()
 						}
 					}
 
-					
-					if (element[i]->element_type == SLIDER)
+					if (element[i]->parent != nullptr)
 					{
-						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
+						if (element[i]->parent->element_type == SLIDER)
 						{
-							time_since_press[i].Start();
-							automatic_traverse_margin[i].Start();
-							element[i] = element[i]->children.back();
-							element[i]->localPosition += {3, 0};
-							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
-						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
-						{
-							time_since_press[i].Start();
-							automatic_traverse_margin[i].Start();
-							element[i] = element[i]->children.back();
-							element[i]->localPosition -= {3, 0};
-							App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
-						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
-						{
-							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+							if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_DOWN
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 							{
-								element[i] = element[i]->children.front();
-								element[i]->localPosition += {5, 0};
+								time_since_press[i].Start();
+								automatic_traverse_margin[i].Start();
+								element[i]->localPosition += {4, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
 							}
-						}
-						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
-							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
-						{
-							if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_DOWN
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
 							{
-								element[i] = element[i]->children.front();
-								element[i]->localPosition -= {5, 0};
+								time_since_press[i].Start();
+								automatic_traverse_margin[i].Start();
+								element[i]->localPosition -= {4, 0};
 								App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
+							{
+								/*if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{*/
+									
+									element[i]->localPosition += {2, 0};
+									App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+								/*}*/
+							}
+							else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
+							{
+								/*if (ManageAutomaticTraverseTiming(0.25f, 0.01f) == true)
+								{*/
+									element[i]->localPosition -= {2, 0};
+									App->input->ForceButtonState((PLAYER)i, SDL_CONTROLLER_BUTTON_A, BUTTON_DOWN);
+								/*}*/
 							}
 						}
 					}

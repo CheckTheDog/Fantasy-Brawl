@@ -454,8 +454,8 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(settingsMenu);
 
-		AddControllerSupport(music_sliderMM, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(fx_sliderMM, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 
@@ -534,8 +534,8 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(fullscreen_text);*/
 		menus.push_back(ingamesettingsMenu);
 
-		AddControllerSupport(music_slider, PLAYER::P1, INGAMESETTINGS_MENU);
-		AddControllerSupport(fx_slider, PLAYER::P1, INGAMESETTINGS_MENU);
+		AddControllerSupport(music_slider_butt, PLAYER::P1, INGAMESETTINGS_MENU);
+		AddControllerSupport(fx_slider_butt, PLAYER::P1, INGAMESETTINGS_MENU);
 		AddControllerSupport(apply_button, PLAYER::P1, INGAMESETTINGS_MENU);
 		AddControllerSupport(back_button, PLAYER::P1, INGAMESETTINGS_MENU);
 	}
@@ -585,7 +585,7 @@ bool j1UIScene::Update(float dt)
 	bool ret = true;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1,SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
 		if (actual_menu == START_MENU)
 		{
@@ -1117,6 +1117,15 @@ bool j1UIScene::Update(float dt)
 		}
 	}
 	
+	if (current_menu->id == INGAMESETTINGS_MENU)
+	{
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_START) == BUTTON_DOWN)
+						App->input->ForceKeyboardKeyState(SDL_SCANCODE_ESCAPE, KEY_DOWN);
+		}
+	}
+
 	
 
 	//GET TO SCOREBOARD SCREEN
