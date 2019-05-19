@@ -882,6 +882,9 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			case COLLIDER_TYPE::COLLIDER_STORM:
 				float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
 				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
+
+				if(damage != 0)
+				damage_received = true;
 				break;
 			}
 		}
