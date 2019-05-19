@@ -19,6 +19,7 @@
 #include "j1UIScene.h"
 #include "j1Gui.h"
 #include "j1FadeToBlack.h"
+#include "UI_element.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -81,8 +82,11 @@ bool j1Player::Start()
 	Traktpulsation.Start();
 
 	current_step = fade_step::none;
+	current_stepD = fade_step::none;
+	current_stepHP = fade_step::none;
 	colA = { 255,0,0,75 };
 	colB = { 0,0,0,255 };
+	colC = { 255,255,255,255 };
 
 	return true;
 }
@@ -762,19 +766,46 @@ bool j1Player::PostUpdate(float dt)
 
 	BlitArrows();
 
+	SDL_Rect tmp;
+
 	switch (ID)
 	{
 	case PLAYER::P1:
 		App->fade->PostUpdate(App->view->four_views_1, start_time, total_time, current_step,colA,alphaA);
+
+		tmp = App->ui_scene->hp_bar1->section;
+		tmp.x = App->ui_scene->hp_bar1->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar1->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC,nullptr,0);
+
 		break;
 	case PLAYER::P2:
 		App->fade->PostUpdate(App->view->four_views_2, start_time, total_time, current_step, colA, alphaA);
+
+		tmp = App->ui_scene->hp_bar2->section;
+		tmp.x = App->ui_scene->hp_bar2->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar2->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC, nullptr, 0);
 		break;
 	case PLAYER::P3:
 		App->fade->PostUpdate(App->view->four_views_3, start_time, total_time, current_step, colA, alphaA);
+
+		tmp = App->ui_scene->hp_bar3->section;
+		tmp.x = App->ui_scene->hp_bar3->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar3->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC, nullptr, 0);
 		break;
 	case PLAYER::P4:
 		App->fade->PostUpdate(App->view->four_views_4, start_time, total_time, current_step, colA, alphaA);
+
+		tmp = App->ui_scene->hp_bar4->section;
+		tmp.x = App->ui_scene->hp_bar4->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar4->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC, nullptr, 0);
 		break;
 	default:
 		break;
@@ -1275,6 +1306,7 @@ void j1Player::LogicUpdate(float dt)
 		{
 			damage_received = false;
 			App->fade->FadeCustom(255, 0, 0, alphaA, 0.01f, start_time, total_time, current_step, colA);
+			App->fade->FadeCustom(colC.r, colC.g, colC.b, alphaC, 0.0001f, start_timeHP, total_timeHP, current_stepHP, colC);
 		}
 
 		// --- On player death, deactivate it ---
@@ -1285,7 +1317,7 @@ void j1Player::LogicUpdate(float dt)
 			this->Entityinfo.entitycoll->rect.x = 0;
 			this->Entityinfo.entitycoll->rect.y = 0;
 			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
-			App->fade->FadeCustom(255, 0, 0, alphaB, 2.0f, start_timeD, total_timeD, current_stepD,colB);
+			App->fade->FadeCustom(colB.r, colB.g, colB.b, alphaB, 2.0f, start_timeD, total_timeD, current_stepD,colB);
 
 			App->audio->PlayFx(this->playerinfo.basic_fx);
 		}

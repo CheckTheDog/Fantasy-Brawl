@@ -255,6 +255,12 @@ public:
 	SDL_Color colB;
 	float alphaB = 0;
 
+	fade_step current_stepHP;
+	Uint32 start_timeHP = 0;
+	Uint32 total_timeHP = 0;
+	SDL_Color colC;
+	float alphaC = 0;
+
 	bool damage_received = false;
 };
 
