@@ -157,7 +157,6 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 				if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
 					active[i]->toDelete = true;
 
-
 				if (active[i]->toDelete) {
 					active[i]->pCol->to_delete = true;
 					delete active[i];

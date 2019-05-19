@@ -209,6 +209,8 @@ public:
 	j1Timer Traktpulsation;
 	bool shieldON = false;
 	bool superON = false;
+	bool shield_available = false;
+	bool super_available = false;
 
 	// --- Score ---
 	uint kills = 0;
@@ -254,6 +256,12 @@ public:
 	Uint32 total_timeD = 0;
 	SDL_Color colB;
 	float alphaB = 0;
+
+	fade_step current_stepHP;
+	Uint32 start_timeHP = 0;
+	Uint32 total_timeHP = 0;
+	SDL_Color colC;
+	float alphaC = 0;
 
 	bool damage_received = false;
 };

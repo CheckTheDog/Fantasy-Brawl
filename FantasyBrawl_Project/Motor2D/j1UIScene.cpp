@@ -424,6 +424,12 @@ bool j1UIScene::Start()
 		music_sliderMM->modify = MUSIC;
 		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_sliderMM);
 
+		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
+		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
+
+		/*fx_slider->setProgress(App->audio->getFxVolume());
+		fx_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+*/
 
 		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
 		audio_text->setOutlined(true);
@@ -532,7 +538,12 @@ bool j1UIScene::Start()
 		music_slider->modify = MUSIC;
 		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_slider);
 
+
 		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
+
+		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
+		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
+
 		audio_text->setOutlined(true);
 
 		//FX
@@ -1193,8 +1204,31 @@ bool j1UIScene::Update(float dt)
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
-
-	if (rounds < 3)
+	if (rounds >= 3)
+	{
+		if (player_winner != nullptr && scoreboard == false)
+		{
+			player_winner->active = false;
+			scoreboard = true;
+			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU, 3.0);
+			if (player_winner == App->scene->player1)
+				CreateFinalScoreBoard(1);
+			else if (player_winner == App->scene->player2)
+				CreateFinalScoreBoard(2);
+			else if (player_winner == App->scene->player3)
+				CreateFinalScoreBoard(3);
+			else if (player_winner == App->scene->player4)
+				CreateFinalScoreBoard(4);
+			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
+			//from the previous game when we play again
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+			rounds = 0;
+		}
+	}
+	else if (rounds < 3)
 	{
 		if (player_winner != nullptr && scoreboard == false)
 		{
@@ -1217,7 +1251,6 @@ bool j1UIScene::Update(float dt)
 			App->arena_interactions->PauseStorm();
 		}
 	}
-	
 
 
 	return ret;
@@ -1282,7 +1315,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			P4stars = 0;
 
 			//Reset rounds
-			rounds = 0;
+			rounds = 3;
 
 			// --- Reset everything ---
 			App->scene->ResetAll();

@@ -22,7 +22,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Color &color, float &alpha, SDL_Texture* tex = nullptr);
+	bool PostUpdate(SDL_Rect screen_rect, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Color &color, float &alpha, SDL_Texture* tex = nullptr, int viewport = -1);
 	bool FadeCustom(int r, int g, int b, float &a, float time, Uint32 &start_time, Uint32 &total_time, fade_step &current_step, SDL_Color color);
 	bool CleanUp();
 };

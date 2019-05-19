@@ -19,6 +19,7 @@
 #include "j1UIScene.h"
 #include "j1Gui.h"
 #include "j1FadeToBlack.h"
+#include "UI_element.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -81,8 +82,11 @@ bool j1Player::Start()
 	Traktpulsation.Start();
 
 	current_step = fade_step::none;
+	current_stepD = fade_step::none;
+	current_stepHP = fade_step::none;
 	colA = { 255,0,0,75 };
 	colB = { 0,0,0,255 };
+	colC = { 255,255,255,255 };
 
 	return true;
 }
@@ -337,18 +341,28 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
+	bool before_iteration = super_available;
+
 	if (App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_DOWN)
 		superON = true;
 
 	else if (superON && App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == KEY_UP)
 	{
 		superON = false;
+		super_available = false;
 		HandleSuperAttacks();
+	}
+
+	if (super_available == false && superTimer.ReadSec() >= 5.0f)
+	{
+		App->audio->PlayFx(App->audio->fxPowerUpActivate);
+		super_available = true;
 	}
 }
 
 void j1Player::HandleShield()
 {
+	bool previous_shield_available = shield_available;
 	// --- Shield according to input ---
 	if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldTimer.ReadSec() > 10.0f)
 	{
@@ -359,6 +373,9 @@ void j1Player::HandleShield()
 		GetIdleAnimation();
 		CurrentShieldAnimation = &shieldAnim;
 		shieldendAnim.Reset();
+
+		App->audio->PlayFx(App->audio->fxPowerUpAppear1);
+		shield_available = false;
 	}
 	else if ((App->input->GetButton(ID, SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) && shieldON)
 	{
@@ -366,6 +383,7 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldendAnim;
 		shieldAnim.Reset();
 		shieldON = false;
+		App->audio->PlayFx(App->audio->fxCancel);
 	}
 	else if (shieldDuration.ReadSec() > 2.5f && shieldON)
 	{
@@ -373,6 +391,13 @@ void j1Player::HandleShield()
 		CurrentShieldAnimation = &shieldendAnim;
 		shieldAnim.Reset();
 		shieldON = false;
+		App->audio->PlayFx(App->audio->fxCancel);
+	}
+
+	if (shield_available == false && shieldTimer.ReadSec() >= 10.0f)
+	{
+		App->audio->PlayFx(App->audio->fxPowerUpPick);
+		shield_available = true;
 	}
 }
 
@@ -483,6 +508,7 @@ void j1Player::Launch1stSuper()
 
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
+		super_available = false;
 	}
 }
 
@@ -541,6 +567,7 @@ void j1Player::Launch2ndSuper()
 					this->kills++;
 			}
 		}
+		super_available = false;
 	}
 }
 
@@ -578,6 +605,7 @@ void j1Player::Launch3rdSuper()
 			App->scene->player4->RJinverted = true;
 			App->scene->player4->RJinversion.Start();
 		}
+		super_available = false;
 	}
 }
 
@@ -628,6 +656,7 @@ void j1Player::Launch4thSuper()
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 
+		super_available = false;
 	}
 }
 
@@ -764,19 +793,46 @@ bool j1Player::PostUpdate(float dt)
 
 	BlitArrows();
 
+	SDL_Rect tmp;
+
 	switch (ID)
 	{
 	case PLAYER::P1:
 		App->fade->PostUpdate(App->view->four_views_1, start_time, total_time, current_step,colA,alphaA);
+
+		tmp = App->ui_scene->hp_bar1->section;
+		tmp.x = App->ui_scene->hp_bar1->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar1->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC,nullptr,0);
+
 		break;
 	case PLAYER::P2:
 		App->fade->PostUpdate(App->view->four_views_2, start_time, total_time, current_step, colA, alphaA);
+
+		tmp = App->ui_scene->hp_bar2->section;
+		tmp.x = App->ui_scene->hp_bar2->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar2->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC, nullptr, 0);
 		break;
 	case PLAYER::P3:
 		App->fade->PostUpdate(App->view->four_views_3, start_time, total_time, current_step, colA, alphaA);
+
+		tmp = App->ui_scene->hp_bar3->section;
+		tmp.x = App->ui_scene->hp_bar3->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar3->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC, nullptr, 0);
 		break;
 	case PLAYER::P4:
 		App->fade->PostUpdate(App->view->four_views_4, start_time, total_time, current_step, colA, alphaA);
+
+		tmp = App->ui_scene->hp_bar4->section;
+		tmp.x = App->ui_scene->hp_bar4->localPosition.x;
+		tmp.y = App->ui_scene->hp_bar4->localPosition.y;
+
+		App->fade->PostUpdate(tmp, start_timeHP, total_timeHP, current_stepHP, colC, alphaC, nullptr, 0);
 		break;
 	default:
 		break;
@@ -853,6 +909,9 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			case COLLIDER_TYPE::COLLIDER_STORM:
 				float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
 				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
+
+				if(damage != 0)
+				damage_received = true;
 				break;
 			}
 		}
@@ -1277,6 +1336,7 @@ void j1Player::LogicUpdate(float dt)
 		{
 			damage_received = false;
 			App->fade->FadeCustom(255, 0, 0, alphaA, 0.01f, start_time, total_time, current_step, colA);
+			App->fade->FadeCustom(colC.r, colC.g, colC.b, alphaC, 0.0001f, start_timeHP, total_timeHP, current_stepHP, colC);
 		}
 
 		// --- On player death, deactivate it ---
@@ -1287,7 +1347,7 @@ void j1Player::LogicUpdate(float dt)
 			this->Entityinfo.entitycoll->rect.x = 0;
 			this->Entityinfo.entitycoll->rect.y = 0;
 			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
-			App->fade->FadeCustom(255, 0, 0, alphaB, 2.0f, start_timeD, total_timeD, current_stepD,colB);
+			App->fade->FadeCustom(colB.r, colB.g, colB.b, alphaB, 2.0f, start_timeD, total_timeD, current_stepD,colB);
 
 			App->audio->PlayFx(this->playerinfo.basic_fx);
 		}
