@@ -335,7 +335,15 @@ bool j1Gui::PreUpdate()
 					{
 					App->ui_scene->champ_selected[i] = true;
 					App->audio->PlayFx(App->audio->fxConfirmChamp);
-					App->ui_scene->marks_reset = true;
+
+					if (i == 0 && App->ui_scene->marks_reset == true)
+						App->ui_scene->player1_quad->section = { 484, 518, 170,191 };
+					if (i == 1 && App->ui_scene->marks_reset == true)
+						App->ui_scene->player2_quad->section = { 484, 518, 170,191 };
+					if (i == 2 && App->ui_scene->marks_reset == true)
+						App->ui_scene->player3_quad->section = { 484, 518, 170,191 };
+					if (i == 3 && App->ui_scene->marks_reset == true)
+						App->ui_scene->player4_quad->section = { 484, 518, 170,191 };
 					
 					
 					}
@@ -343,7 +351,15 @@ bool j1Gui::PreUpdate()
 					{
 						App->ui_scene->champ_selected[i] = false;
 						App->audio->PlayFx(App->audio->fxCancelChamp);
-						App->ui_scene->marks_reset = false;
+
+						if (i == 0)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 1)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 2)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
+						if (i == 3)
+							App->ui_scene->player1_quad->section = { 288, 518, 170,191 };
 						
 
 						

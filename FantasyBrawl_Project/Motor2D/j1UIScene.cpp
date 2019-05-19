@@ -618,10 +618,10 @@ bool j1UIScene::Update(float dt)
 		}
 		else if (actual_menu == SELECTION_MENU)
 		{
-			marks_reset = false;
 			App->audio->PlayMusic(App->audio->pathIntro.data(), 0);
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
+			marks_reset = true;
 			ret = true;
 		}
 	}
@@ -1108,17 +1108,7 @@ bool j1UIScene::Update(float dt)
 		player3_quad->section = { 288, 518, 170,191 };
 		player4_quad->section = { 288, 518, 170,191 };
 	}
-	else if (marks_reset == true)
-	{
-		
-			App->ui_scene->player1_quad->section = { 484, 518, 170,191 };
-		
-			App->ui_scene->player2_quad->section = { 484, 518, 170,191 };
-		
-			App->ui_scene->player3_quad->section = { 484, 518, 170,191 };
-		
-			App->ui_scene->player4_quad->section = { 484, 518, 170,191 };
-	}
+	
 
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
@@ -1241,7 +1231,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player2_select = false;
 			player3_select = false;
 			player4_select = false;
-			marks_reset = false;
+			marks_reset = true;
 
 			//Reset Stars
 			P1stars = 0;
