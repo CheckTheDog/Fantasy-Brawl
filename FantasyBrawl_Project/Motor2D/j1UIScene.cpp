@@ -90,7 +90,7 @@ bool j1UIScene::Start()
 		UI_element* new_game = App->gui->createButton(500 * App->gui->UI_scale, 250 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		new_game->function = NEW_GAME;
 
-		UI_element* new_text = App->gui->createText("PLAY", 588, 270, big_buttons_font, brown_color);
+		UI_element* new_text = App->gui->createText("PLAY", 540, 275, big_font, brown_color);
 		new_text->setOutlined(true);
 		
 		//OPTIONS
@@ -98,18 +98,18 @@ bool j1UIScene::Start()
 		settings_start_menu->function = SETTINGS;
 
 
-		UI_element* continue_text = App->gui->createText("OPTIONS", 588, 200, big_buttons_font, brown_color);
+		UI_element* continue_text = App->gui->createText("OPTIONS", 520, 435, mid_font, brown_color);
 		continue_text->setOutlined(true);
-		settings_start_menu->appendChildAtCenter(continue_text);
+		
 
 		//EXIT GAME
 		UI_element* exit_game = App->gui->createButton(500 * App->gui->UI_scale, 550 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 
 		exit_game->function = EXIT;
 
-		UI_element* exit_text = App->gui->createText("EXIT", 588, 200, big_buttons_font, brown_color);
+		UI_element* exit_text = App->gui->createText("EXIT", 540, 575, big_font, brown_color);
 		exit_text->setOutlined(true);
-		exit_game->appendChildAtCenter(exit_text);
+		
 
 		//CREDITS
 		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
@@ -259,7 +259,7 @@ bool j1UIScene::Start()
 	{
 
 		selection_image = App->gui->createImage(0, 0, champselect_bg, this);
-		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 450, 60, big_buttons_font, brown_color);
+		UI_element* selection_text = App->gui->createText("CHAMPION SELECTION", 525, 80, small_font, brown_color);
 		selection_text->setOutlined(true);
 
 
@@ -388,14 +388,14 @@ bool j1UIScene::Start()
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
 		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
-		UI_element* settings_text = App->gui->createText("OPTIONS", 425, 60, big_buttons_font, brown_color);
+		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
+		UI_element* back_text = App->gui->createText("BACK", 370, 300, mid_font, brown_color);
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
 
@@ -404,10 +404,10 @@ bool j1UIScene::Start()
 
 		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_image->appendChild(500 * App->gui->UI_scale, 125 * App->gui->UI_scale, music_sliderMM);
+		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_sliderMM);
 
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
 		audio_text->setOutlined(true);
 
 		//FX
@@ -415,10 +415,10 @@ bool j1UIScene::Start()
 
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_image->appendChild(500 * App->gui->UI_scale, 175 * App->gui->UI_scale, fx_sliderMM);
+		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_sliderMM);
 
 
-		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 400, 200, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -429,10 +429,10 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_font, yellow_color);
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
 
@@ -469,14 +469,14 @@ bool j1UIScene::Start()
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
 		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
-		UI_element* settings_text = App->gui->createText("OPTIONS", 425, 60, big_buttons_font, brown_color);
+		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(375 * App->gui->UI_scale, 580 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 300, 300, mid_buttons_font, brown_color);
+		UI_element* back_text = App->gui->createText("EXIT", 370, 300, mid_font, brown_color);
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
 
@@ -484,18 +484,18 @@ bool j1UIScene::Start()
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(400 * App->gui->UI_scale, 255 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_slider);
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 280, 240, mid_buttons_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
 		audio_text->setOutlined(true);
 
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 288, 21 }, { 0, 318, 288, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(400 * App->gui->UI_scale, 400 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_slider);
 
-		UI_element* fx_text = App->gui->createText("FX", 280, 400, mid_buttons_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 400, 200, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -506,10 +506,10 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(375 * App->gui->UI_scale, 450 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_texts_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_font, yellow_color);
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
 
