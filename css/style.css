@@ -206,7 +206,7 @@ p
 /* start about */
 #about h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         font-size: 40px;
         padding-bottom: 10px;
     }
@@ -217,7 +217,7 @@ p
 #about .progress
     {
         border-radius: 4px;
-        background: #f0c5a8;
+        background: #a8d3f0;
         height: 6px;
     }
 #about .progress .progress-bar-danger
@@ -265,7 +265,7 @@ p
     }
 #art h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #art h4
@@ -299,7 +299,7 @@ p
     }
 #teamleader h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #teamleader h4
@@ -331,7 +331,7 @@ p
     }
 #team h3
     {
-        color: #000000;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #team h4
@@ -365,7 +365,7 @@ p
     }
 #manager h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #manager h4
@@ -398,7 +398,7 @@ p
     }
 #ui h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #ui h4
@@ -432,7 +432,7 @@ p
     }
 #qa h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #qa h4
@@ -466,7 +466,7 @@ p
     }
 #design h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #design h4
@@ -500,7 +500,7 @@ p
     }
 #code h3
     {
-        color: #f0c5a8;
+        color: #a8d3f0;
         padding-bottom: 10px;
     }
 #code h4
