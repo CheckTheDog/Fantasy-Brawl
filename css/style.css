@@ -206,7 +206,7 @@ p
 /* start about */
 #about h3
     {
-        color: #a8d3f0;
+        color: #000000;
         font-size: 40px;
         padding-bottom: 10px;
     }
@@ -265,7 +265,7 @@ p
     }
 #art h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #art h4
@@ -299,7 +299,7 @@ p
     }
 #teamleader h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #teamleader h4
@@ -331,7 +331,7 @@ p
     }
 #team h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #team h4
@@ -365,7 +365,7 @@ p
     }
 #manager h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #manager h4
@@ -398,7 +398,7 @@ p
     }
 #ui h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #ui h4
@@ -432,7 +432,7 @@ p
     }
 #qa h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #qa h4
@@ -466,7 +466,7 @@ p
     }
 #design h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #design h4
@@ -500,7 +500,7 @@ p
     }
 #code h3
     {
-        color: #a8d3f0;
+        color: #000000;
         padding-bottom: 10px;
     }
 #code h4
