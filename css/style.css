@@ -321,7 +321,7 @@ p
 #team img
     {
         display: inline-block;
-	border: 20px solid #000000;
+	border: 1px solid #fff;
         transition: all 0.4s ease-in;
     }
 #team img:hover
