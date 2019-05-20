@@ -340,7 +340,41 @@ p
         padding-top: 20px;
         line-height: 0px;
     }
-	
+
+#manager
+    {
+        border-top: 1px solid #f6f6f6;
+        border-bottom: 1px solid #f6f6f6;
+        text-align: center;
+    }
+#manager h2
+    {
+        padding-bottom: 30px;
+    }
+#manager img
+    {
+        border: 1px solid #f6f6f6;
+        display: inline-block;
+        padding: 50px;
+        transition: all 0.4s ease-in;
+    }
+#manager img:hover
+    {
+        opacity: 0.4;
+        cursor: pointer;
+    }
+#manager h3
+    {
+        color: #f0c5a8;
+        padding-bottom: 10px;
+    }
+#manager h4
+    {
+        font-size: 14px;
+        padding-top: 20px;
+        line-height: 0px;
+    }
+
 #ui
     {
         border-top: 1px solid #f6f6f6;
