@@ -27,7 +27,9 @@ enum event_type
 	MOUSE_LEFT_CLICK,
 	MOUSE_LEFT_RELEASE,
 	TIMER_ZERO,
-	STOPWATCH_ALARM
+	STOPWATCH_ALARM,
+	BUTTON_ENTER,
+	BUTTON_ANY
 };
 
 // ---------------------------------------------------

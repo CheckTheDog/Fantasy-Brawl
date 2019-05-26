@@ -21,7 +21,8 @@ enum element_type
 	CLOCK,
 	PLAYERINFO,
 	FINALINFO,
-	MARKER
+	MARKER,
+	CUSTOMIZING_BUTTON
 };
 
 enum element_function
@@ -54,7 +55,8 @@ enum element_function
 	CANCEL,
 	APPLY,
 	HOME,
-	WEBPAGE
+	WEBPAGE,
+	CUTSOMIZE
 };
 
 enum element_state

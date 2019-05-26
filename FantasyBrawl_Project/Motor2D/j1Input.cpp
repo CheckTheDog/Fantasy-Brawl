@@ -480,3 +480,9 @@ void j1Input::LoadConfigBinding(PLAYER p)
 		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int());
 	}
 }
+
+bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
+{
+
+	return true;
+}

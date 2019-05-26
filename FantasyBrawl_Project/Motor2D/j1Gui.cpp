@@ -285,7 +285,6 @@ bool j1Gui::PreUpdate()
 							}
 						}
 					}
-					
 				}
 
 
@@ -363,6 +362,12 @@ bool j1Gui::PreUpdate()
 						
 
 						
+					}
+				}
+				if (element[i]->element_type == CUSTOMIZING_BUTTON)
+				{
+					if (element[i]->function == CUSTOMIZING_BUTTON)
+					{
 					}
 				}
 			}
