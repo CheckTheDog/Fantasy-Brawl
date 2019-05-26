@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "UI_element.h"
 #include "SDL/include/SDL.h"
 #include "SDL/include/SDL_gamecontroller.h"
 #include "SDL/include/SDL_haptic.h"
@@ -483,6 +484,15 @@ void j1Input::LoadConfigBinding(PLAYER p)
 
 bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 {
+	if (element->function == POLLING_CUSTOMIZE) // When we get here because A is pressed, the function is "POLLING/WAITING", so now whenever we know when a button is pressed, we're customizing (we prepeare that here)
+	{
 
+		element->function == CUSTOMIZE;
+	}
+	else if (element->function == CUSTOMIZE && event_type == BUTTON_ANY) // If a button is pressed, since we're customizing, we change customize whatever we need to customize, then return to polling for new input
+	{
+		
+		element->function == POLLING_CUSTOMIZE;
+	}
 	return true;
 }

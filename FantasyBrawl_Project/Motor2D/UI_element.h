@@ -56,7 +56,8 @@ enum element_function
 	APPLY,
 	HOME,
 	WEBPAGE,
-	CUTSOMIZE
+	POLLING_CUSTOMIZE,
+	CUSTOMIZE
 };
 
 enum element_state
