@@ -13,7 +13,6 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Collision.h"
-#include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1ArenaInteractions.h"
 #include "j1ParticleSystem.h"
@@ -23,6 +22,7 @@
 #include "j1UIScene.h"
 #include "j1BuffManager.h"
 #include "j1App.h"
+#include "j1FadeToBlack.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -43,13 +43,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new j1EntityManager();
 	arena_interactions = new j1ArenaInteractions();
 	buff = new j1BuffManager();
-	pathfinding = new j1PathFinding();
 	particlesys = new j1ParticleSystem();
 	view = new j1Viewport();
 	fonts = new j1Fonts();
 	gui = new j1Gui();
 	transition = new j1Transition();
 	ui_scene = new j1UIScene();
+	fade = new j1FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -65,13 +65,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(arena_interactions);
 
 	AddModule(particlesys);
-	AddModule(pathfinding);
 	
-	AddModule(view);
+
 	AddModule(fonts);
 	AddModule(gui);
 	AddModule(transition);
+	AddModule(view);
 	AddModule(ui_scene);
+	AddModule(fade);
 
 
 	// render last to swap buffer
@@ -222,7 +223,7 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 
-	if (on_GamePause == true)
+	if (on_GamePause == true && App->ui_scene->actual_menu != SELECTION_MENU)
 	{
 		if(!App->transition->doingMenuTransition)
 		dt = 0.0f;

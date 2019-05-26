@@ -40,9 +40,6 @@
     <ClCompile Include="j1Window.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="j1Pathfinding.cpp">
-      <Filter>Development  ========\Entities\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
@@ -54,7 +51,7 @@
     </ClCompile>
     <ClCompile Include="j1ParticleSystem.cpp">
       <Filter>Development  ========\Entities\Tools</Filter>
-   </ClCompile>
+    </ClCompile>
     <ClCompile Include="j1Viewport.cpp">
       <Filter>Development  ========\Modules\Core</Filter>
     </ClCompile>
@@ -92,6 +89,12 @@
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1ArenaInteractions.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Marker.cpp">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -143,9 +146,6 @@
     </ClInclude>
     <ClInclude Include="j1Window.h">
       <Filter>Development  ========\Modules\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Pathfinding.h">
-      <Filter>Development  ========\Entities\Tools</Filter>
     </ClInclude>
     <ClInclude Include="j1EntityManager.h">
       <Filter>Development  ========\Modules</Filter>
@@ -205,6 +205,12 @@
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1ArenaInteractions.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Marker.h">
+      <Filter>Development  ========\Modules\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1FadeToBlack.h">
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>

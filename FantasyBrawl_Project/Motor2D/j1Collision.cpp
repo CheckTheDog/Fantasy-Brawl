@@ -8,6 +8,7 @@
 #include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Viewport.h"
+#include "j1UIScene.h"
 
 
 j1Collision::j1Collision()
@@ -19,30 +20,56 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
-	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = true;
-	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = true;
-	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
 
 }
 
@@ -121,7 +148,7 @@ void j1Collision::DebugDraw()
 
 	BROFILER_CATEGORY("Collision_Debug_Draw", Profiler::Color::BurlyWood);
 
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) //collider draw
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN && App->ui_scene->actual_menu == INGAME_MENU) //collider draw
 		debug = !debug;
 
 	if (debug == false)
@@ -137,40 +164,54 @@ void j1Collision::DebugDraw()
 		switch ((*item)->type)
 		{
 		case COLLIDER_TYPE::COLLIDER_NONE: // white
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true);
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true,0,1);
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true,0,2);
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true,0,3);
+			if(App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_FLOOR: // red
-			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true);
-			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true, 0, 1);
-			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true, 0, 2);
-			App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true, 0, 3);
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true,15,0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PLAYER: // green
-			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true);
-			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 0, 1);
-			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 0, 2);
-			App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 0, 3);
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true);
+			
 			break;
 		case COLLIDER_TYPE::COLLIDER_STORM: // green
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true);
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 0, 1);
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 0, 2);
-			App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 0, 3);
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PARTICLE:
-			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125,alpha, true);
-			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 0, 1);
-			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 0, 2);
-			App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 0, 3);
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true);
+			
 			break;
 		case COLLIDER_TYPE::COLLIDER_WATER:
-			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255,alpha, true);
-			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 0, 1);
-			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 0, 2);
-			App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 0, 3);
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true);
+			break;
+		case COLLIDER_TYPE::COLLIDER_HITBOX:
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true);
+			break;
+		case COLLIDER_TYPE::COLLIDER_PNI:
+			if (App->view->number_of_views == 1)
+				App->view->LayerDrawQuad((*item)->rect, 0, 200, 200, alpha, true, 15, 0);
+			else
+				App->view->LayerDrawQuad((*item)->rect, 0, 200, 200, alpha, true);
 			break;
 		}
 		item++;
@@ -197,7 +238,7 @@ void j1Collision::QueryCollisions(Collider & to_check) const
 		{
 
 			if (to_check.CheckCollision((*collider_node)->rect) == true)
-			{
+			{			
 				if (to_check.callback && matrix[static_cast<int>(to_check.type)][static_cast<int>((*collider_node)->type)])
 				{
 					to_check.callback->OnCollision(&to_check, *collider_node);

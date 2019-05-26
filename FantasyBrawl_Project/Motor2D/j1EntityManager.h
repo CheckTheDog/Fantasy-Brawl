@@ -11,6 +11,7 @@
 #include <list>
 #include <string>
 
+
 class j1Entity;
 
 struct AnimationRanges
@@ -82,6 +83,7 @@ public:
 	Playerdata Meliadoul;
 	AnimationRanges animranges;
 
+	// --- Shield ---
 	SDL_Texture* shield_texture = nullptr;
 	std::string shield_texturepath;
 	Animation shield_anim;
@@ -99,6 +101,9 @@ public:
 	SDL_Texture * budu_texture = nullptr;
 	SDL_Texture * axe_texture = nullptr;
 	SDL_Texture * inkball_texture = nullptr;
+
+	Animation particle_hitanim;
+	SDL_Texture* particle_hittex = nullptr;
 
 	// --- ID Circle animations ---
 	std::string circle_texturepath;
@@ -123,6 +128,15 @@ public:
 	Animation IDCircleshield_yellow;
 	Animation IDCircleboth_yellow;
 
+	// --- Arrows ---
+	SDL_Texture * arrows_tex = nullptr;
+	SDL_Rect red_arrow = { 0,0,11,16 };
+	SDL_Rect green_arrow = { 11,0,11,16 };
+	SDL_Rect yellow_arrow = { 23,0,11,16 };
+	SDL_Rect blue_arrow = { 35,0,11,16 };
+
+	// --- Death texture ---
+	SDL_Texture * death_tex = nullptr;
 };
 
 #endif // __J1ENTITYMANAGER_H__

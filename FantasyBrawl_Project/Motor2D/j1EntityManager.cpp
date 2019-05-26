@@ -47,6 +47,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	shieldEnd_anim.loop = false;
 	shieldEnd_anim.speed = 16.0f;
 
+	// --- Particle hit ---
+	particle_hitanim = *LoadAnimation("Animations/Hit.tmx", "Hit");
+	
+
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
 
@@ -146,10 +150,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Wendolin.playerrect = { x,y,w,h };
 
 	// --- Wendolin Particles ---
-	fPoint particle_speed = { 125.0f, 125.0f };
+	fPoint particle_speed = { 175.0f, 175.0f };
 	Wendolin.basic_attack.anim.PushBack({ 0,0,28,18 });
 	Wendolin.basic_attack.anim.loop = true;
-	Wendolin.basic_attack.life = 2500;
+	Wendolin.basic_attack.life = 2000;
 	Wendolin.basic_attack.speed = particle_speed;
 	Wendolin.basic_attack.particle_effect = &App->buff->effects[3];
 
@@ -191,7 +195,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Simon Particles ---
 	Simon.basic_attack.anim.PushBack({ 0,0,24,36 });
 	Simon.basic_attack.anim.loop = true;
-	Simon.basic_attack.life = 2500;
+	Simon.basic_attack.life = 2000;
 	Simon.basic_attack.speed = particle_speed;
 	Simon.basic_attack.particle_effect = &App->buff->effects[3];
 	Simon.basic_attack.ghost = true;
@@ -234,7 +238,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Trakt Particles ---
 	Trakt.basic_attack.anim.PushBack({ 0,0,30,30 });
 	Trakt.basic_attack.anim.loop = true;
-	Trakt.basic_attack.life = 2500;
+	Trakt.basic_attack.life = 2000;
 	Trakt.basic_attack.speed = particle_speed;
 	Trakt.basic_attack.particle_effect = &App->buff->effects[3];
 
@@ -276,7 +280,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Meliadoul Particles ---
 	Meliadoul.basic_attack.anim.PushBack({ 0,0,40,34 });
 	Meliadoul.basic_attack.anim.loop = true;
-	Meliadoul.basic_attack.life = 2500;
+	Meliadoul.basic_attack.life = 2000;
 	Meliadoul.basic_attack.speed = particle_speed;
 	Meliadoul.basic_attack.particle_effect = &App->buff->effects[3];
 
@@ -296,6 +300,7 @@ bool j1EntityManager::Start()
 	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
 	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
 	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
+	particle_hittex = App->tex->Load("particles/Weapon hit.png");
 
 	// --- Loading Character Specific Textures ---
 	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
@@ -304,9 +309,11 @@ bool j1EntityManager::Start()
 
 	Simon.tex = App->tex->Load(Simon.Texture.data());
 	Simon.basic_attack.tex = budu_texture;
+	SimonSuper_aimpath = App->tex->Load("textures/simonSuper_path.png");
 
 	Trakt.tex = App->tex->Load(Trakt.Texture.data());
 	Trakt.basic_attack.tex = inkball_texture;
+	TraktSuper_aimpath = App->tex->Load("textures/traktSuper_path.png");
 
 	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
 	Meliadoul.basic_attack.tex = axe_texture;
@@ -328,6 +335,9 @@ bool j1EntityManager::Start()
 	circlesprites = App->tex->Load(circle_texturepath.data());
 	aimpath = App->tex->Load("textures/aimpath.png");
 	shield_texture = App->tex->Load(shield_texturepath.data());
+	arrows_tex = App->tex->Load("textures/Arrows2.png");
+
+	death_tex = App->tex->Load("gui/Death.png");
 
 	return ret;
 }
@@ -453,7 +463,7 @@ void j1EntityManager::OnCollision(Collider * c1, Collider * c2)
 
 	while (entity != entities.end())
 	{
-		if ((*entity)->Entityinfo.entitycoll == c1)
+		if ((*entity)->Entityinfo.entitycoll == c1 || (*entity)->Entityinfo.HitBox == c1)
 		{
 			(*entity)->OnCollision(c1, c2);
 			break;

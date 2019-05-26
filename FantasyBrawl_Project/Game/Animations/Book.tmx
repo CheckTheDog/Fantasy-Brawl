@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="1024" height="4608" tilewidth="1" tileheight="1" infinite="0" nextlayerid="52" nextobjectid="278">
+ <imagelayer id="3" name="spritesheet" locked="1">
+  <image source="../gui/BgSprite.png" width="1024" height="4608"/>
+ </imagelayer>
+ <objectgroup id="51" name="bookAnim">
+  <object id="272" x="0" y="0" width="1024" height="768"/>
+  <object id="273" x="0" y="768" width="1024" height="768"/>
+  <object id="274" x="0" y="1536" width="1024" height="768"/>
+  <object id="275" x="0" y="2304" width="1024" height="768"/>
+  <object id="276" x="0" y="3072" width="1024" height="768"/>
+  <object id="277" x="0" y="3840" width="1024" height="768"/>
+ </objectgroup>
+</map>

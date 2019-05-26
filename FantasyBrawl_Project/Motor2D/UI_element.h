@@ -20,7 +20,8 @@ enum element_type
 	WINDOW,
 	CLOCK,
 	PLAYERINFO,
-	FINALINFO
+	FINALINFO,
+	MARKER
 };
 
 enum element_function
@@ -28,7 +29,19 @@ enum element_function
 	NONE,
 	NEW_GAME,
 	INGAME,
-	SELECTING,
+	INGAME_NEW_GAME,
+	Last_Button_1,
+	Last_Button_2,
+	Last_Button_3,
+	Last_Button_4,
+	SELECTING1,
+	SELECTING2,
+	SELECTING3,
+	SELECTING4,
+	INV_SELECTING1,
+	INV_SELECTING2,
+	INV_SELECTING3,
+	INV_SELECTING4,
 	CONTINUE,
 	SETTINGS,
 	CREDITS,
@@ -160,6 +173,7 @@ public:
 	element_function function = NONE;
 	j1Module* callback = nullptr;
 	UI_element* parent = nullptr;
+	std::list<UI_element*> children;
 	bool hovering = false;
 	bool moving = false;
 	bool dragable = false;

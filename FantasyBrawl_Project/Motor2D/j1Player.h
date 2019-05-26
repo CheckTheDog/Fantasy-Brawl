@@ -9,6 +9,8 @@
 struct SDL_Texture;
 struct Collider;
 enum class PLAYER;
+enum class fade_step;
+enum class FADE_TEX;
 
 #define JOYSTICK_DEAD_ZONE 8000
 
@@ -128,6 +130,10 @@ public:
 	void AssignCharacter();
 	const fPoint GetNearestPlayerDirection();
 	void ComputeDistance2players();
+	bool AreOtherPlayersDead();
+
+	// --- Visuals ---
+	void BlitArrows();
 
 	// --- Collisions Handling ---
 
@@ -143,7 +149,7 @@ public:
 
 	void Down_Collision(Collider* entitycollider, const Collider* to_check);
 
-	void CheckParticleCollision(Collider * entitycollider, const Collider* to_check);
+	void CheckParticleCollision(Collider * hitbox, const Collider* to_check);
 
 
 	// --- Entity Attacks ---
@@ -157,6 +163,7 @@ public:
 	void Launch2ndSuper();
 	void Launch3rdSuper();
 	void Launch4thSuper();
+
 
 public:
 
@@ -199,8 +206,11 @@ public:
 	j1Timer basicTimer;
 	j1Timer attackanimTimer;
 	j1Timer RJinversion;
+	j1Timer Traktpulsation;
 	bool shieldON = false;
 	bool superON = false;
+	bool shield_available = false;
+	bool super_available = false;
 
 	// --- Score ---
 	uint kills = 0;
@@ -228,7 +238,32 @@ public:
 
 	// --- Shield ---
 	Animation * CurrentShieldAnimation = nullptr;
+	Animation shieldAnim;
+	Animation shieldendAnim;
 
+	// --- Others ---
+	bool teleported = false;
+
+	// --- Fade ---
+	fade_step current_step;
+	Uint32 start_time = 0;
+	Uint32 total_time = 0;
+	SDL_Color colA;
+	float alphaA = 0;
+
+	fade_step current_stepD;
+	Uint32 start_timeD = 0;
+	Uint32 total_timeD = 0;
+	SDL_Color colB;
+	float alphaB = 0;
+
+	fade_step current_stepHP;
+	Uint32 start_timeHP = 0;
+	Uint32 total_timeHP = 0;
+	SDL_Color colC;
+	float alphaC = 0;
+
+	bool damage_received = false;
 };
 
 #endif // __j1Player_H__

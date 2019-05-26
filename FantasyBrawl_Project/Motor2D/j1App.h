@@ -15,7 +15,6 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Map;
-class j1PathFinding;
 class j1Collision;
 class j1EntityManager;
 class j1ArenaInteractions;
@@ -26,6 +25,7 @@ class j1Gui;
 class j1Transition;
 class j1UIScene;
 class j1BuffManager;
+class j1FadeToBlack;
 
 
 class j1App
@@ -100,13 +100,13 @@ public:
 	j1Audio*			audio = NULL;
 	j1Scene*			scene = NULL;
 	j1Map*				map = NULL;
-	j1PathFinding*		pathfinding = NULL;
 	j1EntityManager*    entities = nullptr;
 	j1ArenaInteractions*  arena_interactions = nullptr;
 	j1BuffManager*		buff = NULL;
 	j1Collision*        coll = nullptr;
 	j1ParticleSystem*	particlesys = nullptr;
 	j1Viewport*			view = NULL;
+	j1FadeToBlack*      fade = NULL;
 
 	int              framerate_cap;
 

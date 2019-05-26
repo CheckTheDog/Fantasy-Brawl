@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1Viewport.h"
 #include "j1BuffManager.h"
+#include "j1EntityManager.h"
 
 #include "SDL/include//SDL_timer.h"
 
@@ -25,8 +26,6 @@ j1ParticleSystem::~j1ParticleSystem()
 
 bool j1ParticleSystem::Start()
 {
-
-
 	return true;
 }
 
@@ -38,6 +37,7 @@ bool j1ParticleSystem::CleanUp()
 	{
 		if (active[i] != nullptr)
 		{
+			active[i]->pCol->to_delete = true;
 			delete active[i];
 			active[i] = nullptr;
 		}
@@ -67,11 +67,15 @@ bool j1ParticleSystem::Update(float dt)
 		}
 		else //if (SDL_GetTicks() >= p->born)
 		{
-			App->view->PushQueue(3,p->tex, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt),0,0,p->angle*(180.0f / M_PI) - 180.0f,2147483647,2147483647,scale);
+			if(p->pCol->type == COLLIDER_TYPE::COLLIDER_PNI)
+			App->view->PushQueue(9,p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt),0,0);
+			else
+			App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2, scale);
 
 			//LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
 		}
+
 	}
 
 	return true;
@@ -99,6 +103,7 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 			p->direction.y *= p->speed.y;
 			p->tex = particle.tex;
 			p->ghost = particle.ghost;
+			p->anim = particle.anim;
 
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
@@ -117,7 +122,7 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 	
 }
 
-Particle * j1ParticleSystem::GetCollidedParticle(Collider* entitycollider, const Collider * particlecollider)
+Particle * j1ParticleSystem::GetCollidedParticle(Collider* hitbox, const Collider * particlecollider)
 {
 	Particle* to_return = nullptr;
 
@@ -135,7 +140,7 @@ Particle * j1ParticleSystem::GetCollidedParticle(Collider* entitycollider, const
 
 	if (to_return && to_return->originplayer != nullptr)
 	{
-		if (entitycollider != to_return->originplayer->Entityinfo.entitycoll)
+		if (hitbox != to_return->originplayer->Entityinfo.HitBox)
 		{
 			to_return->toDelete = true;
 		}
@@ -154,9 +159,29 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 		
 			if (!c1->ghost)
 			{
-				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER)
+				if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
+				{
 					active[i]->toDelete = true;
+				//Create Hit Particle here
+					Particle hit;
+					hit.anim = App->entities->particle_hitanim;
+					hit.anim.loop = false;
+					hit.anim.speed = 30.0f;
+					hit.tex= App->entities->particle_hittex;
+					hit.life = 100;
+					AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+				}
 
+				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER && active[i]->originplayer->Entityinfo.HitBox != c2)
+				{
+					Particle hit;
+					hit.anim = App->entities->particle_hitanim;
+					hit.anim.loop = false;
+					hit.anim.speed = 30.0f;
+					hit.tex = App->entities->particle_hittex;
+					hit.life = 100;
+					AddParticle(hit,c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI,0);
+				}
 
 				if (active[i]->toDelete) {
 					active[i]->pCol->to_delete = true;

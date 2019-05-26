@@ -7,12 +7,12 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
     <resolution width="1024" height="768" scale="1.0f"/>
-    <fullscreen value="false"/>
+    <fullscreen value="true"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
@@ -72,7 +72,8 @@
 
   <scene>
     <map_name path="Map1x_automap.tmx"/>
-    <initialposP1 x="620" y="620"/>
+    <map_name path="Champ_Select_Map.tmx"/>
+	<initialposP1 x="620" y="620"/>
     <initialposP2 x="2184" y="620"/>
     <initialposP3 x="620" y="2184"/>
     <initialposP4 x="2184" y="2184"/>
@@ -127,10 +128,10 @@
     <seconds_between_blinks value="1.5"/>
     
     <!-- Here we create the amount of storm phases, adding the attributes of waiting time and move time-->
-    <storm_phase w_time="40" tiles_to_advance="12" damage_per_tick="4"/>
+    <storm_phase w_time="40" tiles_to_advance="25" damage_per_tick="4"/>
     <storm_phase w_time="30" tiles_to_advance="8" damage_per_tick="8"/>
     <storm_phase w_time="20" tiles_to_advance="6" damage_per_tick="15"/>
-    <storm_phase w_time="15" tiles_to_advance="4" damage_per_tick="30"/>
+    <storm_phase w_time="10" tiles_to_advance="6" damage_per_tick="30"/>
     <storm_phase w_time="30" tiles_to_advance="6" damage_per_tick="50"/>
     
   </arena_interactions>

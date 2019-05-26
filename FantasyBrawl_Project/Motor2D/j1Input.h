@@ -2,6 +2,7 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
+#include "p2Defs.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
@@ -43,12 +44,23 @@ enum GP_BUTTON_STATE
 	BUTTON_UP
 };
 
+
 enum class BUTTON_BIND
 {
 	BASIC_ATTACK = 0,
 	SUPER_ATTACK,
 	SHIELD,
 	MAX_BUTTON_BIND
+};
+enum class GP_AXIS_STATE
+{
+	AXIS_IDLE = 0,
+	AXIS_POSITIVE_DOWN,
+	AXIS_POSITIVE_REPEAT,
+	AXIS_POSITIVE_RELEASE,
+	AXIS_NEGATIVE_DOWN,
+	AXIS_NEGATIVE_REPEAT,
+	AXIS_NEGATIVE_RELEASE
 };
 
 enum class PLAYER
@@ -69,6 +81,8 @@ struct Gamepad
 	// Data
 	GP_BUTTON_STATE* buttons = nullptr;
 	int* axis = nullptr;
+	GP_BUTTON_STATE* triggers_state = nullptr;
+	GP_AXIS_STATE*   multidirection_axis_state = nullptr;
 	int index = -1;
 
 	SDL_GameControllerButtonBind* binded_buttons = nullptr;
@@ -105,6 +119,8 @@ public:
 		return keyboard[id];
 	}
 
+	void ForceKeyboardKeyState(int id, j1KeyState state);
+
 	j1KeyState GetMouseButtonDown(int id) const
 	{
 		return mouse_buttons[id - 1];
@@ -128,16 +144,23 @@ public:
 			return 0;
 	}
 
+
 	// Check gamepad button bind. 
 	GP_BUTTON_STATE GetButton(PLAYER p, BUTTON_BIND id) const;
 
 	//Bind a button to an action
 	void BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind);
 
-	
+	// PASS A TRIGGER FROM THE ENUM!
+	GP_BUTTON_STATE GetTriggerState(PLAYER p, int id) const;
+
+	GP_AXIS_STATE GetLRAxisState(PLAYER p, int id) const;
 
 	//Introduce the controller (linked to the player), the intensity from 0.0 to 1.0 and the duration in miliseconds
 	void ShakeController(PLAYER p, float intensity, uint32 length);
+
+	//This function allows you to force a state into a button from a controller, use carefully and only under controlled situations
+	void ForceButtonState(PLAYER p, int id, GP_BUTTON_STATE state);
 
 	//Stop the vibration of a controller
 	void StopControllerShake(PLAYER p);

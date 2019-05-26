@@ -13,6 +13,8 @@ void Slider::appendChild(int x, int y, UI_element * child)
 		progress_num = (Text*)child;
 	else if (child->element_type == BUTTON)
 		button = (Button*)child;
+
+	children.push_back(child);
 }
 float Slider::getProgress() const
 {
