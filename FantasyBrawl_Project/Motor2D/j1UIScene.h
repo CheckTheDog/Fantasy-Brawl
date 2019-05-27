@@ -211,6 +211,7 @@ public:
 	SDL_Texture* A_Butt = nullptr;
 	SDL_Texture* panel = nullptr;
 	SDL_Texture* options_fg = nullptr;
+	SDL_Texture* options_button_binding = nullptr;
 	SDL_Texture* margin_tex = nullptr;
 	UI_element* margin = nullptr;
 	SDL_Texture* champselect_bg = nullptr;

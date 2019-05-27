@@ -76,6 +76,9 @@ bool j1Input::Awake(pugi::xml_node& config)
 		ret = false;
 	}
 
+	for (int i = 0; i< MAX_GAMEPADS; ++i)
+	LoadConfigBinding((PLAYER)i);
+
 	return ret;
 }
 
@@ -194,7 +197,6 @@ bool j1Input::PreUpdate()
 							else    //The gamepad was disconnected at some point and is now being reconnected
 							{
 								controllers[i].id_ptr = SDL_GameControllerOpen(controllers[i].index);
-								LoadConfigBinding((PLAYER)controllers[i].index);
 							}
 
 							
@@ -434,6 +436,11 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+int j1Input::GetBindRealButton(PLAYER p, BUTTON_BIND bind) const
+{
+		return int(controllers[(int)p].binded_buttons[(int)bind].value.button);
 }
 
 void j1Input::LoadConfigBinding(PLAYER p)

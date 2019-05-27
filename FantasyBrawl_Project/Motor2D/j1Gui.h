@@ -82,6 +82,9 @@ public:
 
 	Marker* createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture* texture, SDL_Rect rect, j1Module* callback);
 	bool ManageAutomaticTraverseTiming(int player_timer, float time_to_start = 1.5f, float time_margin = 0.1f);
+
+	//For keybinding UI purposes
+	SDL_Rect GetButtonRect(int button) { return { 0,button * 72, 72,72 }; }
 public:
 	bool UI_Debug = false;
 	float UI_scale;

@@ -12,7 +12,7 @@
 #define MAX_GAMEPADS 4
 #define AXISMAX 32767
 
-struct SDL_Rect;
+struct _SDL_Rect;
 struct _SDL_GameController;
 struct _SDL_Haptic;
 struct SDL_GameControllerButtonBind;
@@ -180,6 +180,12 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	// Get the actual binding of a BUTTON_BIND
+	int GetBindRealButton(PLAYER p, BUTTON_BIND bind) const;
+
+	//SDL_Rect GetButtonRect(SDL_GameControllerButton button) { return { 0,(int)button * 72, 72,72 }; }
+
 
 private: // Functions
 	void LoadConfigBinding(PLAYER p);

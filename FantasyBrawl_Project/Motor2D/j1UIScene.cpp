@@ -60,6 +60,7 @@ bool j1UIScene::Start()
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
 	 panel = App->tex->Load("gui/Bg.png");
 	 options_fg = App->tex->Load("gui/Options_nobg.png");
+	 options_button_binding = App->tex->Load("gui/BindingButtons.png");
 	 champselect_bg = App->tex->Load("gui/ChampSelect.png");
 	 A_Butt = App->tex->Load("gui/controller_buttons.png");
 
@@ -467,6 +468,26 @@ bool j1UIScene::Start()
 		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
 		
 
+		//Key binding
+
+		UI_element* p1_basic = App->gui->createImage(360, 350, options_button_binding, this);
+		p1_basic->element_type = CUSTOMIZING_BUTTON;
+		p1_basic->function = POLLING_CUSTOMIZE;
+		p1_basic->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1,BUTTON_BIND::BASIC_ATTACK));
+		UI_element* p1_special = App->gui->createImage(360, 350 + 72, options_button_binding, this);
+		p1_special->element_type = CUSTOMIZING_BUTTON;
+		p1_special->function = POLLING_CUSTOMIZE;
+		p1_special->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::BASIC_ATTACK));
+		UI_element* p1_ultimate = App->gui->createImage(360, 350 + 144, options_button_binding, this);
+		p1_ultimate->element_type = CUSTOMIZING_BUTTON;
+		p1_ultimate->function = POLLING_CUSTOMIZE;
+		p1_ultimate->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SUPER_ATTACK));
+		UI_element* p1_shield = App->gui->createImage(360, 350 + 216, options_button_binding, this);
+		p1_shield->element_type = CUSTOMIZING_BUTTON;
+		p1_shield->function = POLLING_CUSTOMIZE;
+		p1_shield->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SHIELD));
+
+
 		settingsMenu->elements.push_back(settings_bg);
 		settingsMenu->elements.push_back(settings_fg);
 		settingsMenu->elements.push_back(settings_text);
@@ -492,6 +513,13 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(text9);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
+
+		//Key Binding PushBacks
+		settingsMenu->elements.push_back(p1_basic);
+		settingsMenu->elements.push_back(p1_special);
+		settingsMenu->elements.push_back(p1_ultimate);
+		settingsMenu->elements.push_back(p1_shield);
+
 		menus.push_back(settingsMenu);
 
 		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
