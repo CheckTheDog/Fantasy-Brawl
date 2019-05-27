@@ -155,6 +155,7 @@ bool j1Gui::PreUpdate()
 				{
 					is_focused[i] = true;
 
+					
 					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN
 						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 					{
@@ -295,6 +296,11 @@ bool j1Gui::PreUpdate()
 					if (element[i]->callback != nullptr)
 						element[i]->callback->OnUIEvent(element[i], MOUSE_ENTER);
 				}
+				else if (element[i]->element_type == CUSTOMIZING_BUTTON && element[i]->function == CUSTOMIZE)
+				{
+					if (App->input->AnyButtonDown((PLAYER)i))
+						element[i]->callback->OnUIEvent(element[i], BUTTON_ANY);
+				}
 				else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
 					|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
 					|| (is_focused[2] == true && App->input->GetButton(PLAYER::P3, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
@@ -362,12 +368,6 @@ bool j1Gui::PreUpdate()
 						
 
 						
-					}
-				}
-				if (element[i]->element_type == CUSTOMIZING_BUTTON)
-				{
-					if (element[i]->function == element_function::CUSTOMIZE)
-					{
 					}
 				}
 			}

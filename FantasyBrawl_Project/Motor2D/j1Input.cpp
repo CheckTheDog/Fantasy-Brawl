@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Gui.h"
 #include "UI_element.h"
 #include "SDL/include/SDL.h"
 #include "SDL/include/SDL_gamecontroller.h"
@@ -216,6 +217,7 @@ bool j1Input::PreUpdate()
 	//Check Gamepads
 	for (int i = 0; i < MAX_GAMEPADS; i++)
 	{
+		controllers[i].any_button_down = false;
 			if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == SDL_TRUE) // If it is opened correctly
 			{
 				//Check all button states basically, ame process as keyboard but with gamepads
@@ -224,7 +226,11 @@ bool j1Input::PreUpdate()
 					if (SDL_GameControllerGetButton(controllers[i].id_ptr, (SDL_GameControllerButton)j) == 1)
 					{
 						if (controllers[i].buttons[j] == BUTTON_IDLE)
+						{
 							controllers[i].buttons[j] = BUTTON_DOWN;
+							controllers[i].last_button_pressed = controllers[i].buttons[j];
+							controllers[i].any_button_down = true;
+						}
 						else
 							controllers[i].buttons[j] = BUTTON_REPEAT;
 					}
@@ -484,15 +490,42 @@ void j1Input::LoadConfigBinding(PLAYER p)
 
 bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 {
-	if (element->function == POLLING_CUSTOMIZE) // When we get here because A is pressed, the function is "POLLING/WAITING", so now whenever we know when a button is pressed, we're customizing (we prepeare that here)
-	{
+	bool ret = true;
 
-		element->function == CUSTOMIZE;
-	}
-	else if (element->function == CUSTOMIZE && event_type == BUTTON_ANY) // If a button is pressed, since we're customizing, we change customize whatever we need to customize, then return to polling for new input
+	int i = 0;
+	
+	switch (event_type)
 	{
-		
-		element->function == POLLING_CUSTOMIZE;
-	}
-	return true;
+		case event_type::MOUSE_LEFT_CLICK:
+		{
+			if (element->function == element_function::POLLING_CUSTOMIZE)
+			{
+				element->function = CUSTOMIZE;
+			}
+			break;
+		}
+		case event_type::BUTTON_ANY:
+		{
+			if (element->function == CUSTOMIZE)
+			{
+				element->function = POLLING_CUSTOMIZE;
+			}
+			break;
+		}
+	};
+	
+	//if (event_type == MOUSE_LEFT_CLICK)
+	//{
+	//	if (element->function == POLLING_CUSTOMIZE) // When we get here because A is pressed, the function is "POLLING/WAITING", so now whenever we know when a button is pressed, we're customizing (we prepeare that here)
+	//	{
+
+	//		element->function == CUSTOMIZE;
+	//	}
+	//	else if (element->function == CUSTOMIZE && event_type == BUTTON_ANY) // If a button is pressed, since we're customizing, we change customize whatever we need to customize, then return to polling for new input
+	//	{
+
+	//		element->function == POLLING_CUSTOMIZE;
+	//	}
+	//}
+	return ret;
 }

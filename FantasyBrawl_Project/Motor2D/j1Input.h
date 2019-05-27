@@ -86,6 +86,9 @@ struct Gamepad
 	int index = -1;
 
 	SDL_GameControllerButtonBind* binded_buttons = nullptr;
+
+	bool any_button_down = false;
+	int last_button_pressed = -1;
 };
 
 class j1Input : public j1Module
@@ -167,6 +170,9 @@ public:
 
 	//Stop the vibration of a controller
 	void StopControllerShake(PLAYER p);
+
+	//Button pressed down
+	bool AnyButtonDown(PLAYER p) { return controllers[(int)p].any_button_down; }
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);

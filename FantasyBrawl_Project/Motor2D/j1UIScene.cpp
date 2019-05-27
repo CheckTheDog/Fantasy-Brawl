@@ -58,7 +58,8 @@ bool j1UIScene::Start()
 
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
 	 mid_buttons_font = App->fonts->Load("fonts/finalf.ttf", 50);
-	 panel = App->tex->Load("gui/Options.png");
+	 panel = App->tex->Load("gui/Bg.png");
+	 options_fg = App->tex->Load("gui/Options_nobg.png");
 	 champselect_bg = App->tex->Load("gui/ChampSelect.png");
 	 A_Butt = App->tex->Load("gui/controller_buttons.png");
 
@@ -405,7 +406,9 @@ bool j1UIScene::Start()
 		
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
-		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
+		UI_element* settings_bg = App->gui->createImage(0, 0, panel, this);
+		UI_element* settings_fg = App->gui->createImage(0, 0, options_fg, this);
+
 		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
@@ -422,7 +425,7 @@ bool j1UIScene::Start()
 
 		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_sliderMM);
+		settings_bg->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_sliderMM);
 
 		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
@@ -439,7 +442,7 @@ bool j1UIScene::Start()
 
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_sliderMM);
+		settings_bg->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_sliderMM);
 
 
 		UI_element* fx_text = App->gui->createText("FX", 400, 200, small_font, brown_color);
@@ -447,7 +450,7 @@ bool j1UIScene::Start()
 
 		//FULLSCREEN
 		/*Button* full_switch = App->gui->createSwitch(600, 415, NULL, { 404, 291, 47, 22 }, { 404, 291, 47, 22 }, { 404, 314, 47, 22 }, { 404, 314, 47, 22 }, this);
-		settings_image->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
+		settings_bg->appendChild(550 * App->gui->UI_scale, 325 * App->gui->UI_scale, full_switch);
 
 		UI_element* fullscreen_text = App->gui->createText("FULLSCREEN", 280, 400, mid_buttons_font, brown_color);
 		fullscreen_text->setOutlined(true);*/
@@ -464,7 +467,8 @@ bool j1UIScene::Start()
 		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
 		
 
-		settingsMenu->elements.push_back(settings_image);
+		settingsMenu->elements.push_back(settings_bg);
+		settingsMenu->elements.push_back(settings_fg);
 		settingsMenu->elements.push_back(settings_text);
 		settingsMenu->elements.push_back(back_button);
 		settingsMenu->elements.push_back(back_text);
