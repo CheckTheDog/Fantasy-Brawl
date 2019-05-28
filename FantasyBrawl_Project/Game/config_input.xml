@@ -6,6 +6,7 @@
   
   <default_binding>
    <basic_attack SDL_BUTTON="10" />
+   <special_attack SDL_BUTTON="9" />
    <super_attack SDL_BUTTON="9" />
    <shield SDL_BUTTON="2" />
   </default_binding>

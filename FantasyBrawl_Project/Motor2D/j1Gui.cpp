@@ -296,7 +296,7 @@ bool j1Gui::PreUpdate()
 					if (element[i]->callback != nullptr)
 						element[i]->callback->OnUIEvent(element[i], MOUSE_ENTER);
 				}
-				else if (element[i]->element_type == CUSTOMIZING_BUTTON && element[i]->function == CUSTOMIZE)
+				else if (IN_RANGE(element[i]->element_type, CUSTOMIZING_BUTTON_BASIC,CUSTOMIZING_BUTTON_SHIELD) && element[i]->function == CUSTOMIZE)
 				{
 					if (App->input->AnyButtonDown((PLAYER)i))
 						element[i]->callback->OnUIEvent(element[i], BUTTON_ANY);

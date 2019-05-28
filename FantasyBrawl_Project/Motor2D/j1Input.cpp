@@ -230,7 +230,7 @@ bool j1Input::PreUpdate()
 						if (controllers[i].buttons[j] == BUTTON_IDLE)
 						{
 							controllers[i].buttons[j] = BUTTON_DOWN;
-							controllers[i].last_button_pressed = controllers[i].buttons[j];
+							controllers[i].last_button_pressed = j;
 							controllers[i].any_button_down = true;
 						}
 						else
@@ -488,6 +488,9 @@ void j1Input::LoadConfigBinding(PLAYER p)
 		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int());
 		bind++;
 
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("special_attack").attribute("SDL_BUTTON").as_int());
+		bind++;
+
 		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int());
 		bind++;
 
@@ -498,8 +501,6 @@ void j1Input::LoadConfigBinding(PLAYER p)
 bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 {
 	bool ret = true;
-
-	int i = 0;
 	
 	switch (event_type)
 	{
@@ -515,6 +516,12 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 		{
 			if (element->function == CUSTOMIZE)
 			{
+				//Bind the button
+				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
+				
+				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[0].last_button_pressed);
+				element->section = App->gui->GetButtonRect(controllers[0].last_button_pressed);
+
 				element->function = POLLING_CUSTOMIZE;
 			}
 			break;
