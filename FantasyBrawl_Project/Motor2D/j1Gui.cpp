@@ -299,7 +299,7 @@ bool j1Gui::PreUpdate()
 				else if (IN_RANGE(element[i]->element_type, CUSTOMIZING_BUTTON_BASIC,CUSTOMIZING_BUTTON_SHIELD) && element[i]->function == CUSTOMIZE)
 				{
 					if (App->input->AnyButtonDown((PLAYER)i))
-						element[i]->callback->OnUIEvent(element[i], BUTTON_ANY);
+						element[i]->callback->OnUIEvent(element[i], BUTTON_ANY,i);
 				}
 				else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
 					|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)

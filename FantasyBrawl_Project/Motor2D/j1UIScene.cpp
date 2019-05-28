@@ -466,28 +466,40 @@ bool j1UIScene::Start()
 
 		//MARKER
 		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
+		UI_element* feather_2 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[1], App->gui->atlas, { 875,174,84,47 }, nullptr);
+		UI_element* feather_3 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[2], App->gui->atlas, { 875,174,84,47 }, nullptr);
+		UI_element* feather_4 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[3], App->gui->atlas, { 875,174,84,47 }, nullptr);
 		
 
 		//Key binding
+		UI_element* basic[MAX_GAMEPADS] = { nullptr };
+		UI_element* special[MAX_GAMEPADS] = { nullptr };
+		UI_element* ultimate[MAX_GAMEPADS] = { nullptr };
+		UI_element* shield[MAX_GAMEPADS] = { nullptr };
 
-		UI_element* p1_basic = App->gui->createImage(360, 350, options_button_binding, App->input);
-		p1_basic->element_type = CUSTOMIZING_BUTTON_BASIC;
-		p1_basic->function = POLLING_CUSTOMIZE;
-		p1_basic->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1,BUTTON_BIND::BASIC_ATTACK));
-		UI_element* p1_special = App->gui->createImage(360, 350 + 72, options_button_binding, App->input);
-		p1_special->element_type = CUSTOMIZING_BUTTON_SPECIAL;
-		p1_special->function = POLLING_CUSTOMIZE;
-		p1_special->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::BASIC_ATTACK));
-		UI_element* p1_ultimate = App->gui->createImage(360, 350 + 144, options_button_binding, App->input);
-		p1_ultimate->element_type = CUSTOMIZING_BUTTON_SUPER;
-		p1_ultimate->function = POLLING_CUSTOMIZE;
-		p1_ultimate->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SUPER_ATTACK));
-		UI_element* p1_shield = App->gui->createImage(360, 350 + 216, options_button_binding, App->input);
-		p1_shield->element_type = CUSTOMIZING_BUTTON_SHIELD;
-		p1_shield->function = POLLING_CUSTOMIZE;
-		p1_shield->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SHIELD));
-
-
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			int pos_x = 360 + 164 * i;
+			basic[i] = App->gui->createImage(pos_x, 350, options_button_binding, App->input);
+			basic[i]->element_type = CUSTOMIZING_BUTTON_BASIC;
+			basic[i]->function = POLLING_CUSTOMIZE;
+			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::BASIC_ATTACK));
+			
+			special[i] = App->gui->createImage(pos_x, 350 + 72, options_button_binding, App->input);
+			special[i]->element_type = CUSTOMIZING_BUTTON_SPECIAL;
+			special[i]->function = POLLING_CUSTOMIZE;
+			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SPECIAL_ATTACK));
+			
+			ultimate[i] = App->gui->createImage(pos_x, 350 + 144, options_button_binding, App->input);
+			ultimate[i]->element_type = CUSTOMIZING_BUTTON_SUPER;
+			ultimate[i]->function = POLLING_CUSTOMIZE;
+			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SUPER_ATTACK));
+			
+			shield[i] = App->gui->createImage(pos_x, 350 + 216, options_button_binding, App->input);
+			shield[i]->element_type = CUSTOMIZING_BUTTON_SHIELD;
+			shield[i]->function = POLLING_CUSTOMIZE;
+			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SHIELD));
+		}
 		settingsMenu->elements.push_back(settings_bg);
 		settingsMenu->elements.push_back(settings_fg);
 		settingsMenu->elements.push_back(settings_text);
@@ -501,7 +513,6 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(fx_text);
 		settingsMenu->elements.push_back(apply_button);
 		settingsMenu->elements.push_back(apply_text);
-		settingsMenu->elements.push_back(feather);
 		settingsMenu->elements.push_back(text1);
 		settingsMenu->elements.push_back(text2);
 		settingsMenu->elements.push_back(text3);
@@ -511,14 +522,21 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(text7);
 		settingsMenu->elements.push_back(text8);
 		settingsMenu->elements.push_back(text9);
+		settingsMenu->elements.push_back(feather);
+		settingsMenu->elements.push_back(feather_2);
+		settingsMenu->elements.push_back(feather_3);
+		settingsMenu->elements.push_back(feather_4);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 
 		//Key Binding PushBacks
-		settingsMenu->elements.push_back(p1_basic);
-		settingsMenu->elements.push_back(p1_special);
-		settingsMenu->elements.push_back(p1_ultimate);
-		settingsMenu->elements.push_back(p1_shield);
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			settingsMenu->elements.push_back(basic[i]);
+			settingsMenu->elements.push_back(special[i]);
+			settingsMenu->elements.push_back(ultimate[i]);
+			settingsMenu->elements.push_back(shield[i]);
+		}
 
 		menus.push_back(settingsMenu);
 
@@ -527,10 +545,13 @@ bool j1UIScene::Start()
 		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 
-		AddControllerSupport(p1_basic, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(p1_special, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(p1_ultimate, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(p1_shield, PLAYER::P1, SETTINGS_MENU);
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			AddControllerSupport(basic[i], (PLAYER)i, SETTINGS_MENU);
+			AddControllerSupport(special[i], (PLAYER)i, SETTINGS_MENU);
+			AddControllerSupport(ultimate[i], (PLAYER)i, SETTINGS_MENU);
+			AddControllerSupport(shield[i], (PLAYER)i, SETTINGS_MENU);
+		}
 	}
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);

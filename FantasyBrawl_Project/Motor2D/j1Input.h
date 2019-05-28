@@ -119,6 +119,7 @@ public:
 
 	//UI_EVENTS
 	bool OnUIEvent(UI_element* element, event_type event_type);
+	bool OnUIEvent(UI_element* element, event_type event_type, int p);
 
 	// Check key states (includes mouse and joy buttons)
 	j1KeyState GetKey(int id) const
@@ -190,6 +191,7 @@ public:
 
 private: // Functions
 	void LoadConfigBinding(PLAYER p);
+	void AddBindingToConfig(PLAYER p);
 
 private: // Variables
 	bool		windowEvents[WE_COUNT];

@@ -398,6 +398,8 @@ GP_BUTTON_STATE j1Input::GetButton(PLAYER p, BUTTON_BIND id) const
 {
 	if (controllers[(int)p].id_ptr != nullptr && controllers[(int)p].binded_buttons[(int)id].bindType == SDL_CONTROLLER_BINDTYPE_BUTTON)
 		return controllers[(int)p].buttons[controllers[(int)p].binded_buttons[(int)id].value.button];
+	else if (controllers[(int)p].id_ptr != nullptr && controllers[(int)p].binded_buttons[(int)id].bindType == SDL_CONTROLLER_BINDTYPE_HAT)
+		return controllers[(int)p].buttons[controllers[(int)p].binded_buttons[(int)id].value.button];
 	else
 		return BUTTON_IDLE;
 }
@@ -498,13 +500,54 @@ void j1Input::LoadConfigBinding(PLAYER p)
 	}
 }
 
+void j1Input::AddBindingToConfig(PLAYER p)
+{
+	//Load the config
+	pugi::xml_document	config_file;
+	pugi::xml_node config;
+
+	pugi::xml_parse_result result = config_file.load_file("config_input.xml");
+
+	if (result == NULL)
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
+	else
+		config = config_file.child("config_input");
+
+	pugi::xml_node customs = config.child("customized_controllers");
+	customs.append_child("MAMMA MIA!");
+
+	switch (p)
+	{
+	case PLAYER::P1:
+		customs.append_attribute("P1") = 1;
+		break;
+	case PLAYER::P2:
+		customs.append_attribute("P2");
+		customs.append_attribute("P2").set_value("1");
+		break;
+	case PLAYER::P3:
+		customs.remove_attribute("P3");
+		customs.append_attribute("P3").set_value("1");
+		break;
+	case PLAYER::P4:
+		customs.remove_attribute("P4");
+		customs.append_attribute("P4").set_value("1");
+		break;
+	default:
+		break;
+	}
+
+	
+
+}
+
 bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 {
 	bool ret = true;
-	
+
 	switch (event_type)
 	{
-		case event_type::MOUSE_LEFT_CLICK:
+	case event_type::MOUSE_LEFT_CLICK:
 		{
 			if (element->function == element_function::POLLING_CUSTOMIZE)
 			{
@@ -512,6 +555,16 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 			}
 			break;
 		}
+	};
+	return ret;
+}
+
+bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
+{
+	bool ret = true;
+	
+	switch (event_type)
+	{
 		case event_type::BUTTON_ANY:
 		{
 			if (element->function == CUSTOMIZE)
@@ -519,27 +572,14 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 				//Bind the button
 				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
 				
-				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[0].last_button_pressed);
-				element->section = App->gui->GetButtonRect(controllers[0].last_button_pressed);
+				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed);
+				element->section = App->gui->GetButtonRect(controllers[p].last_button_pressed);
 
+				AddBindingToConfig((PLAYER)p);
 				element->function = POLLING_CUSTOMIZE;
 			}
 			break;
 		}
 	};
-	
-	//if (event_type == MOUSE_LEFT_CLICK)
-	//{
-	//	if (element->function == POLLING_CUSTOMIZE) // When we get here because A is pressed, the function is "POLLING/WAITING", so now whenever we know when a button is pressed, we're customizing (we prepeare that here)
-	//	{
-
-	//		element->function == CUSTOMIZE;
-	//	}
-	//	else if (element->function == CUSTOMIZE && event_type == BUTTON_ANY) // If a button is pressed, since we're customizing, we change customize whatever we need to customize, then return to polling for new input
-	//	{
-
-	//		element->function == POLLING_CUSTOMIZE;
-	//	}
-	//}
 	return ret;
 }
