@@ -8,7 +8,7 @@ http://www.tooplate.com/view/2081-solution
 
 body
 	{
-		background: #f0c5a8;
+		background: #AF786B;
         font-family: monospace;
 		font-weight: 400;
         position: relative;
@@ -40,7 +40,7 @@ p
 /* start nagivation */
 .navbar-default
     {
-        background: #f0c5a8;
+        background: #AF786B;
         border: none;
         box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
         margin: 0 !important;
