@@ -88,7 +88,7 @@ p
 	}
 .flexslider {
   margin: 0 0 60px;
-  background: #f0c5a8;
+  background: #AF786B;
   padding: 0;
   position: relative;
   zoom: 1;
@@ -141,7 +141,7 @@ p
 }
 .flexslider .btn
 {
-    background: #f0c5a8;
+    background: #AF786B;
     border-radius: 0;
     border: 2px solid transparent;
     color: #f0c5a8;
@@ -156,7 +156,7 @@ p
 .flexslider .btn:hover,
 .flexslider .btn:focus {
     background: #fff;
-    color: #f0c5a8;
+    color: #AF786B;
     border: 2px solid transparent;
 }
 
