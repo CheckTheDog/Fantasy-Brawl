@@ -6,10 +6,31 @@
 
 struct SDL_Rect;
 
+enum class Marker_anim
+{
+	LEFT_TO_RIGHT = -1,
+	NONE = 0,
+	RIGHT_TO_LEFT = 1
+};
+
 struct marker_custom_button_rects
 {
 	SDL_Rect custom_unlocked;
 	SDL_Rect custom_locked;
+};
+
+struct Marker_anim_data
+{
+	int speed;
+	int max_movement_distance;
+	Marker_anim anim;
+
+	Marker_anim_data()
+	{
+		speed = 60;
+		max_movement_distance = 30;
+		anim = Marker_anim::LEFT_TO_RIGHT;
+	}
 };
 
 class Marker : public UI_element
@@ -46,6 +67,7 @@ protected:
 	bool is_support_marker = false;
 	SDL_Rect original_section;
 
+	Marker_anim_data anim_data;
 	marker_custom_button_rects rects;
 };
 

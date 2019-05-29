@@ -302,6 +302,8 @@ bool j1Gui::PreUpdate()
 				{
 					if (App->input->AnyButtonDown((PLAYER)i))
 						element[i]->callback->OnUIEvent(element[i], BUTTON_ANY,i);
+					else if (App->input->AnyTriggerDown((PLAYER)i))
+						element[i]->callback->OnUIEvent(element[i], TRIGGER_ANY, i);
 				}
 				else if ((is_focused[0] == true && App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)
 					|| (is_focused[1] == true && App->input->GetButton(PLAYER::P2, SDL_CONTROLLER_BUTTON_A) == BUTTON_DOWN)

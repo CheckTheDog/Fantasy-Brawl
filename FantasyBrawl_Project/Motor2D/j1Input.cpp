@@ -220,6 +220,7 @@ bool j1Input::PreUpdate()
 	for (int i = 0; i < MAX_GAMEPADS; i++)
 	{
 		controllers[i].any_button_down = false;
+		controllers[i].any_axis_down = false;
 			if (SDL_GameControllerGetAttached(controllers[i].id_ptr) == SDL_TRUE) // If it is opened correctly
 			{
 				//Check all button states basically, ame process as keyboard but with gamepads
@@ -257,7 +258,11 @@ bool j1Input::PreUpdate()
 					if (SDL_GameControllerGetAxis(controllers[i].id_ptr, SDL_GameControllerAxis(j + (int)SDL_CONTROLLER_AXIS_TRIGGERLEFT)) > 0.8f * AXISMAX)
 					{
 						if (controllers[i].triggers_state[j] == BUTTON_IDLE)
+						{
 							controllers[i].triggers_state[j] = BUTTON_DOWN;
+							controllers[i].last_axis_pressed = j + (int)SDL_CONTROLLER_AXIS_TRIGGERLEFT;
+							controllers[i].any_axis_down = true;
+						}
 						else
 							controllers[i].triggers_state[j] = BUTTON_REPEAT;
 					}
@@ -377,7 +382,7 @@ GP_BUTTON_STATE j1Input::GetTriggerState(PLAYER p, int id) const
 	if (id == SDL_CONTROLLER_AXIS_TRIGGERLEFT || SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
 	{
 		if (controllers[(int)p].id_ptr != nullptr)
-			return controllers[(int)p].triggers_state[id - (int)SDL_CONTROLLER_AXIS_TRIGGERLEFT];
+			return controllers[(int)p].triggers_state[(id - (int)SDL_CONTROLLER_AXIS_TRIGGERLEFT)];
 	}
 	else
 		return BUTTON_IDLE;
@@ -400,14 +405,40 @@ GP_BUTTON_STATE j1Input::GetButton(PLAYER p, BUTTON_BIND id) const
 		return controllers[(int)p].buttons[controllers[(int)p].binded_buttons[(int)id].value.button];
 	else if (controllers[(int)p].id_ptr != nullptr && controllers[(int)p].binded_buttons[(int)id].bindType == SDL_CONTROLLER_BINDTYPE_HAT)
 		return controllers[(int)p].buttons[controllers[(int)p].binded_buttons[(int)id].value.button];
+	else if (controllers[(int)p].id_ptr != nullptr && controllers[(int)p].binded_buttons[(int)id].bindType == SDL_CONTROLLER_BINDTYPE_AXIS)
+	{
+		if (controllers[(int)p].binded_buttons[(int)id].value.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT ||
+			controllers[(int)p].binded_buttons[(int)id].value.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+		{
+			return GetTriggerState(p, controllers[(int)p].binded_buttons[(int)id].value.axis);
+		}
+	}
 	else
 		return BUTTON_IDLE;
 }
 
-void j1Input::BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind)
+void j1Input::BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind, int bind_type)
 {
-	controllers[(int)p].binded_buttons[(int)bind] = SDL_GameControllerGetBindForButton(controllers[(int)p].id_ptr, (SDL_GameControllerButton)button_to_bind);
-	controllers[(int)p].binded_buttons[(int)bind].value.button = (SDL_GameControllerButton)button_to_bind;
+	if ((SDL_GameControllerBindType)bind_type == SDL_CONTROLLER_BINDTYPE_AXIS)
+	{
+		if ((SDL_GameControllerAxis)button_to_bind == SDL_CONTROLLER_AXIS_TRIGGERLEFT)
+		{
+			SDL_GameControllerGetBindForAxis(controllers[(int)p].id_ptr, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
+			controllers[(int)p].binded_buttons[(int)bind].value.axis = SDL_CONTROLLER_AXIS_TRIGGERLEFT;
+			controllers[(int)p].binded_buttons[(int)bind].bindType = SDL_CONTROLLER_BINDTYPE_AXIS;
+		}
+		else if ((SDL_GameControllerAxis)button_to_bind == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+		{
+			SDL_GameControllerGetBindForAxis(controllers[(int)p].id_ptr, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+			controllers[(int)p].binded_buttons[(int)bind].value.axis = SDL_CONTROLLER_AXIS_TRIGGERRIGHT;
+			controllers[(int)p].binded_buttons[(int)bind].bindType = SDL_CONTROLLER_BINDTYPE_AXIS;
+		}
+	}
+	else
+	{
+		controllers[(int)p].binded_buttons[(int)bind] = SDL_GameControllerGetBindForButton(controllers[(int)p].id_ptr, (SDL_GameControllerButton)button_to_bind);
+		controllers[(int)p].binded_buttons[(int)bind].value.button = (SDL_GameControllerButton)button_to_bind;
+	}
 }
 
 void j1Input::ShakeController(PLAYER p, float intensity, uint32 length)
@@ -487,16 +518,16 @@ void j1Input::LoadConfigBinding(PLAYER p)
 	{
 		/*config = config.child("default_binding");*/
 		int bind = 0; // We start with the first button from BUTTON_BIND enum
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int());
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
 		bind++;
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("special_attack").attribute("SDL_BUTTON").as_int());
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("special_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
 		bind++;
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int());
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
 		bind++;
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int());
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
 	}
 }
 
@@ -584,8 +615,25 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
 				//Bind the button
 				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
 				
-				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed);
+				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed, SDL_CONTROLLER_BINDTYPE_BUTTON);
 				element->section = App->gui->GetButtonRect(controllers[p].last_button_pressed);
+
+				AddBindingToConfig((PLAYER)p);
+				element->function = POLLING_CUSTOMIZE;
+				element->is_locked = false;
+			}
+			break;
+		}
+
+		case event_type::TRIGGER_ANY:
+		{
+			if (element->function == CUSTOMIZE)
+			{
+				//Bind the button
+				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
+
+				BindButton(PLAYER::P1, (BUTTON_BIND)button_bind, controllers[p].last_axis_pressed, SDL_CONTROLLER_BINDTYPE_AXIS);
+				element->section = App->gui->GetButtonRect(controllers[p].last_axis_pressed + SDL_CONTROLLER_BUTTON_DPAD_RIGHT + 1);
 
 				AddBindingToConfig((PLAYER)p);
 				element->function = POLLING_CUSTOMIZE;

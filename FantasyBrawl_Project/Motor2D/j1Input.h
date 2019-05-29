@@ -17,7 +17,6 @@ struct _SDL_GameController;
 struct _SDL_Haptic;
 struct SDL_GameControllerButtonBind;
 
-
 enum j1EventWindow
 {
 	WE_QUIT = 0,
@@ -89,7 +88,9 @@ struct Gamepad
 	SDL_GameControllerButtonBind* binded_buttons = nullptr;
 
 	bool any_button_down = false;
+	bool any_axis_down = false;
 	int last_button_pressed = -1;
+	int last_axis_pressed = -1;
 };
 
 class j1Input : public j1Module
@@ -157,7 +158,7 @@ public:
 	GP_BUTTON_STATE GetButton(PLAYER p, BUTTON_BIND id) const;
 
 	//Bind a button to an action
-	void BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind);
+	void BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind, int bind_type);
 
 	// PASS A TRIGGER FROM THE ENUM!
 	GP_BUTTON_STATE GetTriggerState(PLAYER p, int id) const;
@@ -175,6 +176,9 @@ public:
 
 	//Button pressed down
 	bool AnyButtonDown(PLAYER p) { return controllers[(int)p].any_button_down; }
+
+	//Trigger pressed down
+	bool AnyTriggerDown(PLAYER p) { return controllers[(int)p].any_axis_down; }
 
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
