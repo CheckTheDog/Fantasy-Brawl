@@ -560,13 +560,11 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		if (element->element_type == MARKER)
 		{
-			element->section = {852,814,26,22};
 		}
 			break;
 		}
 	case event_type::MARKER_OVER_LOCKED_ELEMENT:
 		{
-		element->section = { 852,772,26,22 };
 			break;
 		}
 	};

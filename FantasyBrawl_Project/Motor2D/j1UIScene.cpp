@@ -119,7 +119,10 @@ bool j1UIScene::Start()
 		credits->function = WEBPAGE;
 
 		//MARKER
-		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 },&startMenu->gamepads_focus[0],App->gui->atlas, {875,174,84,47},nullptr);
+		marker_custom_button_rects r;
+		r.custom_unlocked = {852,814,26,22};
+		r.custom_locked = {852,772,26,22};
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 },&startMenu->gamepads_focus[0],App->gui->atlas, {875,174,84,47},nullptr, r);
 
 
 
@@ -465,10 +468,24 @@ bool j1UIScene::Start()
 		
 
 		//MARKER
-		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, App->input);
-		UI_element* feather_2 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[1], App->gui->atlas, { 875,174,84,47 }, App->input);
-		UI_element* feather_3 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[2], App->gui->atlas, { 875,174,84,47 }, App->input);
-		UI_element* feather_4 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[3], App->gui->atlas, { 875,174,84,47 }, App->input);
+		marker_custom_button_rects r;
+		r.custom_unlocked = { 852,814,26,22 };
+		r.custom_locked = { 852,772,26,22 };
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, App->input, r);
+		UI_element* feather_2 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[1], App->gui->atlas, { 875,174,84,47 }, App->input, r);
+		UI_element* feather_3 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[2], App->gui->atlas, { 875,174,84,47 }, App->input, r);
+		UI_element* feather_4 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[3], App->gui->atlas, { 875,174,84,47 }, App->input, r);
+
+		marker_custom_button_rects r2;
+		r2.custom_unlocked = { 882,814,26,22 };
+		r2.custom_locked = { 882,772,26,22 };
+		
+		UI_element* support_feather[MAX_GAMEPADS];
+
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			support_feather[i] = App->gui->createMarker(0, 0, { -100,0 }, &settingsMenu->gamepads_focus[i], App->gui->atlas, { 875,174,84,47 }, App->input, r2,true);
+		}
 		
 
 		//Key binding
@@ -526,6 +543,9 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(feather_2);
 		settingsMenu->elements.push_back(feather_3);
 		settingsMenu->elements.push_back(feather_4);
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+			settingsMenu->elements.push_back(support_feather[i]);
+
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
 
@@ -628,7 +648,10 @@ bool j1UIScene::Start()
 		apply_button->appendChildAtCenter(apply_text);
 
 		//MARKER
-		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
+		marker_custom_button_rects r;
+		r.custom_unlocked = { 852,814,26,22 };
+		r.custom_locked = { 852,772,26,22 };
+		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r);
 
 
 

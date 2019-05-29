@@ -31,12 +31,22 @@ void Marker::BlitElement()
 		if (IN_RANGE((*(*target))->element_type, element_type::CUSTOMIZING_BUTTON_BASIC, element_type::CUSTOMIZING_BUTTON_SHIELD) && this->callback != nullptr)
 		{
 			this->callback->OnUIEvent(this, MARKER_OVER_CUSTOMIZER);
+
+			if ((*(*target))->is_locked == true)
+			{
+				section = rects.custom_locked;
+			}
+			else
+			{
+				section = rects.custom_unlocked;
+			}
 		}
 		else
 			section = original_section;
 
-		if ((*(*target))->is_locked == true && this->callback != nullptr)
+		if ((*(*target))->is_locked == true)
 		{
+			if (this->callback != nullptr)
 			this->callback->OnUIEvent(this, MARKER_OVER_LOCKED_ELEMENT);
 		}
 	}
@@ -46,8 +56,10 @@ void Marker::BlitElement()
 		if(IN_RANGE((*(*target))->element_type, element_type::CUSTOMIZING_BUTTON_BASIC, element_type::CUSTOMIZING_BUTTON_SHIELD))
 			App->render->Blit(texture, globalPos.x, globalPos.y, &section);
 	}
-	else
-	App->render->Blit(texture, globalPos.x, globalPos.y, &section);
+	else if (is_support_marker == false)
+	{
+		App->render->Blit(texture, globalPos.x, globalPos.y, &section);
+	}
 }
 
 void Marker::SetTarget(std::list<UI_element*>::iterator* tar)

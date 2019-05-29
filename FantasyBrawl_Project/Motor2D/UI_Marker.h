@@ -6,6 +6,12 @@
 
 struct SDL_Rect;
 
+struct marker_custom_button_rects
+{
+	SDL_Rect custom_unlocked;
+	SDL_Rect custom_locked;
+};
+
 class Marker : public UI_element
 {
 public:
@@ -13,8 +19,8 @@ public:
 	Marker()
 	{}
 
-	Marker(SDL_Texture* texture, int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Rect section, j1Module* callback, bool is_support_marker) :
-		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target),callback(callback), original_section(section)
+	Marker(SDL_Texture* texture, int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Rect section, j1Module* callback, bool is_support_marker, marker_custom_button_rects rects) :
+		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target),callback(callback), original_section(section), rects(rects), is_support_marker(is_support_marker)
 	{
 		is_valid_iterator = true;
 		movement_timer.Start();
@@ -40,6 +46,7 @@ protected:
 	bool is_support_marker = false;
 	SDL_Rect original_section;
 
+	marker_custom_button_rects rects;
 };
 
 
