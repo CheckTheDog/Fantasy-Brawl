@@ -14,7 +14,7 @@ public:
 	{}
 
 	Marker(SDL_Texture* texture, int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Rect section, j1Module* callback) :
-		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target)
+		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target),callback(callback)
 	{
 		is_valid_iterator = true;
 		movement_timer.Start();
@@ -29,6 +29,7 @@ public:
 	std::list<UI_element*>::iterator* target;
 	iPoint margin = {0,0};
 
+	j1Module* callback;
 	j1Timer movement_timer;
 	int speed = 60;
 	int distance_moved = 0;

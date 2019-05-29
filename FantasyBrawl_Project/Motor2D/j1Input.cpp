@@ -552,7 +552,21 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type)
 			if (element->function == element_function::POLLING_CUSTOMIZE)
 			{
 				element->function = CUSTOMIZE;
+				element->is_locked = true;
 			}
+			break;
+		}
+	case event_type::MARKER_OVER_CUSTOMIZER:
+		{
+		if (element->element_type == MARKER)
+		{
+			element->section = {852,814,26,22};
+		}
+			break;
+		}
+	case event_type::MARKER_OVER_LOCKED_ELEMENT:
+		{
+		element->section = { 852,772,26,22 };
 			break;
 		}
 	};
@@ -577,6 +591,7 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
 
 				AddBindingToConfig((PLAYER)p);
 				element->function = POLLING_CUSTOMIZE;
+				element->is_locked = false;
 			}
 			break;
 		}

@@ -155,51 +155,53 @@ bool j1Gui::PreUpdate()
 				{
 					is_focused[i] = true;
 
-					
-					if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN
-						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
+					if ((*App->ui_scene->current_menu->gamepads_focus[i])->is_locked == false)
 					{
-						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						time_since_press[i].Start();
-						automatic_traverse_margin[i].Start();
-						if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
-							App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
-						else
-							App->ui_scene->current_menu->gamepads_focus[i]++;
-					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_DOWN
-						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
-					{
-						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						time_since_press[i].Start();
-						automatic_traverse_margin[i].Start();
-						if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
-							App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
-						else
-							App->ui_scene->current_menu->gamepads_focus[i]--;
-					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT
-						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
-					{
-						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						if (ManageAutomaticTraverseTiming(i) == true)
+						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)
 						{
+							gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
+							time_since_press[i].Start();
+							automatic_traverse_margin[i].Start();
 							if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
 								App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
 							else
 								App->ui_scene->current_menu->gamepads_focus[i]++;
 						}
-					}
-					else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT
-						|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
-					{
-						gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
-						if (ManageAutomaticTraverseTiming(i) == true)
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_DOWN
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_DOWN)
 						{
+							gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
+							time_since_press[i].Start();
+							automatic_traverse_margin[i].Start();
 							if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
 								App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
 							else
 								App->ui_scene->current_menu->gamepads_focus[i]--;
+						}
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
+						{
+							gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
+							if (ManageAutomaticTraverseTiming(i) == true)
+							{
+								if (App->ui_scene->current_menu->gamepads_focus[i] == --App->ui_scene->current_menu->gamepad_tabs[i].end())
+									App->ui_scene->current_menu->gamepads_focus[i] = App->ui_scene->current_menu->gamepad_tabs[i].begin();
+								else
+									App->ui_scene->current_menu->gamepads_focus[i]++;
+							}
+						}
+						else if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_UP) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
+						{
+							gamepad_last_focus[i] = *App->ui_scene->current_menu->gamepads_focus[i];
+							if (ManageAutomaticTraverseTiming(i) == true)
+							{
+								if (App->ui_scene->current_menu->gamepads_focus[i] == App->ui_scene->current_menu->gamepad_tabs[i].begin())
+									App->ui_scene->current_menu->gamepads_focus[i] = --App->ui_scene->current_menu->gamepad_tabs[i].end();
+								else
+									App->ui_scene->current_menu->gamepads_focus[i]--;
+							}
 						}
 					}
 					if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
@@ -582,7 +584,7 @@ Marker* j1Gui::createMarker(int x, int y, iPoint margin, std::list<UI_element*>:
 {
 	Marker* ret = nullptr;
 
-	ret = new Marker(texture,x,y,margin,target,rect,nullptr);
+	ret = new Marker(texture,x,y,margin,target,rect,callback);
 	UI_elements.push_back(ret);
 
 	return ret;

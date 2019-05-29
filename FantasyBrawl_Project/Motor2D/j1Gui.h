@@ -29,7 +29,9 @@ enum event_type
 	TIMER_ZERO,
 	STOPWATCH_ALARM,
 	BUTTON_ENTER,
-	BUTTON_ANY
+	BUTTON_ANY,
+	MARKER_OVER_CUSTOMIZER,
+	MARKER_OVER_LOCKED_ELEMENT
 };
 
 // ---------------------------------------------------

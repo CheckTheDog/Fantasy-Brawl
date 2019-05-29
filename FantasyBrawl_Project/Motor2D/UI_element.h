@@ -184,6 +184,7 @@ public:
 	bool moving = false;
 	bool dragable = false;
 	bool solid = true;
+	bool is_locked = false;
 
 protected:
 	iPoint Click_Pos{ 0,0 };

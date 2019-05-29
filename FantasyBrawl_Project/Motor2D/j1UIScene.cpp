@@ -465,10 +465,10 @@ bool j1UIScene::Start()
 		
 
 		//MARKER
-		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr);
-		UI_element* feather_2 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[1], App->gui->atlas, { 875,174,84,47 }, nullptr);
-		UI_element* feather_3 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[2], App->gui->atlas, { 875,174,84,47 }, nullptr);
-		UI_element* feather_4 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[3], App->gui->atlas, { 875,174,84,47 }, nullptr);
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, App->input);
+		UI_element* feather_2 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[1], App->gui->atlas, { 875,174,84,47 }, App->input);
+		UI_element* feather_3 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[2], App->gui->atlas, { 875,174,84,47 }, App->input);
+		UI_element* feather_4 = App->gui->createMarker(0, 0, { 20,0 }, &settingsMenu->gamepads_focus[3], App->gui->atlas, { 875,174,84,47 }, App->input);
 		
 
 		//Key binding
