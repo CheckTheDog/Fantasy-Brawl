@@ -30,14 +30,23 @@ void Marker::BlitElement()
 		
 		if (IN_RANGE((*(*target))->element_type, element_type::CUSTOMIZING_BUTTON_BASIC, element_type::CUSTOMIZING_BUTTON_SHIELD) && this->callback != nullptr)
 		{
-			this->callback->OnUIEvent(this,MARKER_OVER_CUSTOMIZER);
+			this->callback->OnUIEvent(this, MARKER_OVER_CUSTOMIZER);
 		}
+		else
+			section = original_section;
 
 		if ((*(*target))->is_locked == true && this->callback != nullptr)
 		{
 			this->callback->OnUIEvent(this, MARKER_OVER_LOCKED_ELEMENT);
 		}
 	}
+
+	if (is_support_marker == true)
+	{
+		if(IN_RANGE((*(*target))->element_type, element_type::CUSTOMIZING_BUTTON_BASIC, element_type::CUSTOMIZING_BUTTON_SHIELD))
+			App->render->Blit(texture, globalPos.x, globalPos.y, &section);
+	}
+	else
 	App->render->Blit(texture, globalPos.x, globalPos.y, &section);
 }
 
