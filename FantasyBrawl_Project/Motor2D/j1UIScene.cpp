@@ -391,23 +391,25 @@ bool j1UIScene::Start()
 	menu* settingsMenu = new menu(SETTINGS_MENU);
 	{
 		//WORDS KEYPAD
-		UI_element* text1 = App->gui->createText("MOVE", 40, 375, small_font, black_color);
+		UI_element* text1 = App->gui->createText("MOVE", 743, 137, small_font, black_color);
 		
-		UI_element* text2 = App->gui->createText("AIM", 40, 460, small_font, black_color);
+		UI_element* text2 = App->gui->createText("AIM", 743, 200, small_font, black_color);
 
-		UI_element* text3 = App->gui->createText("ATTACK", 40, 540, small_font, black_color);
+		UI_element* text3 = App->gui->createText("ATTACK", 40, 375, small_font, black_color);
+		
+		UI_element* text_special = App->gui->createText("SPECIAL", 40, 450, small_font, black_color);
 
-		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 600, small_font, black_color);
+		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 522, small_font, black_color);
 
-		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
+		UI_element* text5 = App->gui->createText("SHIELD", 40, 590, small_font, black_color);
 
-		UI_element* text6 = App->gui->createText("CONFIRM", 40, 145, small_font, black_color);
+		UI_element* text_confirm = App->gui->createText("CONFIRM", 313, 137, small_font, black_color);
 
-		UI_element* text7 = App->gui->createText("CANCEL", 40, 195, small_font, black_color);
+		UI_element* text_cancel = App->gui->createText("CANCEL", 313, 200, small_font, black_color);
 
-		UI_element* text8 = App->gui->createText("NAVIGATE", 40, 260, small_font, black_color);
+		UI_element* text_select = App->gui->createText("SELECT", 513, 137, small_font, black_color);
 
-		UI_element* text9 = App->gui->createText("PAUSE", 40, 315, small_font, black_color);
+		UI_element* text_pause = App->gui->createText("PAUSE", 513, 200, small_font, black_color);
 		
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
@@ -419,9 +421,9 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 710, 70, mid_font, brown_color);
+		UI_element* back_text = App->gui->createText("BACK", 710, 680, mid_font, brown_color);
 		back_text->setOutlined(true);
 		
 
@@ -430,7 +432,7 @@ bool j1UIScene::Start()
 
 		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_bg->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_sliderMM);
+		settings_bg->appendChild(10 * App->gui->UI_scale, 180 * App->gui->UI_scale, music_sliderMM);
 
 		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
@@ -439,7 +441,7 @@ bool j1UIScene::Start()
 		fx_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
 */
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 40, 140, small_font, brown_color);
 		audio_text->setOutlined(true);
 
 		//FX
@@ -447,10 +449,10 @@ bool j1UIScene::Start()
 
 		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_bg->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_sliderMM);
+		settings_bg->appendChild(10 * App->gui->UI_scale, 260 * App->gui->UI_scale, fx_sliderMM);
 
 
-		UI_element* fx_text = App->gui->createText("FX", 400, 200, small_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 40, 220, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -461,10 +463,10 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 400, 70, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 400, 680, mid_font, yellow_color);
 		apply_text->setOutlined(true);
 
 		//MARKER
@@ -544,12 +546,13 @@ bool j1UIScene::Start()
 		settingsMenu->elements.push_back(text1);
 		settingsMenu->elements.push_back(text2);
 		settingsMenu->elements.push_back(text3);
+		settingsMenu->elements.push_back(text_special);
 		settingsMenu->elements.push_back(text4);
 		settingsMenu->elements.push_back(text5);
-		settingsMenu->elements.push_back(text6);
-		settingsMenu->elements.push_back(text7);
-		settingsMenu->elements.push_back(text8);
-		settingsMenu->elements.push_back(text9);
+		settingsMenu->elements.push_back(text_confirm);
+		settingsMenu->elements.push_back(text_cancel);
+		settingsMenu->elements.push_back(text_select);
+		settingsMenu->elements.push_back(text_pause);
 		settingsMenu->elements.push_back(feather);
 		settingsMenu->elements.push_back(feather_2);
 		settingsMenu->elements.push_back(feather_3);
