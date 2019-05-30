@@ -1351,6 +1351,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player3_quad->section = { 288, 518, 170,191 };
 			player4_quad->section = { 288, 518, 170,191 };
 
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+
 			//RESET SELECTION BOOLS && COUNTER
 			counter1 = 1;
 			counter2 = 1;
@@ -1360,6 +1363,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player2_select = false;
 			player3_select = false;
 			player4_select = false;
+			passing1 = true;
+			passing2 = true;
+			passing3 = true;
+			passing4 = true;
+
 			marks_reset = true;
 
 			//Reset Stars
