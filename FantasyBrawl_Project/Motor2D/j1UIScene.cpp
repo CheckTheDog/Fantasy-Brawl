@@ -1294,6 +1294,7 @@ bool j1UIScene::Update(float dt)
 				CreateScoreBoard(3);
 			else if (player_winner == App->scene->player4)
 				CreateScoreBoard(4);
+
 			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
 			//from the previous game when we play again
 			App->arena_interactions->DestroyStorm();
@@ -2136,6 +2137,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	P2stars = P2stars + App->scene->player2->kills;
 	P3stars = P3stars + App->scene->player3->kills;
 	P4stars = P4stars + App->scene->player4->kills;
+
 	if (App->scene->GetWinner() == App->scene->player1)
 	{
 		P1stars += 3;
@@ -2183,6 +2185,9 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
 	}
+	else 
+		text2 = App->gui->createText("No one", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
 	
 	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
