@@ -8,6 +8,7 @@
 
 struct _TTF_Font;
 struct SDL_Texture;
+struct SDL_Color;
 class UI_element;
 class Text;
 class Image;
@@ -16,6 +17,7 @@ class Window;
 class Slider;
 class Clock;
 class Marker;
+enum class fade_step;
 
 
 enum event_type
@@ -96,6 +98,13 @@ private:
 	UI_element* draggingElement = nullptr;
 	UI_element* last_mouse_focus = nullptr;
 	UI_element* gamepad_last_focus[4] = { nullptr };
+
+	// --- Timer Fade ---
+	fade_step current_step;
+	Uint32 start_time = 0;
+	Uint32 total_time = 0;
+	SDL_Color colorT;
+	float alphaT = 0;
 };
 
 #endif // __j1GUI_H__

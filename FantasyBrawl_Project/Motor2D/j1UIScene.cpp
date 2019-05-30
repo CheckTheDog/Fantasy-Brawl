@@ -24,7 +24,6 @@
 #include "j1Viewport.h"
 #include <string>
 
-
 j1UIScene::j1UIScene()
 {
 	
@@ -1174,7 +1173,7 @@ bool j1UIScene::Update(float dt)
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && (current_menu->id == menu_id::SELECTION_MENU || current_menu->id == menu_id::SCOREBOARD_MENU))
 		{
 			ready->function = INGAME;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
