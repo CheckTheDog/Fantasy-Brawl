@@ -137,6 +137,16 @@ public:
 
 	// --- Death texture ---
 	SDL_Texture * death_tex = nullptr;
+
+	// --- Player Key values ---
+	uint SuperCooldown = 0;
+	uint ShieldCooldown = 0;
+
+	uint WendolinSP_NumDaggers = 0;
+	float WendolinSP_DaggerAngle = 0.0f;
+	float Wendolin_ghostTime = 0.0f;
+	uint Wendolin_ghostalpha = 0.0f;
+	float WendolinSP_speedmultiplier = 0.0f;
 };
 
 #endif // __J1ENTITYMANAGER_H__

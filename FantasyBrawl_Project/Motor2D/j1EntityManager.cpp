@@ -38,6 +38,15 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	int w = playernode.child("collider").attribute("width").as_int();
 	int h = playernode.child("collider").attribute("height").as_int();
 
+	// --- Player KEY values ---
+	WendolinSP_NumDaggers = playernode.child("WendolinSPDaggers").attribute("value").as_uint();
+	WendolinSP_DaggerAngle = playernode.child("WendolinSPDaggersAngle").attribute("value").as_float();
+	Wendolin_ghostTime = playernode.child("Wendolin_ghostTime").attribute("value").as_float();
+	Wendolin_ghostalpha = playernode.child("Wendolin_ghostalpha").attribute("value").as_uint();
+	WendolinSP_speedmultiplier = playernode.child("WendolinSP_speedmultiplier").attribute("value").as_float();
+	SuperCooldown = playernode.child("SuperCooldown").attribute("value").as_uint();
+	ShieldCooldown = playernode.child("ShieldCooldown").attribute("value").as_uint();
+
 	// --- Shield ---
 	shield_texturepath = playernode.child("shield").child_value();
 	shield_anim = *LoadAnimation(playernode.child("foldershield").child_value(), "shield");
