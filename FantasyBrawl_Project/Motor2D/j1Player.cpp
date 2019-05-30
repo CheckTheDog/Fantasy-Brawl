@@ -536,7 +536,7 @@ void j1Player::Launch2ndSuper()
 					App->scene->player1->damage_received = true;
 				}
 			
-				if (App->scene->player1->Entityinfo.health < 0 && App->scene->player1->active)
+				if (App->scene->player1->Entityinfo.health <= 0 && App->scene->player1->active)
 					this->kills++;
 
 				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
@@ -545,7 +545,7 @@ void j1Player::Launch2ndSuper()
 					App->scene->player2->damage_received = true;
 				}
 
-				if (App->scene->player2->Entityinfo.health < 0 && App->scene->player2->active)
+				if (App->scene->player2->Entityinfo.health <= 0 && App->scene->player2->active)
 					this->kills++;
 
 				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
@@ -554,7 +554,7 @@ void j1Player::Launch2ndSuper()
 					App->scene->player3->damage_received = true;
 				}
 
-				if (App->scene->player3->Entityinfo.health < 0 && App->scene->player3->active)
+				if (App->scene->player3->Entityinfo.health <= 0 && App->scene->player3->active)
 					this->kills++;
 
 				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
@@ -563,7 +563,7 @@ void j1Player::Launch2ndSuper()
 					App->scene->player4->damage_received = true;
 				}
 
-				if (App->scene->player4->Entityinfo.health < 0 && App->scene->player4->active)
+				if (App->scene->player4->Entityinfo.health <= 0 && App->scene->player4->active)
 					this->kills++;
 			}
 		}

@@ -59,6 +59,9 @@ bool j1ParticleSystem::Update(float dt)
 		if (p->Update(dt) == false)
 		{
 			if (p->toDelete) {
+				if(p->originplayer && p->originplayer->last_particle == p)
+				p->originplayer->last_particle = nullptr;
+
 				p->pCol->to_delete = true;
 				delete p;
 				active[i] = nullptr;
@@ -184,6 +187,9 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 				}
 
 				if (active[i]->toDelete) {
+					if(active[i]->originplayer && active[i]->originplayer->last_particle == active[i])
+					active[i]->originplayer->last_particle = nullptr;
+
 					active[i]->pCol->to_delete = true;
 					delete active[i];
 					active[i] = nullptr;
