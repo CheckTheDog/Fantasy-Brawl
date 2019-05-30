@@ -835,14 +835,14 @@ bool j1Player::PostUpdate(float dt)
 		if (!ghost)
 		{
 			// --- IDCircle Animations ---
-			if (!shieldON && superTimer.ReadSec() < SuperCooldown && shieldTimer.ReadSec() > manager->ShieldCooldown)
+			if (!shieldON && shieldTimer.ReadSec() > manager->ShieldCooldown)
 				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
-			else if (!shieldON && superTimer.ReadSec() > SuperCooldown && shieldTimer.ReadSec() > manager->ShieldCooldown)
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+			//else if (!shieldON && superTimer.ReadSec() > SuperCooldown && shieldTimer.ReadSec() > manager->ShieldCooldown)
+			//	App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
-			else if (shieldTimer.ReadSec() < manager->ShieldCooldown && superTimer.ReadSec() > SuperCooldown)
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+			//else if (shieldTimer.ReadSec() < manager->ShieldCooldown && superTimer.ReadSec() > SuperCooldown)
+			//	App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
 			else
 				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), (int)(ID)+1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
