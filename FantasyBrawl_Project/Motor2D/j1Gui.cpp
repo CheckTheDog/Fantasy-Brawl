@@ -582,11 +582,11 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 	return ret;
 }
 
-Marker* j1Gui::createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture* texture, SDL_Rect rect, j1Module* callback, marker_custom_button_rects rects, bool is_support_marker)
+Marker* j1Gui::createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture* texture, SDL_Rect rect, j1Module* callback, marker_custom_button_rects rects, Marker_anim_data anim_data, bool is_support_marker)
 {
 	Marker* ret = nullptr;
 
-	ret = new Marker(texture,x,y,margin,target,rect,callback, is_support_marker, rects);
+	ret = new Marker(texture,x,y,margin,target,rect,callback, is_support_marker, rects, anim_data);
 	UI_elements.push_back(ret);
 
 	return ret;

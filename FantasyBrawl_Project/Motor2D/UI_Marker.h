@@ -29,7 +29,7 @@ struct Marker_anim_data
 	{
 		speed = 60;
 		max_movement_distance = 30;
-		anim = Marker_anim::LEFT_TO_RIGHT;
+		anim = Marker_anim::RIGHT_TO_LEFT;
 	}
 };
 
@@ -40,8 +40,10 @@ public:
 	Marker()
 	{}
 
-	Marker(SDL_Texture* texture, int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Rect section, j1Module* callback, bool is_support_marker, marker_custom_button_rects rects) :
-		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target),callback(callback), original_section(section), rects(rects), is_support_marker(is_support_marker)
+	Marker(SDL_Texture* texture, int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Rect section, j1Module* callback, 
+			bool is_support_marker, marker_custom_button_rects rects, Marker_anim_data anim_data) :
+		UI_element(x, y, element_type::MARKER, section, callback, texture), margin(margin), target(target),callback(callback),
+		original_section(section), rects(rects), is_support_marker(is_support_marker), anim_data(anim_data)
 	{
 		is_valid_iterator = true;
 		movement_timer.Start();
@@ -58,9 +60,7 @@ public:
 
 	j1Module* callback;
 	j1Timer movement_timer;
-	int speed = 60;
 	int distance_moved = 0;
-	int max_movement_distance = 30;
 
 protected:
 	bool is_valid_iterator = false;
