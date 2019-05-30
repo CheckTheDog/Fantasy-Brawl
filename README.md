@@ -9,26 +9,41 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 - Fantasy Brawl's Website: [Website](https://checkthedog.github.io/Fantasy-Brawl/)
 
 ### CONTROLS
-
 - Player Movement (Gamepad Exclusive):
 
-  - Move around: Left joystick, movement in any direction
+  - Move around: LEFT JOYSTICK movement in any direction
 
 - Player Abilities(Gamepad Exclusive):
 
   - Aim: Move RIGHT JOYSTICK
   - Basic Attack: Press / keep pressed RIGHT BUMPER. 
-  - Super Attack: Press LEFT BUMPER, then release it.
-  - Shield: Press A, deactivate it halfway pressing A again.
+  - Ultimate Attack: Press LEFT BUMPER, then release it.
+  - Special Ability: Press LEFT TRIGGER, then release it. (at 0.9.1 only Lüar has this enabled)	
+  - Shield: Press X, deactivate it halfway pressing X again.
+
+- UI Movement (Gamepad exclusive):
+
+- Use DPADS or LEFT JOYSTICK to move through menus (in champion selection only DPADS)
+- PRESS A to interact with UI elements 
+- PRESS B in champion selection screen if a character has been selected with A to deselect
+- PRESS START to open ingame settings menu
+
+Note that in most of the UI only PLAYER 1 has influence
+
+- Debug Features
+
+- Mouse to move through UI
+- F5 -> In character selection screen, lock all champion selections, independently of how many gamepads are connected
+- F8 -> Activate UI bounding boxes debug draw
+- F9 -> Activate colliders bounding box debug draw 
 
 Tips: Auto-aim will be activated when being near enemy players, no need to move the right joystick.
 
+### HOW TO PLAY AND WIN
 
-- ESC opens pause menu (to be changed in future versions of the game)
+Every round won gives you 3 stars, and every kill 1 star. Play the 4 rounds and get the highest
+number of stars to win!
 
-
-
-F5 -> In character selection screen, lock all champion selections, independently of how many gamepads are connected
 
 ### AUTHORS: CheckTheDog
 
@@ -144,6 +159,8 @@ Aitor:
 - Implemented particle hit marker
 - HP bar blinking when being damaged
 - Solved bugs in champion selection screen
+- Timer blinking when storm is going to close in
+- Special Abilities
 
 Didac:
 
