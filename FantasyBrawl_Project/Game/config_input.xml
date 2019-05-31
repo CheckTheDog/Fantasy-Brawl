@@ -1,0 +1,15 @@
+<!-- Config file for the game -->
+
+<config_input>
+
+  <customized_controllers   P1="0"  P2="0"   P3="0"   P4="0" />
+  
+  <default_binding>
+   <basic_attack SDL_BUTTON="10" />
+   <special_attack SDL_BUTTON="9" />
+   <super_attack SDL_BUTTON="9" />
+   <shield SDL_BUTTON="2" />
+  </default_binding>
+    
+  
+</config_input>

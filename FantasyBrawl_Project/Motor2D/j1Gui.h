@@ -8,6 +8,8 @@
 
 struct _TTF_Font;
 struct SDL_Texture;
+struct marker_custom_button_rects;
+struct Marker_anim_data;
 struct SDL_Color;
 class UI_element;
 class Text;
@@ -29,7 +31,12 @@ enum event_type
 	MOUSE_LEFT_CLICK,
 	MOUSE_LEFT_RELEASE,
 	TIMER_ZERO,
-	STOPWATCH_ALARM
+	STOPWATCH_ALARM,
+	BUTTON_ENTER,
+	BUTTON_ANY,
+	TRIGGER_ANY,
+	MARKER_OVER_CUSTOMIZER,
+	MARKER_OVER_LOCKED_ELEMENT
 };
 
 // ---------------------------------------------------
@@ -80,8 +87,11 @@ public:
 	//NULL texture to use atlas
 	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress = 0.5f, j1Module* callback = nullptr, char* text = "");
 
-	Marker* createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture* texture, SDL_Rect rect, j1Module* callback);
+	Marker* createMarker(int x, int y, iPoint margin, std::list<UI_element*>::iterator* target, SDL_Texture* texture, SDL_Rect rect, j1Module* callback, marker_custom_button_rects rects, Marker_anim_data anim_data, bool is_support_marker = false);
 	bool ManageAutomaticTraverseTiming(int player_timer, float time_to_start = 1.5f, float time_margin = 0.1f);
+
+	//For keybinding UI purposes
+	SDL_Rect GetButtonRect(int button) { return { 0,button * 72, 72,72 }; }
 public:
 	bool UI_Debug = false;
 	float UI_scale;

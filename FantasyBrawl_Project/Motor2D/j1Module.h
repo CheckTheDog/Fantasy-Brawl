@@ -85,6 +85,11 @@ public:
 		return true;
 	}
 
+	virtual bool OnUIEvent(UI_element* element, event_type event_type, int p)
+	{
+		return true;
+	}
+
 public:
 
 	std::string	name;

@@ -21,7 +21,11 @@ enum element_type
 	CLOCK,
 	PLAYERINFO,
 	FINALINFO,
-	MARKER
+	MARKER,
+	CUSTOMIZING_BUTTON_BASIC,
+	CUSTOMIZING_BUTTON_SPECIAL,
+	CUSTOMIZING_BUTTON_SUPER,
+	CUSTOMIZING_BUTTON_SHIELD
 };
 
 enum element_function
@@ -54,7 +58,9 @@ enum element_function
 	CANCEL,
 	APPLY,
 	HOME,
-	WEBPAGE
+	WEBPAGE,
+	POLLING_CUSTOMIZE,
+	CUSTOMIZE
 };
 
 enum element_state
@@ -178,6 +184,7 @@ public:
 	bool moving = false;
 	bool dragable = false;
 	bool solid = true;
+	bool is_locked = false;
 
 protected:
 	iPoint Click_Pos{ 0,0 };

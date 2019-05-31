@@ -12,10 +12,10 @@
 #define MAX_GAMEPADS 4
 #define AXISMAX 32767
 
-struct SDL_Rect;
+struct _SDL_Rect;
 struct _SDL_GameController;
 struct _SDL_Haptic;
-
+struct SDL_GameControllerButtonBind;
 
 enum j1EventWindow
 {
@@ -43,6 +43,15 @@ enum GP_BUTTON_STATE
 	BUTTON_UP
 };
 
+
+enum class BUTTON_BIND
+{
+	BASIC_ATTACK = 0,
+	SPECIAL_ATTACK,
+	SUPER_ATTACK,
+	SHIELD,
+	MAX_BUTTON_BIND
+};
 enum class GP_AXIS_STATE
 {
 	AXIS_IDLE = 0,
@@ -75,6 +84,13 @@ struct Gamepad
 	GP_BUTTON_STATE* triggers_state = nullptr;
 	GP_AXIS_STATE*   multidirection_axis_state = nullptr;
 	int index = -1;
+
+	SDL_GameControllerButtonBind* binded_buttons = nullptr;
+
+	bool any_button_down = false;
+	bool any_axis_down = false;
+	int last_button_pressed = -1;
+	int last_axis_pressed = -1;
 };
 
 class j1Input : public j1Module
@@ -101,6 +117,10 @@ public:
 
 	// Gather relevant win events
 	bool GetWindowEvent(j1EventWindow ev);
+
+	//UI_EVENTS
+	bool OnUIEvent(UI_element* element, event_type event_type);
+	bool OnUIEvent(UI_element* element, event_type event_type, int p);
 
 	// Check key states (includes mouse and joy buttons)
 	j1KeyState GetKey(int id) const
@@ -133,6 +153,13 @@ public:
 			return 0;
 	}
 
+
+	// Check gamepad button bind. 
+	GP_BUTTON_STATE GetButton(PLAYER p, BUTTON_BIND id) const;
+
+	//Bind a button to an action
+	void BindButton(PLAYER p, BUTTON_BIND bind, int button_to_bind, int bind_type);
+
 	// PASS A TRIGGER FROM THE ENUM!
 	GP_BUTTON_STATE GetTriggerState(PLAYER p, int id) const;
 
@@ -147,6 +174,12 @@ public:
 	//Stop the vibration of a controller
 	void StopControllerShake(PLAYER p);
 
+	//Button pressed down
+	bool AnyButtonDown(PLAYER p) { return controllers[(int)p].any_button_down; }
+
+	//Trigger pressed down
+	bool AnyTriggerDown(PLAYER p) { return controllers[(int)p].any_axis_down; }
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -154,7 +187,17 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
-private:
+	// Get the actual binding of a BUTTON_BIND
+	int GetBindRealButton(PLAYER p, BUTTON_BIND bind) const;
+
+	//SDL_Rect GetButtonRect(SDL_GameControllerButton button) { return { 0,(int)button * 72, 72,72 }; }
+
+
+private: // Functions
+	void LoadConfigBinding(PLAYER p);
+	void AddBindingToConfig(PLAYER p);
+
+private: // Variables
 	bool		windowEvents[WE_COUNT];
 	j1KeyState*	keyboard;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
