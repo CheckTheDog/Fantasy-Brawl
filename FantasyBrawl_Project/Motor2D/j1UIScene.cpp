@@ -24,7 +24,6 @@
 #include "j1Viewport.h"
 #include <string>
 
-
 j1UIScene::j1UIScene()
 {
 	
@@ -1269,7 +1268,7 @@ bool j1UIScene::Update(float dt)
 	//Champion selection locking
 	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && (current_menu->id == menu_id::SELECTION_MENU || current_menu->id == menu_id::SCOREBOARD_MENU))
 		{
 			ready->function = INGAME;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
@@ -1389,6 +1388,7 @@ bool j1UIScene::Update(float dt)
 				CreateScoreBoard(3);
 			else if (player_winner == App->scene->player4)
 				CreateScoreBoard(4);
+
 			//If we finished, we need to destroy the storm, or the storm will affect entities as if it resumed
 			//from the previous game when we play again
 			App->arena_interactions->DestroyStorm();
@@ -1446,6 +1446,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player3_quad->section = { 288, 518, 170,191 };
 			player4_quad->section = { 288, 518, 170,191 };
 
+			App->arena_interactions->DestroyStorm();
+			App->arena_interactions->PauseStorm();
+
 			//RESET SELECTION BOOLS && COUNTER
 			counter1 = 1;
 			counter2 = 1;
@@ -1455,6 +1458,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			player2_select = false;
 			player3_select = false;
 			player4_select = false;
+			passing1 = true;
+			passing2 = true;
+			passing3 = true;
+			passing4 = true;
+
 			marks_reset = true;
 
 			//Reset Stars
@@ -2231,6 +2239,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	P2stars = P2stars + App->scene->player2->kills;
 	P3stars = P3stars + App->scene->player3->kills;
 	P4stars = P4stars + App->scene->player4->kills;
+
 	if (App->scene->GetWinner() == App->scene->player1)
 	{
 		P1stars += 3;
@@ -2278,6 +2287,9 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
 	}
+	else 
+		text2 = App->gui->createText("No one", 615, 100, big_font, { 0, 0, 0, 1 });
+		text1->setOutlined(false);
 	
 	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);

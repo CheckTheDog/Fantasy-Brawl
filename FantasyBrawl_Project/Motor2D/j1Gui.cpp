@@ -20,6 +20,9 @@
 #include "j1Entity.h"
 #include "j1EntityManager.h"
 #include "j1Transition.h"
+#include "j1FadeToBlack.h"
+#include "j1ArenaInteractions.h"
+
 
 
 
@@ -51,6 +54,9 @@ bool j1Gui::Start()
 	UI_scale = App->win->GetScale();
 	UI_scale = 1 / UI_scale;
 	button_click_fx = App->audio->LoadFx("audio/fx/button_click.wav");
+
+	current_step = fade_step::none;
+	colorT = { 255,0,0,255 };
 
 	return true;
 }
@@ -433,6 +439,14 @@ bool j1Gui::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		UI_Debug = !UI_Debug;
 
+	if (App->ui_scene->actual_menu == INGAME_MENU && !App->transition->doingMenuTransition)
+	{
+		if (App->arena_interactions->UI_storm_countdown < 6 && current_step == fade_step::none)
+		{
+			App->fade->FadeCustom(colorT.r, colorT.g, colorT.b, alphaT, 0.5f, start_time, total_time, current_step, colorT);
+		}
+	}
+
 	return true;
 }
 
@@ -456,15 +470,29 @@ bool j1Gui::PostUpdate(float dt)
 			}
 
 			/*if ((*item)->parent == nullptr)*/
-				(*item)->BlitElement();
+			(*item)->BlitElement();
 		}
 	}
 	if (UI_Debug)
 		UIDebugDraw();
 
-	if (App->ui_scene->actual_menu == INGAME_MENU && !App->transition->doingMenuTransition )
-		App->ui_scene->timer->BlitElement();
+	if (App->ui_scene->actual_menu == INGAME_MENU && !App->transition->doingMenuTransition)
+	{
+		SDL_Rect screen = { 0,0,0,0 };
+		uint width, height = 0;
+		App->win->GetWindowSize(width, height);
+		screen.w = width;
+		screen.h = height;
+		screen.x = App->ui_scene->timer->localPosition.x;
+		screen.y = App->ui_scene->timer->localPosition.y;
 
+		App->fade->PostUpdate(screen, start_time, total_time, current_step, colorT, alphaT, App->ui_scene->timer->texture);
+
+		if(current_step == fade_step::none)
+		App->ui_scene->timer->BlitElement();
+	}
+
+		
 	return true;
 }
 

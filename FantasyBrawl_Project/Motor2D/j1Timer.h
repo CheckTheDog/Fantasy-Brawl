@@ -15,6 +15,8 @@ public:
 	float ReadSec() const;
 	void Stop();
 	void Continue();
+	void Subtract(uint32 time);
+	void Limit(uint32 limit);
 
 private:
 	uint32	started_at;

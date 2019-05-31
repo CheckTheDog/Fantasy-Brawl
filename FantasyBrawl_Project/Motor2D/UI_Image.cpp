@@ -40,9 +40,10 @@ void Image::BlitElement()
 		multiplier = (App->scene->player1->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
 
-		if (App->scene->player1->active)
+		if (App->scene->player1->active && !App->scene->player1->ghost)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,0,0,0,0,0, scale);
-		
+		if(App->scene->player1->ghost)
+		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, ((int)App->scene->player1->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->hp_bar2)
@@ -50,8 +51,10 @@ void Image::BlitElement()
 		multiplier = (App->scene->player2->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
 
-		if(App->scene->player2->active)
+		if(App->scene->player2->active && !App->scene->player2->ghost)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 0, 0, 0, 0, 0, scale);
+		if (App->scene->player2->ghost)
+			App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, ((int)App->scene->player2->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->hp_bar3)
@@ -59,8 +62,10 @@ void Image::BlitElement()
 		multiplier = (App->scene->player3->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
 
-		if (App->scene->player3->active)
+		if (App->scene->player3->active && !App->scene->player3->ghost)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 0, 0, 0, 0, 0, scale);
+		if (App->scene->player3->ghost)
+			App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, ((int)App->scene->player3->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->hp_bar4)
@@ -68,20 +73,23 @@ void Image::BlitElement()
 		multiplier = (App->scene->player4->Entityinfo.health + tmp_section.w) / (player_hp + section.w);
 		tmp_section.w = section.w * multiplier;
 
-		if (App->scene->player4->active)
+		if (App->scene->player4->active && !App->scene->player4->ghost)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 0, 0, 0, 0, 0, scale);
+		if (App->scene->player4->ghost)
+			App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, ((int)App->scene->player4->ID) + 1, 0, 0, 0, 0, scale);
 	}
+
 
 	else if (this == App->ui_scene->sp_bar1)
 	{
 		float time = App->scene->player1->superTimer.ReadSec()*20.0f;
 
-		if (time >= 5.0f*20.0f)
+		if (time >= SuperCooldown*20.0f)
 		{
-			time = 5.0f*20.0f;
+			time = SuperCooldown*20.0f;
 		}
 
-		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+		multiplier = (time + tmp_section.w) / (SuperCooldown*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
 
 		if (App->scene->player1->active)
@@ -92,12 +100,12 @@ void Image::BlitElement()
 	{
 		float time = App->scene->player2->superTimer.ReadSec()*20.0f;
 
-		if (time >= 5.0f*20.0f)
+		if (time >= SuperCooldown*20.0f)
 		{
-			time = 5.0f*20.0f;
+			time = SuperCooldown*20.0f;
 		}
 
-		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+		multiplier = (time + tmp_section.w) / (SuperCooldown*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
 
 		if (App->scene->player2->active)
@@ -108,12 +116,12 @@ void Image::BlitElement()
 	{
 		float time = App->scene->player3->superTimer.ReadSec()*20.0f;
 
-		if (time >= 5.0f*20.0f)
+		if (time >= SuperCooldown*20.0f)
 		{
-			time = 5.0f*20.0f;
+			time = SuperCooldown*20.0f;
 		}
 
-		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+		multiplier = (time + tmp_section.w) / (SuperCooldown*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
 
 		if (App->scene->player3->active)
@@ -124,12 +132,12 @@ void Image::BlitElement()
 	{
 		float time = App->scene->player4->superTimer.ReadSec()*20.0f;
 
-		if (time >= 5.0f*20.0f)
+		if (time >= SuperCooldown*20.0f)
 		{
-			time = 5.0f*20.0f;
+			time = SuperCooldown*20.0f;
 		}
 
-		multiplier = (time + tmp_section.w) / (5.0f*20.0f + section.w);
+		multiplier = (time + tmp_section.w) / (SuperCooldown*20.0f + section.w);
 		tmp_section.w = (section.w * multiplier);
 
 		if (App->scene->player4->active)
@@ -202,26 +210,34 @@ void Image::BlitElement()
 
 	else if (this == App->ui_scene-> hp_capsule1)
 	{
-		if (App->scene->player1->active)
+		if (App->scene->player1->active && !App->scene->player1->ghost)
 		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 0, 0, 0, 0, 0, scale);
+		if(App->scene->player1->ghost)
+		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, ((int)App->scene->player1->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if ( this == App->ui_scene->hp_capsule2)
 	{
-		if (App->scene->player2->active)
+		if (App->scene->player2->active && !App->scene->player2->ghost)
 			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 0, 0, 0, 0, 0, scale);
+		if (App->scene->player2->ghost)
+			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, ((int)App->scene->player2->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->hp_capsule3)
 	{
-		if (App->scene->player3->active)
+		if (App->scene->player3->active && !App->scene->player3->ghost)
 			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 0, 0, 0, 0, 0, scale);
+		if (App->scene->player3->ghost)
+			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, ((int)App->scene->player3->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->hp_capsule4)
 	{
-		if (App->scene->player4->active)
+		if (App->scene->player4->active && !App->scene->player4->ghost)
 			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 0, 0, 0, 0, 0, scale);
+		if (App->scene->player4->ghost)
+			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, ((int)App->scene->player4->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->sp_capsule1 || this == App->ui_scene->shield_capsule1)

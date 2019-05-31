@@ -4,6 +4,7 @@
 #include "j1Fonts.h"
 #include "j1Render.h"
 #include "Brofiler\Brofiler.h"
+#include "j1Transition.h"
 
 Text::~Text()
 {
@@ -67,8 +68,11 @@ void Text::BlitElement()
 {
 	BROFILER_CATEGORY("Text Blit", Profiler::Color::AliceBlue);
 
-	SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
-	SDL_SetTextureAlphaMod(outline, App->gui->alpha_value);
+	if (App->transition->doingMenuTransition)
+	{
+		SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);
+		SDL_SetTextureAlphaMod(outline, App->gui->alpha_value);
+	}
 
 	if (texture != nullptr)
 	{

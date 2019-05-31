@@ -16,10 +16,10 @@ public:
 
 	element_to_render() {};
 
-	element_to_render(int _layer, SDL_Texture* _texture, int _x, int _y, const SDL_Rect _section, int _viewport, float _speed, double _angle, int _pivot_x, int _pivot_y, float _scale)
+	element_to_render(int _layer, SDL_Texture* _texture, int _x, int _y, const SDL_Rect _section, int _viewport, float _speed, double _angle, int _pivot_x, int _pivot_y, float _scale, float _alpha = 255.0f)
 	{
 		layer = _layer; texture = _texture; x = _x; y = _y; section = { _section }; speed = _speed;
-		angle = _angle; pivot_x = _pivot_x; pivot_y = _pivot_y; viewport = _viewport; scale = _scale;
+		angle = _angle; pivot_x = _pivot_x; pivot_y = _pivot_y; viewport = _viewport; scale = _scale; alpha = _alpha;
 	};
 
 	bool operator ()(const element_to_render& l1, const element_to_render& l2)
@@ -38,6 +38,7 @@ public:
 	int				 viewport = 0;
 	int				 layer = 0;
 	float			 scale = 1.0f;
+	float alpha = 255;
 };
 
 
@@ -152,7 +153,7 @@ public:
 	void KeepCameraOnBounds(int id);
 
 	// Blit Functions and control
-	void PushQueue(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section = { 0,0 }, int viewport = 0, float speed = 0.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX, float scale = 1.0f);
+	void PushQueue(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section = { 0,0 }, int viewport = 0, float speed = 0.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX, float scale = 1.0f, float alpha = 255.0f);
 	void LayerDrawQuad(const SDL_Rect rect, uint r, uint g, uint b, uint a, bool filled, int layer = 0, int viewport = 0, bool use_camera = true);
 	void LayerDrawLine(int x1, int y1, int x2, int y2, uint r, uint g, uint b, uint a = 255, int layer = 0, int viewport = 0, bool use_camera = true);
 	void LayerDrawCircle(int x1, int y1, int redius, uint r, uint g, uint b, uint a = 255, int layer = 0, int viewport = 0, bool filled = false, bool use_camera = true);

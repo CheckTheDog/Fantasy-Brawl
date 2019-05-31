@@ -156,7 +156,9 @@ public:
 	void HandleAttacks();
 	void HandleShield();
 	void HandleSuperAttacks();
+	void HandleSpecialAttacks();
 	void BlitSuperAimPaths(float dt);
+	void BlitSPAimPaths(float dt);
 
 	// --- Character Specific Super Attacks ---
 	void Launch1stSuper();
@@ -164,6 +166,11 @@ public:
 	void Launch3rdSuper();
 	void Launch4thSuper();
 
+	// --- Character Specific Special Abilities ---
+	void Launch1stSP();
+	void Launch2ndSP();
+	void Launch3rdSP();
+	void Launch4thSP();
 
 public:
 
@@ -205,10 +212,11 @@ public:
 	j1Timer shieldDuration;
 	j1Timer basicTimer;
 	j1Timer attackanimTimer;
-	j1Timer RJinversion;
-	j1Timer Traktpulsation;
+	uint SuperCooldown = 6;
+
 	bool shieldON = false;
 	bool superON = false;
+	bool specialON = false;
 	bool shield_available = false;
 	bool super_available = false;
 
@@ -241,8 +249,13 @@ public:
 	Animation shieldAnim;
 	Animation shieldendAnim;
 
-	// --- Others ---
+	// --- Character Specific ---
 	bool teleported = false;
+	j1Timer RJinversion;
+	j1Timer Traktpulsation;
+	bool ghost = false;
+	j1Timer ghostTimer;
+	uint alpha = 255;
 
 	// --- Fade ---
 	fade_step current_step;

@@ -48,3 +48,17 @@ void j1Timer::Continue()
 		started_at = SDL_GetTicks() - stopped_read;
 	}
 }
+
+void j1Timer::Subtract(uint32 time)
+{
+	started_at += time*1000.0f;
+}
+
+void j1Timer::Limit(uint32 limit)
+{
+	if (((SDL_GetTicks() - started_at) / 1000.0f) > limit)
+	{
+		float diff = ((SDL_GetTicks() - started_at) / 1000.0f) - limit;
+		started_at += diff * 1000.0f;
+	}
+}

@@ -29,6 +29,7 @@ public:
 	float multiplier;
 	int player_hp = 300;
 	SDL_Rect tmp_section = {0,0,0,0};
+	uint SuperCooldown = 6;
 };
 
 #endif 
