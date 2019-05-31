@@ -345,10 +345,10 @@ void j1Player::HandleAttacks()
 	bool before_iteration = super_available;
 
 
-if (App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_DOWN)
-{
-	superON = true;
-
+	if (App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_DOWN)
+	{
+		superON = true;
+	}
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP)
 	{
 		superON = false;
