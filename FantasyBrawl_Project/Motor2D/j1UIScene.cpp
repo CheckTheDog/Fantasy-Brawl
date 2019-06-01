@@ -1237,10 +1237,10 @@ bool j1UIScene::Update(float dt)
 	}
 
 
-	photo_back_up1 = photos[0]->section;
-	photo_back_up2 = photos[1]->section;
+	/*photo_back_up1 = photos[0]->section;*/
+	/*photo_back_up2 = photos[1]->section;
 	photo_back_up3 = photos[2]->section;
-	photo_back_up4 = photos[3]->section;
+	photo_back_up4 = photos[3]->section;*/
 
 	//if (champ_selected[0] && passing2 && passing3 && passing4)//JUST BY NOW, WHEN PLAYERS CAN CONFIRM CHANGE FOR PLAYER_SELECT
 	//{
@@ -2111,17 +2111,17 @@ void j1UIScene::CreateScoreBoard(int num)
 	UI_element* player4_stars = App->gui->createText(star4.data(), 235, 684, small_font, { 0, 0, 0, 1 });
 
 	//PLAYER IMAGE(?)
-	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
-	photos[0] = mark1;
+	mark1 = App->gui->createImageFromAtlas(38, 15,photos[0]->section, this);
+	/*photos[0] = mark1;*/
 
-	mark2 = App->gui->createImageFromAtlas(38, 206, photo_back_up2, this);
-	photos[1] = mark2;
+	mark2 = App->gui->createImageFromAtlas(38, 206, photos[1]->section, this);
+	/*photos[1] = mark2;*/
 
-	mark3 = App->gui->createImageFromAtlas(38, 397, photo_back_up3, this);
-	photos[2] = mark3;
+	mark3 = App->gui->createImageFromAtlas(38, 397, photos[2]->section, this);
+	/*photos[2] = mark3;*/
 
-	mark4 = App->gui->createImageFromAtlas(38, 588, photo_back_up4, this);
-	photos[3] = mark4;
+	mark4 = App->gui->createImageFromAtlas(38, 588, photos[3]->section, this);
+	/*photos[3] = mark4;*/
 
 	//END BUTTON
 	UI_element* last_button1 = App->gui->createButton(522,664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
@@ -2326,17 +2326,17 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 
 	//PLAYER IMAGE(?)
-	mark1 = App->gui->createImageFromAtlas(38, 15, photo_back_up1, this);
-	photos[0] = mark1;
+	mark1 = App->gui->createImageFromAtlas(38, 15, photos[0]->section, this);
+	/*photos[0] = mark1;*/
 
-	mark2 = App->gui->createImageFromAtlas(38, 206, photo_back_up2, this);
-	photos[1] = mark2;
+	mark2 = App->gui->createImageFromAtlas(38, 206, photos[1]->section, this);
+	/*photos[1] = mark2;*/
 
-	mark3 = App->gui->createImageFromAtlas(38, 397, photo_back_up3, this);
-	photos[2] = mark3;
+	mark3 = App->gui->createImageFromAtlas(38, 397, photos[2]->section, this);
+	/*photos[2] = mark3;*/
 
-	mark4 = App->gui->createImageFromAtlas(38, 588, photo_back_up4, this);
-	photos[3] = mark4;
+	mark4 = App->gui->createImageFromAtlas(38, 588, photos[3]->section, this);
+	/*photos[3] = mark4;*/
 
 	//END BUTTON
 	UI_element* last_button1 = App->gui->createButton(450, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
