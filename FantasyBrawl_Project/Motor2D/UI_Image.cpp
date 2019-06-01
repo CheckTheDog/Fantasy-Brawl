@@ -144,7 +144,7 @@ void Image::BlitElement()
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section,4, 0, 0, 0, 0, scale);
 	}
 
-	else if (this == App->ui_scene->shield_bar1)
+	/*else if (this == App->ui_scene->shield_bar1)
 	{
 	float time = App->scene->player1->shieldTimer.ReadSec()*20.0f;
 
@@ -206,7 +206,7 @@ void Image::BlitElement()
 
 	if (App->scene->player4->active)
 		App->view->PushQueue(10, texture, localPosition.x, localPosition.y, tmp_section, 4, 0, 0, 0, 0, scale);
-	}
+	}*/
 
 	else if (this == App->ui_scene-> hp_capsule1)
 	{
@@ -240,25 +240,25 @@ void Image::BlitElement()
 			App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, ((int)App->scene->player4->ID) + 1, 0, 0, 0, 0, scale);
 	}
 
-	else if (this == App->ui_scene->sp_capsule1 || this == App->ui_scene->shield_capsule1)
+	else if (this == App->ui_scene->sp_capsule1/* || this == App->ui_scene->shield_capsule1*/)
 	{
 		if (App->scene->player1->active)
 		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 1, 0, 0, 0, 0, scale);
 	}
 
-	else if (this == App->ui_scene->sp_capsule2 || this == App->ui_scene->shield_capsule2)
+	else if (this == App->ui_scene->sp_capsule2 /*|| this == App->ui_scene->shield_capsule2*/)
 	{
 		if (App->scene->player2->active)
 		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 2, 0, 0, 0, 0, scale);
 	}
 
-	else if (this == App->ui_scene->sp_capsule3 || this == App->ui_scene->shield_capsule3)
+	else if (this == App->ui_scene->sp_capsule3/* || this == App->ui_scene->shield_capsule3*/)
 	{
 		if (App->scene->player3->active)
 		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 3, 0, 0, 0, 0, scale);
 	}
 
-	else if (this == App->ui_scene->sp_capsule4 || this == App->ui_scene->shield_capsule4)
+	else if (this == App->ui_scene->sp_capsule4 /*|| this == App->ui_scene->shield_capsule4*/)
 	{
 		if (App->scene->player4->active)
 		App->view->PushQueue(9, texture, localPosition.x, localPosition.y, section, 4, 0, 0, 0, 0, scale);
@@ -267,6 +267,12 @@ void Image::BlitElement()
 	else if (this == App->ui_scene->margin)
 	{
 		App->render->Blit(texture, localPosition.x, localPosition.y, &section);
+	}
+
+	else if (this == App->ui_scene->separator1)
+	{
+		if(App->scene->player1->active)
+			App->view->PushQueue(11, texture, localPosition.x, localPosition.y, section, 1, 0, 0, 0, 0, scale);
 	}
 
 	else if (this == App->ui_scene->selection_image)

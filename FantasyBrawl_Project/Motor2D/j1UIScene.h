@@ -119,11 +119,11 @@ public:
 	UI_element* sp_bar3 = nullptr;
 	UI_element* sp_bar4 = nullptr;
 
-	//PLAYER SHIELD BARS
-	UI_element* shield_bar1 = nullptr;
-	UI_element* shield_bar2 = nullptr;
-	UI_element* shield_bar3 = nullptr;
-	UI_element* shield_bar4 = nullptr;
+	////PLAYER SHIELD BARS
+	//UI_element* shield_bar1 = nullptr;
+	//UI_element* shield_bar2 = nullptr;
+	//UI_element* shield_bar3 = nullptr;
+	//UI_element* shield_bar4 = nullptr;
 
 	//PLAYER HP CAPSULES
 	UI_element* hp_capsule1 = nullptr;
@@ -137,11 +137,17 @@ public:
 	UI_element* sp_capsule3 = nullptr;
 	UI_element* sp_capsule4 = nullptr;
 
-	//PLAYER SHIELD CAPSULES
-	UI_element* shield_capsule1 = nullptr;
-	UI_element* shield_capsule2 = nullptr;
-	UI_element* shield_capsule3 = nullptr;
-	UI_element* shield_capsule4 = nullptr;
+	////PLAYER SHIELD CAPSULES
+	//UI_element* shield_capsule1 = nullptr;
+	//UI_element* shield_capsule2 = nullptr;
+	//UI_element* shield_capsule3 = nullptr;
+	//UI_element* shield_capsule4 = nullptr;
+
+	//PLAYER SPECIAL BAR SEPARATOR
+	UI_element* separator1 = nullptr;
+	UI_element* separator2 = nullptr;
+	UI_element* separator3 = nullptr;
+	UI_element* separator4 = nullptr;
 
 	//PLAYER MARKS(?)
 	UI_element* mark1 = nullptr;
