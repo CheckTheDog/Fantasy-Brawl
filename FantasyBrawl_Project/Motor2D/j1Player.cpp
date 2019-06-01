@@ -20,6 +20,7 @@
 #include "j1Gui.h"
 #include "j1FadeToBlack.h"
 #include "UI_element.h"
+#include "j1Transition.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -471,16 +472,16 @@ void j1Player::BlitSuperAimPaths(float dt)
 		if (last_particle && !last_particle->toDelete)
 		{
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2, alpha);
 			else
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2, alpha);
 		}
 		break;
 	case CHARACTER::TRAKT:
 		if (App->ui_scene->actual_menu == SELECTION_MENU)
-		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },1, 0, 0, 0, 0);
+		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },1, 0, 0, 0, 0, alpha);
 		else
-		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0);
+		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0, alpha);
 
 		// --- All gamepads vibrate on trakt's super (heart pulsation) ---
 		ComputeDistance2players();
@@ -503,9 +504,9 @@ void j1Player::BlitSuperAimPaths(float dt)
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
 		{
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
 			else
-			App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale);
+			App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
 		}
 		break;
 	default:
@@ -519,9 +520,9 @@ void j1Player::BlitSPAimPaths(float dt)
 	{
 	case CHARACTER::WENDOLIN:
 		if (App->ui_scene->actual_menu == SELECTION_MENU)
-		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{ 0,0,260,260 }, 1, 0, 0, 0, 0, Entityinfo.scale);
+		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{ 0,0,260,260 }, 1, 0, 0, 0, 0, Entityinfo.scale, alpha);
 		else
-		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale);
+		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale, alpha);
 		break;
 	case CHARACTER::SIMON:
 
@@ -780,7 +781,7 @@ bool j1Player::PostUpdate(float dt)
 	bool ret = true;
 
 	// --- Adapt to Transitions ---
-	if (App->ui_scene->actual_menu == SELECTION_MENU)
+	if (App->transition->doingMenuTransition)
 	{
 		SDL_SetTextureAlphaMod(this->playerinfo.tex, App->gui->alpha_value);
 		SDL_SetTextureAlphaMod(this->manager->circlesprites, App->gui->alpha_value);
@@ -795,28 +796,23 @@ bool j1Player::PostUpdate(float dt)
 		SDL_SetTextureAlphaMod(this->manager->axe_texture, App->gui->alpha_value);
 		SDL_SetTextureAlphaMod(this->manager->inkball_texture, App->gui->alpha_value);
 		SDL_SetTextureAlphaMod(this->manager->budu_texture, App->gui->alpha_value);
-	}
 
-	if (App->ui_scene->actual_menu == START_MENU)
-	{
-		SDL_SetTextureAlphaMod(this->playerinfo.tex, 0);
-		SDL_SetTextureAlphaMod(this->manager->circlesprites, 0);
-		SDL_SetTextureAlphaMod(this->manager->arrows_tex, 0);
+		alpha = App->gui->alpha_value;
 	}
 
 	// --- Blit player ---
 
 	if (ghost)
 		alpha = manager->Wendolin_ghostalpha;
-	else
+	else if (!App->transition->doingMenuTransition)
 		alpha = 255;
 
 	if (!ghost)
 	{
 		if (PlayerPrintOnTop == true)
-			App->view->PushQueue(9, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+			App->view->PushQueue(9, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale,alpha);
 		else
-			App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale);
+			App->view->PushQueue(7, this->playerinfo.tex, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(50 * Entityinfo.scale), CurrentAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale,alpha);
 	}
 
 		if (App->view->number_of_views == 1)
@@ -838,7 +834,7 @@ bool j1Player::PostUpdate(float dt)
 		{
 			// --- IDCircle Animations ---
 			if (!shieldON && shieldTimer.ReadSec() > manager->ShieldCooldown)
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleshield.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f,alpha);
 
 			//else if (!shieldON && superTimer.ReadSec() > SuperCooldown && shieldTimer.ReadSec() > manager->ShieldCooldown)
 			//	App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircleboth.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
@@ -847,31 +843,31 @@ bool j1Player::PostUpdate(float dt)
 			//	App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(23 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(15 * Entityinfo.scale*1.2f), this->Entityinfo.IDCirclesuper.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
 
 			else
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), (int)(ID)+1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), (int)(ID)+1, 0, 0, 0, 0, Entityinfo.scale*1.2f,alpha);
 
 
 
 			switch (ID)
 			{
 			case PLAYER::P1:
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 2, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 3, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 1, 0, 0, 0, 0, Entityinfo.scale*1.2f,alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 2, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 3, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
 				break;
 			case PLAYER::P2:
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 2, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 3, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 2, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 3, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
 				break;
 			case PLAYER::P3:
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 3, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 1, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 3, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
 				break;
 			case PLAYER::P4:
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 1, 0, 0, 0, 0, Entityinfo.scale*1.2f);
-				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 2, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 1, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
+				App->view->PushQueue(6, this->manager->circlesprites, this->Entityinfo.position.x - (int)(10 * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(6 * Entityinfo.scale*1.2f), this->Entityinfo.IDCircle.GetCurrentFrame(dt), 2, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
 				break;
 			default:
 				break;
@@ -879,7 +875,7 @@ bool j1Player::PostUpdate(float dt)
 
 
 			if (shieldON || (CurrentShieldAnimation == &shieldendAnim && CurrentShieldAnimation->Finished() == false))
-				App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(17.0f * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(44.0f * Entityinfo.scale*1.2f), CurrentShieldAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f);
+				App->view->PushQueue(10, manager->shield_texture, this->Entityinfo.position.x - (int)(17.0f * Entityinfo.scale*1.2f), this->Entityinfo.position.y - (int)(44.0f * Entityinfo.scale*1.2f), CurrentShieldAnimation->GetCurrentFrame(dt), 0, 0, 0, 0, 0, Entityinfo.scale*1.2f, alpha);
 
 		}
 
@@ -895,9 +891,9 @@ bool j1Player::PostUpdate(float dt)
 			if (blit_aimpath)
 			{
 				if (App->ui_scene->actual_menu == SELECTION_MENU)
-				App->view->PushQueue(5, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+				App->view->PushQueue(5, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale, alpha);
 				else
-				App->view->PushQueue(5, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale);
+				App->view->PushQueue(5, manager->aimpath, this->Entityinfo.position.x - (int)(4 * Entityinfo.scale), this->Entityinfo.position.y + (int)(12 * Entityinfo.scale), SDL_Rect{ 0,0,55,263 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) - 90.0f, 27.5 * Entityinfo.scale, 0, Entityinfo.scale, alpha);
 			}
 	}
 	// --- Super Attack ---
@@ -1326,46 +1322,46 @@ void j1Player::BlitArrows()
 		{
 		case PLAYER::P1:
 			if (absoluteDistanceP2 > width / 2 && App->scene->player2->active && !App->scene->player2->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP3 > width / 2 && App->scene->player3->active && !App->scene->player3->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP4 > width / 2 && App->scene->player4->active && !App->scene->player4->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			break;
 		case PLAYER::P2:
 			if (absoluteDistanceP1 > width / 2 && App->scene->player1->active && !App->scene->player1->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP3 > width / 2 && App->scene->player3->active && !App->scene->player3->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP4 > width / 2 && App->scene->player4->active && !App->scene->player4->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			break;
 		case PLAYER::P3:
 			if (absoluteDistanceP1 > width / 2 && App->scene->player1->active && !App->scene->player1->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP2 > width / 2 && App->scene->player2->active && !App->scene->player2->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP4 > width / 2 && App->scene->player4->active && !App->scene->player4->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->green_arrow, ((int)ID) + 1, 0, std::atan2(directionP4.y, directionP4.x)* (180.0f / M_PI) + 90.0f, (manager->green_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			break;
 		case PLAYER::P4:
 			if (absoluteDistanceP1 > width / 2 && App->scene->player1->active && !App->scene->player1->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->red_arrow, ((int)ID) + 1, 0, std::atan2(directionP1.y, directionP1.x)* (180.0f / M_PI) + 90.0f, (manager->red_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP2 > width / 2 && App->scene->player2->active && !App->scene->player2->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->blue_arrow, ((int)ID) + 1, 0, std::atan2(directionP2.y, directionP2.x)* (180.0f / M_PI) + 90.0f, (manager->blue_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			if (absoluteDistanceP3 > width / 2 && App->scene->player3->active && !App->scene->player3->ghost)
-				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale);
+				App->view->PushQueue(11, this->manager->arrows_tex, this->Entityinfo.position.x + (int)(10 * Entityinfo.scale), this->Entityinfo.position.y - (int)(radius * Entityinfo.scale), manager->yellow_arrow, ((int)ID) + 1, 0, std::atan2(directionP3.y, directionP3.x)* (180.0f / M_PI) + 90.0f, (manager->yellow_arrow.w / 2 * Entityinfo.scale), (int)(radius * Entityinfo.scale), Entityinfo.scale, alpha);
 
 			break;
 		}
