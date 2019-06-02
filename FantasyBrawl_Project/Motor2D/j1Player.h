@@ -256,6 +256,7 @@ public:
 	bool ghost = false;
 	j1Timer ghostTimer;
 	uint alpha = 255;
+	Particle parryP;
 
 	// --- Fade ---
 	fade_step current_step;

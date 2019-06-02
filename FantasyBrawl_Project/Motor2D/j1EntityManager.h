@@ -104,6 +104,8 @@ public:
 
 	Animation particle_hitanim;
 	SDL_Texture* particle_hittex = nullptr;
+	SDL_Texture * parry_texture = nullptr;
+	SDL_Rect parrytex_rect;
 
 	// --- ID Circle animations ---
 	std::string circle_texturepath;

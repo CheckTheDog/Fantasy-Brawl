@@ -72,10 +72,11 @@ bool j1ParticleSystem::Update(float dt)
 		{
 			if(p->pCol->type == COLLIDER_TYPE::COLLIDER_PNI)
 			App->view->PushQueue(9,p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt),0,0);
+			else if (p->pCol->type == COLLIDER_TYPE::COLLIDER_BOUNCE)
+			App->view->PushQueue(6, p->tex, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle, App->entities->parrytex_rect.w / 1.5, App->entities->parrytex_rect.h / 1.5, scale);
 			else
 			App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2, scale);
 
-			//LOG("p.angle: %f", p->angle);
 			App->coll->QueryCollisions(*p->pCol);
 		}
 
@@ -102,8 +103,11 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 			p->speed.y = particle.speed.y;
 			p->direction.x = particle.direction.x;
 			p->direction.y = particle.direction.y;
-			p->direction.x *= p->speed.x;
-			p->direction.y *= p->speed.y;
+			if (p->speed.x > 0)
+			{
+				p->direction.x *= p->speed.x;
+				p->direction.y *= p->speed.y;
+			}
 			p->tex = particle.tex;
 			p->ghost = particle.ghost;
 			p->anim = particle.anim;
@@ -114,9 +118,17 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 				/*if (p->ghost)
 					p->pCol->ghost = true;*/
 
-				p->pCol->rect.w *= scale;
-				p->pCol->rect.h *= scale;
 
+					p->pCol->rect.x = x;
+					p->pCol->rect.y = y;
+					p->pCol->rect.w *= scale;
+					p->pCol->rect.h *= scale;
+
+					if (collider_type == COLLIDER_TYPE::COLLIDER_BOUNCE)
+					{
+						p->pCol->rect.x = p->originplayer->Entityinfo.position.x /*- p->pCol->rect.w/2*/ + 20 * p->direction.x;
+						p->pCol->rect.y = p->originplayer->Entityinfo.position.y - p->pCol->rect.h/2 + 25 * p->direction.y;
+					}
 				active[i] = p;
 				return p;
 			}
@@ -125,7 +137,7 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 	
 }
 
-Particle * j1ParticleSystem::GetCollidedParticle(Collider* hitbox, const Collider * particlecollider)
+Particle * j1ParticleSystem::GetCollidedParticle(Collider* hitbox, const Collider * particlecollider, bool player)
 {
 	Particle* to_return = nullptr;
 
@@ -140,8 +152,8 @@ Particle * j1ParticleSystem::GetCollidedParticle(Collider* hitbox, const Collide
 			}
 		}
 	}
-
-	if (to_return && to_return->originplayer != nullptr)
+	
+	if (player && to_return && to_return->originplayer != nullptr)
 	{
 		if (hitbox != to_return->originplayer->Entityinfo.HitBox)
 		{
@@ -159,8 +171,26 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (active[i] != nullptr && active[i]->pCol == c1)
 		{
-		
-			if (!c1->ghost)
+			if (c1->type == COLLIDER_TYPE::COLLIDER_BOUNCE)
+			{
+				Particle* pcollided = nullptr;
+				pcollided = App->particlesys->GetCollidedParticle(c1, c2,false);
+
+				Particle* parryP = nullptr;
+				parryP = App->particlesys->GetCollidedParticle(c2, c1,false);
+
+				if (pcollided && parryP && pcollided->originplayer != parryP->originplayer)
+				{
+					pcollided->life = 2000;
+					pcollided->direction.x = parryP->direction.x;
+					pcollided->direction.y = parryP->direction.y;
+					pcollided->angle = std::atan2(pcollided->direction.y, pcollided->direction.x);
+					pcollided->originplayer->last_particle = nullptr;
+					pcollided->originplayer = parryP->originplayer;
+				}
+			}
+
+			else if (!c1->ghost)
 			{
 				if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
 				{
@@ -247,8 +277,9 @@ bool Particle::Update(float dt)
 			LOG("sin: %f", sinf(this->angle));
 			LOG("angle: %f", angle);*/
 
-			pos.x += cosf(this->angle)*speed.x*dt;
-			pos.y += sinf(this->angle)*speed.y*dt;
+
+				pos.x += cosf(this->angle)*speed.x*dt;
+				pos.y += sinf(this->angle)*speed.y*dt;
 			
 		}
 
@@ -260,7 +291,7 @@ bool Particle::Update(float dt)
 
 
 
-	if (pCol != nullptr) {
+	if (pCol != nullptr && this->pCol->type != COLLIDER_TYPE::COLLIDER_BOUNCE) {
 		pCol->SetPos(pos.x, pos.y);
 	}
 

@@ -22,6 +22,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
@@ -30,6 +31,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
@@ -38,6 +40,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
@@ -46,6 +49,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = true;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
@@ -54,6 +58,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
@@ -62,6 +67,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
@@ -70,7 +76,16 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_STORM)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PARTICLE)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_WATER)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_HITBOX)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PNI)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)][static_cast<int>(COLLIDER_TYPE::COLLIDER_BOUNCE)] = false;
 }
 
 j1Collision::~j1Collision()
@@ -163,7 +178,7 @@ void j1Collision::DebugDraw()
 
 		switch ((*item)->type)
 		{
-		case COLLIDER_TYPE::COLLIDER_NONE: // white
+		case COLLIDER_TYPE::COLLIDER_BOUNCE: // white
 			if(App->view->number_of_views == 1)
 				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true, 15, 0);
 			else

@@ -47,6 +47,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	SuperCooldown = playernode.child("SuperCooldown").attribute("value").as_uint();
 	ShieldCooldown = playernode.child("ShieldCooldown").attribute("value").as_uint();
 
+
 	// --- Shield ---
 	shield_texturepath = playernode.child("shield").child_value();
 	shield_anim = *LoadAnimation(playernode.child("foldershield").child_value(), "shield");
@@ -319,6 +320,8 @@ bool j1EntityManager::Start()
 	Simon.tex = App->tex->Load(Simon.Texture.data());
 	Simon.basic_attack.tex = budu_texture;
 	SimonSuper_aimpath = App->tex->Load("textures/simonSuper_path.png");
+	parry_texture = App->tex->Load("particles/parry.png");
+	parrytex_rect = { 0,0,52,52 };
 
 	Trakt.tex = App->tex->Load(Trakt.Texture.data());
 	Trakt.basic_attack.tex = inkball_texture;

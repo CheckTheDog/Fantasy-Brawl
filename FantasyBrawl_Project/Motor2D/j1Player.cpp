@@ -90,6 +90,10 @@ bool j1Player::Start()
 	colB = { 0,0,0,255 };
 	colC = { 255,255,255,255 };
 
+	parryP.anim.PushBack(manager->parrytex_rect);
+	parryP.tex = manager->parry_texture;
+	parryP.life = 5000;
+
 	return true;
 }
 
@@ -286,31 +290,16 @@ void j1Player::HandleInput()
 	LJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTX);
 	LJAxisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_LEFTY);
 
-	if (LJAxisx_value > 0)
-		LJdirection_x = (LJAxisx_value) / AXISMAX;
-	else
-		LJdirection_x = (LJAxisx_value) / AXISMAX;
-
-	if (LJAxisy_value > 0)
-		LJdirection_y = (LJAxisy_value) / AXISMAX;
-	else
-		LJdirection_y = (LJAxisy_value) / AXISMAX;
-
+	LJdirection_x = (LJAxisx_value) / AXISMAX;
+	LJdirection_y = (LJAxisy_value) / AXISMAX;
 
 	// --- LOGIC: Right Joystick ---
 
 	RJAxisx_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTX);
 	RJAxisy_value = App->input->GetAxis(ID, SDL_CONTROLLER_AXIS_RIGHTY);
 
-	if (RJAxisx_value > 0)
-		RJdirection_x = (RJAxisx_value) / AXISMAX;
-	else
-		RJdirection_x = (RJAxisx_value) / AXISMAX;
-
-	if (RJAxisy_value > 0)
-		RJdirection_y = (RJAxisy_value) / AXISMAX;
-	else
-		RJdirection_y = (RJAxisy_value) / AXISMAX;
+	RJdirection_x = (RJAxisx_value) / AXISMAX;
+	RJdirection_y = (RJAxisy_value) / AXISMAX;
 
 	//--------------
 
@@ -525,7 +514,19 @@ void j1Player::BlitSPAimPaths(float dt)
 		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale, alpha);
 		break;
 	case CHARACTER::SIMON:
+		if (abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin)
+		{
+			parryP.direction.x = (LJAxisx_value) / AXISMAX;
+			parryP.direction.y = (LJAxisy_value) / AXISMAX;
+			parryP.angle = std::atan2(parryP.direction.y, parryP.direction.x)*(180.0f / M_PI) + 135.0f;
+			parryP.pos.x = this->Entityinfo.position.x - 20;
+			parryP.pos.y = this->Entityinfo.position.y - 35;
 
+			if (App->ui_scene->actual_menu == SELECTION_MENU)
+				App->view->PushQueue(5, manager->parry_texture, this->Entityinfo.position.x - 20, this->Entityinfo.position.y - 35, manager->parrytex_rect, 1, 0, parryP.angle, manager->parrytex_rect.w/1.5, manager->parrytex_rect.h/1.5, Entityinfo.scale, alpha);
+			else
+				App->view->PushQueue(5, manager->parry_texture, this->Entityinfo.position.x - 20, this->Entityinfo.position.y - 35, manager->parrytex_rect, ((int)ID) + 1, 0, parryP.angle, manager->parrytex_rect.w / 1.5, manager->parrytex_rect.h / 1.5, Entityinfo.scale, alpha);
+		}
 		break;
 	case CHARACTER::TRAKT:
 
@@ -724,6 +725,8 @@ void j1Player::Launch2ndSP()
 	if (superTimer.ReadSec() > SuperCooldown / 2)
 	{
 		superTimer.Subtract(SuperCooldown / 2);
+
+		App->particlesys->AddParticle(parryP, parryP.pos.x, parryP.pos.y, COLLIDER_TYPE::COLLIDER_BOUNCE, 0, this);
 	}
 }
 
