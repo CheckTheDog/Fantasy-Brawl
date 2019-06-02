@@ -275,6 +275,24 @@ void Image::BlitElement()
 			App->view->PushQueue(11, texture, localPosition.x, localPosition.y, section, 1, 0, 0, 0, 0, scale);
 	}
 
+	else if (this == App->ui_scene->separator2)
+	{
+	if (App->scene->player2->active)
+		App->view->PushQueue(11, texture, localPosition.x, localPosition.y, section, 2, 0, 0, 0, 0, scale);
+	}
+
+	else if (this == App->ui_scene->separator3)
+	{
+	if (App->scene->player3->active)
+		App->view->PushQueue(11, texture, localPosition.x, localPosition.y, section, 3, 0, 0, 0, 0, scale);
+	}
+
+	else if (this == App->ui_scene->separator4)
+	{
+	if (App->scene->player4->active)
+		App->view->PushQueue(11, texture, localPosition.x, localPosition.y, section, 4, 0, 0, 0, 0, scale);
+	}
+
 	else if (this == App->ui_scene->selection_image)
 	{
 		if (App->ui_scene->actual_menu == INGAME_MENU)
