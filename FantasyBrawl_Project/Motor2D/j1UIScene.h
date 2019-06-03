@@ -160,6 +160,7 @@ public:
 	SDL_Rect photo_back_up2 = { 0,0,0,0 };
 	SDL_Rect photo_back_up3 = { 0,0,0,0 };
 	SDL_Rect photo_back_up4 = { 0,0,0,0 };
+
 	bool passing1 = false;
 	bool passing2 = false;
 	bool passing3 = false;

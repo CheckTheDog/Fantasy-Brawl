@@ -799,6 +799,19 @@ bool j1UIScene::Update(float dt)
 			ret = true;
 
 		}
+		else if (actual_menu == SELECTION_MENU && previous_menu == START_MENU)
+		{
+			
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU, 0.3f);
+			for (int i = 0; i < MAX_GAMEPADS; ++i)
+			{
+				champ_selected[i] = false;
+			}
+
+			ret = true;
+
+		}
 	}
 
 
