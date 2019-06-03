@@ -297,29 +297,37 @@ bool j1UIScene::Start()
 		UI_element* player3_text = App->gui->createImageFromAtlas(60, 548, { 534, 799,120, 20 }, this);
 		UI_element* player4_text = App->gui->createImageFromAtlas(60, 739, { 654, 799,120, 20 }, this);
 
+		//CONFIRM TEXT
+		UI_element* text_confirm = App->gui->createText("TO CONFIRM", 600, 650, small_font, black_color);
+		UI_element* text_cancel = App->gui->createText("TO CANCEL", 600, 690, small_font, black_color);
+
+		//CONFIRM IMAGES(A&B)
+		UI_element* A = App->gui->createImageFromAtlas(550, 640, { 319, 0, 37, 40 }, this);
+		UI_element* B = App->gui->createImageFromAtlas(550, 685, { 369, 0, 37, 40 }, this);
+
 		//ARROWS
-		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21}, this);
+		UI_element* arrow1 = App->gui->createButton(230 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 883, 774, 25, 21 }, { 883, 774, 25, 21 }, { 883, 814, 25, 21}, this);
 		arrow1->function = SELECTING1;
 
-		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21 }, this);
+		UI_element* arrow2 = App->gui->createButton(230 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 883, 774, 25, 21 }, { 883, 774, 25, 21 }, { 883, 814, 25, 21 }, this);
 		arrow2->function = SELECTING2;
 
-		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21 }, this);
+		UI_element* arrow3 = App->gui->createButton(230 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 883, 774, 25, 21 }, { 883, 774, 25, 21 }, { 883, 814, 25, 21 }, this);
 		arrow3->function = SELECTING3;
 
-		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 883, 814, 25, 21 }, { 883, 814, 25, 21 }, { 883, 774, 25, 21 }, this);
+		UI_element* arrow4 = App->gui->createButton(230 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 883, 774, 25, 21 }, { 883, 774, 25, 21 }, { 883, 814, 25, 21 }, this);
 		arrow4->function = SELECTING4;
 
-		UI_element* inv_arrow1 = App->gui->createButton(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
+		UI_element* inv_arrow1 = App->gui->createButton(5 * App->gui->UI_scale, 100 * App->gui->UI_scale, NULL, { 855, 774, 25, 21 }, { 855, 774, 25, 21 }, { 855, 814, 25, 21 }, this);
 		inv_arrow1->function = INV_SELECTING1;
 
-		UI_element* inv_arrow2 = App->gui->createButton(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
+		UI_element* inv_arrow2 = App->gui->createButton(5 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 855, 774, 25, 21 }, { 855, 774, 25, 21 }, { 855, 814, 25, 21 }, this);
 		inv_arrow2->function = INV_SELECTING2;
 
-		UI_element* inv_arrow3 = App->gui->createButton(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
+		UI_element* inv_arrow3 = App->gui->createButton(5 * App->gui->UI_scale, 460 * App->gui->UI_scale, NULL, { 855, 774, 25, 21 }, { 855, 774, 25, 21 }, { 855, 814, 25, 21 }, this);
 		inv_arrow3->function = INV_SELECTING3;
 
-		UI_element* inv_arrow4 = App->gui->createButton(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 855, 814, 25, 21 }, { 855, 814, 25, 21 }, { 855, 774, 25, 21 }, this);
+		UI_element* inv_arrow4 = App->gui->createButton(5 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 855, 774, 25, 21 }, { 855, 774, 25, 21 }, { 855, 814, 25, 21 }, this);
 		inv_arrow4->function = INV_SELECTING4;
 
 		//PLAYER IMAGE(?)
@@ -380,6 +388,10 @@ bool j1UIScene::Start()
 		championSelection->elements.push_back(player2_text);
 		championSelection->elements.push_back(player3_text);
 		championSelection->elements.push_back(player4_text);
+		championSelection->elements.push_back(text_confirm);
+		championSelection->elements.push_back(text_cancel);
+		championSelection->elements.push_back(A);
+		championSelection->elements.push_back(B);
 
 		menus.push_back(championSelection);
 
@@ -762,7 +774,7 @@ bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
 
-	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
 		
 		if (actual_menu == INGAME_MENU && !App->transition->doingMenuTransition)
