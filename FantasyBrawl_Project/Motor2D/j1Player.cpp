@@ -570,7 +570,7 @@ void j1Player::Launch2ndSuper()
 
 			if (App->ui_scene->actual_menu != SELECTION_MENU)
 			{
-				if (absoluteDistanceP1 < damage_radius && this != App->scene->player1)
+				if (absoluteDistanceP1 < damage_radius && this != App->scene->player1 && !App->scene->player1->shieldON)
 				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
 					App->scene->player1->damage_received = true;
@@ -579,7 +579,7 @@ void j1Player::Launch2ndSuper()
 				if (App->scene->player1->Entityinfo.health <= 0 && App->scene->player1->active)
 					this->kills++;
 
-				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2)
+				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2 && !App->scene->player2->shieldON)
 				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
 					App->scene->player2->damage_received = true;
@@ -588,7 +588,7 @@ void j1Player::Launch2ndSuper()
 				if (App->scene->player2->Entityinfo.health <= 0 && App->scene->player2->active)
 					this->kills++;
 
-				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3)
+				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3 && !App->scene->player3->shieldON)
 				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
 					App->scene->player3->damage_received = true;
@@ -597,7 +597,7 @@ void j1Player::Launch2ndSuper()
 				if (App->scene->player3->Entityinfo.health <= 0 && App->scene->player3->active)
 					this->kills++;
 
-				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4)
+				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4 && !App->scene->player4->shieldON)
 				{
 					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
 					App->scene->player4->damage_received = true;
@@ -622,25 +622,25 @@ void j1Player::Launch3rdSuper()
 
 		ComputeDistance2players();
 
-		if (this != App->scene->player1 && absoluteDistanceP1 < radius)
+		if (this != App->scene->player1 && absoluteDistanceP1 < radius && !App->scene->player1->shieldON)
 		{
 			App->scene->player1->RJinverted = true;
 			App->scene->player1->RJinversion.Start();
 		}
 
-		if (this != App->scene->player2 && absoluteDistanceP2 < radius)
+		if (this != App->scene->player2 && absoluteDistanceP2 < radius && !App->scene->player2->shieldON)
 		{
 			App->scene->player2->RJinverted = true;
 			App->scene->player2->RJinversion.Start();
 		}
 
-		if (this != App->scene->player3 && absoluteDistanceP3 < radius)
+		if (this != App->scene->player3 && absoluteDistanceP3 < radius && !App->scene->player3->shieldON)
 		{
 			App->scene->player3->RJinverted = true;
 			App->scene->player3->RJinversion.Start();
 		}
 
-		if (this != App->scene->player4 && absoluteDistanceP4 < radius)
+		if (this != App->scene->player4 && absoluteDistanceP4 < radius && !App->scene->player4->shieldON)
 		{
 			App->scene->player4->RJinverted = true;
 			App->scene->player4->RJinversion.Start();
