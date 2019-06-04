@@ -56,7 +56,7 @@ bool j1Gui::Start()
 	button_click_fx = App->audio->LoadFx("audio/fx/button_click.wav");
 
 	current_step = fade_step::none;
-	colorT = { 255,0,0,255 };
+	colorT = { 75,0,130,200 };
 
 	return true;
 }

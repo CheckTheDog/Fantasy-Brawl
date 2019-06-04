@@ -163,7 +163,7 @@ void j1Collision::DebugDraw()
 
 	BROFILER_CATEGORY("Collision_Debug_Draw", Profiler::Color::BurlyWood);
 
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN && App->ui_scene->actual_menu == INGAME_MENU) //collider draw
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) //collider draw
 		debug = !debug;
 
 	if (debug == false)
@@ -179,53 +179,27 @@ void j1Collision::DebugDraw()
 		switch ((*item)->type)
 		{
 		case COLLIDER_TYPE::COLLIDER_BOUNCE: // white
-			if(App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_FLOOR: // red
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true,15,0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 255, 0, 0, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PLAYER: // green
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 0, 255, 0, alpha, true);
-			
 			break;
 		case COLLIDER_TYPE::COLLIDER_STORM: // green
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 255, 255, 0, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PARTICLE:
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 0, 125, 125, alpha, true);
-			
 			break;
 		case COLLIDER_TYPE::COLLIDER_WATER:
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 0, 0, 255, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_HITBOX:
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 255, 255, 255, alpha, true);
 			break;
 		case COLLIDER_TYPE::COLLIDER_PNI:
-			if (App->view->number_of_views == 1)
-				App->view->LayerDrawQuad((*item)->rect, 0, 200, 200, alpha, true, 15, 0);
-			else
 				App->view->LayerDrawQuad((*item)->rect, 0, 200, 200, alpha, true);
 			break;
 		}
