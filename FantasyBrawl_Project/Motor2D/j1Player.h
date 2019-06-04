@@ -5,6 +5,7 @@
 #include "j1Entity.h"
 #include "j1ParticleSystem.h"
 #include "j1Timer.h"
+#include <list>
 
 struct SDL_Texture;
 struct Collider;
@@ -256,6 +257,8 @@ public:
 	bool ghost = false;
 	j1Timer ghostTimer;
 	uint alpha = 255;
+	Particle parryP;
+	std::list<Particle*> MeliadoulAXES;
 
 	// --- Fade ---
 	fade_step current_step;

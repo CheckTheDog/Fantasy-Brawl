@@ -104,6 +104,8 @@ public:
 
 	Animation particle_hitanim;
 	SDL_Texture* particle_hittex = nullptr;
+	SDL_Texture * parry_texture = nullptr;
+	SDL_Rect parrytex_rect;
 
 	// --- ID Circle animations ---
 	std::string circle_texturepath;
@@ -147,6 +149,8 @@ public:
 	float Wendolin_ghostTime = 0.0f;
 	uint Wendolin_ghostalpha = 0.0f;
 	float WendolinSP_speedmultiplier = 0.0f;
+
+	uint parryPlife = 0;
 };
 
 #endif // __J1ENTITYMANAGER_H__
