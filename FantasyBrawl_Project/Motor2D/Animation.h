@@ -9,7 +9,7 @@ class Animation
 public:
 	bool loop = true;
 	bool pingpong = false;
-	float speed = 5.0f;
+	float speed = 3.0f;
 	SDL_Rect frames[MAX_FRAMES];
 
 private:

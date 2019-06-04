@@ -46,7 +46,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	WendolinSP_speedmultiplier = playernode.child("WendolinSP_speedmultiplier").attribute("value").as_float();
 	SuperCooldown = playernode.child("SuperCooldown").attribute("value").as_uint();
 	ShieldCooldown = playernode.child("ShieldCooldown").attribute("value").as_uint();
-
+	parryPlife = playernode.child("parryPlife").attribute("value").as_uint();
 
 	// --- Shield ---
 	shield_texturepath = playernode.child("shield").child_value();

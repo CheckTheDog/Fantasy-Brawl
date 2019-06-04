@@ -92,7 +92,7 @@ bool j1Player::Start()
 
 	parryP.anim.PushBack(manager->parrytex_rect);
 	parryP.tex = manager->parry_texture;
-	parryP.life = 5000;
+	parryP.life = manager->parryPlife;
 
 	return true;
 }

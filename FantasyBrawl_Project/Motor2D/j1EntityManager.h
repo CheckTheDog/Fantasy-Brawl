@@ -149,6 +149,8 @@ public:
 	float Wendolin_ghostTime = 0.0f;
 	uint Wendolin_ghostalpha = 0.0f;
 	float WendolinSP_speedmultiplier = 0.0f;
+
+	uint parryPlife = 0;
 };
 
 #endif // __J1ENTITYMANAGER_H__

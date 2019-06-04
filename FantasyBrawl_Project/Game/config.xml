@@ -119,6 +119,7 @@
       <Wendolin_ghostTime value = "3.0f" />
       <Wendolin_ghostalpha value = "125" />
       <WendolinSP_speedmultiplier value = "1.5f" />
+      <parryPlife value = "500" />
       
     </player>
 
