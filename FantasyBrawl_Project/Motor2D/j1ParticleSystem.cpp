@@ -26,6 +26,13 @@ j1ParticleSystem::~j1ParticleSystem()
 
 bool j1ParticleSystem::Start()
 {
+	meliadoulAXE.speed.x = 0.0f;
+	meliadoulAXE.speed.y = 0.0f;
+	meliadoulAXE.life = 3000;
+	meliadoulAXE.tex = App->entities->axe_texture;
+	meliadoulAXE.anim.loop = true;
+	meliadoulAXE.anim.PushBack({ 0,0,40,34 });
+
 	return true;
 }
 
@@ -58,6 +65,18 @@ bool j1ParticleSystem::Update(float dt)
 
 		if (p->Update(dt) == false)
 		{
+			uint pLife = SDL_GetTicks() - p->born;
+
+			if (p && p->originplayer && !p->returned && p->life > 0 && p->pCol->type == COLLIDER_TYPE::COLLIDER_PARTICLE)
+			{
+				if (pLife > p->life + p->delay && p->originplayer->character == CHARACTER::MELIADOUL)
+				{
+					meliadoulAXE.angle = p->angle;
+					p->originplayer->MeliadoulAXES.push_back(AddParticle(meliadoulAXE, p->pos.x, p->pos.y, COLLIDER_TYPE::COLLIDER_FLOOR, 0, p->originplayer));
+				}
+			}
+
+
 			if (p->toDelete) {
 				if(p->originplayer && p->originplayer->last_particle == p)
 				p->originplayer->last_particle = nullptr;
@@ -181,7 +200,9 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 
 				if (pcollided && parryP && pcollided->originplayer != parryP->originplayer)
 				{
+
 					pcollided->life = 2000;
+					pcollided->born = SDL_GetTicks();
 					pcollided->direction.x = parryP->direction.x;
 					pcollided->direction.y = parryP->direction.y;
 					pcollided->angle = std::atan2(pcollided->direction.y, pcollided->direction.x);
@@ -192,39 +213,50 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 
 			else if (!c1->ghost)
 			{
-				if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
+				Particle* c2P = nullptr;
+				c2P = App->particlesys->GetCollidedParticle(c1, c2, false);
+				Particle* c1P = nullptr;
+				c1P = App->particlesys->GetCollidedParticle(c2, c1, false);
+
+				if (c2P && c1P && c2P->originplayer == c1P->originplayer)
 				{
-					active[i]->toDelete = true;
-				//Create Hit Particle here
-					Particle hit;
-					hit.anim = App->entities->particle_hitanim;
-					hit.anim.loop = false;
-					hit.anim.speed = 30.0f;
-					hit.tex= App->entities->particle_hittex;
-					hit.life = 100;
-					AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+					continue;
 				}
 
-				if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER && active[i]->originplayer->Entityinfo.HitBox != c2)
-				{
-					Particle hit;
-					hit.anim = App->entities->particle_hitanim;
-					hit.anim.loop = false;
-					hit.anim.speed = 30.0f;
-					hit.tex = App->entities->particle_hittex;
-					hit.life = 100;
-					AddParticle(hit,c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI,0);
-				}
+					if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
+					{
+						active[i]->toDelete = true;
+						//Create Hit Particle here
+						Particle hit;
+						hit.anim = App->entities->particle_hitanim;
+						hit.anim.loop = false;
+						hit.anim.speed = 30.0f;
+						hit.tex = App->entities->particle_hittex;
+						hit.life = 100;
+						AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+					}
 
-				if (active[i]->toDelete) {
-					if(active[i]->originplayer && active[i]->originplayer->last_particle == active[i])
-					active[i]->originplayer->last_particle = nullptr;
+					else if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER && active[i]->originplayer->Entityinfo.HitBox != c2)
+					{
+						Particle hit;
+						hit.anim = App->entities->particle_hitanim;
+						hit.anim.loop = false;
+						hit.anim.speed = 30.0f;
+						hit.tex = App->entities->particle_hittex;
+						hit.life = 100;
+						AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+					}
 
-					active[i]->pCol->to_delete = true;
-					delete active[i];
-					active[i] = nullptr;
+					if (active[i]->toDelete) {
+						if (active[i]->originplayer && active[i]->originplayer->last_particle == active[i])
+							active[i]->originplayer->last_particle = nullptr;
+
+						active[i]->pCol->to_delete = true;
+						delete active[i];
+						active[i] = nullptr;
+					}
 				}
-			}
+			
 
 				break;
 			
@@ -264,6 +296,7 @@ bool Particle::Update(float dt)
 			ret = false;
 		}
 		else if (pLife > life + delay) {
+
 			toDelete = true;
 			ret = false;
 		}

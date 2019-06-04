@@ -24,6 +24,7 @@ struct Particle
 	uint born = 0;
 	uint life = 0;
 	uint delay = 0;
+	bool returned = false;
 
 	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
@@ -58,10 +59,11 @@ public:
 
 	Particle* GetCollidedParticle(Collider* hitbox, const Collider* particlecollider, bool player = true);
 
+	float scale = 0.66;
 private:
 
 	Particle* active[MAX_PARTICLES];
-	float scale = 0.66;
+	Particle meliadoulAXE;
 
 };
 #endif // ! _j1PARTICLESYSTEM_H_
