@@ -461,16 +461,16 @@ void j1Player::BlitSuperAimPaths(float dt)
 		if (last_particle && !last_particle->toDelete)
 		{
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2, alpha);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2);
 			else
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2, alpha);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
 		}
 		break;
 	case CHARACTER::TRAKT:
 		if (App->ui_scene->actual_menu == SELECTION_MENU)
-		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },1, 0, 0, 0, 0, alpha);
+		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },1, 0, 0, 0, 0);
 		else
-		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0, alpha);
+		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0);
 
 		// --- All gamepads vibrate on trakt's super (heart pulsation) ---
 		ComputeDistance2players();
@@ -508,10 +508,10 @@ void j1Player::BlitSPAimPaths(float dt)
 		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale, alpha);
 		break;
 	case CHARACTER::SIMON:
-		if (abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin)
+		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
 		{
-			parryP.direction.x = (LJAxisx_value) / AXISMAX;
-			parryP.direction.y = (LJAxisy_value) / AXISMAX;
+			parryP.direction.x = (RJAxisx_value) / AXISMAX;
+			parryP.direction.y = (RJAxisy_value) / AXISMAX;
 			parryP.angle = std::atan2(parryP.direction.y, parryP.direction.x)*(180.0f / M_PI) + 135.0f;
 			parryP.pos.x = this->Entityinfo.position.x - 20;
 			parryP.pos.y = this->Entityinfo.position.y - 35;
@@ -718,7 +718,7 @@ void j1Player::Launch1stSP()
 
 void j1Player::Launch2ndSP()
 {
-	if (superTimer.ReadSec() > SuperCooldown / 2)
+	if (superTimer.ReadSec() > SuperCooldown / 2 && (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin))
 	{
 		superTimer.Subtract(SuperCooldown / 2);
 
@@ -917,7 +917,8 @@ bool j1Player::PostUpdate(float dt)
 		
 			bool blit_aimpath = true;
 
-			if (this->character == CHARACTER::MELIADOUL && specialON)
+			if ((this->character == CHARACTER::MELIADOUL && specialON)
+				|| (this->character == CHARACTER::SIMON && specialON))
 				blit_aimpath = false;
 
 			if (blit_aimpath)
