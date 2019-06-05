@@ -539,22 +539,22 @@ bool j1UIScene::Start()
 			basic[i] = App->gui->createImage(pos_x, 350, options_button_binding, App->input);
 			basic[i]->element_type = CUSTOMIZING_BUTTON_BASIC;
 			basic[i]->function = POLLING_CUSTOMIZE;
-			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::BASIC_ATTACK));
+			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::BASIC_ATTACK));
 			
 			special[i] = App->gui->createImage(pos_x, 350 + 72, options_button_binding, App->input);
 			special[i]->element_type = CUSTOMIZING_BUTTON_SPECIAL;
 			special[i]->function = POLLING_CUSTOMIZE;
-			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SPECIAL_ATTACK));
+			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SPECIAL_ATTACK));
 			
 			ultimate[i] = App->gui->createImage(pos_x, 350 + 144, options_button_binding, App->input);
 			ultimate[i]->element_type = CUSTOMIZING_BUTTON_SUPER;
 			ultimate[i]->function = POLLING_CUSTOMIZE;
-			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SUPER_ATTACK));
+			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SUPER_ATTACK));
 			
 			shield[i] = App->gui->createImage(pos_x, 350 + 216, options_button_binding, App->input);
 			shield[i]->element_type = CUSTOMIZING_BUTTON_SHIELD;
 			shield[i]->function = POLLING_CUSTOMIZE;
-			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SHIELD));
+			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SHIELD));
 		}
 		
 		settingsMenu->elements.push_back(settings_bg);
@@ -603,8 +603,6 @@ bool j1UIScene::Start()
 
 		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 
 		for (int i = 0; i < MAX_GAMEPADS; ++i)
 		{
@@ -613,6 +611,9 @@ bool j1UIScene::Start()
 			AddControllerSupport(ultimate[i], (PLAYER)i, SETTINGS_MENU);
 			AddControllerSupport(shield[i], (PLAYER)i, SETTINGS_MENU);
 		}
+
+		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 	}
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);
