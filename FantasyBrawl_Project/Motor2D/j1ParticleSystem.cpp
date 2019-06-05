@@ -72,7 +72,7 @@ bool j1ParticleSystem::Update(float dt)
 				if (pLife > p->life + p->delay && p->originplayer->character == CHARACTER::MELIADOUL)
 				{
 					meliadoulAXE.angle = p->angle;
-					p->originplayer->MeliadoulAXES.push_back(AddParticle(meliadoulAXE, p->pos.x, p->pos.y, COLLIDER_TYPE::COLLIDER_FLOOR, 0, p->originplayer));
+					p->originplayer->MeliadoulAXES.push_back(AddParticle(meliadoulAXE, p->pos.x, p->pos.y, COLLIDER_TYPE::COLLIDER_FALLENAXE, 0, p->originplayer));
 				}
 			}
 
@@ -213,15 +213,6 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 
 			else if (!c1->ghost)
 			{
-				Particle* c2P = nullptr;
-				c2P = App->particlesys->GetCollidedParticle(c1, c2, false);
-				Particle* c1P = nullptr;
-				c1P = App->particlesys->GetCollidedParticle(c2, c1, false);
-
-				if (c2P && c1P && c2P->originplayer == c1P->originplayer)
-				{
-					continue;
-				}
 
 					if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
 					{

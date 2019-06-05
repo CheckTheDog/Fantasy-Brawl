@@ -1103,6 +1103,11 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
 		break;
+	case COLLIDER_TYPE::COLLIDER_FALLENAXE:
+		entitycollider->rect.x -= Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		if (teleported)
 		{
@@ -1130,6 +1135,11 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	switch (to_check->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
+		entitycollider->rect.x += Intersection.w;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	case COLLIDER_TYPE::COLLIDER_FALLENAXE:
 		entitycollider->rect.x += Intersection.w;
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
@@ -1164,6 +1174,11 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
 		break;
+	case COLLIDER_TYPE::COLLIDER_FALLENAXE:
+		entitycollider->rect.y += Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		if (teleported)
 		{
@@ -1190,6 +1205,11 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	switch (to_check->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_FLOOR:
+		entitycollider->rect.y -= Intersection.h;
+		Future_position.x = entitycollider->rect.x;
+		Future_position.y = entitycollider->rect.y;
+		break;
+	case COLLIDER_TYPE::COLLIDER_FALLENAXE:
 		entitycollider->rect.y -= Intersection.h;
 		Future_position.x = entitycollider->rect.x;
 		Future_position.y = entitycollider->rect.y;
