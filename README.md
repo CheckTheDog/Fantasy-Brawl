@@ -36,6 +36,8 @@ Note that in most of the UI only PLAYER 1 has influence
 - F5 -> In character selection screen, lock all champion selections, independently of how many gamepads are connected
 - F8 -> Activate UI bounding boxes debug draw
 - F9 -> Activate colliders bounding box debug draw 
+- ESC-> to go back in certain screens
+
 
 Tips: Auto-aim will be activated when being near enemy players, no need to move the right joystick.
 
@@ -175,6 +177,8 @@ Didac:
 - Helped Implementing particle hit marker
 - Music and SFX balancing
 - Added shield and super fx
+- Key Binding
+- Options Menu (code)
 
 Pol:
 
