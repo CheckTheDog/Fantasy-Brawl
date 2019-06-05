@@ -1279,6 +1279,8 @@ bool j1Player::Save(pugi::xml_node &config) const
 
 void j1Player::AssignCharacter()
 {
+	ghost = false;
+
 	switch (this->character)
 	{
 	case CHARACTER::WENDOLIN:
