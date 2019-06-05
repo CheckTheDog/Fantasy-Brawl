@@ -349,10 +349,10 @@ void j1Player::HandleAttacks()
 	// --- Special ability ---
 	superTimer.Limit(SuperCooldown);
 
-	if (App->input->GetTriggerState(ID, SDL_CONTROLLER_AXIS_TRIGGERLEFT) == KEY_DOWN)
+	if (App->input->GetButton(ID, BUTTON_BIND::SPECIAL_ATTACK) == KEY_DOWN)
 		specialON = true;
 
-	else if (specialON && App->input->GetTriggerState(ID, SDL_CONTROLLER_AXIS_TRIGGERLEFT) == KEY_UP)
+	else if (specialON && App->input->GetButton(ID, BUTTON_BIND::SPECIAL_ATTACK) == KEY_UP)
 	{
 		specialON = false;
 		HandleSpecialAttacks();

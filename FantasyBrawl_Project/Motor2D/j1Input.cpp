@@ -518,13 +518,13 @@ void j1Input::LoadConfigBinding(PLAYER p)
 	{
 		/*config = config.child("default_binding");*/
 		int bind = 0; // We start with the first button from BUTTON_BIND enum
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_AXIS);
 		bind++;
 
 		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("special_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
 		bind++;
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
+		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_AXIS);
 		bind++;
 
 		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
