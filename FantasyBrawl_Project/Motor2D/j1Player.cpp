@@ -524,6 +524,25 @@ void j1Player::BlitSPAimPaths(float dt)
 		break;
 	case CHARACTER::TRAKT:
 
+		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+		{
+			traktSPAngle = std::atan2(RJdirection_y, RJdirection_x)*(180.0f / M_PI) + 90.0f;
+
+			TraktSPradius = 200;
+
+			fPoint circle_pos;
+
+			circle_pos.x = this->Entityinfo.position.x + cos((traktSPAngle - 90.0f) * (M_PI / 180.0f)) * abs(TraktSPradius);
+
+			circle_pos.y = this->Entityinfo.position.y + sin((traktSPAngle - 90.0f) *(M_PI / 180.0f))* abs(TraktSPradius);
+
+			if (App->ui_scene->actual_menu == SELECTION_MENU)
+				App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 35, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, 1,0, 0, 0, 0, 2);
+			else
+				App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 35, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
+
+		}
+
 		break;
 	case CHARACTER::MELIADOUL:
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
@@ -731,6 +750,36 @@ void j1Player::Launch3rdSP()
 	if (superTimer.ReadSec() > SuperCooldown / 2)
 	{
 		superTimer.Subtract(SuperCooldown / 2);
+
+		fPoint circle_pos;
+
+		circle_pos.x = this->Entityinfo.position.x + cos((traktSPAngle - 90.0f) * (M_PI / 180.0f)) * abs(TraktSPradius) - 35 + 50;
+
+		circle_pos.y = this->Entityinfo.position.y + sin((traktSPAngle - 90.0f) *(M_PI / 180.0f))* abs(TraktSPradius) - 50 + 50;
+
+		ComputeDistance2players(circle_pos);
+
+		if (this != App->scene->player1 && absoluteDistanceP1 < 50 && !App->scene->player1->shieldON && App->scene->player1->active)
+		{
+			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player1);
+		}
+
+		if (this != App->scene->player2 && absoluteDistanceP2 < 50 && !App->scene->player2->shieldON && App->scene->player2->active)
+		{
+			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player2);
+		}
+
+		if (this != App->scene->player3 && absoluteDistanceP3 < 50 && !App->scene->player3->shieldON && App->scene->player3->active)
+		{
+			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player3);
+		}
+
+		if (this != App->scene->player4 && absoluteDistanceP4 < 50 && !App->scene->player4->shieldON && App->scene->player4->active)
+		{
+			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player4);
+		}
+
+		ComputeDistance2players();
 	}
 }
 
@@ -818,6 +867,18 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
+
+	//fPoint circle_pos;
+
+	//circle_pos.x = this->Entityinfo.position.x  + cos((traktSPAngle - 90.0f) * (M_PI / 180.0f)) * abs(TraktSPradius);
+
+	//circle_pos.y = this->Entityinfo.position.y  + sin((traktSPAngle - 90.0f) *( M_PI/180.0f))* abs(TraktSPradius);
+
+	//ComputeDistance2players(circle_pos);
+
+	//App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 40, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2);
+
+	//ComputeDistance2players();
 
 	// --- Adapt to Transitions ---
 	if (App->transition->doingMenuTransition)
@@ -917,8 +978,7 @@ bool j1Player::PostUpdate(float dt)
 		
 			bool blit_aimpath = true;
 
-			if ((this->character == CHARACTER::MELIADOUL && specialON)
-				|| (this->character == CHARACTER::SIMON && specialON))
+			if (specialON)
 				blit_aimpath = false;
 
 			if (blit_aimpath)
@@ -1320,23 +1380,46 @@ void j1Player::AssignCharacter()
 	}
 }
 
-void j1Player::ComputeDistance2players()
+void j1Player::ComputeDistance2players(fPoint pos)
 {
-	directionP1.x = App->scene->player1->Future_position.x + App->scene->player1->Entityinfo.HitBox->rect.w/2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2) ;
-	directionP1.y = App->scene->player1->Future_position.y + App->scene->player1->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
-	absoluteDistanceP1 = sqrtf(pow(directionP1.x, 2.0f) + pow(directionP1.y, 2.0f));
+	if (pos.x == -1 && pos.y == -1)
+	{
 
-	directionP2.x = App->scene->player2->Future_position.x + App->scene->player2->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
-	directionP2.y = App->scene->player2->Future_position.y + App->scene->player2->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
-	absoluteDistanceP2 = sqrtf(pow(directionP2.x, 2.0f) + pow(directionP2.y, 2.0f));
+		directionP1.x = App->scene->player1->Future_position.x + App->scene->player1->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
+		directionP1.y = App->scene->player1->Future_position.y + App->scene->player1->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
+		absoluteDistanceP1 = sqrtf(pow(directionP1.x, 2.0f) + pow(directionP1.y, 2.0f));
 
-	directionP3.x = App->scene->player3->Future_position.x + App->scene->player3->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
-	directionP3.y = App->scene->player3->Future_position.y + App->scene->player3->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
-	absoluteDistanceP3 = sqrtf(pow(directionP3.x, 2.0f) + pow(directionP3.y, 2.0f));
+		directionP2.x = App->scene->player2->Future_position.x + App->scene->player2->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
+		directionP2.y = App->scene->player2->Future_position.y + App->scene->player2->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
+		absoluteDistanceP2 = sqrtf(pow(directionP2.x, 2.0f) + pow(directionP2.y, 2.0f));
 
-	directionP4.x = App->scene->player4->Future_position.x + App->scene->player4->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
-	directionP4.y = App->scene->player4->Future_position.y + App->scene->player4->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
-	absoluteDistanceP4 = sqrtf(pow(directionP4.x, 2.0f) + pow(directionP4.y, 2.0f));
+		directionP3.x = App->scene->player3->Future_position.x + App->scene->player3->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
+		directionP3.y = App->scene->player3->Future_position.y + App->scene->player3->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
+		absoluteDistanceP3 = sqrtf(pow(directionP3.x, 2.0f) + pow(directionP3.y, 2.0f));
+
+		directionP4.x = App->scene->player4->Future_position.x + App->scene->player4->Entityinfo.HitBox->rect.w / 2 - (this->Future_position.x + Entityinfo.HitBox->rect.w / 2);
+		directionP4.y = App->scene->player4->Future_position.y + App->scene->player4->Entityinfo.HitBox->rect.h / 2 - (this->Future_position.y + Entityinfo.HitBox->rect.h / 2);
+		absoluteDistanceP4 = sqrtf(pow(directionP4.x, 2.0f) + pow(directionP4.y, 2.0f));
+
+	}
+	else
+	{
+		directionP1.x = App->scene->player1->Future_position.x + App->scene->player1->Entityinfo.HitBox->rect.w / 2 - (pos.x);
+		directionP1.y = App->scene->player1->Future_position.y + App->scene->player1->Entityinfo.HitBox->rect.h / 2 - (pos.y);
+		absoluteDistanceP1 = sqrtf(pow(directionP1.x, 2.0f) + pow(directionP1.y, 2.0f));
+
+		directionP2.x = App->scene->player2->Future_position.x + App->scene->player2->Entityinfo.HitBox->rect.w / 2 - (pos.x);
+		directionP2.y = App->scene->player2->Future_position.y + App->scene->player2->Entityinfo.HitBox->rect.h / 2 - (pos.y);
+		absoluteDistanceP2 = sqrtf(pow(directionP2.x, 2.0f) + pow(directionP2.y, 2.0f));
+
+		directionP3.x = App->scene->player3->Future_position.x + App->scene->player3->Entityinfo.HitBox->rect.w / 2 - (pos.x);
+		directionP3.y = App->scene->player3->Future_position.y + App->scene->player3->Entityinfo.HitBox->rect.h / 2 - (pos.y);
+		absoluteDistanceP3 = sqrtf(pow(directionP3.x, 2.0f) + pow(directionP3.y, 2.0f));
+
+		directionP4.x = App->scene->player4->Future_position.x + App->scene->player4->Entityinfo.HitBox->rect.w / 2 - (pos.x);
+		directionP4.y = App->scene->player4->Future_position.y + App->scene->player4->Entityinfo.HitBox->rect.h / 2 - (pos.y);
+		absoluteDistanceP4 = sqrtf(pow(directionP4.x, 2.0f) + pow(directionP4.y, 2.0f));
+	}
 }
 
 bool j1Player::AreOtherPlayersDead()
@@ -1499,6 +1582,8 @@ void j1Player::FixedUpdate(float dt)
 void j1Player::LogicUpdate(float dt)
 {
 	// --- Update we may not do every frame ---
+
+	App->buff->RestartAttribute(&App->buff->effects[EXHAUST], this);
 
 	std::list<Particle*>::iterator item = MeliadoulAXES.begin();
 

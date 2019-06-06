@@ -82,10 +82,10 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 				DoMath(entity->og_armor, effect->bonus, effect->method, effect->type);
 				break;*/
 
-				/*case SPEED:
-					DoMath(entity->Entityinfo.speed, effect->bonus, effect->method, effect->type);
-					DoMath(entity->Entityinfo.og_speed, effect->bonus, effect->method, effect->type);
-					break;*/
+		case SPEED:
+			DoMath(entity->Entityinfo.Speed, effect->bonus, effect->method, effect->type);
+			DoMath(entity->Entityinfo.og_speed, effect->bonus, effect->method, effect->type);
+			break;
 
 		}
 	}
@@ -122,9 +122,17 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 				DoMath(entity->armor, effect->bonus, effect->method, effect->type);
 				break;*/
 
-				/*case SPEED:
-					DoMath(entity->Entityinfo.speed, effect->bonus, effect->method, effect->type);
-					break;*/
+		case SPEED:
+			if (effect->name == effects[EXHAUST].name)
+			{
+				if (entity->Entityinfo.exhaust_active == false)
+				{
+					DoMath(entity->Entityinfo.Speed, effect->bonus, effect->method, effect->type);
+					entity->Entityinfo.exhaust_active = true;
+				}
+				entity->Entityinfo.exhausting.Start(); // timer starts
+			}
+			break;
 		}
 	}
 	/*else if (effect->duration_type == PER_TICK)// we have to put manually every NEW EFFECT that has a TIMER (and create the timer in entity.h or in this case Player.h)
@@ -199,6 +207,18 @@ void j1BuffManager::ApplyEffect(Effect * effect, j1Entity * entity, float edited
 				entity->Entityinfo.war_cry.Start();
 			}
 			break;
+
+		case SPEED:
+			if (effect->name == effects[EXHAUST].name)
+			{
+				if (entity->Entityinfo.exhaust_active == false)
+				{
+					DoMath(entity->Entityinfo.Speed, edited_bonus, effect->method, effect->type);
+					entity->Entityinfo.exhaust_active = true;
+				}
+				entity->Entityinfo.exhausting.Start(); // timer starts
+			}
+			break;
 		}
 	}
 }
@@ -256,7 +276,14 @@ void j1BuffManager::RestartAttribute(Effect *effect, j1Entity *entity) //Check a
 			entity->Entityinfo.war_cry_active = false;
 		}
 	}
-
+	else if (effect->name == effects[EXHAUST].name)
+	{
+		if (entity->Entityinfo.exhaust_active == true && entity->Entityinfo.exhausting.ReadSec() > effect->duration_value)
+		{
+			entity->Entityinfo.Speed = entity->Entityinfo.og_speed;
+			entity->Entityinfo.exhaust_active = false;
+		}
+	}
 }
 
 void j1BuffManager::ApplyEachTick(Effect * effect, j1Entity * entity) //Check all the PER_TICK effects of an entity
@@ -315,15 +342,15 @@ void j1BuffManager::LimitAttributes(j1Entity * entity)
 	else if (entity->armor < MIN_ARMOR)
 		entity->armor = MIN_ARMOR;*/
 
-		// SPEED ATT
-		/*if (entity->Entityinfo.og_speed > MAX_SPEED)
-			entity->Entityinfo.og_speed = MAX_SPEED;
-		else if (entity->Entityinfo.og_speed < MIN_SPEED)
-			entity->Entityinfo.og_speed = MIN_SPEED;
-		if (entity->Entityinfo.speed > MAX_SPEED)
-			entity->Entityinfo.speed = MAX_SPEED;
-		else if (entity->Entityinfo.speed < MIN_SPEED)
-			entity->Entityinfo.speed = MIN_SPEED;*/
+	// SPEED ATT
+	if (entity->Entityinfo.og_speed > MAX_SPEED)
+		entity->Entityinfo.og_speed = MAX_SPEED;
+	else if (entity->Entityinfo.og_speed < MIN_SPEED)
+		entity->Entityinfo.og_speed = MIN_SPEED;
+	if (entity->Entityinfo.Speed > MAX_SPEED)
+		entity->Entityinfo.Speed = MAX_SPEED;
+	else if (entity->Entityinfo.Speed < MIN_SPEED)
+		entity->Entityinfo.Speed = MIN_SPEED;
 }
 
 const int j1BuffManager::GetMaxHealth()
@@ -394,15 +421,15 @@ void j1BuffManager::SetValue(Effect &effect, std::string string)
 	{
 		effect.attribute_to_change = STRENGTH;
 	}
-	/*else if (string == "ARMOR")
-	{
-		effect.attribute_to_change = ARMOR;
-	}
+	//else if (string == "ARMOR")
+	//{
+	//	effect.attribute_to_change = ARMOR;
+	//}
 
 	else if (string == "SPEED")
 	{
 		effect.attribute_to_change = SPEED;
-	}*/
+	}
 
 
 }

@@ -130,7 +130,7 @@ public:
 	// --- Character && Player ---
 	void AssignCharacter();
 	const fPoint GetNearestPlayerDirection();
-	void ComputeDistance2players();
+	void ComputeDistance2players(fPoint pos = {-1,-1});
 	bool AreOtherPlayersDead();
 
 	// --- Visuals ---
@@ -259,6 +259,8 @@ public:
 	uint alpha = 255;
 	Particle parryP;
 	std::list<Particle*> MeliadoulAXES;
+	float TraktSPradius = 0.0f;
+	float traktSPAngle = 0.0f;
 
 	// --- Fade ---
 	fade_step current_step;

@@ -25,7 +25,9 @@ struct entity_info
 	float          Speed = 110.0f;
 	float			health = 300;
 	float			strength = 1;
-	float	og_health, og_speed, og_strength;
+	float			og_health = 300;
+	float			og_speed = 110.0f;
+	float			og_strength = 1;
 
 	//Pointer to the j1Entity belonging to the entity
 	j1Entity* my_j1Entity = nullptr;
@@ -33,6 +35,10 @@ struct entity_info
 	// HEALING EFFECT
 	j1Timer		healing;
 	bool		heal_active = false;
+
+	// EXHAUST EFFECT
+	j1Timer		exhausting;
+	bool		exhaust_active = false;
 
 	//POISON --- PER TICK EFFECT --- reduces live each tick
 	j1Timer		poison_tick;
