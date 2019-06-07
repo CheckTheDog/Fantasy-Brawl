@@ -17,7 +17,6 @@ public:
 
 	j1Transition();
 	~j1Transition();
-	bool Awake(pugi::xml_node&);
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
@@ -35,7 +34,5 @@ private:
 	j1Timer timer;
 	float total_time = 0.0f;
 	float alpha_value = 0;
-	Animation book_anim;
-	
 };
 #endif // !__J1TRANSITION_H__

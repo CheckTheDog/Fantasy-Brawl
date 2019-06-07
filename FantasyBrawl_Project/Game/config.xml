@@ -110,8 +110,6 @@
       <AnimationRangeDownright range_start="22.5f" range_end=" 67.5f" />
       <AnimationRangeDownleft range_start="112.5f" range_end="157.5f" />
 
-      
-
       FOR PLAYTESTING PURPOSES
       <SuperCooldown value = "6" />
       <ShieldCooldown value = "10" />
@@ -149,10 +147,5 @@
     
   </arena_interactions>
 
-  <book>
-
-    <BookAnimation>Animations/Book.tmx</BookAnimation>
-    
-  </book>
 
 </config>

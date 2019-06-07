@@ -4,8 +4,6 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Viewport.h"
-#include "j1Textures.h"
-#include "p2Log.h"
 
 j1Transition::j1Transition()
 {
