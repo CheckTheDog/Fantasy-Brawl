@@ -88,6 +88,10 @@ bool j1UIScene::Start()
 		UI_element* web_text = App->gui->createText("WEB", 100, 635, perfect_font, brown_color);
 		web_text->setOutlined(true);
 
+		UI_element* logo = App->gui->createImageFromAtlas(60, 300, { 25,422,155,100 }, this);
+		UI_element* logo_text = App->gui->createText("CheckTheDog", 10, 420, perfect_font, black_color);
+		web_text->setOutlined(false);
+
 		//CREDITS ROLES 
 		UI_element* lead_text = App->gui->createText("LEAD", 575, 50, perfect_font, brown_color);
 		lead_text->setOutlined(false);
@@ -151,6 +155,8 @@ bool j1UIScene::Start()
 		creditsMenu->elements.push_back(marc);
 		creditsMenu->elements.push_back(qa_text);
 		creditsMenu->elements.push_back(pol);
+		creditsMenu->elements.push_back(logo);
+		creditsMenu->elements.push_back(logo_text);
 		/*creditsMenu->elements.push_back(star1_lead);*/
 
 		menus.push_back(creditsMenu);
@@ -886,6 +892,15 @@ bool j1UIScene::Update(float dt)
 			ret = true;
 
 		}
+
+		else if (actual_menu == CREDITS_MENU && previous_menu == START_MENU)
+		{
+
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU, 0.3f);
+			ret = true;
+
+		}
 	}
 
 
@@ -899,6 +914,11 @@ bool j1UIScene::Update(float dt)
 	else if (actual_menu == SETTINGS_MENU)
 	{
 		
+		App->on_GamePause = true;
+	}
+	else if (actual_menu == CREDITS_MENU)
+	{
+
 		App->on_GamePause = true;
 	}
 	else if (actual_menu == SELECTION_MENU)
