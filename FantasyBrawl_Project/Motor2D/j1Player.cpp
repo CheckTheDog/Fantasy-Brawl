@@ -339,7 +339,7 @@ void j1Player::HandleAttacks()
 	{
 		superON = true;
 	}
-	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP)
+	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP && superTimer.ReadSec() <= SuperCooldown)
 	{
 		superON = false;
 		super_available = false;
@@ -567,7 +567,6 @@ void j1Player::Launch1stSuper()
 		ghostTimer.Start();
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
-		super_available = false;
 	}
 }
 
@@ -626,7 +625,6 @@ void j1Player::Launch2ndSuper()
 					this->kills++;
 			}
 		}
-		super_available = false;
 	}
 }
 
@@ -664,7 +662,6 @@ void j1Player::Launch3rdSuper()
 			App->scene->player4->RJinverted = true;
 			App->scene->player4->RJinversion.Start();
 		}
-		super_available = false;
 	}
 }
 
@@ -679,7 +676,6 @@ void j1Player::Launch4thSuper()
 		{
 			superTimer.Start();
 			App->audio->PlayFx(this->playerinfo.super_fx);
-
 
 			while (item != MeliadoulAXES.end())
 			{
@@ -710,8 +706,8 @@ void j1Player::Launch4thSuper()
 				item++;
 			}
 
-			super_available = false;
 		}
+
 	}
 }
 
