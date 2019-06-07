@@ -50,6 +50,7 @@ bool j1UIScene::Start()
 	 big_font = App->fonts->Load("fonts/Minecraft.ttf", 70);
 	 mid_font = App->fonts->Load("fonts/Minecraft.ttf", 50);
 	 perfect_font = App->fonts->Load("fonts/Minecraft.ttf", 40);
+	 credits_font = App->fonts->Load("fonts/Minecraft.ttf", 30);
 	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
 	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
@@ -80,6 +81,79 @@ bool j1UIScene::Start()
 
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/Bg.png"), this);
+
+		UI_element* webpage = App->gui->createButton(10 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		webpage->function = WEBPAGE;
+		UI_element* web_text = App->gui->createText("WEB", 100, 635, perfect_font, brown_color);
+		web_text->setOutlined(true);
+
+		//CREDITS ROLES 
+		UI_element* lead_text = App->gui->createText("LEAD", 575, 50, perfect_font, brown_color);
+		lead_text->setOutlined(false);
+		UI_element* aitor = App->gui->createText("Aitor Simona", 540, 90, credits_font, black_color);
+		aitor->setOutlined(false);
+
+		UI_element* manager_text = App->gui->createText("MANAGER", 535, 130, perfect_font, brown_color);
+		manager_text->setOutlined(false);
+		UI_element* vladi = App->gui->createText("Vladislav Bulantsev", 500, 170, credits_font, black_color);
+		vladi->setOutlined(false);
+
+		UI_element* art_text = App->gui->createText("ART & AUDIO", 500, 210, perfect_font, brown_color);
+		art_text->setOutlined(false);
+		UI_element* roger = App->gui->createText("Roger Sanchez", 525, 250, credits_font, black_color);
+		roger->setOutlined(false);
+
+		UI_element* design_text = App->gui->createText("DESIGN", 550, 290, perfect_font, brown_color);
+		design_text->setOutlined(false);
+		UI_element* jacobo = App->gui->createText("Jacobo Galofre", 510, 330, credits_font, black_color);
+		jacobo->setOutlined(false);
+
+		UI_element* ui_text = App->gui->createText("USER INTERFACE", 440, 370, perfect_font, brown_color);
+		ui_text->setOutlined(false);
+		UI_element* oscar = App->gui->createText("Oscar Larios", 530, 410, credits_font, black_color);
+		oscar->setOutlined(false);
+
+		UI_element* code_text = App->gui->createText("CODE", 565, 450, perfect_font, brown_color);
+		code_text->setOutlined(false);
+		UI_element* didac = App->gui->createText("Didac Romero", 520, 490, credits_font, black_color);
+		didac->setOutlined(false);
+
+		UI_element* code2_text = App->gui->createText("CODE", 565, 530, perfect_font, brown_color);
+		code2_text->setOutlined(false);
+		UI_element* marc = App->gui->createText("Marc Garcia", 530, 570, credits_font, black_color);
+		marc->setOutlined(false);
+
+		UI_element* qa_text = App->gui->createText("QUALITY ASSURANCE", 410, 610, perfect_font, brown_color);
+		qa_text->setOutlined(false);
+		UI_element* pol = App->gui->createText("Pol Bosch", 550, 650, credits_font, black_color);
+		pol->setOutlined(false);
+
+		//STARS
+		UI_element* star1_lead = App->gui->createImageFromAtlas(425, 67, {0,873,54,54}, this);
+
+		creditsMenu->elements.push_back(background_image);
+		creditsMenu->elements.push_back(webpage);
+		creditsMenu->elements.push_back(web_text);
+		creditsMenu->elements.push_back(lead_text);
+		creditsMenu->elements.push_back(aitor);
+		creditsMenu->elements.push_back(manager_text);
+		creditsMenu->elements.push_back(vladi);
+		creditsMenu->elements.push_back(art_text);
+		creditsMenu->elements.push_back(roger);
+		creditsMenu->elements.push_back(design_text);
+		creditsMenu->elements.push_back(jacobo);
+		creditsMenu->elements.push_back(ui_text);
+		creditsMenu->elements.push_back(oscar);
+		creditsMenu->elements.push_back(code_text);
+		creditsMenu->elements.push_back(didac);
+		creditsMenu->elements.push_back(code2_text);
+		creditsMenu->elements.push_back(marc);
+		creditsMenu->elements.push_back(qa_text);
+		creditsMenu->elements.push_back(pol);
+		/*creditsMenu->elements.push_back(star1_lead);*/
+
+		menus.push_back(creditsMenu);
 		
 	}
 
@@ -115,7 +189,7 @@ bool j1UIScene::Start()
 
 		//CREDITS
 		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
-		credits->function = WEBPAGE;
+		credits->function = CREDITS;
 
 		//MARKER
 		Marker_anim_data def = Marker_anim_data();
@@ -1781,6 +1855,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			break;
 		case CREDITS:
 			App->audio->PlayFx(App->audio->fxConfirm);
+			actual_menu = CREDITS_MENU;
+			App->transition->menuTransition(CREDITS_MENU, 0.3);
+
 			break;
 		case EXIT:
 			ret = false;

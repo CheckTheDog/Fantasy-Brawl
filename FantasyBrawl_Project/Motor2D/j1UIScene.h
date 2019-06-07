@@ -213,6 +213,7 @@ public:
 	_TTF_Font* big_font = nullptr;
 	_TTF_Font* mid_font = nullptr;
 	_TTF_Font* perfect_font = nullptr;
+	_TTF_Font* credits_font = nullptr;
 
 	float scale = 0.66f;
 	SDL_Texture* A_Butt = nullptr;
