@@ -332,20 +332,20 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
-	bool before_iteration = super_available;
-
 
 	if (App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_DOWN)
 	{
 		superON = true;
 	}
-	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP && superTimer.ReadSec() <= SuperCooldown)
+	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP && superTimer.ReadSec() >= SuperCooldown)
 	{
 		superON = false;
-		super_available = false;
 		HandleSuperAttacks();
 	}
+	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) != KEY_REPEAT)
+		superON = false;
 
+	LOG("t: %f", superTimer.ReadSec());
 	// --- Special ability ---
 	superTimer.Limit(SuperCooldown);
 
@@ -567,6 +567,7 @@ void j1Player::Launch1stSuper()
 		ghostTimer.Start();
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
+		super_available = false;
 	}
 }
 
@@ -623,7 +624,9 @@ void j1Player::Launch2ndSuper()
 
 				if (App->scene->player4->Entityinfo.health <= 0 && App->scene->player4->active)
 					this->kills++;
+
 			}
+			super_available = false;
 		}
 	}
 }
@@ -662,6 +665,7 @@ void j1Player::Launch3rdSuper()
 			App->scene->player4->RJinverted = true;
 			App->scene->player4->RJinversion.Start();
 		}
+		super_available = false;
 	}
 }
 
@@ -705,7 +709,7 @@ void j1Player::Launch4thSuper()
 
 				item++;
 			}
-
+			super_available = false;
 		}
 
 	}
@@ -864,17 +868,6 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	//fPoint circle_pos;
-
-	//circle_pos.x = this->Entityinfo.position.x  + cos((traktSPAngle - 90.0f) * (M_PI / 180.0f)) * abs(TraktSPradius);
-
-	//circle_pos.y = this->Entityinfo.position.y  + sin((traktSPAngle - 90.0f) *( M_PI/180.0f))* abs(TraktSPradius);
-
-	//ComputeDistance2players(circle_pos);
-
-	//App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 40, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2);
-
-	//ComputeDistance2players();
 
 	// --- Adapt to Transitions ---
 	if (App->transition->doingMenuTransition)
@@ -974,7 +967,7 @@ bool j1Player::PostUpdate(float dt)
 		
 			bool blit_aimpath = true;
 
-			if (specialON)
+			if (specialON && this->character != CHARACTER::SIMON)
 				blit_aimpath = false;
 
 			if (blit_aimpath)
