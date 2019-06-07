@@ -6,29 +6,15 @@
 #include "j1Viewport.h"
 #include "j1Textures.h"
 #include "p2Log.h"
-#include "j1EntityManager.h"
-
 
 j1Transition::j1Transition()
 {
 	
 	alpha_value = 0;
-	
 }
 j1Transition::~j1Transition()
 {
 }
-
-bool j1Transition::Awake(pugi::xml_node& conf)
-{
-	LOG("Loading Book anim");
-	bool ret = true;
-
-	//book_anim = *App->entities->LoadAnimation(/*playernode.child("foldershield").child_value(), "shield"*/);
-	App->tex->Load("gui/BgSprite.png");
-	return ret;
-}
-
 bool j1Transition::Update(float dt)
 {
 
@@ -50,9 +36,8 @@ bool j1Transition::Update(float dt)
 			if (App->gui->alpha_value <= 0)
 			{
 				App->gui->alpha_value = 0;
-				//
 				menuState = GOUT;
-				//reset
+
 				App->ui_scene->loadMenu(newMenuID);
 			}
 		}
