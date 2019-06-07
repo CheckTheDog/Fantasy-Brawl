@@ -4,6 +4,7 @@
 #include "j1UIScene.h"
 #include "j1Scene.h"
 #include "j1Timer.h"
+#include "Animation.h"
 
 enum transition_state
 {
