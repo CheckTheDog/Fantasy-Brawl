@@ -1127,6 +1127,14 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 				float damage = (float)App->arena_interactions->GetStormDamage(int(ID));
 				App->buff->ApplyEffect(&App->buff->effects[STORM], this->Entityinfo.my_j1Entity, damage);
 
+				if (this->Entityinfo.health <= 0.0f)
+				{
+					if (last_hitP)
+						last_hitP->kills++;
+
+					App->input->ShakeController(ID, 1.0, 1000);
+				}
+
 				if(damage != 0)
 				damage_received = true;
 				break;
@@ -1308,6 +1316,7 @@ void j1Player::CheckParticleCollision(Collider * hitbox, const Collider * to_che
 			{
 				damage_received = true;
 				App->buff->ApplyEffect(pcollided->particle_effect, this);
+				last_hitP = pcollided->originplayer;
 			}
 
 			App->input->ShakeController(ID, 0.5, 100);

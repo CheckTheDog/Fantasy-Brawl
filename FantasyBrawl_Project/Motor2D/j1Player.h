@@ -282,6 +282,7 @@ public:
 	float alphaC = 0;
 
 	bool damage_received = false;
+	j1Player* last_hitP = nullptr;
 };
 
 #endif // __j1Player_H__
