@@ -889,6 +889,7 @@ bool j1UIScene::Update(float dt)
 				champ_selected[i] = false;
 			}
 
+			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 			ret = true;
 
 		}
@@ -898,6 +899,7 @@ bool j1UIScene::Update(float dt)
 
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
+			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 			ret = true;
 
 		}
@@ -1877,6 +1879,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxConfirm);
 			actual_menu = CREDITS_MENU;
 			App->transition->menuTransition(CREDITS_MENU, 0.3);
+			App->audio->PlayMusic(App->audio->pathGallery.data(), 0);
 
 			break;
 		case EXIT:
