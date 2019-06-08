@@ -211,6 +211,35 @@ void j1Scene::ResetAll()
 	player2->P_rank = RANK::CONTENDER;
 	player3->P_rank = RANK::CONTENDER;
 	player4->P_rank = RANK::CONTENDER;
+
+	// --- Other vars ---
+	App->scene->player1->superTimer.Start();
+	App->scene->player1->shieldON = false;
+	App->scene->player1->superON = false;
+	App->scene->player1->specialON = false;
+	App->scene->player1->shieldTimer.Start();
+	App->scene->player1->RJinverted = false;
+
+	App->scene->player2->superTimer.Start();
+	App->scene->player2->shieldON = false;
+	App->scene->player2->superON = false;
+	App->scene->player2->specialON = false;
+	App->scene->player2->shieldTimer.Start();
+	App->scene->player2->RJinverted = false;
+
+	App->scene->player3->superTimer.Start();
+	App->scene->player3->shieldON = false;
+	App->scene->player3->superON = false;
+	App->scene->player3->specialON = false;
+	App->scene->player3->shieldTimer.Start();
+	App->scene->player3->RJinverted = false;
+
+	App->scene->player4->superTimer.Start();
+	App->scene->player4->shieldON = false;
+	App->scene->player4->superON = false;
+	App->scene->player4->specialON = false;
+	App->scene->player4->shieldTimer.Start();
+	App->scene->player4->RJinverted = false;
 }
 
 j1Player* j1Scene::GetWinner()

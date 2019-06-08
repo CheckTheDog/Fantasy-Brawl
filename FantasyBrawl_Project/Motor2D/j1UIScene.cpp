@@ -1444,6 +1444,8 @@ bool j1UIScene::Update(float dt)
 			//from the previous game when we play again
 			App->arena_interactions->DestroyStorm();
 			App->arena_interactions->PauseStorm();
+
+
 		}
 	}
 
@@ -1538,40 +1540,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			App->scene->player1->Future_position.x = 510;
 			App->scene->player1->Future_position.y = 200;
-			App->scene->player1->superTimer.Start();
-			App->scene->player1->shieldON = false;
-			App->scene->player1->superON = false;
-			App->scene->player1->specialON = false;
-			App->scene->player1->shieldTimer.Start();
-			App->scene->player1->RJinverted = false;
 
 			App->scene->player2->Future_position.x = 840;
 			App->scene->player2->Future_position.y = 200;
-			App->scene->player2->superTimer.Start();
-			App->scene->player2->shieldON = false;
-			App->scene->player2->superON = false;
-			App->scene->player2->specialON = false;
-			App->scene->player2->shieldTimer.Start();
-			App->scene->player2->RJinverted = false;
 
 			App->scene->player3->Future_position.x = 510;
 			App->scene->player3->Future_position.y = 550;
-			App->scene->player3->superTimer.Start();
-			App->scene->player3->shieldON = false;
-			App->scene->player3->superON = false;
-			App->scene->player3->specialON = false;
-			App->scene->player3->shieldTimer.Start();
-			App->scene->player3->RJinverted = false;
 
 			App->scene->player4->Future_position.x = 840;
 			App->scene->player4->Future_position.y = 550;
-			App->scene->player4->superTimer.Start();
-			App->scene->player4->shieldON = false;
-			App->scene->player4->superON = false;
-			App->scene->player4->specialON = false;
-			App->scene->player4->shieldTimer.Start();
-			App->scene->player4->RJinverted = false;
-
 
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
@@ -1584,34 +1561,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			{
 				App->view->SetViews(4);
 				App->scene->ChangeMap(0);
-				App->scene->player1->Future_position.x = App->scene->initialposP1.x;
-				App->scene->player1->Future_position.y = App->scene->initialposP1.y;
-				App->scene->player1->superTimer.Start();
-				App->scene->player1->shieldON = false;
-				App->scene->player1->shieldTimer.Start();
 
-				App->scene->player2->Future_position.x = App->scene->initialposP2.x;
-				App->scene->player2->Future_position.y = App->scene->initialposP2.y;
-				App->scene->player2->superTimer.Start();
-				App->scene->player2->shieldON = false;
-				App->scene->player2->shieldTimer.Start();
-
-				App->scene->player3->Future_position.x = App->scene->initialposP3.x;
-				App->scene->player3->Future_position.y = App->scene->initialposP3.y;
-				App->scene->player3->superTimer.Start();
-				App->scene->player3->shieldON = false;
-				App->scene->player3->shieldTimer.Start();
-
-				App->scene->player4->Future_position.x = App->scene->initialposP4.x;
-				App->scene->player4->Future_position.y = App->scene->initialposP4.y;
-				App->scene->player4->superTimer.Start();
-				App->scene->player4->shieldON = false;
-				App->scene->player4->shieldTimer.Start();
-
-				App->scene->player1->CurrentAnimation = &App->scene->player1->playerinfo.idleDown;
-				App->scene->player2->CurrentAnimation = &App->scene->player2->playerinfo.idleDown;
-				App->scene->player3->CurrentAnimation = &App->scene->player3->playerinfo.idleDown;
-				App->scene->player4->CurrentAnimation = &App->scene->player4->playerinfo.idleDown;
+				App->scene->ResetAll();
 
 				App->particlesys->CleanUp();
 			}
