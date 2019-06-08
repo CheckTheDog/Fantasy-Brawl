@@ -147,5 +147,10 @@
     
   </arena_interactions>
 
-
+  <book>
+  
+    <bookanim>Animations/Book.tmx</bookanim>
+  
+  </book>
+  
 </config>

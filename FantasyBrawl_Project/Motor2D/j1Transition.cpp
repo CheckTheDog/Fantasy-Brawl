@@ -4,6 +4,8 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Viewport.h"
+#include "j1EntityManager.h"
+#include "j1Textures.h"
 
 j1Transition::j1Transition()
 {
@@ -12,6 +14,22 @@ j1Transition::j1Transition()
 }
 j1Transition::~j1Transition()
 {
+}
+bool j1Transition::Awake(pugi::xml_node& config)
+{
+	pugi::xml_node node = config.child("book");
+
+	book = *App->entities->LoadAnimation(node.child("bookanim").child_value(), "bookAnim");
+	book.loop = false;
+	book.speed = 16.0f;
+
+	return true;
+}
+bool j1Transition::Start()
+{
+	book_texture = App->tex->Load("gui/BgSprite.png");
+
+	return true;
 }
 bool j1Transition::Update(float dt)
 {
