@@ -647,7 +647,7 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
 				//Bind the button
 				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
 				
-				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed, SDL_CONTROLLER_BINDTYPE_BUTTON);
+				BindButton((PLAYER)p,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed, SDL_CONTROLLER_BINDTYPE_BUTTON);
 				element->section = App->gui->GetButtonRect(controllers[p].last_button_pressed);
 
 				AddBindingToConfig((PLAYER)p);
@@ -664,7 +664,7 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
 				//Bind the button
 				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
 
-				BindButton(PLAYER::P1, (BUTTON_BIND)button_bind, controllers[p].last_axis_pressed, SDL_CONTROLLER_BINDTYPE_AXIS);
+				BindButton((PLAYER)p, (BUTTON_BIND)button_bind, controllers[p].last_axis_pressed, SDL_CONTROLLER_BINDTYPE_AXIS);
 				element->section = App->gui->GetButtonRect(controllers[p].last_axis_pressed + SDL_CONTROLLER_BUTTON_DPAD_RIGHT + 1);
 
 				AddBindingToConfig((PLAYER)p);
