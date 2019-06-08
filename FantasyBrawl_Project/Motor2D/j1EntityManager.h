@@ -110,6 +110,7 @@ public:
 	SDL_Texture * wendolin_ultismoke = nullptr;
 	SDL_Texture * parry_texture = nullptr;
 	SDL_Texture* wendolin_superdaggertex = nullptr;
+	SDL_Texture* simonteleport_tex = nullptr;
 
 	SDL_Rect parrytex_rect;
 	SDL_Rect inkshot_rect;
@@ -118,6 +119,7 @@ public:
 
 	Animation Wendolinsmokeanim;
 	Animation particle_hitanim;
+	Animation simonteleport_anim;
 
 	// --- ID Circle animations ---
 	std::string circle_texturepath;

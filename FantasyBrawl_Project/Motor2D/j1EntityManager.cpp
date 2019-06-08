@@ -214,6 +214,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Simon.basic_attack.particle_effect = &App->buff->effects[3];
 	Simon.basic_attack.ghost = true;
 
+	simonteleport_anim = *LoadAnimation("Animations/Teleport.tmx","Teleport");
+	simonteleport_anim.speed = 30;
+	simonteleport_anim.loop = false;
+
 	// --------------------
 
 	// --- Trakt Awake ---
@@ -333,6 +337,7 @@ bool j1EntityManager::Start()
 	SimonSuper_aimpath = App->tex->Load("textures/simonSuper_path.png");
 	parry_texture = App->tex->Load("particles/parry.png");
 	parrytex_rect = { 0,0,52,52 };
+	simonteleport_tex = App->tex->Load("particles/Teleport.png");
 
 	// --- Trakt ---
 	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");

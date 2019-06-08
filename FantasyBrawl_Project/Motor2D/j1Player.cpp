@@ -56,6 +56,7 @@ bool j1Player::Start()
 	shieldAnim = manager->shield_anim;
 	shieldendAnim = manager->shieldEnd_anim;
 	WendolinsmokeANIM = manager->Wendolinsmokeanim;
+	simonteleport_anim = manager->simonteleport_anim;
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -352,15 +353,18 @@ void j1Player::HandleAttacks(float dt)
 		superON = true;
 		launched_super = false;
 		WendolinsmokeANIM.Reset();
+		simonteleport_anim.Reset();
 	}
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP && superTimer.ReadSec() >= SuperCooldown)
 	{
 		superON = false;
 		HandleSuperAttacks();
+
 	}
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) != KEY_REPEAT)
 		superON = false;
 
+	// --- Blit Ultimate feedback ---
 	else if (launched_super && superTimer.ReadSec() <= 0.5f)
 	{
 		switch (character)
@@ -369,7 +373,8 @@ void j1Player::HandleAttacks(float dt)
 			App->view->PushQueue(10, manager->wendolin_ultismoke, this->static_pos.x - 15, this->static_pos.y - 40, WendolinsmokeANIM.GetCurrentFrame(dt), 0, 0, 0, 0, 0, 1.0f);
 			break;
 		case CHARACTER::SIMON:
-			
+			App->view->PushQueue(5, manager->simonteleport_tex, this->static_pos.x - 35, this->static_pos.y - 45, simonteleport_anim.GetCurrentFrame(dt), 0, 0, 0, 0, 0, 1.0f,255/1.5);
+			App->view->PushQueue(5, manager->simonteleport_tex, this->static_posend.x - 35, this->static_posend.y - 45, simonteleport_anim.GetCurrentFrame(dt), 0, 0, 0, 0, 0, 1.0f);
 			break;
 		case CHARACTER::TRAKT:
 			App->view->PushQueue(5, manager->trakttentacles_texture, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), manager->trakttentacles_rect, 0, 0, 0, 0, 0,1.0f,100);
@@ -611,6 +616,7 @@ void j1Player::Launch1stSuper()
 
 void j1Player::Launch2ndSuper()
 {
+
 	if (superTimer.ReadSec() > SuperCooldown)
 	{
 		float damage_radius = 75.0f;
@@ -618,8 +624,10 @@ void j1Player::Launch2ndSuper()
 		if (last_particle != nullptr && last_particle->toDelete != true)
 		{
 			teleported = true;
+			static_pos = { this->Future_position.x, this->Future_position.y };
 			this->Future_position.x = last_particle->pos.x;
 			this->Future_position.y = last_particle->pos.y;
+			static_posend = { this->Future_position.x, this->Future_position.y };
 
 			CheckCollision();
 
@@ -673,6 +681,7 @@ void j1Player::Launch2ndSuper()
 				super_available = false;
 			}
 		}
+	
 	}
 }
 

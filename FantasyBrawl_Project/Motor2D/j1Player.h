@@ -232,6 +232,7 @@ public:
 	// --- Particles ---
 	Particle * last_particle = nullptr;
 	fPoint static_pos = { 0.0f,0.0f };
+	fPoint static_posend = { 0.0f,0.0f };
 
 	// --- Distances to players ---
 	float absoluteDistanceP1 = 0.0f;
@@ -265,6 +266,7 @@ public:
 	float TraktSPradius = 0.0f;
 	float traktSPAngle = 0.0f;
 	Animation WendolinsmokeANIM;
+	Animation simonteleport_anim;
 
 	// --- Fade ---
 	fade_step current_step;
