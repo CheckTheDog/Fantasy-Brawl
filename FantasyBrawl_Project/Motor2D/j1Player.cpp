@@ -339,6 +339,9 @@ void j1Player::HandleAttacks()
 
 		last_particle = App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8 * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 
+		if (this->character == CHARACTER::MELIADOUL)
+			MeliadoulAXES.push_back(last_particle);
+
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
@@ -711,7 +714,6 @@ void j1Player::Launch3rdSuper()
 
 void j1Player::Launch4thSuper()
 {
-	SuperCooldown = 1;
 
 	if (superTimer.ReadSec() > SuperCooldown)
 	{
@@ -741,7 +743,7 @@ void j1Player::Launch4thSuper()
 		for (int i = 1; i < 5; ++i)
 		{
 			playerinfo.basic_attack.angle = angle + 18.0f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			MeliadoulAXES.push_back(App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this));
 		}
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.75f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.75f;
@@ -753,7 +755,7 @@ void j1Player::Launch4thSuper()
 		for (int i = 1; i < 4; ++i)
 		{
 			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			MeliadoulAXES.push_back(App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this));
 		}
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
@@ -764,9 +766,9 @@ void j1Player::Launch4thSuper()
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.25f;
 
 		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		MeliadoulAXES.push_back(App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this));
 		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		MeliadoulAXES.push_back(App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this));
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.25f;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.25f;
@@ -846,8 +848,8 @@ void j1Player::Launch4thSP()
 					(*item)->direction.x = this->Entityinfo.position.x - (*item)->pos.x;
 					(*item)->direction.y = this->Entityinfo.position.y - (*item)->pos.y;
 					(*item)->particle_effect = &App->buff->effects[3];
-					(*item)->speed.x = 200.0f;
-					(*item)->speed.y = 200.0f;
+					(*item)->speed.x = 250.0f;
+					(*item)->speed.y = 250.0f;
 					(*item)->angle = std::atan2((*item)->direction.y, (*item)->direction.x);
 
 					if ((*item)->pCol && !(*item)->pCol->to_delete)

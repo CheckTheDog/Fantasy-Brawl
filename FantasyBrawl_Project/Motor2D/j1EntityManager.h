@@ -105,6 +105,7 @@ public:
 	SDL_Texture * inkshot_texture = nullptr;
 	SDL_Texture * inksplash_texture = nullptr;
 	SDL_Texture * trakttentacles_texture = nullptr;
+	SDL_Texture * fallenaxe_texture = nullptr;
 
 	Animation particle_hitanim;
 	SDL_Texture* particle_hittex = nullptr;

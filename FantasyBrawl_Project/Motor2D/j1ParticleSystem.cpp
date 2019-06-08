@@ -29,7 +29,7 @@ bool j1ParticleSystem::Start()
 	meliadoulAXE.speed.x = 0.0f;
 	meliadoulAXE.speed.y = 0.0f;
 	meliadoulAXE.life = 3000;
-	meliadoulAXE.tex = App->entities->axe_texture;
+	meliadoulAXE.tex = App->entities->fallenaxe_texture;
 	meliadoulAXE.anim.loop = true;
 	meliadoulAXE.anim.PushBack({ 0,0,40,34 });
 
@@ -246,12 +246,22 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 
 			else 
 			{
+				Particle* pcollided = nullptr;
+				pcollided = App->particlesys->GetCollidedParticle(c2, c1, false);
 						
 					if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
 					{
-						if (active[i]->particle_effect == &App->buff->effects[Effects::EXHAUST] && !active[i]->bomb)
+						if ((active[i]->particle_effect == &App->buff->effects[Effects::EXHAUST] && !active[i]->bomb) 
+							|| (pcollided && pcollided->originplayer && pcollided->originplayer->character == CHARACTER::MELIADOUL))
 						{
 							// we do nothing, ink splash
+
+							// if it is a particle from meliadoul, stop it
+							if (pcollided->originplayer->character == CHARACTER::MELIADOUL)
+							{
+								pcollided->speed = { 0,0 };
+								pcollided->tex = App->entities->fallenaxe_texture;
+							}
 						}
 						else
 						{

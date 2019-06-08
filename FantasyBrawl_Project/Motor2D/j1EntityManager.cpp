@@ -342,6 +342,7 @@ bool j1EntityManager::Start()
 	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
 	Meliadoul.basic_attack.tex = axe_texture;
 	MeliadoulSuper_aimpath = App->tex->Load("textures/meliadoulSuper_path.png");
+	fallenaxe_texture = App->tex->Load("particles/Meliadoul green axe ground.png");
 
 	// --- Loading Character Specific FX ---
 	Wendolin.basic_fx = App->audio->fxWendolinBasic;
