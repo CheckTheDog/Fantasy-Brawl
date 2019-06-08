@@ -522,7 +522,13 @@ void j1Player::BlitSuperAimPaths(float dt)
 
 		break;
 	case CHARACTER::MELIADOUL:
-	
+		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
+		{
+			if (App->ui_scene->actual_menu == SELECTION_MENU)
+				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
+			else
+				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
+		}
 		break;
 	default:
 		break;
@@ -577,13 +583,7 @@ void j1Player::BlitSPAimPaths(float dt)
 
 		break;
 	case CHARACTER::MELIADOUL:
-		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
-		{
-			if (App->ui_scene->actual_menu == SELECTION_MENU)
-				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
-			else
-				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
-		}
+
 		break;
 	default:
 		break;
@@ -711,48 +711,65 @@ void j1Player::Launch3rdSuper()
 
 void j1Player::Launch4thSuper()
 {
+	SuperCooldown = 1;
+
 	if (superTimer.ReadSec() > SuperCooldown)
 	{
+		fPoint direction = { 0.0f,0.0f };
+		launched_super = true;
+		super_available = false;
+		superTimer.Start();
+		App->audio->PlayFx(this->playerinfo.super_fx);
 
-		std::list<Particle*>::iterator item = MeliadoulAXES.begin();
-
-		if (MeliadoulAXES.size() > 0)
+		if (abs(RJdirection_x) < multipliermin && abs(RJdirection_y) < multipliermin)
 		{
-			launched_super = true;
-			superTimer.Start();
-			App->audio->PlayFx(this->playerinfo.super_fx);
-
-			while (item != MeliadoulAXES.end())
-			{
-				if (*item)
-				{
-					(*item)->life = 2000;
-					(*item)->direction.x = this->Entityinfo.position.x - (*item)->pos.x;
-					(*item)->direction.y = this->Entityinfo.position.y - (*item)->pos.y;
-					(*item)->particle_effect = &App->buff->effects[3];
-					(*item)->speed.x = 200.0f;
-					(*item)->speed.y = 200.0f;
-					(*item)->angle = std::atan2((*item)->direction.y, (*item)->direction.x);
-
-					if ((*item)->pCol && !(*item)->pCol->to_delete)
-						(*item)->pCol->type = COLLIDER_TYPE::COLLIDER_PARTICLE;
-					else
-					{
-						(*item)->pCol = App->coll->AddCollider((*item)->anim.GetCurrentFrame(0), COLLIDER_TYPE::COLLIDER_PARTICLE, App->particlesys);
-						(*item)->pCol->rect.x = (*item)->pos.x;
-						(*item)->pCol->rect.y = (*item)->pos.y;
-						(*item)->pCol->rect.w *= App->particlesys->scale;
-						(*item)->pCol->rect.h *= App->particlesys->scale;
-					}
-					(*item)->returned = true;
-					(*item)->born = SDL_GetTicks();
-				}
-
-				item++;
-			}
-			super_available = false;
+			direction.x = LJdirection_x;
+			direction.y = LJdirection_y;
+		}
+		else
+		{
+			direction.x = RJdirection_x;
+			direction.y = RJdirection_y;
 		}
 
+		float angle = std::atan2(direction.y, direction.x) - 45.0f*(M_PI / 180.0f);
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.75f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.75f;
+
+		// --- First round of axes ---
+		for (int i = 1; i < 5; ++i)
+		{
+			playerinfo.basic_attack.angle = angle + 18.0f*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		}
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.75f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.75f;
+
+		// --- 2nd round of axes ---
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
+
+		for (int i = 1; i < 4; ++i)
+		{
+			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		}
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
+
+		// --- 3rd round of axes ---
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.25f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.25f;
+
+		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
+		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+
+		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.25f;
+		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.25f;
 	}
 }
 
@@ -814,47 +831,43 @@ void j1Player::Launch4thSP()
 {
 	if (superTimer.ReadSec() > SuperCooldown / 2)
 	{
-		superTimer.Subtract(SuperCooldown / 2);
 
-		fPoint direction = { 0.0f,0.0f };
+		std::list<Particle*>::iterator item = MeliadoulAXES.begin();
 
-		if (!(abs(RJAxisx_value) > JOYSTICK_DEAD_ZONE
-			|| abs(RJAxisy_value) > JOYSTICK_DEAD_ZONE))
+		if (MeliadoulAXES.size() > 0)
 		{
-			direction = GetNearestPlayerDirection();
+			superTimer.Subtract(SuperCooldown / 2);
+
+			while (item != MeliadoulAXES.end())
+			{
+				if (*item)
+				{
+					(*item)->life = 2000;
+					(*item)->direction.x = this->Entityinfo.position.x - (*item)->pos.x;
+					(*item)->direction.y = this->Entityinfo.position.y - (*item)->pos.y;
+					(*item)->particle_effect = &App->buff->effects[3];
+					(*item)->speed.x = 200.0f;
+					(*item)->speed.y = 200.0f;
+					(*item)->angle = std::atan2((*item)->direction.y, (*item)->direction.x);
+
+					if ((*item)->pCol && !(*item)->pCol->to_delete)
+						(*item)->pCol->type = COLLIDER_TYPE::COLLIDER_PARTICLE;
+					else
+					{
+						(*item)->pCol = App->coll->AddCollider((*item)->anim.GetCurrentFrame(0), COLLIDER_TYPE::COLLIDER_PARTICLE, App->particlesys);
+						(*item)->pCol->rect.x = (*item)->pos.x;
+						(*item)->pCol->rect.y = (*item)->pos.y;
+						(*item)->pCol->rect.w *= App->particlesys->scale;
+						(*item)->pCol->rect.h *= App->particlesys->scale;
+					}
+					(*item)->returned = true;
+					(*item)->born = SDL_GetTicks();
+				}
+
+				item++;
+			}
+
 		}
-		else
-		{
-			direction.x = RJdirection_x;
-			direction.y = RJdirection_y;
-		}
-
-		float angle = std::atan2(direction.y, direction.x) - 45.0f*(M_PI / 180.0f);
-
-		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
-		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
-
-		// --- First round of axes ---
-		for (int i = 1; i < 4; ++i)
-		{
-			playerinfo.basic_attack.angle = angle + 22.5f*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-		}
-
-		// --- 2nd round of axes ---
-		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
-		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
-
-		playerinfo.basic_attack.angle = angle + 33.75*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-		playerinfo.basic_attack.angle = angle + 56.25*(M_PI / 180.0f);
-		App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f*Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
-
-		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * 1.5f;
-		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * 1.5f;
-
-		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / 1.5f;
-		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / 1.5f;
 	}
 }
 
@@ -995,6 +1008,8 @@ bool j1Player::PostUpdate(float dt)
 			bool blit_aimpath = true;
 
 			if (specialON && this->character != CHARACTER::SIMON && this->character != CHARACTER::TRAKT)
+				blit_aimpath = false;
+			else if(superON && this->character == CHARACTER::MELIADOUL)
 				blit_aimpath = false;
 
 			if (blit_aimpath)
