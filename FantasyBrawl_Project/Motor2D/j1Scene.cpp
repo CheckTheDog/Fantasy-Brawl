@@ -217,6 +217,7 @@ void j1Scene::ResetAll()
 	App->scene->player1->shieldON = false;
 	App->scene->player1->superON = false;
 	App->scene->player1->specialON = false;
+	App->scene->player1->launched_super = false;
 	App->scene->player1->shieldTimer.Start();
 	App->scene->player1->RJinverted = false;
 
@@ -224,6 +225,7 @@ void j1Scene::ResetAll()
 	App->scene->player2->shieldON = false;
 	App->scene->player2->superON = false;
 	App->scene->player2->specialON = false;
+	App->scene->player2->launched_super = false;
 	App->scene->player2->shieldTimer.Start();
 	App->scene->player2->RJinverted = false;
 
@@ -231,6 +233,7 @@ void j1Scene::ResetAll()
 	App->scene->player3->shieldON = false;
 	App->scene->player3->superON = false;
 	App->scene->player3->specialON = false;
+	App->scene->player3->launched_super = false;
 	App->scene->player3->shieldTimer.Start();
 	App->scene->player3->RJinverted = false;
 
@@ -238,6 +241,7 @@ void j1Scene::ResetAll()
 	App->scene->player4->shieldON = false;
 	App->scene->player4->superON = false;
 	App->scene->player4->specialON = false;
+	App->scene->player4->launched_super = false;
 	App->scene->player4->shieldTimer.Start();
 	App->scene->player4->RJinverted = false;
 }

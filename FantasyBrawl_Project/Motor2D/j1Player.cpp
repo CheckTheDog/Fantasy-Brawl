@@ -90,9 +90,19 @@ bool j1Player::Start()
 	colB = { 0,0,0,255 };
 	colC = { 255,255,255,255 };
 
+
+	// --- Particles ---
 	parryP.anim.PushBack(manager->parrytex_rect);
 	parryP.tex = manager->parry_texture;
 	parryP.life = manager->parryPlife;
+
+	inkshot.anim.PushBack(manager->inkshot_rect);
+	inkshot.tex = manager->inkshot_texture;
+	inkshot.life = 750;
+	inkshot.particle_effect = &App->buff->effects[Effects::EXHAUST];
+	inkshot.speed.x = 250;
+	inkshot.speed.y = 250; 
+	inkshot.bomb = true;
 
 	return true;
 }
@@ -332,10 +342,11 @@ void j1Player::HandleAttacks()
 		App->audio->PlayFx(this->playerinfo.basic_fx);
 	}
 
-
+	// --- Ultimate ability ---
 	if (App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_DOWN)
 	{
 		superON = true;
+		launched_super = false;
 	}
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP && superTimer.ReadSec() >= SuperCooldown)
 	{
@@ -344,6 +355,27 @@ void j1Player::HandleAttacks()
 	}
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) != KEY_REPEAT)
 		superON = false;
+
+	else if (launched_super && superTimer.ReadSec() <= 0.5f)
+	{
+		switch (character)
+		{
+		case CHARACTER::WENDOLIN:
+			
+			break;
+		case CHARACTER::SIMON:
+			
+			break;
+		case CHARACTER::TRAKT:
+			App->view->PushQueue(5, manager->trakttentacles_texture, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), manager->trakttentacles_rect, 1, 0, 0, 0, 0,1.0f,100);
+			break;
+		case CHARACTER::MELIADOUL:
+			
+			break;
+		default:
+			break;
+		}
+	}
 
 
 	// --- Special ability ---
@@ -563,7 +595,7 @@ void j1Player::Launch1stSuper()
 	if (superTimer.ReadSec() > SuperCooldown)
 	{
 		ghost = true;
-
+		launched_super = true;
 		ghostTimer.Start();
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
@@ -587,7 +619,7 @@ void j1Player::Launch2ndSuper()
 
 			if (teleported)
 			{
-
+				launched_super = true;
 				superTimer.Start();
 				App->audio->PlayFx(this->playerinfo.super_fx);
 
@@ -644,6 +676,7 @@ void j1Player::Launch3rdSuper()
 	{
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
+		launched_super = true;
 
 		float radius = 265.0f * Entityinfo.scale;
 
@@ -685,6 +718,7 @@ void j1Player::Launch4thSuper()
 
 		if (MeliadoulAXES.size() > 0)
 		{
+			launched_super = true;
 			superTimer.Start();
 			App->audio->PlayFx(this->playerinfo.super_fx);
 
@@ -758,35 +792,21 @@ void j1Player::Launch3rdSP()
 	{
 		superTimer.Subtract(SuperCooldown / 2);
 
-		fPoint circle_pos;
+		// --- Player movement direction ---
+		inkshot.direction.x = LJdirection_x;
+		inkshot.direction.y = LJdirection_y;
 
-		circle_pos.x = this->Entityinfo.position.x + cos((traktSPAngle - 90.0f) * (M_PI / 180.0f)) * abs(TraktSPradius) - 35 + 50;
-
-		circle_pos.y = this->Entityinfo.position.y + sin((traktSPAngle - 90.0f) *(M_PI / 180.0f))* abs(TraktSPradius) - 50 + 50;
-
-		ComputeDistance2players(circle_pos);
-
-		if (this != App->scene->player1 && absoluteDistanceP1 < 50 && !App->scene->player1->shieldON && App->scene->player1->active)
+		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
 		{
-			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player1);
+			// --- Player Manually directed Attack ---
+			inkshot.direction.x = RJdirection_x;
+			inkshot.direction.y = RJdirection_y;
 		}
 
-		if (this != App->scene->player2 && absoluteDistanceP2 < 50 && !App->scene->player2->shieldON && App->scene->player2->active)
-		{
-			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player2);
-		}
+		inkshot.angle = std::atan2(inkshot.direction.y, inkshot.direction.x);
 
-		if (this != App->scene->player3 && absoluteDistanceP3 < 50 && !App->scene->player3->shieldON && App->scene->player3->active)
-		{
-			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player3);
-		}
+		App->particlesys->AddParticle(inkshot, this->Entityinfo.position.x + (int)(8 * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 
-		if (this != App->scene->player4 && absoluteDistanceP4 < 50 && !App->scene->player4->shieldON && App->scene->player4->active)
-		{
-			App->buff->ApplyEffect(&App->buff->effects[Effects::EXHAUST], App->scene->player4);
-		}
-
-		ComputeDistance2players();
 	}
 }
 
@@ -974,7 +994,7 @@ bool j1Player::PostUpdate(float dt)
 		
 			bool blit_aimpath = true;
 
-			if (specialON && this->character != CHARACTER::SIMON)
+			if (specialON && this->character != CHARACTER::SIMON && this->character != CHARACTER::TRAKT)
 				blit_aimpath = false;
 
 			if (blit_aimpath)
@@ -1322,6 +1342,8 @@ void j1Player::CheckParticleCollision(Collider * hitbox, const Collider * to_che
 				App->buff->ApplyEffect(pcollided->particle_effect, this);
 				last_hitP = pcollided->originplayer;
 			}
+			if(pcollided->particle_effect == &App->buff->effects[Effects::EXHAUST])
+				App->buff->ApplyEffect(pcollided->particle_effect, this);
 
 			App->input->ShakeController(ID, 0.5, 100);
 			App->buff->LimitAttributes(this);
@@ -1602,7 +1624,7 @@ void j1Player::LogicUpdate(float dt)
 
 	while (item != MeliadoulAXES.end())
 	{
-		if (*item && (*item)->toDelete)
+		if (*item && ((*item)->toDelete || (*item)->originplayer != this))
 		{
 			MeliadoulAXES.erase(item);
 		}

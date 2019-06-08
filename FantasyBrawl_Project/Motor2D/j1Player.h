@@ -220,6 +220,7 @@ public:
 	bool specialON = false;
 	bool shield_available = false;
 	bool super_available = false;
+	bool launched_super = false;
 
 	// --- Score ---
 	uint kills = 0;
@@ -258,6 +259,7 @@ public:
 	j1Timer ghostTimer;
 	uint alpha = 255;
 	Particle parryP;
+	Particle inkshot;
 	std::list<Particle*> MeliadoulAXES;
 	float TraktSPradius = 0.0f;
 	float traktSPAngle = 0.0f;

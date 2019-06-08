@@ -33,6 +33,13 @@ bool j1ParticleSystem::Start()
 	meliadoulAXE.anim.loop = true;
 	meliadoulAXE.anim.PushBack({ 0,0,40,34 });
 
+	inksplash.anim.PushBack(App->entities->inksplash_rect);
+	inksplash.tex = App->entities->inksplash_texture;
+	inksplash.life = 1000;
+	inksplash.particle_effect = &App->buff->effects[Effects::EXHAUST];
+	inksplash.speed.x = 0;
+	inksplash.speed.y = 0;
+
 	return true;
 }
 
@@ -78,6 +85,12 @@ bool j1ParticleSystem::Update(float dt)
 
 
 			if (p->toDelete) {
+
+				if (p->bomb)
+				{
+					AddParticle(inksplash, active[i]->pos.x - 40, active[i]->pos.y - 40, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, active[i]->originplayer);
+				}
+
 				if(p->originplayer && p->originplayer->last_particle == p)
 				p->originplayer->last_particle = nullptr;
 
@@ -94,8 +107,13 @@ bool j1ParticleSystem::Update(float dt)
 			else if (p->pCol->type == COLLIDER_TYPE::COLLIDER_BOUNCE)
 			App->view->PushQueue(6, p->tex, p->pos.x, p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle, App->entities->parrytex_rect.w / 1.5, App->entities->parrytex_rect.h / 1.5, scale);
 			else
-			App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2, scale);
+			{
+				if(p->particle_effect == &App->buff->effects[Effects::EXHAUST])
+				App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2);
+				else
+				App->view->PushQueue(6, p->tex, (int)p->pos.x, (int)p->pos.y, p->anim.GetCurrentFrame(dt), 0, 0, p->angle*(180.0f / M_PI) - 180.0f, p->pCol->rect.w / 2, p->pCol->rect.h / 2, scale);
 
+			}
 			App->coll->QueryCollisions(*p->pCol);
 		}
 
@@ -116,7 +134,12 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 			p->pos.y = y;
 			p->delay = delay;
 			p->originplayer = porigin;
-			p->particle_effect = &App->buff->effects[3];
+
+			if (!particle.particle_effect)
+				p->particle_effect = &App->buff->effects[3];
+			else
+				p->particle_effect = particle.particle_effect;
+
 			p->angle = particle.angle;
 			p->speed.x = particle.speed.x;
 			p->speed.y = particle.speed.y;
@@ -130,6 +153,7 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 			p->tex = particle.tex;
 			p->ghost = particle.ghost;
 			p->anim = particle.anim;
+			p->bomb = particle.bomb;
 
 			if (collider_type != COLLIDER_TYPE::COLLIDER_NONE) {
 				p->pCol = App->coll->AddCollider(p->anim.GetCurrentFrame(0), collider_type,this);
@@ -140,8 +164,12 @@ Particle* j1ParticleSystem::AddParticle(Particle& particle, int x, int y, COLLID
 
 					p->pCol->rect.x = x;
 					p->pCol->rect.y = y;
-					p->pCol->rect.w *= scale;
-					p->pCol->rect.h *= scale;
+
+					if (p->particle_effect != &App->buff->effects[Effects::EXHAUST])
+					{
+						p->pCol->rect.w *= scale;
+						p->pCol->rect.h *= scale;
+					}
 
 					if (collider_type == COLLIDER_TYPE::COLLIDER_BOUNCE)
 					{
@@ -176,6 +204,11 @@ Particle * j1ParticleSystem::GetCollidedParticle(Collider* hitbox, const Collide
 	{
 		if (hitbox != to_return->originplayer->Entityinfo.HitBox)
 		{
+			if (to_return->particle_effect == &App->buff->effects[Effects::EXHAUST] && !to_return->bomb)
+			{
+				// we do nothing, ink splash
+			}
+			else
 			to_return->toDelete = true;
 		}
 	}
@@ -211,34 +244,56 @@ void j1ParticleSystem::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 
-			else if (!c1->ghost)
+			else 
 			{
-
+						
 					if (c2->type != COLLIDER_TYPE::COLLIDER_HITBOX)
 					{
-						active[i]->toDelete = true;
-						//Create Hit Particle here
-						Particle hit;
-						hit.anim = App->entities->particle_hitanim;
-						hit.anim.loop = false;
-						hit.anim.speed = 30.0f;
-						hit.tex = App->entities->particle_hittex;
-						hit.life = 100;
-						AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+						if (active[i]->particle_effect == &App->buff->effects[Effects::EXHAUST] && !active[i]->bomb)
+						{
+							// we do nothing, ink splash
+						}
+						else
+						{
+							active[i]->toDelete = true;
+
+							//Create Hit Particle here
+							Particle hit;
+							hit.anim = App->entities->particle_hitanim;
+							hit.anim.loop = false;
+							hit.anim.speed = 30.0f;
+							hit.tex = App->entities->particle_hittex;
+							hit.life = 100;
+							AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+						}
 					}
 
 					else if (c2->type != COLLIDER_TYPE::COLLIDER_PLAYER && active[i]->originplayer->Entityinfo.HitBox != c2)
 					{
-						Particle hit;
-						hit.anim = App->entities->particle_hitanim;
-						hit.anim.loop = false;
-						hit.anim.speed = 30.0f;
-						hit.tex = App->entities->particle_hittex;
-						hit.life = 100;
-						AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+						if (active[i]->particle_effect == &App->buff->effects[Effects::EXHAUST] && !active[i]->bomb)
+						{
+							// we do nothing, ink splash
+						}
+						else
+						{
+							Particle hit;
+							hit.anim = App->entities->particle_hitanim;
+							hit.anim.loop = false;
+							hit.anim.speed = 30.0f;
+							hit.tex = App->entities->particle_hittex;
+							hit.life = 100;
+							AddParticle(hit, c1->rect.x - 50, c1->rect.y - 50, COLLIDER_TYPE::COLLIDER_PNI, 0);
+						}
 					}
 
 					if (active[i]->toDelete) {
+
+						// --- Make particle explode ---
+						if (active[i]->bomb)
+						{
+							AddParticle(inksplash, active[i]->pos.x - 40, active[i]->pos.y - 40, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, active[i]->originplayer);
+						}
+
 						if (active[i]->originplayer && active[i]->originplayer->last_particle == active[i])
 							active[i]->originplayer->last_particle = nullptr;
 
