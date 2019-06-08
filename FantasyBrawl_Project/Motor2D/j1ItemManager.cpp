@@ -62,13 +62,47 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 {
 	Item* ret = new Item(type,position);
 
-	ret->col = App->coll->AddCollider({0,0,40,40}, COLLIDER_TYPE::COLLIDER_NONE, App->item_manager);
-	ret->animation = LoadAnimation("Animations/crystals.tmx", "BlueCrystals");
+
+	ret->col = App->coll->AddCollider({0,0,40,40}, COLLIDER_TYPE::COLLIDER_ITEM, App->item_manager);
+
+
+	switch (type)
+	{
+	case ItemType::LIFE:
+		ret->animation = LoadAnimation("Animations/crystals.tmx", "BlueCrystals");
+		break;
+
+	case ItemType::SUPER_CD:
+		ret->animation = LoadAnimation("Animations/crystals.tmx", "RedCrystals");
+		break;
+
+	case ItemType::SPEED:
+		ret->animation = LoadAnimation("Animations/crystals.tmx", "YellowCrystals");
+		break;
+	}
+
+
 	ret->animation->speed = 6.0f;
 
 	items.push_back(ret);
 
 	return ret;
+}
+
+Item* j1ItemManager::GetItemWithCollider(const Collider* c) const
+{
+	if (c == nullptr)
+	{
+		return nullptr;
+	}
+
+	for (std::list<Item*>::const_iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
+	{
+		if ((*curr_item)->col != nullptr && (*curr_item)->col == c)
+		{
+			return (*curr_item);
+		}
+	}
 }
 
 void j1ItemManager::PauseItemManager()
