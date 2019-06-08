@@ -14,6 +14,6 @@
 
   <effect id ="6" name="EXHAUST" type="DEBUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value ="1" />
 
-  <effect id ="7" name="speed_up" type="BUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value="5"></effect>
+  <effect id ="7" name="speed_up" type="BUFF" duration_type="PERMANENT" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value="5"></effect>
   
 </buff_manager>

@@ -159,6 +159,7 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 		}
 	}*/
 
+	LimitAttributes(entity);
 
 }
 
