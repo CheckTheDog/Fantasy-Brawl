@@ -9,7 +9,7 @@
 #define MAX_HEALTH 300
 #define MAX_STRENGTH 500
 #define MAX_ARMOR 300
-#define MAX_SPEED 110
+#define MAX_SPEED 210
 
 #define MIN_HEALTH 0
 #define MIN_STRENGTH 0
@@ -35,7 +35,8 @@ enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML
 	HURT,
 	STORM,
 	SIMON_SUPER,
-	EXHAUST
+	EXHAUST,
+	SPEED_UP
 };
 
 

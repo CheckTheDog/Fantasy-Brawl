@@ -20,6 +20,7 @@
 #include "j1Gui.h"
 #include "j1FadeToBlack.h"
 #include "UI_element.h"
+#include "j1ItemManager.h"
 #include "j1Transition.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
@@ -1150,6 +1151,25 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		break;
 	}
 
+	switch (to_check->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_ITEM:
+		Item* item = App->item_manager->GetItemWithCollider(to_check);
+
+		switch (item->type)
+		{
+		case ItemType::LIFE:
+			App->buff->ApplyEffect(&App->buff->effects[HEAL], this->Entityinfo.my_j1Entity);
+			break;
+
+		case ItemType::SUPER_CD:
+			break;
+
+		case ItemType::SPEED:
+			App->buff->ApplyEffect(&App->buff->effects[SPEED_UP], this->Entityinfo.my_j1Entity);
+			break;
+		}
+	}
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)

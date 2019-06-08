@@ -244,6 +244,9 @@ void j1Collision::DebugDraw()
 		case COLLIDER_TYPE::COLLIDER_FALLENAXE:
 			App->view->LayerDrawQuad((*item)->rect, 50, 50, 50, alpha, true);
 			break;
+		case COLLIDER_TYPE::COLLIDER_ITEM:
+			App->view->LayerDrawQuad((*item)->rect, 50, 255, 0, alpha, true);
+			break;
 		}
 		item++;
 	}

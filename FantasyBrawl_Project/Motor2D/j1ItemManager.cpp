@@ -22,13 +22,16 @@ bool j1ItemManager::Awake(pugi::xml_node &)
 bool j1ItemManager::Start()
 {
 	items_tex = App->tex->Load("textures/crystals_spritesheet.png");
-	CreateItem(ItemType::LIFE, { 600,600 });
 
 	return true;
 }
 
 bool j1ItemManager::StartItemManager()
 {
+	CreateItem(ItemType::LIFE, { 600,700 });
+	CreateItem(ItemType::SUPER_CD, { 650,700 });
+	CreateItem(ItemType::SPEED, { 700,700 });
+
 	return true;
 }
 
@@ -63,7 +66,8 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 	Item* ret = new Item(type,position);
 
 
-	ret->col = App->coll->AddCollider({0,0,40,40}, COLLIDER_TYPE::COLLIDER_ITEM, App->item_manager);
+	ret->col = App->coll->AddCollider({0,0,20,40}, COLLIDER_TYPE::COLLIDER_ITEM, (j1Module*)App->entities);
+	ret->col->SetPos(ret->Pos.x, ret->Pos.y + 10);
 
 
 	switch (type)

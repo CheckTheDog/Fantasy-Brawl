@@ -18,6 +18,7 @@
 #include "UI_Clock.h"
 #include "UI_Marker.h"
 #include "j1EntityManager.h"
+#include "j1ItemManager.h"
 #include "j1Player.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
@@ -1323,6 +1324,7 @@ bool j1UIScene::Update(float dt)
 		{
 			ready->function = INGAME;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+
 			for (int j = 0; j < MAX_GAMEPADS; ++j)
 			{
 				champ_selected[j] = false;
@@ -1622,6 +1624,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+			App->item_manager->StartItemManager();
 
 			int music = rand() % 5 + 1;
 
@@ -1655,6 +1658,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+			App->item_manager->StartItemManager();
 			App->scene->ResetAll();
 			scoreboard = false;
 			int music = rand() % 5 + 1;
