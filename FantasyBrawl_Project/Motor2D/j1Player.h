@@ -154,7 +154,7 @@ public:
 
 
 	// --- Entity Attacks ---
-	void HandleAttacks();
+	void HandleAttacks(float dt);
 	void HandleShield();
 	void HandleSuperAttacks();
 	void HandleSpecialAttacks();
@@ -231,6 +231,7 @@ public:
 
 	// --- Particles ---
 	Particle * last_particle = nullptr;
+	fPoint static_pos = { 0.0f,0.0f };
 
 	// --- Distances to players ---
 	float absoluteDistanceP1 = 0.0f;
@@ -263,6 +264,7 @@ public:
 	std::list<Particle*> MeliadoulAXES;
 	float TraktSPradius = 0.0f;
 	float traktSPAngle = 0.0f;
+	Animation WendolinsmokeANIM;
 
 	// --- Fade ---
 	fade_step current_step;

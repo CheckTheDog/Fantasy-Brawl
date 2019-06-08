@@ -55,6 +55,7 @@ bool j1Player::Start()
 	CurrentIDCircleAnimation = &this->Entityinfo.IDCircle;
 	shieldAnim = manager->shield_anim;
 	shieldendAnim = manager->shieldEnd_anim;
+	WendolinsmokeANIM = manager->Wendolinsmokeanim;
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -326,7 +327,7 @@ void j1Player::HandleInput()
 	
 }
 
-void j1Player::HandleAttacks()
+void j1Player::HandleAttacks(float dt)
 {
 	// --- Attack according to input ---
 	if (PlayerState == PSTATE::ATTACKING && basicTimer.ReadSec() > 0.5f)
@@ -350,6 +351,7 @@ void j1Player::HandleAttacks()
 	{
 		superON = true;
 		launched_super = false;
+		WendolinsmokeANIM.Reset();
 	}
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) == KEY_UP && superTimer.ReadSec() >= SuperCooldown)
 	{
@@ -364,13 +366,13 @@ void j1Player::HandleAttacks()
 		switch (character)
 		{
 		case CHARACTER::WENDOLIN:
-			
+			App->view->PushQueue(10, manager->wendolin_ultismoke, this->static_pos.x - 15, this->static_pos.y - 40, WendolinsmokeANIM.GetCurrentFrame(dt), 0, 0, 0, 0, 0, 1.0f);
 			break;
 		case CHARACTER::SIMON:
 			
 			break;
 		case CHARACTER::TRAKT:
-			App->view->PushQueue(5, manager->trakttentacles_texture, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), manager->trakttentacles_rect, 1, 0, 0, 0, 0,1.0f,100);
+			App->view->PushQueue(5, manager->trakttentacles_texture, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), manager->trakttentacles_rect, 0, 0, 0, 0, 0,1.0f,100);
 			break;
 		case CHARACTER::MELIADOUL:
 			
@@ -496,14 +498,14 @@ void j1Player::BlitSuperAimPaths(float dt)
 		if (last_particle && !last_particle->toDelete)
 		{
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2.5);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 0, 0, 0, 0, 0, 2.5);
 			else
 			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2.5);
 		}
 		break;
 	case CHARACTER::TRAKT:
 		if (App->ui_scene->actual_menu == SELECTION_MENU)
-		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },1, 0, 0, 0, 0);
+		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 },0, 0, 0, 0, 0);
 		else
 		App->view->PushQueue(5, manager->TraktSuper_aimpath, this->Entityinfo.position.x - (int)(240 * Entityinfo.scale), this->Entityinfo.position.y - (int)(250 * Entityinfo.scale), SDL_Rect{ 0,0,350,350 }, ((int)ID) + 1, 0, 0, 0, 0);
 
@@ -528,7 +530,7 @@ void j1Player::BlitSuperAimPaths(float dt)
 		if (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin)
 		{
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
+				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, 0, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
 			else
 				App->view->PushQueue(5, manager->MeliadoulSuper_aimpath, this->Entityinfo.position.x - (int)(75.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(200.0f * Entityinfo.scale), SDL_Rect{ 0,0,200,204 }, ((int)ID) + 1, 0, std::atan2(RJdirection_y, RJdirection_x) * (180.0f / M_PI) + 90.0f, 100 * Entityinfo.scale, 204 * Entityinfo.scale, Entityinfo.scale, alpha);
 		}
@@ -544,7 +546,7 @@ void j1Player::BlitSPAimPaths(float dt)
 	{
 	case CHARACTER::WENDOLIN:
 		if (App->ui_scene->actual_menu == SELECTION_MENU)
-		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{ 0,0,260,260 }, 1, 0, 0, 0, 0, Entityinfo.scale, alpha);
+		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{ 0,0,260,260 }, 0, 0, 0, 0, 0, Entityinfo.scale, alpha);
 		else
 		App->view->PushQueue(5, manager->WendolinSuper_aimpath, this->Entityinfo.position.x - (int)(107.0f * Entityinfo.scale), this->Entityinfo.position.y - (int)(120.0f * Entityinfo.scale), SDL_Rect{0,0,260,260}, ((int)ID) + 1,0,0,0,0, Entityinfo.scale, alpha);
 		break;
@@ -558,7 +560,7 @@ void j1Player::BlitSPAimPaths(float dt)
 			parryP.pos.y = this->Entityinfo.position.y - 35;
 
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-				App->view->PushQueue(5, manager->parry_texture, this->Entityinfo.position.x - 20, this->Entityinfo.position.y - 35, manager->parrytex_rect, 1, 0, parryP.angle, manager->parrytex_rect.w/1.5, manager->parrytex_rect.h/1.5, Entityinfo.scale, alpha);
+				App->view->PushQueue(5, manager->parry_texture, this->Entityinfo.position.x - 20, this->Entityinfo.position.y - 35, manager->parrytex_rect, 0, 0, parryP.angle, manager->parrytex_rect.w/1.5, manager->parrytex_rect.h/1.5, Entityinfo.scale, alpha);
 			else
 				App->view->PushQueue(5, manager->parry_texture, this->Entityinfo.position.x - 20, this->Entityinfo.position.y - 35, manager->parrytex_rect, ((int)ID) + 1, 0, parryP.angle, manager->parrytex_rect.w / 1.5, manager->parrytex_rect.h / 1.5, Entityinfo.scale, alpha);
 		}
@@ -578,7 +580,7 @@ void j1Player::BlitSPAimPaths(float dt)
 			circle_pos.y = this->Entityinfo.position.y + sin((traktSPAngle - 90.0f) *(M_PI / 180.0f))* abs(TraktSPradius);
 
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-				App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 35, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, 1,0, 0, 0, 0, 2);
+				App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 35, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, 0,0, 0, 0, 0, 2);
 			else
 				App->view->PushQueue(5, manager->SimonSuper_aimpath, circle_pos.x - 35, circle_pos.y - 50, SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
 
@@ -603,6 +605,7 @@ void j1Player::Launch1stSuper()
 		superTimer.Start();
 		App->audio->PlayFx(this->playerinfo.super_fx);
 		super_available = false;
+		static_pos = {this->Future_position.x, this->Future_position.y};
 	}
 }
 
@@ -1083,6 +1086,12 @@ bool j1Player::PostUpdate(float dt)
 		if (ghost && ghostTimer.ReadSec() >= manager->Wendolin_ghostTime)
 		{
 			ghost = false;
+			WendolinsmokeANIM.Reset();
+			static_pos = { this->Future_position.x, this->Future_position.y };
+		}
+		else if (!ghost && launched_super && !WendolinsmokeANIM.Finished())
+		{
+			App->view->PushQueue(10, manager->wendolin_ultismoke, this->static_pos.x - 15, this->static_pos.y - 40, WendolinsmokeANIM.GetCurrentFrame(dt), 0, 0, 0, 0, 0, 1.0f);
 		}
 		break;
 
@@ -1656,7 +1665,7 @@ void j1Player::LogicUpdate(float dt)
 
 		EntityMovement = MOVEMENT::STATIC;
 
-		HandleAttacks();
+		HandleAttacks(dt);
 
 		HandleShield();
 

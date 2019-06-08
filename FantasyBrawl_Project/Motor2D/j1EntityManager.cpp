@@ -167,6 +167,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Wendolin.basic_attack.speed = particle_speed;
 	Wendolin.basic_attack.particle_effect = &App->buff->effects[3];
 
+	Wendolinsmokeanim = *LoadAnimation("Animations/Smoke.tmx", "Smoke");
+	Wendolinsmokeanim.speed = 10;
+	Wendolinsmokeanim.loop = false;
+
 	// --------------------
 
 	// --- Simon Awake ---
@@ -315,18 +319,19 @@ bool j1EntityManager::Start()
 	// --- Loading Character Specific Textures ---
 
 	// --- Wendolin ---
+	Dagger_texture = App->tex->Load("particles/Wendolin Red Dagger.png");
 	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
 	Wendolin.basic_attack.tex = Dagger_texture;
 	WendolinSuper_aimpath = App->tex->Load("textures/wendolinSuper_path.png");
-	Dagger_texture = App->tex->Load("particles/Wendolin Red Dagger.png");
+	wendolin_ultismoke = App->tex->Load("particles/smoke bomb.png");
 
 	// --- Simon ---
+	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
 	Simon.tex = App->tex->Load(Simon.Texture.data());
 	Simon.basic_attack.tex = budu_texture;
 	SimonSuper_aimpath = App->tex->Load("textures/simonSuper_path.png");
 	parry_texture = App->tex->Load("particles/parry.png");
 	parrytex_rect = { 0,0,52,52 };
-	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
 
 	// --- Trakt ---
 	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
