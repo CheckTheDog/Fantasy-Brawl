@@ -95,6 +95,9 @@ public:
 	SDL_Texture * SimonSuper_aimpath = nullptr;
 	SDL_Texture * TraktSuper_aimpath = nullptr;
 	SDL_Texture * MeliadoulSuper_aimpath = nullptr;
+	SDL_Texture * target_tex = nullptr;
+
+	Animation targetanim;
 
 	// --- Particles ---
 	SDL_Texture * Dagger_texture = nullptr;

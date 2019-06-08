@@ -57,6 +57,8 @@ bool j1Player::Start()
 	shieldendAnim = manager->shieldEnd_anim;
 	WendolinsmokeANIM = manager->Wendolinsmokeanim;
 	simonteleport_anim = manager->simonteleport_anim;
+	Target_anim = manager->targetanim;
+
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -160,6 +162,7 @@ void j1Player::GetAttackAnimation()
 		playerinfo.basic_attack.direction.y = RJdirection_y;
 		playerinfo.basic_attack.angle = std::atan2(RJdirection_y, RJdirection_x);
 	}
+
 
 	float direction_x = playerinfo.basic_attack.direction.x;
 	float direction_y = playerinfo.basic_attack.direction.y;
@@ -936,7 +939,28 @@ bool j1Player::PostUpdate(float dt)
 
 
 	// --- Adapt to Transitions ---
-	if (App->transition->doingMenuTransition)
+	if (App->transition->doingMenuTransition && App->ui_scene->actual_menu != INGAME && App->ui_scene->actual_menu != INGAMESETTINGS_MENU)
+	{
+		SDL_SetTextureAlphaMod(this->playerinfo.tex,0);
+		SDL_SetTextureAlphaMod(this->manager->circlesprites, 0);
+		SDL_SetTextureAlphaMod(this->manager->arrows_tex, 0);
+
+		SDL_SetTextureAlphaMod(this->manager->MeliadoulSuper_aimpath, 0);
+		SDL_SetTextureAlphaMod(this->manager->WendolinSuper_aimpath, 0);
+		SDL_SetTextureAlphaMod(this->manager->TraktSuper_aimpath, 0);
+		SDL_SetTextureAlphaMod(this->manager->SimonSuper_aimpath, 0);
+
+		SDL_SetTextureAlphaMod(this->manager->Dagger_texture, 0);
+		SDL_SetTextureAlphaMod(this->manager->axe_texture, 0);
+		SDL_SetTextureAlphaMod(this->manager->inkball_texture, 0);
+		SDL_SetTextureAlphaMod(this->manager->budu_texture, 0);
+
+		alpha = 0;
+	}
+	else if (App->transition->doingMenuTransition 
+		&& App->ui_scene->previous_menu != INGAMESETTINGS_MENU
+		&& App->ui_scene->previous_menu != menu_id::FINAL_MENU 
+		&& (App->ui_scene->actual_menu == INGAME || App->ui_scene->actual_menu == INGAMESETTINGS_MENU) )
 	{
 		SDL_SetTextureAlphaMod(this->playerinfo.tex, App->gui->alpha_value);
 		SDL_SetTextureAlphaMod(this->manager->circlesprites, App->gui->alpha_value);
@@ -954,6 +978,7 @@ bool j1Player::PostUpdate(float dt)
 
 		alpha = App->gui->alpha_value;
 	}
+
 
 	// --- Blit player ---
 
@@ -1119,6 +1144,12 @@ bool j1Player::PostUpdate(float dt)
 	default:
 		break;
 	}
+
+	GetNearestPlayerDirection();
+
+	// --- Blitting auto_aim target ---
+	if (auto_aimON && targetP_pos.x != 0.0f && App->ui_scene->actual_menu != SELECTION_MENU)
+	App->view->PushQueue(10, manager->target_tex, targetP_pos.x - 15, targetP_pos.y - 30, Target_anim.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, 1.0f);
 
 	return ret;
 }
@@ -1624,17 +1655,52 @@ const fPoint j1Player::GetNearestPlayerDirection()
 	if (absoluteDistance < Aim_Radius)
 	{
 		if (absoluteDistance == absoluteDistanceP1)
+		{
 			direction = directionP1;
 
+			if (this != App->scene->player1)
+			{
+				targetP_pos = { App->scene->player1->Future_position.x, App->scene->player1->Future_position.y };
+			}
+		}
+
 		else if (absoluteDistance == absoluteDistanceP2)
+		{
 			direction = directionP2;
 
+			if (this != App->scene->player2)
+			{
+				targetP_pos = { App->scene->player2->Future_position.x, App->scene->player2->Future_position.y };
+			}
+		}
+
 		else if (absoluteDistance == absoluteDistanceP3)
+		{
 			direction = directionP3;
 
+			if (this != App->scene->player3)
+			{
+				targetP_pos = { App->scene->player3->Future_position.x, App->scene->player3->Future_position.y };
+			}
+		}
+
 		else if (absoluteDistance == absoluteDistanceP4)
+		{
 			direction = directionP4;
+
+			if (this != App->scene->player4)
+			{
+				targetP_pos = { App->scene->player4->Future_position.x, App->scene->player4->Future_position.y };
+			}
+		}
 	}
+	else
+		targetP_pos = { 0.0f,0.0f };
+
+	if (abs(RJdirection_x) < multipliermin && abs(RJdirection_y) < multipliermin)
+		auto_aimON = true;
+	else
+		auto_aimON = false;
 
 	return direction;
 }

@@ -228,6 +228,9 @@ public:
 
 	// --- Auto aim ---
 	float Aim_Radius = 300.0f;
+	Animation Target_anim;
+	bool auto_aimON = false;
+	fPoint targetP_pos = { 0.0f,0.0f };
 
 	// --- Particles ---
 	Particle * last_particle = nullptr;

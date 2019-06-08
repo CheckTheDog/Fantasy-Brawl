@@ -60,6 +60,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Particle hit ---
 	particle_hitanim = *LoadAnimation("Animations/Hit.tmx", "Hit");
 	
+	// --- Target anim ---
+	targetanim = *LoadAnimation("Animations/Target.tmx","Target");
+	targetanim.loop = true;
+	targetanim.speed = 10;
 
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
@@ -319,6 +323,7 @@ bool j1EntityManager::Start()
 
 	// --- Loading Particle Textures ---
 	particle_hittex = App->tex->Load("particles/Weapon hit.png");
+	target_tex = App->tex->Load("textures/Target.png");
 
 	// --- Loading Character Specific Textures ---
 
