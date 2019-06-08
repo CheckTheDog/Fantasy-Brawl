@@ -47,7 +47,7 @@ void j1Map::Draw()
 	{
 		layerr = *item;
 
-		if(layerr->properties.Get("Nodraw") != 0)
+		if(layerr->properties.Get("Nodraw") != 0 || layerr->name == "collisions")
 			continue;
 
 		iPoint playerpos1map = WorldToMap(App->scene->player1->Entityinfo.entitycoll->rect.x, App->scene->player1->Entityinfo.entitycoll->rect.y);
@@ -166,10 +166,10 @@ void j1Map::Draw()
 						App->view->PushQueue(8, tileset->texture, pos.x, pos.y, r);
 
 					}
-					else
+			/*		else
 					{
 						App->view->PushQueue(9, tileset->texture, pos.x, pos.y, r);
-					}
+					}*/
 						
 
 				}
