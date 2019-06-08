@@ -345,7 +345,7 @@ void j1Player::HandleAttacks()
 	else if (superON && App->input->GetButton(ID, BUTTON_BIND::SUPER_ATTACK) != KEY_REPEAT)
 		superON = false;
 
-	LOG("t: %f", superTimer.ReadSec());
+
 	// --- Special ability ---
 	superTimer.Limit(SuperCooldown);
 
@@ -580,53 +580,60 @@ void j1Player::Launch2ndSuper()
 		if (last_particle != nullptr && last_particle->toDelete != true)
 		{
 			teleported = true;
-			superTimer.Start();
-			App->audio->PlayFx(this->playerinfo.super_fx);
 			this->Future_position.x = last_particle->pos.x;
 			this->Future_position.y = last_particle->pos.y;
 
-			ComputeDistance2players();
+			CheckCollision();
 
-			if (App->ui_scene->actual_menu != SELECTION_MENU)
+			if (teleported)
 			{
-				if (absoluteDistanceP1 < damage_radius && this != App->scene->player1 && !App->scene->player1->shieldON)
+
+				superTimer.Start();
+				App->audio->PlayFx(this->playerinfo.super_fx);
+
+				ComputeDistance2players();
+
+				if (App->ui_scene->actual_menu != SELECTION_MENU)
 				{
-					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
-					App->scene->player1->damage_received = true;
+					if (absoluteDistanceP1 < damage_radius && this != App->scene->player1 && !App->scene->player1->shieldON)
+					{
+						App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player1);
+						App->scene->player1->damage_received = true;
+					}
+
+					if (App->scene->player1->Entityinfo.health <= 0 && App->scene->player1->active)
+						this->kills++;
+
+					if (absoluteDistanceP2 < damage_radius && this != App->scene->player2 && !App->scene->player2->shieldON)
+					{
+						App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
+						App->scene->player2->damage_received = true;
+					}
+
+					if (App->scene->player2->Entityinfo.health <= 0 && App->scene->player2->active)
+						this->kills++;
+
+					if (absoluteDistanceP3 < damage_radius && this != App->scene->player3 && !App->scene->player3->shieldON)
+					{
+						App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
+						App->scene->player3->damage_received = true;
+					}
+
+					if (App->scene->player3->Entityinfo.health <= 0 && App->scene->player3->active)
+						this->kills++;
+
+					if (absoluteDistanceP4 < damage_radius && this != App->scene->player4 && !App->scene->player4->shieldON)
+					{
+						App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
+						App->scene->player4->damage_received = true;
+					}
+
+					if (App->scene->player4->Entityinfo.health <= 0 && App->scene->player4->active)
+						this->kills++;
+
 				}
-			
-				if (App->scene->player1->Entityinfo.health <= 0 && App->scene->player1->active)
-					this->kills++;
-
-				if (absoluteDistanceP2 < damage_radius && this != App->scene->player2 && !App->scene->player2->shieldON)
-				{
-					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player2);
-					App->scene->player2->damage_received = true;
-				}
-
-				if (App->scene->player2->Entityinfo.health <= 0 && App->scene->player2->active)
-					this->kills++;
-
-				if (absoluteDistanceP3 < damage_radius && this != App->scene->player3 && !App->scene->player3->shieldON)
-				{
-					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player3);
-					App->scene->player3->damage_received = true;
-				}
-
-				if (App->scene->player3->Entityinfo.health <= 0 && App->scene->player3->active)
-					this->kills++;
-
-				if (absoluteDistanceP4 < damage_radius && this != App->scene->player4 && !App->scene->player4->shieldON)
-				{
-					App->buff->ApplyEffect(&App->buff->effects[Effects::SIMON_SUPER], App->scene->player4);
-					App->scene->player4->damage_received = true;
-				}
-
-				if (App->scene->player4->Entityinfo.health <= 0 && App->scene->player4->active)
-					this->kills++;
-
+				super_available = false;
 			}
-			super_available = false;
 		}
 	}
 }
@@ -1168,8 +1175,10 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		if (teleported)
 		{
+			teleported = false;
 			Future_position.x = Entityinfo.position.x;
 			Future_position.y = Entityinfo.position.y;
+			entitycollider->SetPos(Future_position.x, Future_position.y);
 		}
 		else
 		{
@@ -1204,8 +1213,10 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		if (teleported)
 		{
+			teleported = false;
 			Future_position.x = Entityinfo.position.x;
 			Future_position.y = Entityinfo.position.y;
+			entitycollider->SetPos(Future_position.x, Future_position.y);
 		}
 		else
 		{
@@ -1239,8 +1250,10 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		if (teleported)
 		{
+			teleported = false;
 			Future_position.x = Entityinfo.position.x;
 			Future_position.y = Entityinfo.position.y;
+			entitycollider->SetPos(Future_position.x, Future_position.y);
 		}
 		else
 		{
@@ -1274,8 +1287,10 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 	case COLLIDER_TYPE::COLLIDER_WATER:
 		if (teleported)
 		{
+			teleported = false;
 			Future_position.x = Entityinfo.position.x;
 			Future_position.y = Entityinfo.position.y;
+			entitycollider->SetPos(Future_position.x, Future_position.y);
 		}
 		else
 		{
