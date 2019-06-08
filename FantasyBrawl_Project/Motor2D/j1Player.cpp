@@ -784,17 +784,29 @@ void j1Player::Launch1stSP()
 	{
 		superTimer.Subtract(SuperCooldown/2);
 
+		SDL_Texture* tmp_tex = playerinfo.basic_attack.tex;
+		SDL_Rect tmp_rect = playerinfo.basic_attack.anim.frames[0];
+
+		playerinfo.basic_attack.tex = manager->wendolin_superdaggertex;
+		playerinfo.basic_attack.anim.frames[0] = { 0,0,46,22 };
+
+
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x * manager->WendolinSP_speedmultiplier;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y * manager->WendolinSP_speedmultiplier;
 
 		for (int i = 1; i < manager->WendolinSP_NumDaggers + 1; ++i)
 		{
 			playerinfo.basic_attack.angle = manager->WendolinSP_DaggerAngle*(M_PI / 180.0f)*i;
-			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x + (int)(8.0f * Entityinfo.scale), this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
+			App->particlesys->AddParticle(playerinfo.basic_attack, this->Entityinfo.position.x, this->Entityinfo.position.y, COLLIDER_TYPE::COLLIDER_PARTICLE, 0, this);
 		}
 
 		playerinfo.basic_attack.speed.x = playerinfo.basic_attack.speed.x / manager->WendolinSP_speedmultiplier;
 		playerinfo.basic_attack.speed.y = playerinfo.basic_attack.speed.y / manager->WendolinSP_speedmultiplier;
+
+
+		playerinfo.basic_attack.tex = tmp_tex;
+		playerinfo.basic_attack.anim.frames[0] = tmp_rect;
+
 	}
 }
 

@@ -324,6 +324,7 @@ bool j1EntityManager::Start()
 	Wendolin.basic_attack.tex = Dagger_texture;
 	WendolinSuper_aimpath = App->tex->Load("textures/wendolinSuper_path.png");
 	wendolin_ultismoke = App->tex->Load("particles/smoke bomb.png");
+	wendolin_superdaggertex = App->tex->Load("particles/Wendolin Red Blade.png");
 
 	// --- Simon ---
 	budu_texture = App->tex->Load("particles/Simon yellow budu.png");

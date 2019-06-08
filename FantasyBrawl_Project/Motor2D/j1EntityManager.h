@@ -109,6 +109,7 @@ public:
 	SDL_Texture * fallenaxe_texture = nullptr;
 	SDL_Texture * wendolin_ultismoke = nullptr;
 	SDL_Texture * parry_texture = nullptr;
+	SDL_Texture* wendolin_superdaggertex = nullptr;
 
 	SDL_Rect parrytex_rect;
 	SDL_Rect inkshot_rect;
