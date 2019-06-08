@@ -60,6 +60,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// --- Particle hit ---
 	particle_hitanim = *LoadAnimation("Animations/Hit.tmx", "Hit");
 	
+	// --- Target anim ---
+	targetanim = *LoadAnimation("Animations/Target.tmx","Target");
+	targetanim.loop = true;
+	targetanim.speed = 10;
 
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
@@ -167,6 +171,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Wendolin.basic_attack.speed = particle_speed;
 	Wendolin.basic_attack.particle_effect = &App->buff->effects[3];
 
+	Wendolinsmokeanim = *LoadAnimation("Animations/Smoke.tmx", "Smoke");
+	Wendolinsmokeanim.speed = 10;
+	Wendolinsmokeanim.loop = false;
+
 	// --------------------
 
 	// --- Simon Awake ---
@@ -210,6 +218,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Simon.basic_attack.particle_effect = &App->buff->effects[3];
 	Simon.basic_attack.ghost = true;
 
+	simonteleport_anim = *LoadAnimation("Animations/Teleport.tmx","Teleport");
+	simonteleport_anim.speed = 30;
+	simonteleport_anim.loop = false;
+
 	// --------------------
 
 	// --- Trakt Awake ---
@@ -251,6 +263,10 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	Trakt.basic_attack.life = 2000;
 	Trakt.basic_attack.speed = particle_speed;
 	Trakt.basic_attack.particle_effect = &App->buff->effects[3];
+
+	inksplash_rect = { 0,0,104,104 };
+	inkshot_rect = {0,0,33,18};
+	trakttentacles_rect = { 0,0,350,350 };
 
 	// --------------------
 
@@ -306,30 +322,43 @@ bool j1EntityManager::Start()
 	bool ret = true;
 
 	// --- Loading Particle Textures ---
-	Dagger_texture = App->tex->Load("particles/Wendolin Red Dagger.png");
-	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
-	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
-	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
 	particle_hittex = App->tex->Load("particles/Weapon hit.png");
+	target_tex = App->tex->Load("textures/Target.png");
 
 	// --- Loading Character Specific Textures ---
+
+	// --- Wendolin ---
+	Dagger_texture = App->tex->Load("particles/Wendolin Red Dagger.png");
 	Wendolin.tex = App->tex->Load(Wendolin.Texture.data());
 	Wendolin.basic_attack.tex = Dagger_texture;
 	WendolinSuper_aimpath = App->tex->Load("textures/wendolinSuper_path.png");
+	wendolin_ultismoke = App->tex->Load("particles/smoke bomb.png");
+	wendolin_superdaggertex = App->tex->Load("particles/Wendolin Red Blade.png");
 
+	// --- Simon ---
+	budu_texture = App->tex->Load("particles/Simon yellow budu.png");
 	Simon.tex = App->tex->Load(Simon.Texture.data());
 	Simon.basic_attack.tex = budu_texture;
 	SimonSuper_aimpath = App->tex->Load("textures/simonSuper_path.png");
 	parry_texture = App->tex->Load("particles/parry.png");
 	parrytex_rect = { 0,0,52,52 };
+	simonteleport_tex = App->tex->Load("particles/Teleport.png");
 
+	// --- Trakt ---
+	inkball_texture = App->tex->Load("particles/Trakt ink ball.png");
 	Trakt.tex = App->tex->Load(Trakt.Texture.data());
 	Trakt.basic_attack.tex = inkball_texture;
 	TraktSuper_aimpath = App->tex->Load("textures/traktSuper_path.png");
+	inkshot_texture = App->tex->Load("particles/Trakt ink shot.png");
+	inksplash_texture = App->tex->Load("particles/Trakt ink splash2.png");
+	trakttentacles_texture = App->tex->Load("particles/Trakt tentacles.png");
 
+	// --- Meliadoul ---
+	axe_texture = App->tex->Load("particles/Meliadoul green axe.png");
 	Meliadoul.tex = App->tex->Load(Meliadoul.Texture.data());
 	Meliadoul.basic_attack.tex = axe_texture;
 	MeliadoulSuper_aimpath = App->tex->Load("textures/meliadoulSuper_path.png");
+	fallenaxe_texture = App->tex->Load("particles/Meliadoul green axe ground.png");
 
 	// --- Loading Character Specific FX ---
 	Wendolin.basic_fx = App->audio->fxWendolinBasic;

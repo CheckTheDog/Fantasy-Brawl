@@ -11,9 +11,9 @@
   <effect id ="4" name="storm" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="0" duration_value ="0" />
 
   <effect id ="5" name="SIMON_SUPER" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="100" duration_value ="0" />
-  
-  <effect id ="6" name="EXHAUST" type="DEBUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value ="2" />
 
-  <effect id ="7" name="speed_up" type="BUFF" duration_type="TEMPORARY" method="ADD" att_to_change="SPEED" bonus="50" duration_value="5"></effect>
+  <effect id ="6" name="EXHAUST" type="DEBUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value ="1" />
+
+  <effect id ="7" name="speed_up" type="BUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value="5"></effect>
   
 </buff_manager>

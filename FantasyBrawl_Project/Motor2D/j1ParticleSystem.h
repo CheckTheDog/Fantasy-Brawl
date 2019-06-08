@@ -7,7 +7,7 @@
 #include "p2Point.h"
 #include "j1Collision.h"
 
-#define MAX_PARTICLES 500
+#define MAX_PARTICLES 700
 
 struct SDL_Texture;
 class j1Player;
@@ -25,6 +25,7 @@ struct Particle
 	uint life = 0;
 	uint delay = 0;
 	bool returned = false;
+	bool bomb = false;
 
 	j1Player* originplayer = nullptr;
 	Effect* particle_effect = nullptr;
@@ -64,6 +65,7 @@ private:
 
 	Particle* active[MAX_PARTICLES];
 	Particle meliadoulAXE;
+	Particle inksplash;
 
 };
 #endif // ! _j1PARTICLESYSTEM_H_

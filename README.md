@@ -242,4 +242,9 @@ Oscar:
 Roger:
 - In game UI Art (legacy version)
 - Sliders art
-- Rectangles for champ select screen
+- Rectangles for champion select and character select screens
+- Work on initial maps
+- General design
+- Website coding
+- Wiki update
+- Logos and art design

@@ -154,7 +154,7 @@ public:
 
 
 	// --- Entity Attacks ---
-	void HandleAttacks();
+	void HandleAttacks(float dt);
 	void HandleShield();
 	void HandleSuperAttacks();
 	void HandleSpecialAttacks();
@@ -220,6 +220,7 @@ public:
 	bool specialON = false;
 	bool shield_available = false;
 	bool super_available = false;
+	bool launched_super = false;
 
 	// --- Score ---
 	uint kills = 0;
@@ -227,9 +228,14 @@ public:
 
 	// --- Auto aim ---
 	float Aim_Radius = 300.0f;
+	Animation Target_anim;
+	bool auto_aimON = false;
+	fPoint targetP_pos = { 0.0f,0.0f };
 
 	// --- Particles ---
 	Particle * last_particle = nullptr;
+	fPoint static_pos = { 0.0f,0.0f };
+	fPoint static_posend = { 0.0f,0.0f };
 
 	// --- Distances to players ---
 	float absoluteDistanceP1 = 0.0f;
@@ -258,9 +264,12 @@ public:
 	j1Timer ghostTimer;
 	uint alpha = 255;
 	Particle parryP;
+	Particle inkshot;
 	std::list<Particle*> MeliadoulAXES;
 	float TraktSPradius = 0.0f;
 	float traktSPAngle = 0.0f;
+	Animation WendolinsmokeANIM;
+	Animation simonteleport_anim;
 
 	// --- Fade ---
 	fade_step current_step;
@@ -282,6 +291,7 @@ public:
 	float alphaC = 0;
 
 	bool damage_received = false;
+	j1Player* last_hitP = nullptr;
 };
 
 #endif // __j1Player_H__
