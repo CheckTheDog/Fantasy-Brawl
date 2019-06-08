@@ -461,9 +461,9 @@ void j1Player::BlitSuperAimPaths(float dt)
 		if (last_particle && !last_particle->toDelete)
 		{
 			if (App->ui_scene->actual_menu == SELECTION_MENU)
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, 1, 0, 0, 0, 0, 2.5);
 			else
-			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2);
+			App->view->PushQueue(5, manager->SimonSuper_aimpath, last_particle->pos.x - (int)(76 * Entityinfo.scale), last_particle->pos.y - (int)(76 * Entityinfo.scale), SDL_Rect{ 0,0,50,50 }, ((int)ID) + 1, 0, 0, 0, 0, 2.5);
 		}
 		break;
 	case CHARACTER::TRAKT:
@@ -575,7 +575,7 @@ void j1Player::Launch2ndSuper()
 {
 	if (superTimer.ReadSec() > SuperCooldown)
 	{
-		float damage_radius = 76.0f * Entityinfo.scale;
+		float damage_radius = 75.0f;
 
 		if (last_particle != nullptr && last_particle->toDelete != true)
 		{
