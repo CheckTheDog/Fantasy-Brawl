@@ -146,11 +146,5 @@
     <storm_phase w_time="30" tiles_to_advance="6" damage_per_tick="50"/>
     
   </arena_interactions>
-
-  <book>
-  
-    <bookanim>Animations/Book.tmx</bookanim>
-  
-  </book>
   
 </config>
