@@ -49,6 +49,10 @@ struct entity_info
 	j1Timer		war_cry;
 	bool		war_cry_active = false;
 
+	//SPEED UP ---TEMPORARY --- Gain extra speed for a limited time
+	j1Timer     speed_up;
+	bool		speed_up_active = false;
+
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;
 	Collider* HitBox = nullptr;

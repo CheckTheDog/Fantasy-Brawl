@@ -1752,6 +1752,7 @@ void j1Player::LogicUpdate(float dt)
 	// --- Update we may not do every frame ---
 
 	App->buff->RestartAttribute(&App->buff->effects[EXHAUST], this);
+	App->buff->RestartAttribute(&App->buff->effects[SPEED_UP], this);
 
 	std::list<Particle*>::iterator item = MeliadoulAXES.begin();
 
