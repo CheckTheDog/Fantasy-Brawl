@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Viewport.h"
+#include "j1Map.h"
 #include "p2Log.h"
 #include "j1ItemManager.h"
 
@@ -29,6 +30,14 @@ bool j1ItemManager::Start()
 bool j1ItemManager::StartItemManager()
 {
 	App->item_manager->active = true;
+
+	for (std::list<iPoint>::iterator spawner = spawners_pos.begin(); spawner != spawners_pos.end(); spawner++)
+	{
+		iPoint pos = App->map->MapToWorld((*spawner).x, (*spawner).y);
+		pos.x -= 5;
+		pos.y -= 40;
+		CreateItem(ItemType::SPEED, pos );
+	}
 	CreateItem(ItemType::LIFE, { 600,700 });
 	CreateItem(ItemType::SUPER_CD, { 650,700 });
 	CreateItem(ItemType::SPEED, { 700,700 });
@@ -172,6 +181,15 @@ void j1ItemManager::ContinueItemManager()
 	App->item_manager->active = true;
 }
 
+void j1ItemManager::ReceiveSpawnersPositions(const std::list<iPoint> to_copy)
+{
+	spawners_pos.clear();
+	for (std::list<iPoint>::const_iterator item = to_copy.begin(); item != to_copy.end(); item++)
+	{
+		spawners_pos.push_back((*item));
+	}
+}
+
 Animation* j1ItemManager::LoadAnimation(const char* animationPath, const char* animationName) {
 
 	Animation* animation = new Animation();
@@ -221,4 +239,5 @@ Animation* j1ItemManager::LoadAnimation(const char* animationPath, const char* a
 
 void j1ItemManager::GetSpawnersFromMap()
 {
+
 }

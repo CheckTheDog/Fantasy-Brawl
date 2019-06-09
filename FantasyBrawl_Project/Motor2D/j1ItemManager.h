@@ -72,12 +72,17 @@ public:
 	// Pause & Continue The items timers
 	void PauseItemManager();
 	void ContinueItemManager();
+
+
+	//Receive a list with the positions in Map Coordinates of the spawners
+	void ReceiveSpawnersPositions( const std::list<iPoint> to_copy);
 	
 private:
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
 	void GetSpawnersFromMap();
 private:
 	std::list<Item*> items;
+	std::list<iPoint> spawners_pos;
 
 	SDL_Texture* items_tex = nullptr;
 };
