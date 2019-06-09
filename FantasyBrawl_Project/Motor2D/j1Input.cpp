@@ -473,7 +473,12 @@ void j1Input::GetMouseMotion(int& x, int& y)
 
 int j1Input::GetBindRealButton(PLAYER p, BUTTON_BIND bind) const
 {
+	if (controllers[(int)p].binded_buttons[(int)bind].bindType == SDL_CONTROLLER_BINDTYPE_BUTTON)
 		return int(controllers[(int)p].binded_buttons[(int)bind].value.button);
+	else if (controllers[(int)p].binded_buttons[(int)bind].bindType == SDL_CONTROLLER_BINDTYPE_AXIS)
+		return (int(controllers[(int)p].binded_buttons[(int)bind].value.axis) + SDL_CONTROLLER_BUTTON_MAX);
+
+	return int(controllers[(int)p].binded_buttons[(int)bind].value.button);
 }
 
 void j1Input::LoadConfigBinding(PLAYER p)
@@ -518,16 +523,43 @@ void j1Input::LoadConfigBinding(PLAYER p)
 	{
 		/*config = config.child("default_binding");*/
 		int bind = 0; // We start with the first button from BUTTON_BIND enum
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
-		bind++;
+		int button_to_bind = button_to_bind = config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int();
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("special_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
-		bind++;
+		// WARNING, iteration is defind via the switch of the variable bb be mindful when adding new buttons since you can mess up this 
+		// and create an infinite loop if you don't make sure to change bb for each BUTTON_BIND case possible note that this was done to optimize readibiity below, since we may be binding a button or an axis
+		for (BUTTON_BIND bb = (BUTTON_BIND)bind; bb != BUTTON_BIND::MAX_BUTTON_BIND; bb = (BUTTON_BIND)bind)
+		{
+			switch (bb)
+			{
+			case BUTTON_BIND::BASIC_ATTACK:
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
-		bind++;
+				button_to_bind = button_to_bind = config.child("default_binding").child("basic_attack").attribute("SDL_BUTTON").as_int();
+				break;
 
-		BindButton((PLAYER)p, (BUTTON_BIND)bind, config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int(), SDL_CONTROLLER_BINDTYPE_BUTTON);
+			case BUTTON_BIND::SPECIAL_ATTACK:
+				button_to_bind = config.child("default_binding").child("special_attack").attribute("SDL_BUTTON").as_int();
+				break;
+
+			case BUTTON_BIND::SUPER_ATTACK:
+				button_to_bind = config.child("default_binding").child("super_attack").attribute("SDL_BUTTON").as_int();
+				break;
+
+			case BUTTON_BIND::SHIELD:
+				button_to_bind = config.child("default_binding").child("shield").attribute("SDL_BUTTON").as_int();
+				break;
+			}
+
+
+		if (button_to_bind < SDL_CONTROLLER_BUTTON_MAX)
+		{
+			BindButton((PLAYER)p, (BUTTON_BIND)bind, button_to_bind, SDL_CONTROLLER_BINDTYPE_BUTTON);
+		}
+		else
+		{
+			BindButton((PLAYER)p, (BUTTON_BIND)bind, button_to_bind - 11, SDL_CONTROLLER_BINDTYPE_AXIS);
+		}
+		bind++;
+		}
 	}
 }
 
@@ -615,7 +647,7 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
 				//Bind the button
 				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
 				
-				BindButton(PLAYER::P1,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed, SDL_CONTROLLER_BINDTYPE_BUTTON);
+				BindButton((PLAYER)p,(BUTTON_BIND)button_bind,controllers[p].last_button_pressed, SDL_CONTROLLER_BINDTYPE_BUTTON);
 				element->section = App->gui->GetButtonRect(controllers[p].last_button_pressed);
 
 				AddBindingToConfig((PLAYER)p);
@@ -632,7 +664,7 @@ bool j1Input::OnUIEvent(UI_element* element, event_type event_type, int p)
 				//Bind the button
 				int button_bind = element->element_type - CUSTOMIZING_BUTTON_BASIC;
 
-				BindButton(PLAYER::P1, (BUTTON_BIND)button_bind, controllers[p].last_axis_pressed, SDL_CONTROLLER_BINDTYPE_AXIS);
+				BindButton((PLAYER)p, (BUTTON_BIND)button_bind, controllers[p].last_axis_pressed, SDL_CONTROLLER_BINDTYPE_AXIS);
 				element->section = App->gui->GetButtonRect(controllers[p].last_axis_pressed + SDL_CONTROLLER_BUTTON_DPAD_RIGHT + 1);
 
 				AddBindingToConfig((PLAYER)p);

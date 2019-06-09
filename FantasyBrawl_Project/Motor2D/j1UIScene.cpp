@@ -619,22 +619,22 @@ bool j1UIScene::Start()
 			basic[i] = App->gui->createImage(pos_x, 350, options_button_binding, App->input);
 			basic[i]->element_type = CUSTOMIZING_BUTTON_BASIC;
 			basic[i]->function = POLLING_CUSTOMIZE;
-			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::BASIC_ATTACK));
+			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::BASIC_ATTACK));
 			
 			special[i] = App->gui->createImage(pos_x, 350 + 72, options_button_binding, App->input);
 			special[i]->element_type = CUSTOMIZING_BUTTON_SPECIAL;
 			special[i]->function = POLLING_CUSTOMIZE;
-			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SPECIAL_ATTACK));
+			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SPECIAL_ATTACK));
 			
 			ultimate[i] = App->gui->createImage(pos_x, 350 + 144, options_button_binding, App->input);
 			ultimate[i]->element_type = CUSTOMIZING_BUTTON_SUPER;
 			ultimate[i]->function = POLLING_CUSTOMIZE;
-			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SUPER_ATTACK));
+			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SUPER_ATTACK));
 			
 			shield[i] = App->gui->createImage(pos_x, 350 + 216, options_button_binding, App->input);
 			shield[i]->element_type = CUSTOMIZING_BUTTON_SHIELD;
 			shield[i]->function = POLLING_CUSTOMIZE;
-			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton(PLAYER::P1, BUTTON_BIND::SHIELD));
+			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SHIELD));
 		}
 		
 		settingsMenu->elements.push_back(settings_bg);
@@ -683,8 +683,6 @@ bool j1UIScene::Start()
 
 		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
-		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 
 		for (int i = 0; i < MAX_GAMEPADS; ++i)
 		{
@@ -693,6 +691,9 @@ bool j1UIScene::Start()
 			AddControllerSupport(ultimate[i], (PLAYER)i, SETTINGS_MENU);
 			AddControllerSupport(shield[i], (PLAYER)i, SETTINGS_MENU);
 		}
+
+		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
+		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 	}
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);
@@ -1539,6 +1540,8 @@ bool j1UIScene::Update(float dt)
 			//from the previous game when we play again
 			App->arena_interactions->DestroyStorm();
 			App->arena_interactions->PauseStorm();
+
+
 		}
 	}
 
@@ -1633,40 +1636,15 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			App->scene->player1->Future_position.x = 510;
 			App->scene->player1->Future_position.y = 200;
-			App->scene->player1->superTimer.Start();
-			App->scene->player1->shieldON = false;
-			App->scene->player1->superON = false;
-			App->scene->player1->specialON = false;
-			App->scene->player1->shieldTimer.Start();
-			App->scene->player1->RJinverted = false;
 
 			App->scene->player2->Future_position.x = 840;
 			App->scene->player2->Future_position.y = 200;
-			App->scene->player2->superTimer.Start();
-			App->scene->player2->shieldON = false;
-			App->scene->player2->superON = false;
-			App->scene->player2->specialON = false;
-			App->scene->player2->shieldTimer.Start();
-			App->scene->player2->RJinverted = false;
 
 			App->scene->player3->Future_position.x = 510;
 			App->scene->player3->Future_position.y = 550;
-			App->scene->player3->superTimer.Start();
-			App->scene->player3->shieldON = false;
-			App->scene->player3->superON = false;
-			App->scene->player3->specialON = false;
-			App->scene->player3->shieldTimer.Start();
-			App->scene->player3->RJinverted = false;
 
 			App->scene->player4->Future_position.x = 840;
 			App->scene->player4->Future_position.y = 550;
-			App->scene->player4->superTimer.Start();
-			App->scene->player4->shieldON = false;
-			App->scene->player4->superON = false;
-			App->scene->player4->specialON = false;
-			App->scene->player4->shieldTimer.Start();
-			App->scene->player4->RJinverted = false;
-
 
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
@@ -1679,34 +1657,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			{
 				App->view->SetViews(4);
 				App->scene->ChangeMap(0);
-				App->scene->player1->Future_position.x = App->scene->initialposP1.x;
-				App->scene->player1->Future_position.y = App->scene->initialposP1.y;
-				App->scene->player1->superTimer.Start();
-				App->scene->player1->shieldON = false;
-				App->scene->player1->shieldTimer.Start();
 
-				App->scene->player2->Future_position.x = App->scene->initialposP2.x;
-				App->scene->player2->Future_position.y = App->scene->initialposP2.y;
-				App->scene->player2->superTimer.Start();
-				App->scene->player2->shieldON = false;
-				App->scene->player2->shieldTimer.Start();
-
-				App->scene->player3->Future_position.x = App->scene->initialposP3.x;
-				App->scene->player3->Future_position.y = App->scene->initialposP3.y;
-				App->scene->player3->superTimer.Start();
-				App->scene->player3->shieldON = false;
-				App->scene->player3->shieldTimer.Start();
-
-				App->scene->player4->Future_position.x = App->scene->initialposP4.x;
-				App->scene->player4->Future_position.y = App->scene->initialposP4.y;
-				App->scene->player4->superTimer.Start();
-				App->scene->player4->shieldON = false;
-				App->scene->player4->shieldTimer.Start();
-
-				App->scene->player1->CurrentAnimation = &App->scene->player1->playerinfo.idleDown;
-				App->scene->player2->CurrentAnimation = &App->scene->player2->playerinfo.idleDown;
-				App->scene->player3->CurrentAnimation = &App->scene->player3->playerinfo.idleDown;
-				App->scene->player4->CurrentAnimation = &App->scene->player4->playerinfo.idleDown;
+				App->scene->ResetAll();
 
 				App->particlesys->CleanUp();
 			}

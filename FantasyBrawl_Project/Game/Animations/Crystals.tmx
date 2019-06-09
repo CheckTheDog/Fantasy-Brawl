@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="700" height="1050" tilewidth="1" tileheight="1" infinite="0" nextlayerid="37" nextobjectid="221">
+ <imagelayer id="3" name="spritesheet" locked="1">
+  <image source="../textures/Crystals 2x spritesheet.png" width="256" height="180"/>
+ </imagelayer>
+ <objectgroup id="34" name="BlueCrystals">
+  <object id="195" x="0" y="0" width="32" height="60"/>
+  <object id="197" x="32" y="0" width="32" height="60"/>
+  <object id="198" x="64" y="0" width="32" height="60"/>
+  <object id="199" x="96" y="0" width="32" height="60"/>
+  <object id="200" x="128" y="0" width="32" height="60"/>
+  <object id="201" x="160" y="0" width="32" height="60"/>
+  <object id="202" x="192" y="0" width="32" height="60"/>
+  <object id="203" x="224" y="0" width="32" height="60"/>
+ </objectgroup>
+ <objectgroup id="35" name="RedCrystals">
+  <object id="205" x="0" y="60" width="32" height="60"/>
+  <object id="206" x="32" y="60" width="32" height="60"/>
+  <object id="207" x="64" y="60" width="32" height="60"/>
+  <object id="208" x="96" y="60" width="32" height="60"/>
+  <object id="209" x="128" y="60" width="32" height="60"/>
+  <object id="210" x="160" y="60" width="32" height="60"/>
+  <object id="211" x="192" y="60" width="32" height="60"/>
+  <object id="212" x="224" y="60" width="32" height="60"/>
+ </objectgroup>
+ <objectgroup id="36" name="YellowCrystals">
+  <object id="213" x="0" y="120" width="32" height="60"/>
+  <object id="214" x="32" y="120" width="32" height="60"/>
+  <object id="215" x="64" y="120" width="32" height="60"/>
+  <object id="216" x="96" y="120" width="32" height="60"/>
+  <object id="217" x="128" y="120" width="32" height="60"/>
+  <object id="218" x="160" y="120" width="32" height="60"/>
+  <object id="219" x="192" y="120" width="32" height="60"/>
+  <object id="220" x="224" y="120" width="32" height="60"/>
+ </objectgroup>
+</map>

@@ -5,9 +5,9 @@
   <customized_controllers   P1="0"  P2="0"   P3="0"   P4="0" />
   
   <default_binding>
-   <basic_attack SDL_BUTTON="10" />
+   <basic_attack SDL_BUTTON="16" />
    <special_attack SDL_BUTTON="9" />
-   <super_attack SDL_BUTTON="9" />
+   <super_attack SDL_BUTTON="15" />
    <shield SDL_BUTTON="2" />
   </default_binding>
     

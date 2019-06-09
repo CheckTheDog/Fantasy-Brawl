@@ -12,4 +12,6 @@
 
   <effect id ="5" name="SIMON_SUPER" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="100" duration_value ="0" />
   
+  <effect id ="6" name="EXHAUST" type="DEBUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value ="1" />
+  
 </buff_manager>

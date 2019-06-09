@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="1202" height="15571" tilewidth="1" tileheight="1" infinite="0" nextlayerid="52" nextobjectid="302">
+ <imagelayer id="3" name="spritesheet" locked="1">
+  <image source="../gui/AnimationLogo.png" width="1202" height="15571"/>
+ </imagelayer>
+ <objectgroup id="51" name="Intro">
+  <object id="278" x="0" y="0" width="1202" height="677"/>
+  <object id="280" x="0" y="677" width="1202" height="677"/>
+  <object id="281" x="0" y="1354" width="1202" height="677"/>
+  <object id="282" x="0" y="2031" width="1202" height="677"/>
+  <object id="283" x="0" y="2708" width="1202" height="677"/>
+  <object id="284" x="0" y="3385" width="1202" height="677"/>
+  <object id="285" x="0" y="4062" width="1202" height="677"/>
+  <object id="286" x="0" y="4739" width="1202" height="677"/>
+  <object id="287" x="0" y="6093" width="1202" height="677"/>
+  <object id="288" x="0" y="5416" width="1202" height="677"/>
+  <object id="289" x="0" y="6770" width="1202" height="677"/>
+  <object id="290" x="0" y="7447" width="1202" height="677"/>
+  <object id="291" x="0" y="8124" width="1202" height="677"/>
+  <object id="292" x="0" y="8801" width="1202" height="677"/>
+  <object id="293" x="0" y="9478" width="1202" height="677"/>
+  <object id="294" x="0" y="10155" width="1202" height="677"/>
+  <object id="295" x="0" y="10832" width="1202" height="677"/>
+  <object id="296" x="0" y="11509" width="1202" height="677"/>
+  <object id="297" x="0" y="12186" width="1202" height="677"/>
+  <object id="298" x="0" y="12863" width="1202" height="677"/>
+  <object id="299" x="0" y="13540" width="1202" height="677"/>
+  <object id="300" x="0" y="14217" width="1202" height="677"/>
+  <object id="301" x="0" y="14894" width="1202" height="677"/>
+ </objectgroup>
+</map>

@@ -140,6 +140,7 @@
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_Clock.h" />
     <ClInclude Include="UI_element.h" />
@@ -148,6 +149,12 @@
     <ClInclude Include="UI_Slider.h" />
     <ClInclude Include="UI_Text.h" />
     <ClInclude Include="UI_Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FantasyBrawl.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="EXE ICON.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
