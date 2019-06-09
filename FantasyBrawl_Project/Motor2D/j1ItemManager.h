@@ -64,14 +64,14 @@ public:
 
 	void DeSpawnItem(Item* item);
 
+	void ReSpawnItem(Item* item);
+
 	//Get the pointer to the item that has this collider in it
 	Item* GetItemWithCollider(const Collider* c ) const;
 
 	// Pause & Continue The items timers
 	void PauseItemManager();
 	void ContinueItemManager();
-
-	void OnCollision(Collider* c1, Collider* c2);
 	
 private:
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);

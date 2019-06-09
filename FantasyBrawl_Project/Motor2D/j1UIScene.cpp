@@ -1503,6 +1503,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			App->arena_interactions->DestroyStorm();
 			App->arena_interactions->PauseStorm();
+			App->item_manager->CloseItemManager();
 
 			//RESET SELECTION BOOLS && COUNTER
 			counter1 = 1;
@@ -1576,6 +1577,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
 			App->item_manager->StartItemManager();
+			App->item_manager->ContinueItemManager();
 
 			int music = rand() % 5 + 1;
 
@@ -1609,6 +1611,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+			App->item_manager->CloseItemManager();
 			App->item_manager->StartItemManager();
 			App->scene->ResetAll();
 			scoreboard = false;
@@ -1757,6 +1760,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(),0);
 				App->audio->PlayFx(App->audio->fxCancel);
+				App->item_manager->PauseItemManager();
 			}
 
 			if (actual_menu == INGAMESETTINGS_MENU && previous_menu == INGAME_MENU)
@@ -1764,6 +1768,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->on_GamePause = false;
 				marks_reset = false;
 				App->arena_interactions->DestroyStorm();
+				App->item_manager->CloseItemManager();
+				App->item_manager->PauseItemManager();
 				App->transition->menuTransition(START_MENU, 0.3);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);

@@ -22,12 +22,13 @@ bool j1ItemManager::Awake(pugi::xml_node &)
 bool j1ItemManager::Start()
 {
 	items_tex = App->tex->Load("textures/crystals_spritesheet.png");
-
+	App->item_manager->active = false;
 	return true;
 }
 
 bool j1ItemManager::StartItemManager()
 {
+	App->item_manager->active = true;
 	CreateItem(ItemType::LIFE, { 600,700 });
 	CreateItem(ItemType::SUPER_CD, { 650,700 });
 	CreateItem(ItemType::SPEED, { 700,700 });
@@ -37,11 +38,26 @@ bool j1ItemManager::StartItemManager()
 
 bool j1ItemManager::CloseItemManager()
 {
+	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
+	{
+		delete (*curr_item);
+	}
+
+	items.clear();
+
+	App->item_manager->active = false;
 	return true;
 }
 
 bool j1ItemManager::Update(float dt)
 {
+	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
+	{
+		if ((*curr_item)->spawned == false && (*curr_item)->time_inactive.ReadSec() > 10.0f)
+		{
+			ReSpawnItem((*curr_item));
+		}
+	}
 	return true;
 }
 
@@ -58,6 +74,15 @@ bool j1ItemManager::PostUpdate(float dt)
 
 bool j1ItemManager::CleanUp()
 {
+	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
+	{
+		delete (*curr_item);
+	}
+
+	items.clear();
+
+	App->tex->UnLoad(items_tex);
+	items_tex = nullptr;
 	return true;
 }
 
@@ -98,7 +123,15 @@ void j1ItemManager::DeSpawnItem(Item * item)
 {
 	item->col->to_delete = true;
 	item->spawned = false;
+	item->time_inactive.Start();
+}
 
+void j1ItemManager::ReSpawnItem(Item * item)
+{
+	item->spawned = true;
+	item->time_inactive.Stop();
+	item->col = App->coll->AddCollider({ 0,0,20,40 }, COLLIDER_TYPE::COLLIDER_ITEM, (j1Module*)App->entities);
+	item->col->SetPos(item->Pos.x + 8, item->Pos.y + 10);
 }
 
 Item* j1ItemManager::GetItemWithCollider(const Collider* c) const
@@ -119,16 +152,25 @@ Item* j1ItemManager::GetItemWithCollider(const Collider* c) const
 
 void j1ItemManager::PauseItemManager()
 {
+	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
+	{
+		if((*curr_item)->spawned == false)
+		(*curr_item)->time_inactive.Stop();
+	}
+
+	App->item_manager->active = false;
 }
 
 void j1ItemManager::ContinueItemManager()
 {
-}
+	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
+	{
+		if ((*curr_item)->spawned == false)
+			(*curr_item)->time_inactive.Continue();
+	}
 
-void j1ItemManager::OnCollision(Collider * c1, Collider * c2)
-{
+	App->item_manager->active = true;
 }
-
 
 Animation* j1ItemManager::LoadAnimation(const char* animationPath, const char* animationName) {
 
