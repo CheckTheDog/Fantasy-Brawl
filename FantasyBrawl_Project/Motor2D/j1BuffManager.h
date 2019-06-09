@@ -24,7 +24,8 @@ enum Attribute // All the attributes that entities have
 	HEALTH,
 	STRENGTH,
 	ARMOR,
-	SPEED
+	SPEED,
+	COOLDOWN
 };
 
 enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML (ID'S MUST MATCH)
@@ -36,7 +37,8 @@ enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML
 	STORM,
 	SIMON_SUPER,
 	EXHAUST,
-	SPEED_UP
+	SPEED_UP,
+	SUPER_CD_REDUCTION
 };
 
 

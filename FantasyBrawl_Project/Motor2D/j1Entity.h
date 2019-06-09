@@ -8,6 +8,7 @@
 
 class j1EntityManager;
 class j1Entity;
+class j1Player;
 struct Collider;
 struct SDL_Texture;
 
@@ -31,6 +32,7 @@ struct entity_info
 
 	//Pointer to the j1Entity belonging to the entity
 	j1Entity* my_j1Entity = nullptr;
+	j1Player* player = nullptr;
 
 	// HEALING EFFECT
 	j1Timer		healing;

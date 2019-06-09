@@ -1265,6 +1265,7 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 			break;
 
 		case ItemType::SUPER_CD:
+			App->buff->ApplyEffect(&App->buff->effects[SUPER_CD_REDUCTION], this->Entityinfo.my_j1Entity);
 			break;
 
 		case ItemType::SPEED:

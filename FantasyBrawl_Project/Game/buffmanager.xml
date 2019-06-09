@@ -16,4 +16,7 @@
 
   <effect id ="7" name="speed_up" type="BUFF" duration_type="TEMPORARY" method="PERCENTAGE" att_to_change="SPEED" bonus="50" duration_value="5"></effect>
   
+  <effect id ="8" name="super_cd_reduction" type="BUFF" duration_type="PERMANENT" method="ADD" att_to_change="COOLDOWN" bonus="10" duration_value="0"></effect>
+
+
 </buff_manager>
