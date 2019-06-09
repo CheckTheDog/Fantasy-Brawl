@@ -109,6 +109,10 @@ void j1Map::Draw()
 					{
 						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
 					}
+					else if (layerr->name == "Spawners")
+					{
+						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
+					}
 					else if (layerr->name == "frontier")
 					{
 						App->view->PushQueue(4, tileset->texture, pos.x, pos.y, r);

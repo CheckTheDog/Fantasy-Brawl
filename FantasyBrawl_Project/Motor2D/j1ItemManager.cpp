@@ -218,3 +218,7 @@ Animation* j1ItemManager::LoadAnimation(const char* animationPath, const char* a
 	}
 
 }
+
+void j1ItemManager::GetSpawnersFromMap()
+{
+}

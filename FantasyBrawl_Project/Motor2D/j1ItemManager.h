@@ -75,6 +75,7 @@ public:
 	
 private:
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
+	void GetSpawnersFromMap();
 private:
 	std::list<Item*> items;
 
