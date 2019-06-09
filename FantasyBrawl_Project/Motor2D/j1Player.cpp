@@ -1257,19 +1257,29 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 	{
 	case COLLIDER_TYPE::COLLIDER_ITEM:
 		Item* item = App->item_manager->GetItemWithCollider(to_check);
+		
 
 		switch (item->type)
 		{
 		case ItemType::LIFE:
-			App->buff->ApplyEffect(&App->buff->effects[HEAL], this->Entityinfo.my_j1Entity);
+			if (this->Entityinfo.health < MAX_HEALTH)
+			{
+				App->buff->ApplyEffect(&App->buff->effects[HEAL], this->Entityinfo.my_j1Entity);
+				App->item_manager->DeSpawnItem(item);
+			}
 			break;
 
 		case ItemType::SUPER_CD:
-			App->buff->ApplyEffect(&App->buff->effects[SUPER_CD_REDUCTION], this->Entityinfo.my_j1Entity);
+			if (this->superTimer.ReadSec() < SuperCooldown)
+			{
+				App->buff->ApplyEffect(&App->buff->effects[SUPER_CD_REDUCTION], this->Entityinfo.my_j1Entity);
+				App->item_manager->DeSpawnItem(item);
+			}
 			break;
 
 		case ItemType::SPEED:
 			App->buff->ApplyEffect(&App->buff->effects[SPEED_UP], this->Entityinfo.my_j1Entity);
+			App->item_manager->DeSpawnItem(item);
 			break;
 		}
 	}

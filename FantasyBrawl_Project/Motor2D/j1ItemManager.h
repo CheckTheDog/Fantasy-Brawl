@@ -62,6 +62,8 @@ public:
 	//Create & initialize an Item and add it to the items list 
 	Item* CreateItem(ItemType type, iPoint position);
 
+	void DeSpawnItem(Item* item);
+
 	//Get the pointer to the item that has this collider in it
 	Item* GetItemWithCollider(const Collider* c ) const;
 

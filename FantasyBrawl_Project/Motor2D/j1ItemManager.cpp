@@ -49,7 +49,7 @@ bool j1ItemManager::PostUpdate(float dt)
 {
 	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
 	{
-		if ((*curr_item)->animation != nullptr)
+		if ((*curr_item)->animation != nullptr && (*curr_item)->spawned == true)
 			App->view->PushQueue(9,items_tex, (*curr_item)->Pos.x, (*curr_item)->Pos.y, (*curr_item)->animation->GetCurrentFrame(dt));
 	}
 
@@ -67,8 +67,9 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 
 
 	ret->col = App->coll->AddCollider({0,0,20,40}, COLLIDER_TYPE::COLLIDER_ITEM, (j1Module*)App->entities);
-	ret->col->SetPos(ret->Pos.x, ret->Pos.y + 10);
+	ret->col->SetPos(ret->Pos.x + 8, ret->Pos.y + 10);
 
+	ret->spawned = true;
 
 	switch (type)
 	{
@@ -91,6 +92,13 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 	items.push_back(ret);
 
 	return ret;
+}
+
+void j1ItemManager::DeSpawnItem(Item * item)
+{
+	item->col->to_delete = true;
+	item->spawned = false;
+
 }
 
 Item* j1ItemManager::GetItemWithCollider(const Collider* c) const
