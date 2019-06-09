@@ -59,7 +59,10 @@ bool j1Transition::Update(float dt)
 
 				App->view->PushQueue(12, book_texture, 0, 0, book.GetCurrentFrame(dt));
 
-				if (book.Finished())
+				if (book.Finished() 
+					|| newMenuID == menu_id::INGAME_MENU 
+					|| newMenuID == menu_id::INGAMESETTINGS_MENU
+					|| (newMenuID == menu_id::START_MENU && App->ui_scene->actual_menu == menu_id::INGAMESETTINGS_MENU))
 				{
 					book.Reset();
 					menuState = GOUT;
