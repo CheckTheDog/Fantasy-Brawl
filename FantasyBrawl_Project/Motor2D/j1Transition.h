@@ -40,7 +40,6 @@ private:
 
 	//BOOK
 	SDL_Texture* book_texture = nullptr;
-	std::string book_texturepath;
 	Animation book;
 };
 #endif // !__J1TRANSITION_H__

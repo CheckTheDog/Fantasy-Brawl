@@ -22,6 +22,7 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
 #include "j1Viewport.h"
+#include "j1Textures.h"
 #include <string>
 
 j1UIScene::j1UIScene()
@@ -36,12 +37,18 @@ j1UIScene::~j1UIScene()
 bool j1UIScene::Awake()
 {
 	name.assign("UIScene");
+
+	logo = *App->entities->LoadAnimation("Animations/Intro.tmx", "Intro");
+	logo.loop = false;
+	logo.speed = 6.0f;
+
 	return true;
 }
 
 bool j1UIScene::Start()
 {
 
+	 logo_texture = App->tex->Load("gui/AnimationLogo.png");
 	
 	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 50);
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
@@ -161,6 +168,13 @@ bool j1UIScene::Start()
 
 		menus.push_back(creditsMenu);
 		
+	}
+
+	menu* introMenu = new menu(INTRO_MENU);
+	{
+		
+
+		menus.push_back(introMenu);
 	}
 
 	menu* startMenu = new menu(START_MENU);
@@ -855,6 +869,7 @@ bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
 
+
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
 		
@@ -904,6 +919,7 @@ bool j1UIScene::Update(float dt)
 			ret = true;
 
 		}
+		
 	}
 
 

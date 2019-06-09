@@ -1,6 +1,7 @@
 #ifndef __j1UISCENE_H__
 #define __j1UISCENE_H__
 
+#include "Animation.h"
 #include "j1Module.h"
 #include "SDL\include\SDL.h"
 #include <list>
@@ -20,6 +21,7 @@ class Slider;
 enum menu_id
 {
 	START_MENU,
+	INTRO_MENU,
 	SETTINGS_MENU,
 	INGAME_MENU,
 	SELECTION_MENU,
@@ -240,5 +242,9 @@ public:
 
 	//timer
 	UI_element* timer = nullptr;
+
+	//logo
+	SDL_Texture* logo_texture = nullptr;
+	Animation logo;
 };
 #endif // !__j1UISCENE_H__ 
