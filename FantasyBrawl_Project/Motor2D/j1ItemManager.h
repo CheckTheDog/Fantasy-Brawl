@@ -15,7 +15,8 @@ enum class ItemType
 	NONE = -1,
 	LIFE = 0,
 	SUPER_CD,
-	SPEED
+	SPEED,
+	ITEM_MAX
 };
 
 struct Item
@@ -26,7 +27,7 @@ struct Item
 	Collider* col = nullptr;
 
 	j1Timer time_inactive;
-	Animation* animation = nullptr;
+	Animation* animation[3] = { nullptr };
 
 	Item(ItemType type, iPoint Pos) : type(type), Pos(Pos)
 	{}
@@ -65,6 +66,8 @@ public:
 	void DeSpawnItem(Item* item);
 
 	void ReSpawnItem(Item* item);
+
+	ItemType RandomItemType();
 
 	//Get the pointer to the item that has this collider in it
 	Item* GetItemWithCollider(const Collider* c ) const;

@@ -36,7 +36,7 @@ bool j1ItemManager::StartItemManager()
 		iPoint pos = App->map->MapToWorld((*spawner).x, (*spawner).y);
 		pos.x -= 5;
 		pos.y -= 40;
-		CreateItem(ItemType::SPEED, pos );
+		CreateItem(RandomItemType(), pos );
 	}
 	CreateItem(ItemType::LIFE, { 600,700 });
 	CreateItem(ItemType::SUPER_CD, { 650,700 });
@@ -75,7 +75,7 @@ bool j1ItemManager::PostUpdate(float dt)
 	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
 	{
 		if ((*curr_item)->animation != nullptr && (*curr_item)->spawned == true)
-			App->view->PushQueue(9,items_tex, (*curr_item)->Pos.x, (*curr_item)->Pos.y, (*curr_item)->animation->GetCurrentFrame(dt));
+			App->view->PushQueue(9,items_tex, (*curr_item)->Pos.x, (*curr_item)->Pos.y, (*curr_item)->animation[(int)(*curr_item)->type]->GetCurrentFrame(dt));
 	}
 
 	return true;
@@ -105,23 +105,12 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 
 	ret->spawned = true;
 
-	switch (type)
-	{
-	case ItemType::LIFE:
-		ret->animation = LoadAnimation("Animations/crystals.tmx", "BlueCrystals");
-		break;
-
-	case ItemType::SUPER_CD:
-		ret->animation = LoadAnimation("Animations/crystals.tmx", "RedCrystals");
-		break;
-
-	case ItemType::SPEED:
-		ret->animation = LoadAnimation("Animations/crystals.tmx", "YellowCrystals");
-		break;
-	}
-
-
-	ret->animation->speed = 6.0f;
+	ret->animation[0] = LoadAnimation("Animations/crystals.tmx", "BlueCrystals");
+	ret->animation[0]->speed = 6.0f;
+	ret->animation[1] = LoadAnimation("Animations/crystals.tmx", "RedCrystals");
+	ret->animation[1]->speed = 6.0f;
+	ret->animation[2] = LoadAnimation("Animations/crystals.tmx", "YellowCrystals");
+	ret->animation[2]->speed = 6.0f;
 
 	items.push_back(ret);
 
@@ -141,6 +130,16 @@ void j1ItemManager::ReSpawnItem(Item * item)
 	item->time_inactive.Stop();
 	item->col = App->coll->AddCollider({ 0,0,20,40 }, COLLIDER_TYPE::COLLIDER_ITEM, (j1Module*)App->entities);
 	item->col->SetPos(item->Pos.x + 8, item->Pos.y + 10);
+	item->type = RandomItemType();
+}
+
+ItemType j1ItemManager::RandomItemType()
+{
+	ItemType type = ItemType::NONE;
+
+	type = (ItemType)(rand() % 3);
+
+	return type;
 }
 
 Item* j1ItemManager::GetItemWithCollider(const Collider* c) const
