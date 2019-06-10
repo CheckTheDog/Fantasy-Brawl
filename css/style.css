@@ -144,7 +144,7 @@ p
     background: #AF786B;
     border-radius: 0;
     border: 2px solid transparent;
-    color: #f0c5a8;
+    color: #AF786B;
     font-weight: bold;
     margin: 40px 0 0 0;
     -webkit-transition: all 0.4s ease-in-out;
@@ -169,13 +169,13 @@ p
     }
 #game .media .fa
     {
-        color: #202020;
+        color: ##000000;
         font-size: 50px;
         margin-right: 20px;
     }
 #game .media .media-heading
     {
-        border-bottom: 2px solid #202020;
+        border-bottom: 2px solid ##000000;
         font-weight: 600;
         font-size: 25px;
         padding-bottom: 10px;
@@ -187,7 +187,7 @@ p
     {
         background-size: cover;
         background-repeat: no-repeat;
-        color: #f0c5a8;
+        color: #AF786B;
     }
 #divider h2
     {
@@ -195,7 +195,7 @@ p
     }
 #divider strong
     {
-        color: #f0c5a8;
+        color: #AF786B;
     }
 #divider h3
     {
@@ -217,12 +217,12 @@ p
 #about .progress
     {
         border-radius: 4px;
-        background: #a8d3f0;
+        background: #000000;
         height: 6px;
     }
 #about .progress .progress-bar-danger
     {
-        background: #f0c5a8;
+        background: #AF786B;
     }
 #about .text-top
     {
@@ -243,8 +243,8 @@ p
 /* start team */
 #art
     {
-        border-top: 1px solid #f0c5a8;
-        border-bottom: 1px solid #f0c5a8;
+        border-top: 1px solid #AF786B;
+        border-bottom: 1px solid #AF786B;
         text-align: center;
     }
 #art h2
@@ -277,8 +277,8 @@ p
 	
 #teamleader
     {
-        border-top: 1px solid #f0c5a8;
-        border-bottom: 1px solid #f0c5a8;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #teamleader h2
@@ -287,9 +287,9 @@ p
     }
 #teamleader img
     {
-        border: 1px solid #f6f6f6;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #teamleader img:hover
@@ -343,8 +343,8 @@ p
 
 #manager
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #manager h2
@@ -353,9 +353,9 @@ p
     }
 #manager img
     {
-        border: 1px solid #f6f6f6;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #manager img:hover
@@ -377,8 +377,8 @@ p
 
 #ui
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
     }
 #ui h2
     {
@@ -386,9 +386,9 @@ p
     }
 #ui img
     {
-        border: 1px solid #f6f6f6;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #ui img:hover
@@ -410,8 +410,8 @@ p
 	
 #qa
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #qa h2
@@ -420,9 +420,9 @@ p
     }
 #qa img
     {
-        border: 1px solid #f6f6f6;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #qa img:hover
@@ -444,8 +444,8 @@ p
 	
 #design
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #design h2
@@ -454,9 +454,9 @@ p
     }
 #design img
     {
-        border: 1px solid #f0c5a8;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #design img:hover
@@ -478,8 +478,8 @@ p
 	
 #code
     {
-        border-top: 1px solid #f6f6f6;
-        border-bottom: 1px solid #f6f6f6;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #code h2
@@ -488,9 +488,9 @@ p
     }
 #code img
     {
-        border: 1px solid #f6f6f6;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #code img:hover
@@ -523,9 +523,9 @@ p
     margin: 4px;
 }
 .filter-wrapper li a {
-    border: 1px solid #f2f2f2;
+    border: 1px solid #000000;
     border-radius: 4px;
-    color: #999;
+    color: #000000;
     padding: 8px 17px;
     display: block;
     text-decoration: none;
@@ -571,10 +571,8 @@ p
 #contact
 
 .flexslider {
-  background: url("https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png");
 }
     {
-        background-image: url("https://raw.githubusercontent.com/CheckTheDog/Fantasy-Brawl/gh-pages/docs/contact.png");
 	background-position: 0px 0px;
         background-size: cover;
         background-repeat: no-repeat;
@@ -587,7 +585,7 @@ p
     }
 #contact .fa
     {
-        color: #fff;
+        color: #000000;
         font-size: 18px;
         padding-bottom: 14px;
     }
@@ -611,7 +609,7 @@ p
     }
 #contact input[type="submit"]:hover
     {
-        background: #f0c5a8;
+        background: #000000;
     }
  #contact .form-control::-moz-placeholder {
   color: #fff;
