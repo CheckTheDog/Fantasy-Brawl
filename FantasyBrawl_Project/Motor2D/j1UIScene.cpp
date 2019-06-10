@@ -1396,6 +1396,7 @@ bool j1UIScene::Update(float dt)
 
 	}
 
+
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
@@ -1492,6 +1493,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
+
 			App->audio->PlayFx(App->audio->fxConfirm);
 
 			player1_quad->section = { 288, 518, 170,191 };
@@ -1595,6 +1597,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				break;
 			}
 		
+			break;
+		}
+		case FIRST_MAP_PREVIEW:
+		{
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU , 0.3);
 			break;
 		}
 		case INGAME_NEW_GAME:
@@ -2332,7 +2340,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 		}
 		else if (App->scene->player1->character == CHARACTER::TRAKT)
 		{
-			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
 		}
 	}
 	else if (winnernumber == 2)
@@ -2351,7 +2359,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 		}
 		else if (App->scene->player2->character == CHARACTER::TRAKT)
 		{
-			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
 		}
 	}
 	else if (winnernumber == 3)
@@ -2370,7 +2378,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 		}
 		else if (App->scene->player3->character == CHARACTER::TRAKT)
 		{
-			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
 		}
 	}
 	if (winnernumber == 4)
@@ -2389,7 +2397,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 		}
 		else if (App->scene->player4->character == CHARACTER::TRAKT)
 		{
-			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
 		}
 	}
 	

@@ -60,7 +60,8 @@ enum element_function
 	HOME,
 	WEBPAGE,
 	POLLING_CUSTOMIZE,
-	CUSTOMIZE
+	CUSTOMIZE,
+	FIRST_MAP_PREVIEW
 };
 
 enum element_state
