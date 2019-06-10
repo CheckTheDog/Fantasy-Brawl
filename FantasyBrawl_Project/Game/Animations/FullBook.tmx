@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="1024" height="13400" tilewidth="1" tileheight="1" infinite="0" nextlayerid="53" nextobjectid="290">
+ <imagelayer id="3" name="spritesheet" locked="1">
+  <image source="../gui/FullBgSprite.png" width="1024" height="13056"/>
+ </imagelayer>
+ <objectgroup id="51" name="bookAnim">
+  <object id="272" x="0" y="8448" width="1024" height="768"/>
+  <object id="273" x="0" y="9216" width="1024" height="768"/>
+  <object id="274" x="0" y="9984" width="1024" height="768"/>
+  <object id="275" x="0" y="10752" width="1024" height="768"/>
+  <object id="276" x="0" y="11520" width="1024" height="768"/>
+  <object id="277" x="0" y="12288" width="1024" height="768"/>
+ </objectgroup>
+ <objectgroup id="52" name="coverAnim">
+  <object id="278" x="0" y="0" width="1024" height="768"/>
+  <object id="279" x="0" y="768" width="1024" height="768"/>
+  <object id="280" x="0" y="1536" width="1024" height="768"/>
+  <object id="281" x="0" y="2304" width="1024" height="768"/>
+  <object id="282" x="0" y="3072" width="1024" height="768"/>
+  <object id="283" x="0" y="3840" width="1024" height="768"/>
+  <object id="284" x="0" y="4608" width="1024" height="768"/>
+  <object id="285" x="0" y="5376" width="1024" height="768"/>
+  <object id="286" x="0" y="6144" width="1024" height="768"/>
+  <object id="287" x="0" y="6912" width="1024" height="768"/>
+  <object id="288" x="0" y="7680" width="1024" height="768"/>
+ </objectgroup>
+</map>

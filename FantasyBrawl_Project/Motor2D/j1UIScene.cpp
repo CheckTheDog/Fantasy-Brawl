@@ -1404,9 +1404,8 @@ bool j1UIScene::Update(float dt)
 	player_winner = App->scene->GetWinner();
 	if (rounds >= 3)
 	{
-		if (player_winner != nullptr && scoreboard == false)
+		if (player_winner != nullptr && scoreboard == false && !player_winner->active)
 		{
-			player_winner->active = false;
 			scoreboard = true;
 			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 			actual_menu = FINAL_MENU;
@@ -1427,9 +1426,9 @@ bool j1UIScene::Update(float dt)
 	}
 	else if (rounds < 3)
 	{
-		if (player_winner != nullptr && scoreboard == false)
+		if (player_winner != nullptr && scoreboard == false && !player_winner->active)
 		{
-			player_winner->active = false;
+
 			scoreboard = true;
 			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 			actual_menu = FINAL_MENU;
