@@ -26,6 +26,7 @@ class j1Transition;
 class j1UIScene;
 class j1BuffManager;
 class j1FadeToBlack;
+class j1ItemManager;
 
 
 class j1App
@@ -107,6 +108,7 @@ public:
 	j1ParticleSystem*	particlesys = nullptr;
 	j1Viewport*			view = NULL;
 	j1FadeToBlack*      fade = NULL;
+	j1ItemManager*		item_manager = nullptr;
 
 	int              framerate_cap;
 

@@ -20,6 +20,7 @@
 #include "j1Gui.h"
 #include "j1FadeToBlack.h"
 #include "UI_element.h"
+#include "j1ItemManager.h"
 #include "j1Transition.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
@@ -1252,6 +1253,36 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		break;
 	}
 
+	switch (to_check->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_ITEM:
+		Item* item = App->item_manager->GetItemWithCollider(to_check);
+		
+
+		switch (item->type)
+		{
+		case ItemType::LIFE:
+			if (this->Entityinfo.health < MAX_HEALTH)
+			{
+				App->buff->ApplyEffect(&App->buff->effects[HEAL], this->Entityinfo.my_j1Entity);
+				App->item_manager->DeSpawnItem(item);
+			}
+			break;
+
+		case ItemType::SUPER_CD:
+			if (this->superTimer.ReadSec() < SuperCooldown)
+			{
+				App->buff->ApplyEffect(&App->buff->effects[SUPER_CD_REDUCTION], this->Entityinfo.my_j1Entity);
+				App->item_manager->DeSpawnItem(item);
+			}
+			break;
+
+		case ItemType::SPEED:
+			App->buff->ApplyEffect(&App->buff->effects[SPEED_UP], this->Entityinfo.my_j1Entity);
+			App->item_manager->DeSpawnItem(item);
+			break;
+		}
+	}
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)
@@ -1732,6 +1763,7 @@ void j1Player::LogicUpdate(float dt)
 	// --- Update we may not do every frame ---
 
 	App->buff->RestartAttribute(&App->buff->effects[EXHAUST], this);
+	App->buff->RestartAttribute(&App->buff->effects[SPEED_UP], this);
 
 	std::list<Particle*>::iterator item = MeliadoulAXES.begin();
 

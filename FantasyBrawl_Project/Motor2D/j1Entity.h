@@ -8,6 +8,7 @@
 
 class j1EntityManager;
 class j1Entity;
+class j1Player;
 struct Collider;
 struct SDL_Texture;
 
@@ -31,6 +32,7 @@ struct entity_info
 
 	//Pointer to the j1Entity belonging to the entity
 	j1Entity* my_j1Entity = nullptr;
+	j1Player* player = nullptr;
 
 	// HEALING EFFECT
 	j1Timer		healing;
@@ -48,6 +50,10 @@ struct entity_info
 	// WAR CRY --- TEMPORARY --- gain extra strength for a limited time
 	j1Timer		war_cry;
 	bool		war_cry_active = false;
+
+	//SPEED UP ---TEMPORARY --- Gain extra speed for a limited time
+	j1Timer     speed_up;
+	bool		speed_up_active = false;
 
 	// --- Collider data ---
 	Collider*     entitycoll = nullptr;

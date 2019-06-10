@@ -87,6 +87,12 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 			DoMath(entity->Entityinfo.og_speed, effect->bonus, effect->method, effect->type);
 			break;
 
+		case COOLDOWN:
+			if (effect->type == BUFF)
+				entity->Entityinfo.player->superTimer.Add(effect->bonus);
+			else
+				entity->Entityinfo.player->superTimer.Subtract(effect->bonus);
+			break;
 		}
 	}
 	else if (effect->duration_type == TEMPORARY) // we have to put manually every NEW EFFECT that has a TIMER (and create the timer in entity.h or in this case in Player.h)
@@ -132,6 +138,16 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 				}
 				entity->Entityinfo.exhausting.Start(); // timer starts
 			}
+
+			if (effect->name == effects[SPEED_UP].name)
+			{
+				if (entity->Entityinfo.speed_up_active == false)
+				{
+					DoMath(entity->Entityinfo.Speed, effect->bonus, effect->method, effect->type);
+					entity->Entityinfo.speed_up_active = true;
+				}
+				entity->Entityinfo.speed_up.Start(); // timer starts
+			}
 			break;
 		}
 	}
@@ -159,6 +175,7 @@ void j1BuffManager::ApplyEffect(Effect* effect, j1Entity *entity)
 		}
 	}*/
 
+	LimitAttributes(entity);
 
 }
 
@@ -176,6 +193,13 @@ void j1BuffManager::ApplyEffect(Effect * effect, j1Entity * entity, float edited
 		case STRENGTH:
 			DoMath(entity->Entityinfo.strength, edited_bonus, effect->method, effect->type);
 			DoMath(entity->Entityinfo.og_strength, edited_bonus, effect->method, effect->type);
+			break;
+
+		case COOLDOWN:
+			if (effect->type == BUFF)
+				entity->Entityinfo.player->superTimer.Add(edited_bonus);
+			else
+				entity->Entityinfo.player->superTimer.Subtract(edited_bonus);
 			break;
 		}
 	}
@@ -217,6 +241,16 @@ void j1BuffManager::ApplyEffect(Effect * effect, j1Entity * entity, float edited
 					entity->Entityinfo.exhaust_active = true;
 				}
 				entity->Entityinfo.exhausting.Start(); // timer starts
+			}
+
+			if (effect->name == effects[SPEED_UP].name)
+			{
+				if (entity->Entityinfo.speed_up_active == false)
+				{
+					DoMath(entity->Entityinfo.Speed, edited_bonus, effect->method, effect->type);
+					entity->Entityinfo.speed_up_active = true;
+				}
+				entity->Entityinfo.speed_up.Start(); // timer starts
 			}
 			break;
 		}
@@ -282,6 +316,14 @@ void j1BuffManager::RestartAttribute(Effect *effect, j1Entity *entity) //Check a
 		{
 			entity->Entityinfo.Speed = entity->Entityinfo.og_speed;
 			entity->Entityinfo.exhaust_active = false;
+		}
+	}
+	else if (effect->name == effects[SPEED_UP].name)
+	{
+		if (entity->Entityinfo.speed_up_active == true && entity->Entityinfo.speed_up.ReadSec() > effect->duration_value)
+		{
+			entity->Entityinfo.Speed = entity->Entityinfo.og_speed;
+			entity->Entityinfo.speed_up_active = false;
 		}
 	}
 }
@@ -430,6 +472,9 @@ void j1BuffManager::SetValue(Effect &effect, std::string string)
 	{
 		effect.attribute_to_change = SPEED;
 	}
-
+	else if (string == "COOLDOWN")
+	{
+		effect.attribute_to_change = COOLDOWN;
+	}
 
 }
