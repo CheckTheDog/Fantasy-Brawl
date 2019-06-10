@@ -401,6 +401,7 @@ void j1Player::HandleAttacks(float dt)
 	else if (specialON && App->input->GetButton(ID, BUTTON_BIND::SPECIAL_ATTACK) == KEY_UP)
 	{
 		specialON = false;
+		launched_super = false;
 		HandleSpecialAttacks();
 	}
 
