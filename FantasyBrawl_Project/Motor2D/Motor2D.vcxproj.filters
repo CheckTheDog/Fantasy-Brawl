@@ -97,6 +97,9 @@
     <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Development  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1ItemManager.cpp">
+      <Filter>Development  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -214,6 +217,9 @@
       <Filter>Development  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="j1ItemManager.h">
+      <Filter>Development  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities ===========">

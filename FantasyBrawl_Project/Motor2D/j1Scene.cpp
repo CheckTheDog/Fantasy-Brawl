@@ -150,6 +150,13 @@ bool j1Scene::Start()
 	player4->character = CHARACTER::WENDOLIN;
 	player4->AssignCharacter();
 
+
+	player1->active = false;
+	player2->active = false;
+	player3->active = false;
+	player4->active = false;
+
+
 	return true;
 }
 

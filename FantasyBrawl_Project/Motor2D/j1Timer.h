@@ -16,6 +16,7 @@ public:
 	void Stop();
 	void Continue();
 	void Subtract(uint32 time);
+	void Add(float seconds);
 	void Limit(uint32 limit);
 
 private:

@@ -20,7 +20,9 @@
 #include "j1Gui.h"
 #include "j1FadeToBlack.h"
 #include "UI_element.h"
+#include "j1ItemManager.h"
 #include "j1Transition.h"
+#include "SDL_mixer\include\SDL_mixer.h"
 
 j1Player::j1Player(entity_info entityinfo, Playerdata * player_info) : j1Entity(entity_type::PLAYER, entityinfo), playerinfo(*player_info)
 {
@@ -58,7 +60,7 @@ bool j1Player::Start()
 	WendolinsmokeANIM = manager->Wendolinsmokeanim;
 	simonteleport_anim = manager->simonteleport_anim;
 	Target_anim = manager->targetanim;
-
+	Pdeath_anim = manager->death_anim;
 
 	// --- Current Movement State (for collisions) ---
 	EntityMovement = MOVEMENT::STATIC;
@@ -400,6 +402,7 @@ void j1Player::HandleAttacks(float dt)
 	else if (specialON && App->input->GetButton(ID, BUTTON_BIND::SPECIAL_ATTACK) == KEY_UP)
 	{
 		specialON = false;
+		launched_super = false;
 		HandleSpecialAttacks();
 	}
 
@@ -407,6 +410,10 @@ void j1Player::HandleAttacks(float dt)
 	{
 		App->audio->PlayFx(App->audio->fxPowerUpActivate);
 		super_available = true;
+	}
+	else if (superTimer.ReadSec() < SuperCooldown)
+	{
+		super_available = false;
 	}
 }
 
@@ -449,6 +456,10 @@ void j1Player::HandleShield()
 	{
 		App->audio->PlayFx(App->audio->fxPowerUpPick);
 		shield_available = true;
+	}
+	else if (shieldTimer.ReadSec() <  manager->ShieldCooldown)
+	{
+		shield_available = false;
 	}
 }
 
@@ -795,6 +806,7 @@ void j1Player::Launch1stSP()
 	if (superTimer.ReadSec() > SuperCooldown/2)
 	{
 		superTimer.Subtract(SuperCooldown/2);
+		App->audio->PlayFx(App->audio->fxWendolinSpecial);
 
 		SDL_Texture* tmp_tex = playerinfo.basic_attack.tex;
 		SDL_Rect tmp_rect = playerinfo.basic_attack.anim.frames[0];
@@ -827,6 +839,7 @@ void j1Player::Launch2ndSP()
 	if (superTimer.ReadSec() > SuperCooldown / 2 && (abs(RJdirection_x) > multipliermin || abs(RJdirection_y) > multipliermin))
 	{
 		superTimer.Subtract(SuperCooldown / 2);
+		App->audio->PlayFx(App->audio->fxSimonSpecial);
 
 		App->particlesys->AddParticle(parryP, parryP.pos.x, parryP.pos.y, COLLIDER_TYPE::COLLIDER_BOUNCE, 0, this);
 	}
@@ -834,9 +847,10 @@ void j1Player::Launch2ndSP()
 
 void j1Player::Launch3rdSP()
 {
-	if (superTimer.ReadSec() > SuperCooldown / 2)
+	if (superTimer.ReadSec() > SuperCooldown / 2 && (abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin))
 	{
 		superTimer.Subtract(SuperCooldown / 2);
+		App->audio->PlayFx(App->audio->fxTraktSpecial);
 
 		// --- Player movement direction ---
 		inkshot.direction.x = LJdirection_x;
@@ -866,6 +880,7 @@ void j1Player::Launch4thSP()
 		if (MeliadoulAXES.size() > 0)
 		{
 			superTimer.Subtract(SuperCooldown / 2);
+			App->audio->PlayFx(App->audio->fxMeliadoulSpecial);
 
 			while (item != MeliadoulAXES.end())
 			{
@@ -937,6 +952,33 @@ bool j1Player::PostUpdate(float dt)
 {
 	bool ret = true;
 
+	// --- Blit death animation ---
+
+	if (P_rank == RANK::LOSER || AreOtherPlayersDead())
+	{
+		App->view->PushQueue(10, manager->deathbubbles_tex, this->Entityinfo.position.x - 32, this->Entityinfo.position.y - 60, Pdeath_anim.GetCurrentFrame(dt), 0, 0, 0, 0, 0, 1, 255);
+
+		if (P_rank == RANK::LOSER)
+		{
+			alpha = 127;
+			dt = 0.0f;
+		}
+		else if (AreOtherPlayersDead())
+		{
+			Mix_PauseMusic();
+			if(App->ui_scene->rounds >= 3)
+			App->audio->PlayFx(App->audio->fxMatchEnd);
+			else
+			App->audio->PlayFx(App->audio->fxRoundEnd);
+		}
+
+		if (Pdeath_anim.Finished())
+		{
+			Mix_ResumeMusic();
+			Pdeath_anim.Reset();
+			this->active = false;
+		}
+	}
 
 	// --- Adapt to Transitions ---
 	if (App->transition->doingMenuTransition && App->ui_scene->actual_menu != INGAME && App->ui_scene->actual_menu != INGAMESETTINGS_MENU)
@@ -984,7 +1026,7 @@ bool j1Player::PostUpdate(float dt)
 
 	if (ghost)
 		alpha = manager->Wendolin_ghostalpha;
-	else if (!App->transition->doingMenuTransition)
+	else if (!App->transition->doingMenuTransition && P_rank != RANK::LOSER)
 		alpha = 255;
 
 	if (!ghost)
@@ -1252,6 +1294,36 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		break;
 	}
 
+	switch (to_check->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_ITEM:
+		Item* item = App->item_manager->GetItemWithCollider(to_check);
+		
+
+		switch (item->type)
+		{
+		case ItemType::LIFE:
+			if (this->Entityinfo.health < MAX_HEALTH)
+			{
+				App->buff->ApplyEffect(&App->buff->effects[HEAL], this->Entityinfo.my_j1Entity);
+				App->item_manager->DeSpawnItem(item);
+			}
+			break;
+
+		case ItemType::SUPER_CD:
+			if (this->superTimer.ReadSec() < SuperCooldown)
+			{
+				App->buff->ApplyEffect(&App->buff->effects[SUPER_CD_REDUCTION], this->Entityinfo.my_j1Entity);
+				App->item_manager->DeSpawnItem(item);
+			}
+			break;
+
+		case ItemType::SPEED:
+			App->buff->ApplyEffect(&App->buff->effects[SPEED_UP], this->Entityinfo.my_j1Entity);
+			App->item_manager->DeSpawnItem(item);
+			break;
+		}
+	}
 }
 
 void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_check)
@@ -1732,6 +1804,7 @@ void j1Player::LogicUpdate(float dt)
 	// --- Update we may not do every frame ---
 
 	App->buff->RestartAttribute(&App->buff->effects[EXHAUST], this);
+	App->buff->RestartAttribute(&App->buff->effects[SPEED_UP], this);
 
 	std::list<Particle*>::iterator item = MeliadoulAXES.begin();
 
@@ -1745,7 +1818,7 @@ void j1Player::LogicUpdate(float dt)
 		item++;
 	}
 
-	if (dt != 0.0f)
+	if (dt != 0.0f && P_rank != RANK::LOSER)
 	{
 		if (this->current_stepD == fade_step::maintain)
 			this->current_stepD = fade_step::none;
@@ -1772,13 +1845,29 @@ void j1Player::LogicUpdate(float dt)
 		if (this->Entityinfo.health <= 0.0f && !AreOtherPlayersDead())
 		{
 			P_rank = RANK::LOSER;
-			this->active = false;
+
 			this->Entityinfo.entitycoll->rect.x = 0;
 			this->Entityinfo.entitycoll->rect.y = 0;
 			this->Entityinfo.HitBox->SetPos(this->Entityinfo.entitycoll->rect.x, this->Entityinfo.entitycoll->rect.y);
-			App->fade->FadeCustom(colB.r, colB.g, colB.b, alphaB, 2.0f, start_timeD, total_timeD, current_stepD,colB);
+			App->fade->FadeCustom(colB.r, colB.g, colB.b, alphaB, 2.0f, start_timeD, total_timeD, current_stepD, colB);
 
-			App->audio->PlayFx(this->playerinfo.basic_fx);
+			switch (this->character)
+			{
+			case CHARACTER::WENDOLIN:
+				App->audio->PlayFx(App->audio->fxWendolinDeath);
+				break;
+			case CHARACTER::MELIADOUL:
+				App->audio->PlayFx(App->audio->fxMeliadoulDeath);
+				break;
+			case CHARACTER::SIMON:
+				App->audio->PlayFx(App->audio->fxSimonDeath);
+				break;
+			case CHARACTER::TRAKT:
+				App->audio->PlayFx(App->audio->fxTraktDeath);
+				break;
+			default:
+				break;
+			}
 		}
 
 	}
