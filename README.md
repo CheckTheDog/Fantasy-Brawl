@@ -252,3 +252,9 @@ Roger:
 - Website coding
 - Wiki update
 - Logos and art design
+
+Marc:
+- Loaded audio to code
+- Buff manager
+- Item system (rough)
+- Update wiki
