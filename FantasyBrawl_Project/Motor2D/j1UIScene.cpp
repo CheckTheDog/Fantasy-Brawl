@@ -834,7 +834,9 @@ bool j1UIScene::Update(float dt)
 			Mix_PauseMusic();
 			App->transition->menuTransition(INGAMESETTINGS_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
+			App->item_manager->PauseItemManager();
 			App->audio->PlayFx(App->audio->fxPause);
+			SetUiOptionsButtonsBindedImages();
 			ret = true;
 		}
 		else if (actual_menu == INGAMESETTINGS_MENU && previous_menu == INGAME_MENU)
@@ -844,6 +846,7 @@ bool j1UIScene::Update(float dt)
 
 			Mix_ResumeMusic();
 			App->transition->menuTransition(INGAME_MENU, 0.3f);
+			App->item_manager->ContinueItemManager();
 			App->arena_interactions->ContinueStorm();
 			ret = true;
 
@@ -2010,6 +2013,47 @@ bool j1UIScene::loadMenu(menu_id id)
 }
 
 
+
+void j1UIScene::SetUiOptionsButtonsBindedImages()
+{
+	//This is a bit hardcoded beacuse we know that the elements will be added to the menu in order P1, all four abilities basic, special, ultimate, shield
+	//all of this repeated for the 4 players
+	menu* ingamesettings = nullptr;
+	for (std::list<menu*>::iterator menu = menus.begin(); menu != menus.end(); menu++)
+	{
+		if ((*menu)->id == INGAMESETTINGS_MENU)
+		{
+			ingamesettings = (*menu);
+		}
+	}
+
+	if (ingamesettings != nullptr)
+	{
+		int player = 0;
+		for (std::list<UI_element*>::iterator element = ingamesettings->elements.begin(); element != ingamesettings->elements.end(); element++)
+		{
+			switch ((*element)->element_type)
+			{
+			case CUSTOMIZING_BUTTON_BASIC:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::BASIC_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SPECIAL:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SPECIAL_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SUPER:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SUPER_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SHIELD:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SHIELD));
+				player++; // We have gone through all the elements basic,special,ultimate and shield for the current player, so we add +1
+				break;
+			}
+		}
+	}
+}
 
 void j1UIScene::applySettings(settings_values values)
 {
