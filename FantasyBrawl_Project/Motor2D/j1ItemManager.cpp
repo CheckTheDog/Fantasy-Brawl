@@ -5,6 +5,7 @@
 #include "j1Viewport.h"
 #include "j1Map.h"
 #include "p2Log.h"
+#include <time.h>
 #include "j1ItemManager.h"
 
 j1ItemManager::j1ItemManager()
@@ -137,6 +138,8 @@ ItemType j1ItemManager::RandomItemType()
 {
 	ItemType type = ItemType::NONE;
 
+	int t = (rand() % 1000);
+	srand(t);
 	type = (ItemType)(rand() % 3);
 
 	return type;
