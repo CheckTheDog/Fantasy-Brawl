@@ -1956,6 +1956,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				marks_reset = false;
 				App->arena_interactions->DestroyStorm();
 				App->transition->menuTransition(START_MENU, 0.3);
+				App->view->SetViews(1);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 				App->audio->PlayFx(App->audio->fxCancel);
