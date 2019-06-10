@@ -2281,31 +2281,119 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 	UI_element* text2 = nullptr;
 
+	uint winnernumber = 0;
+
 	if (P1stars > P2stars && P1stars > P3stars && P1stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 1", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 1;
 	}
 	else if (P2stars > P1stars && P2stars > P3stars && P2stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 2", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 2;
 	}
 	else if (P3stars > P2stars && P3stars > P1stars && P3stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 3", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 3;
 	}
 	else if (P4stars > P2stars && P4stars > P3stars && P4stars > P1stars)
 	{
 		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 4;
 	}
-	else 
+	else
+	{
 		text2 = App->gui->createText("No one", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 0;
+	}
 	
-	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
+	UI_element* winnerchamp = NULL;
+
+	if (winnernumber == 1)
+	{
+		if (App->scene->player1->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player1->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player1->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player1->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+		}
+	}
+	else if (winnernumber == 2)
+	{
+		if (App->scene->player2->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player2->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player2->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player2->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+		}
+	}
+	else if (winnernumber == 3)
+	{
+		if (App->scene->player3->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player3->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player3->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player3->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+		}
+	}
+	if (winnernumber == 4)
+	{
+		if (App->scene->player4->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player4->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player4->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player4->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 475, 1049, 206, 351 }, this);
+		}
+	}
+	
+	UI_element* text3 = App->gui->createText("Press      to continue to main menu", 357, 670, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
 
 	//PLAYER QUADS No Butt
@@ -2395,6 +2483,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(player2_stars);
 	finalMenu->elements.push_back(player3_stars);
 	finalMenu->elements.push_back(player4_stars);
+	finalMenu->elements.push_back(winnerchamp);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
 		AddControllerSupport(last_button1, PLAYER::P1, FINAL_MENU);
