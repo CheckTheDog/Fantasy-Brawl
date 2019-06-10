@@ -70,6 +70,8 @@ public:
 
 	bool loadMenu(menu_id id);
 
+	//GetBinds for all buttons on the controls
+	void SetUiOptionsButtonsBindedImages();
 
 	void applySettings(settings_values values);
 

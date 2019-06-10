@@ -393,7 +393,9 @@ GP_AXIS_STATE j1Input::GetLRAxisState(PLAYER p, int id) const
 	if (IN_RANGE(id,(int)SDL_CONTROLLER_AXIS_LEFTX, (int)SDL_CONTROLLER_AXIS_RIGHTY))
 	{
 		if (controllers[(int)p].id_ptr != nullptr)
+		{
 			return controllers[(int)p].multidirection_axis_state[id - (int)SDL_CONTROLLER_AXIS_LEFTX];
+		}
 	}
 	else
 		return GP_AXIS_STATE::AXIS_IDLE;
@@ -479,6 +481,14 @@ int j1Input::GetBindRealButton(PLAYER p, BUTTON_BIND bind) const
 		return (int(controllers[(int)p].binded_buttons[(int)bind].value.axis) + SDL_CONTROLLER_BUTTON_MAX);
 
 	return int(controllers[(int)p].binded_buttons[(int)bind].value.button);
+}
+
+bool j1Input::ControllerIsConnected(PLAYER p)
+{
+	if (controllers[(int)p].id_ptr == nullptr)
+		return false;
+	else
+		return true;
 }
 
 void j1Input::LoadConfigBinding(PLAYER p)
