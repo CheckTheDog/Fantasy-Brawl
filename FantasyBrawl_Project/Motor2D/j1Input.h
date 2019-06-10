@@ -192,6 +192,8 @@ public:
 
 	//SDL_Rect GetButtonRect(SDL_GameControllerButton button) { return { 0,(int)button * 72, 72,72 }; }
 
+	bool ControllerIsConnected(PLAYER p);
+
 
 private: // Functions
 	void LoadConfigBinding(PLAYER p);
