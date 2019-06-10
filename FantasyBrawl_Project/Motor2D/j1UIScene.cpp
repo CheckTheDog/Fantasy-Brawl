@@ -179,6 +179,10 @@ bool j1UIScene::Start()
 
 	menu* previewMenu = new menu(PREVIEW_MENU);
 	{
+
+		UI_element* title = App->gui->createText("MAP PREVIEW", 5, 70, perfect_font, brown_color);
+		title->setOutlined(true);
+
 		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
 
 		ready2 = App->gui->createButton(500 * App->gui->UI_scale, 2000 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
@@ -188,45 +192,48 @@ bool j1UIScene::Start()
 		text2->setOutlined(false);
 
 		//CONFIRM TEXT
-		UI_element* text_confirm = App->gui->createText("TO CONFIRM", 600, 650, small_font, black_color);
-		UI_element* text_cancel = App->gui->createText("TO CANCEL", 600, 690, small_font, black_color);
+		UI_element* text_confirm = App->gui->createText("TO ADVANCE", 600, 690, small_font, black_color);
+		
 
 		//CONFIRM IMAGES(A&B)
-		UI_element* A = App->gui->createImageFromAtlas(550, 640, { 319, 0, 37, 40 }, this);
-		UI_element* B = App->gui->createImageFromAtlas(550, 685, { 369, 0, 37, 40 }, this);
+		UI_element* A = App->gui->createImageFromAtlas(550, 680, { 319, 0, 37, 40 }, this);
+		
 
-		player1_quadsF = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
-		player2_quadsF = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
-		player3_quadsF = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
-		player4_quadsF = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+		
 
 		//PLAYER TEXTS
-		UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
-		UI_element* player2_text = App->gui->createImageFromAtlas(40, 357, { 413, 799,120, 20 }, this);
-		UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
-		UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
+		UI_element* player1_text = App->gui->createImageFromAtlas(120, 196, { 296, 799, 117, 20 }, this);
+		UI_element* player2_text = App->gui->createImageFromAtlas(120, 296, { 413, 799,120, 20 }, this);
+		UI_element* player3_text = App->gui->createImageFromAtlas(120, 396, { 534, 799,120, 20 }, this);
+		UI_element* player4_text = App->gui->createImageFromAtlas(120, 496, { 654, 799,120, 20 }, this);
 
+		
+		//PLAYER ICONS
+		UI_element* player1_icon = App->gui->createImageFromAtlas(40, 176, { 443, 0, 69, 68 }, this);
+		UI_element* player2_icon = App->gui->createImageFromAtlas(40, 276, { 513, 0, 69, 68 }, this);
+		UI_element* player3_icon = App->gui->createImageFromAtlas(40, 376, { 583, 0, 69, 68 }, this);
+		UI_element* player4_icon = App->gui->createImageFromAtlas(40, 476, { 653, 0, 69, 68 }, this);
 
-		UI_element* last_button1 = App->gui->createButton(522, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
-		last_button1->function = Last_Button_1;
+		
 
-		UI_element* last_button2 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
-		last_button2->function = Last_Button_2;
-
-		UI_element* last_button3 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
-		last_button3->function = Last_Button_3;
-
-		UI_element* last_button4 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
-		last_button4->function = Last_Button_4;
-
+		
 		previewMenu->elements.push_back(background_image);
 		previewMenu->elements.push_back(ready2);
 		previewMenu->elements.push_back(ready2_text);
 		previewMenu->elements.push_back(text_confirm);
-		previewMenu->elements.push_back(text_cancel);
 		previewMenu->elements.push_back(A);
-		previewMenu->elements.push_back(B);
 		previewMenu->elements.push_back(text2);
+		
+		previewMenu->elements.push_back(player1_text);
+		previewMenu->elements.push_back(player2_text);
+		previewMenu->elements.push_back(player3_text);
+		previewMenu->elements.push_back(player4_text);
+		previewMenu->elements.push_back(player1_icon);
+		previewMenu->elements.push_back(player2_icon);
+		previewMenu->elements.push_back(player3_icon);
+		previewMenu->elements.push_back(player4_icon);
+		previewMenu->elements.push_back(title);
+		
 		
 		menus.push_back(previewMenu);
 	}
@@ -928,6 +935,12 @@ bool j1UIScene::Update(float dt)
 		ready2->function = INGAME;
 		ready2->callback->OnUIEvent(ready2, MOUSE_LEFT_CLICK);
 		
+	}
+	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && (current_menu->id == menu_id::PREVIEW_MENU))
+	{
+		ready2->function = INGAME;
+		ready2->callback->OnUIEvent(ready2, MOUSE_LEFT_CLICK);
+
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
