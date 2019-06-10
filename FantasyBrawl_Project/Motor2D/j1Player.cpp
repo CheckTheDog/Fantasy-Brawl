@@ -844,7 +844,7 @@ void j1Player::Launch2ndSP()
 
 void j1Player::Launch3rdSP()
 {
-	if (superTimer.ReadSec() > SuperCooldown / 2)
+	if (superTimer.ReadSec() > SuperCooldown / 2 && (abs(LJdirection_x) > multipliermin || abs(LJdirection_y) > multipliermin))
 	{
 		superTimer.Subtract(SuperCooldown / 2);
 
