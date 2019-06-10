@@ -774,47 +774,52 @@ bool j1UIScene::Start()
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);
 	{
-		//WORDS PAUSE
-		UI_element* text1 = App->gui->createText("MOVE", 40, 375, small_font, black_color);
+		//WORDS KEYPAD
+		UI_element* text1 = App->gui->createText("MOVE", 743, 137, small_font, black_color);
 
-		UI_element* text2 = App->gui->createText("AIM", 40, 460, small_font, black_color);
+		UI_element* text2 = App->gui->createText("AIM", 743, 200, small_font, black_color);
 
-		UI_element* text3 = App->gui->createText("ATTACK", 40, 540, small_font, black_color);
+		UI_element* text3 = App->gui->createText("ATTACK", 40, 375, small_font, black_color);
 
-		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 600, small_font, black_color);
+		UI_element* text_special = App->gui->createText("SPECIAL", 40, 450, small_font, black_color);
 
-		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
+		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 522, small_font, black_color);
 
-		UI_element* text6 = App->gui->createText("CONFIRM", 40, 145, small_font, black_color);
+		UI_element* text5 = App->gui->createText("SHIELD", 40, 590, small_font, black_color);
 
-		UI_element* text7 = App->gui->createText("CANCEL", 40, 195, small_font, black_color);
+		UI_element* text_confirm = App->gui->createText("CONFIRM", 313, 137, small_font, black_color);
 
-		UI_element* text8 = App->gui->createText("NAVIGATE", 40, 260, small_font, black_color);
+		UI_element* text_cancel = App->gui->createText("CANCEL", 313, 200, small_font, black_color);
 
-		UI_element* text9 = App->gui->createText("PAUSE", 40, 315, small_font, black_color);
+		UI_element* text_select = App->gui->createText("SELECT", 513, 137, small_font, black_color);
+
+		UI_element* text_pause = App->gui->createText("PAUSE", 513, 200, small_font, black_color);
 
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
+
 		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
+		UI_element* settings_fg = App->gui->createImage(0, 0, options_fg, this);
+
 		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("EXIT", 370, 300, mid_font, brown_color);
+		UI_element* back_text = App->gui->createText("EXIT", 710, 680, mid_font, brown_color);
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_slider = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 180 * App->gui->UI_scale, music_slider);
 
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 40, 140, small_font, brown_color);
 
 		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
@@ -825,9 +830,9 @@ bool j1UIScene::Start()
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 260 * App->gui->UI_scale, fx_slider);
 
-		UI_element* fx_text = App->gui->createText("FX", 400, 200, small_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 40, 220, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -838,10 +843,10 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 400, 680, mid_font, yellow_color);
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
 
@@ -853,9 +858,40 @@ bool j1UIScene::Start()
 		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
 
 
+		//Key binding
+		UI_element* basic[MAX_GAMEPADS] = { nullptr };
+		UI_element* special[MAX_GAMEPADS] = { nullptr };
+		UI_element* ultimate[MAX_GAMEPADS] = { nullptr };
+		UI_element* shield[MAX_GAMEPADS] = { nullptr };
+
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			int pos_x = 360 + 164 * i;
+			basic[i] = App->gui->createImage(pos_x, 350, options_button_binding, App->input);
+			basic[i]->element_type = CUSTOMIZING_BUTTON_BASIC;
+			basic[i]->function = POLLING_CUSTOMIZE;
+			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::BASIC_ATTACK));
+
+			special[i] = App->gui->createImage(pos_x, 350 + 72, options_button_binding, App->input);
+			special[i]->element_type = CUSTOMIZING_BUTTON_SPECIAL;
+			special[i]->function = POLLING_CUSTOMIZE;
+			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SPECIAL_ATTACK));
+
+			ultimate[i] = App->gui->createImage(pos_x, 350 + 144, options_button_binding, App->input);
+			ultimate[i]->element_type = CUSTOMIZING_BUTTON_SUPER;
+			ultimate[i]->function = POLLING_CUSTOMIZE;
+			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SUPER_ATTACK));
+
+			shield[i] = App->gui->createImage(pos_x, 350 + 216, options_button_binding, App->input);
+			shield[i]->element_type = CUSTOMIZING_BUTTON_SHIELD;
+			shield[i]->function = POLLING_CUSTOMIZE;
+			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SHIELD));
+		}
+
 
 
 		ingamesettingsMenu->elements.push_back(settings_image);
+		ingamesettingsMenu->elements.push_back(settings_fg);
 		ingamesettingsMenu->elements.push_back(settings_text);
 		ingamesettingsMenu->elements.push_back(back_button);
 		ingamesettingsMenu->elements.push_back(back_text);
@@ -871,14 +907,25 @@ bool j1UIScene::Start()
 		ingamesettingsMenu->elements.push_back(text1);
 		ingamesettingsMenu->elements.push_back(text2);
 		ingamesettingsMenu->elements.push_back(text3);
+		ingamesettingsMenu->elements.push_back(text_special);
 		ingamesettingsMenu->elements.push_back(text4);
 		ingamesettingsMenu->elements.push_back(text5);
-		ingamesettingsMenu->elements.push_back(text6);
-		ingamesettingsMenu->elements.push_back(text7);
-		ingamesettingsMenu->elements.push_back(text8);
-		ingamesettingsMenu->elements.push_back(text9);
+		ingamesettingsMenu->elements.push_back(text_confirm);
+		ingamesettingsMenu->elements.push_back(text_cancel);
+		ingamesettingsMenu->elements.push_back(text_select);
+		ingamesettingsMenu->elements.push_back(text_pause);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
+
+		//Key Binding PushBacks
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			ingamesettingsMenu->elements.push_back(basic[i]);
+			ingamesettingsMenu->elements.push_back(special[i]);
+			ingamesettingsMenu->elements.push_back(ultimate[i]);
+			ingamesettingsMenu->elements.push_back(shield[i]);
+		}
+
 		menus.push_back(ingamesettingsMenu);
 
 		AddControllerSupport(music_slider_butt, PLAYER::P1, INGAMESETTINGS_MENU);
@@ -955,7 +1002,9 @@ bool j1UIScene::Update(float dt)
 			Mix_PauseMusic();
 			App->transition->menuTransition(INGAMESETTINGS_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
+			App->item_manager->PauseItemManager();
 			App->audio->PlayFx(App->audio->fxPause);
+			SetUiOptionsButtonsBindedImages();
 			ret = true;
 		}
 		else if (actual_menu == INGAMESETTINGS_MENU && previous_menu == INGAME_MENU)
@@ -965,6 +1014,7 @@ bool j1UIScene::Update(float dt)
 
 			Mix_ResumeMusic();
 			App->transition->menuTransition(INGAME_MENU, 0.3f);
+			App->item_manager->ContinueItemManager();
 			App->arena_interactions->ContinueStorm();
 			ret = true;
 
@@ -2166,6 +2216,47 @@ bool j1UIScene::loadMenu(menu_id id)
 }
 
 
+
+void j1UIScene::SetUiOptionsButtonsBindedImages()
+{
+	//This is a bit hardcoded beacuse we know that the elements will be added to the menu in order P1, all four abilities basic, special, ultimate, shield
+	//all of this repeated for the 4 players
+	menu* ingamesettings = nullptr;
+	for (std::list<menu*>::iterator menu = menus.begin(); menu != menus.end(); menu++)
+	{
+		if ((*menu)->id == INGAMESETTINGS_MENU)
+		{
+			ingamesettings = (*menu);
+		}
+	}
+
+	if (ingamesettings != nullptr)
+	{
+		int player = 0;
+		for (std::list<UI_element*>::iterator element = ingamesettings->elements.begin(); element != ingamesettings->elements.end(); element++)
+		{
+			switch ((*element)->element_type)
+			{
+			case CUSTOMIZING_BUTTON_BASIC:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::BASIC_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SPECIAL:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SPECIAL_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SUPER:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SUPER_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SHIELD:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SHIELD));
+				player++; // We have gone through all the elements basic,special,ultimate and shield for the current player, so we add +1
+				break;
+			}
+		}
+	}
+}
 
 void j1UIScene::applySettings(settings_values values)
 {
