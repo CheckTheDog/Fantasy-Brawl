@@ -22,6 +22,7 @@ enum menu_id
 {
 	START_MENU,
 	INTRO_MENU,
+	PREVIEW_MENU,
 	SETTINGS_MENU,
 	INGAME_MENU,
 	SELECTION_MENU,
@@ -186,6 +187,9 @@ public:
 	//READY
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
+
+	UI_element* ready2 = nullptr;
+	UI_element* ready2_text = nullptr;
 
 	//SELECTION BOOLS
 	int counter1 = 1;

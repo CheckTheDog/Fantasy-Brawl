@@ -32,6 +32,7 @@ enum element_function
 {
 	NONE,
 	NEW_GAME,
+	PREVIEW,
 	INGAME,
 	INGAME_NEW_GAME,
 	Last_Button_1,

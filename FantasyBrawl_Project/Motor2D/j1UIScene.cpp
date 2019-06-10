@@ -177,6 +177,60 @@ bool j1UIScene::Start()
 		menus.push_back(introMenu);
 	}
 
+	menu* previewMenu = new menu(PREVIEW_MENU);
+	{
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
+
+		ready2 = App->gui->createButton(500 * App->gui->UI_scale, 2000 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready2_text = App->gui->createText("READY", 2000, 640, big_buttons_font, black_color);
+		//spawns
+		UI_element* text2 = App->gui->createText("Player Spawns", 482, 610, small_font, { 0, 0, 0, 1 });
+		text2->setOutlined(false);
+
+		//CONFIRM TEXT
+		UI_element* text_confirm = App->gui->createText("TO CONFIRM", 600, 650, small_font, black_color);
+		UI_element* text_cancel = App->gui->createText("TO CANCEL", 600, 690, small_font, black_color);
+
+		//CONFIRM IMAGES(A&B)
+		UI_element* A = App->gui->createImageFromAtlas(550, 640, { 319, 0, 37, 40 }, this);
+		UI_element* B = App->gui->createImageFromAtlas(550, 685, { 369, 0, 37, 40 }, this);
+
+		player1_quadsF = App->gui->createImageFromAtlas(20, 3, { 288, 518, 170,191 }, this);
+		player2_quadsF = App->gui->createImageFromAtlas(20, 194, { 288, 518, 170,191 }, this);
+		player3_quadsF = App->gui->createImageFromAtlas(20, 385, { 288, 518, 170,191 }, this);
+		player4_quadsF = App->gui->createImageFromAtlas(20, 576, { 288, 518, 170,191 }, this);
+
+		//PLAYER TEXTS
+		UI_element* player1_text = App->gui->createImageFromAtlas(40, 166, { 296, 799, 117, 20 }, this);
+		UI_element* player2_text = App->gui->createImageFromAtlas(40, 357, { 413, 799,120, 20 }, this);
+		UI_element* player3_text = App->gui->createImageFromAtlas(40, 548, { 534, 799,120, 20 }, this);
+		UI_element* player4_text = App->gui->createImageFromAtlas(40, 739, { 654, 799,120, 20 }, this);
+
+
+		UI_element* last_button1 = App->gui->createButton(522, 664, A_Butt, { 0,0,36,40 }, { 0,0,36,40 }, { 0,44,36,40 }, this);
+		last_button1->function = Last_Button_1;
+
+		UI_element* last_button2 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+		last_button2->function = Last_Button_2;
+
+		UI_element* last_button3 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+		last_button3->function = Last_Button_3;
+
+		UI_element* last_button4 = App->gui->createButton(522, 664, A_Butt, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, this);
+		last_button4->function = Last_Button_4;
+
+		previewMenu->elements.push_back(background_image);
+		previewMenu->elements.push_back(ready2);
+		previewMenu->elements.push_back(ready2_text);
+		previewMenu->elements.push_back(text_confirm);
+		previewMenu->elements.push_back(text_cancel);
+		previewMenu->elements.push_back(A);
+		previewMenu->elements.push_back(B);
+		previewMenu->elements.push_back(text2);
+		
+		menus.push_back(previewMenu);
+	}
+
 	menu* startMenu = new menu(START_MENU);
 	{
 		
@@ -869,6 +923,12 @@ bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && (current_menu->id == menu_id::PREVIEW_MENU))
+	{
+		ready2->function = INGAME;
+		ready2->callback->OnUIEvent(ready2, MOUSE_LEFT_CLICK);
+		
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
@@ -1433,7 +1493,7 @@ bool j1UIScene::Update(float dt)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && (current_menu->id == menu_id::SELECTION_MENU || current_menu->id == menu_id::SCOREBOARD_MENU))
 		{
-			ready->function = INGAME;
+			ready->function = PREVIEW;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
 			for (int j = 0; j < MAX_GAMEPADS; ++j)
 			{
@@ -1446,7 +1506,7 @@ bool j1UIScene::Update(float dt)
 		
 		if (i == MAX_GAMEPADS - 1 && current_menu->id == SELECTION_MENU)
 		{
-			ready->function = INGAME;
+			ready->function = PREVIEW;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
 			for (int j = 0; j < MAX_GAMEPADS; ++j)
 			{
@@ -1665,11 +1725,17 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
 		}
+		case PREVIEW:
+		{
+			actual_menu = PREVIEW_MENU;
+			App->transition->menuTransition(PREVIEW_MENU, 0.3);
+			break;
+		}
 		case INGAME:
 		{		
 			
 
-			if (actual_menu == SELECTION_MENU)
+			if (actual_menu == PREVIEW_MENU)
 			{
 				App->view->SetViews(4);
 				App->scene->ChangeMap(0);
