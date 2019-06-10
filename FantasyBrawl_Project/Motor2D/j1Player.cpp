@@ -409,6 +409,10 @@ void j1Player::HandleAttacks(float dt)
 		App->audio->PlayFx(App->audio->fxPowerUpActivate);
 		super_available = true;
 	}
+	else if (superTimer.ReadSec() < SuperCooldown)
+	{
+		super_available = false;
+	}
 }
 
 void j1Player::HandleShield()
@@ -450,6 +454,10 @@ void j1Player::HandleShield()
 	{
 		App->audio->PlayFx(App->audio->fxPowerUpPick);
 		shield_available = true;
+	}
+	else if (shieldTimer.ReadSec() <  manager->ShieldCooldown)
+	{
+		shield_available = false;
 	}
 }
 
