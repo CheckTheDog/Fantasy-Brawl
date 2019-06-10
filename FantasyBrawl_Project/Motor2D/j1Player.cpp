@@ -1002,7 +1002,7 @@ bool j1Player::PostUpdate(float dt)
 		SDL_SetTextureAlphaMod(this->manager->inkball_texture, 0);
 		SDL_SetTextureAlphaMod(this->manager->budu_texture, 0);
 
-		alpha = 0;
+		alpha = App->gui->alpha_value;
 	}
 	else if (App->transition->doingMenuTransition 
 		&& App->ui_scene->previous_menu != INGAMESETTINGS_MENU

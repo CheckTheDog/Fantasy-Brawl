@@ -4,6 +4,7 @@
 #include "j1UIScene.h"
 #include "j1Scene.h"
 #include "j1Timer.h"
+#include "Animation.h"
 
 enum transition_state
 {
@@ -17,6 +18,8 @@ public:
 
 	j1Transition();
 	~j1Transition();
+	bool Awake(pugi::xml_node& config);
+	bool Start();
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
@@ -34,5 +37,9 @@ private:
 	j1Timer timer;
 	float total_time = 0.0f;
 	float alpha_value = 0;
+
+	//BOOK
+	SDL_Texture* book_texture = nullptr;
+	Animation book;
 };
 #endif // !__J1TRANSITION_H__
