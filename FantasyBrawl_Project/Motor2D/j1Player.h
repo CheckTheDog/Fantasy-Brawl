@@ -180,6 +180,7 @@ public:
 	Playerdata playerinfo;
 	PSTATE PlayerState;
 	CHARACTER character = CHARACTER::NONE;
+	Animation Pdeath_anim;
 
 	// --- MOVEMENT VARIABLES ---
 	fPoint Future_position = { 0,0 };

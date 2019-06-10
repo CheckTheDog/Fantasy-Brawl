@@ -154,8 +154,10 @@ public:
 	SDL_Rect yellow_arrow = { 23,0,11,16 };
 	SDL_Rect blue_arrow = { 35,0,11,16 };
 
-	// --- Death texture ---
+	// --- Death ---
 	SDL_Texture * death_tex = nullptr;
+	Animation death_anim;
+	SDL_Texture * deathbubbles_tex = nullptr;
 
 	// --- Player Key values ---
 	uint SuperCooldown = 0;
