@@ -292,6 +292,13 @@ public:
 
 	bool damage_received = false;
 	j1Player* last_hitP = nullptr;
+
+	//Killcounter
+	int killcounter = 0;
+	bool startdisplaying = false;
+	bool Has_to_blit_kills = false;
+	j1Timer timerkill;
+	SDL_Texture* killstexture = nullptr;
 };
 
 #endif // __j1Player_H__

@@ -109,6 +109,11 @@ bool j1Player::Start()
 	inkshot.speed.y = 250; 
 	inkshot.bomb = true;
 
+	//Kill texture
+	killstexture = App->tex->Load("textures/Star.png");
+	killcounter = 0;
+	startdisplaying = false;
+
 	return true;
 }
 
@@ -1152,6 +1157,10 @@ bool j1Player::PostUpdate(float dt)
 	if (auto_aimON && targetP_pos.x != 0.0f && App->ui_scene->actual_menu != SELECTION_MENU)
 	App->view->PushQueue(10, manager->target_tex, targetP_pos.x - 15, targetP_pos.y - 30, Target_anim.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, 1.0f);
 
+	//blit kill
+	if (Has_to_blit_kills == true)
+		App->view->PushQueue(40, killstexture, this->Future_position.x + 7, this->Future_position.y - 65, { 3,0,24,14 }, 0);
+
 	return ret;
 }
 
@@ -1815,4 +1824,25 @@ void j1Player::LogicUpdate(float dt)
 
 	}
 
+
+	// Kills UI
+	if (kills > killcounter)
+	{
+		startdisplaying = true;
+		timerkill.Start();
+		killcounter++;
+	}
+
+	if (startdisplaying == true)
+	{
+		if (timerkill.ReadSec() < 3)
+		{
+			Has_to_blit_kills = true;
+		}
+		else
+		{
+			Has_to_blit_kills = false;
+			startdisplaying = false;
+		}
+	}
 }

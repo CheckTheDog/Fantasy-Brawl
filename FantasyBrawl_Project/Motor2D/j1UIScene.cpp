@@ -2056,6 +2056,19 @@ void j1UIScene::playClock()
 void j1UIScene::CreateScoreBoard(int num)
 {
 
+	App->scene->player1->startdisplaying = false;
+	App->scene->player2->startdisplaying = false;
+	App->scene->player3->startdisplaying = false;
+	App->scene->player4->startdisplaying = false;
+	App->scene->player1->killcounter = 0;
+	App->scene->player2->killcounter = 0;
+	App->scene->player3->killcounter = 0;
+	App->scene->player4->killcounter = 0;
+	App->scene->player1->Has_to_blit_kills = false;
+	App->scene->player2->Has_to_blit_kills = false;
+	App->scene->player3->Has_to_blit_kills = false;
+	App->scene->player4->Has_to_blit_kills = false;
+
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
 
@@ -2240,6 +2253,18 @@ void j1UIScene::CreateScoreBoard(int num)
 void j1UIScene::CreateFinalScoreBoard(int num)
 {
 
+	App->scene->player1->startdisplaying = false;
+	App->scene->player2->startdisplaying = false;
+	App->scene->player3->startdisplaying = false;
+	App->scene->player4->startdisplaying = false;
+	App->scene->player1->killcounter = 0;
+	App->scene->player2->killcounter = 0;
+	App->scene->player3->killcounter = 0;
+	App->scene->player4->killcounter = 0;
+	App->scene->player1->Has_to_blit_kills = false;
+	App->scene->player2->Has_to_blit_kills = false;
+	App->scene->player3->Has_to_blit_kills = false;
+	App->scene->player4->Has_to_blit_kills = false;
 
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
