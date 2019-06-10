@@ -40,7 +40,7 @@ public:
 	~j1ItemManager();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -83,9 +83,12 @@ public:
 private:
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
 	void GetSpawnersFromMap();
+
 private:
 	std::list<Item*> items;
 	std::list<iPoint> spawners_pos;
+
+	float respawn_time = 0.0f;
 
 	SDL_Texture* items_tex = nullptr;
 };

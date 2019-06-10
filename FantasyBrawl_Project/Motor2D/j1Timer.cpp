@@ -51,7 +51,7 @@ void j1Timer::Continue()
 
 void j1Timer::Add(float seconds)
 {
-	started_at = uint32(seconds * 1000.0f);
+	started_at -= uint32(seconds * 1000.0f);
 }
 
 void j1Timer::Subtract(uint32 time)

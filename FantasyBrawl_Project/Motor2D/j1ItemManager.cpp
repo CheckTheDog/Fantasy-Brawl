@@ -10,14 +10,16 @@
 
 j1ItemManager::j1ItemManager()
 {
+	name.assign("item_manager");
 }
 
 j1ItemManager::~j1ItemManager()
 {
 }
 
-bool j1ItemManager::Awake(pugi::xml_node &)
+bool j1ItemManager::Awake(pugi::xml_node & config)
 {
+	respawn_time = config.child("respawn_time").attribute("value").as_float(10.0f);
 	return true;
 }
 
@@ -39,9 +41,6 @@ bool j1ItemManager::StartItemManager()
 		pos.y -= 40;
 		CreateItem(RandomItemType(), pos );
 	}
-	CreateItem(ItemType::LIFE, { 600,700 });
-	CreateItem(ItemType::SUPER_CD, { 650,700 });
-	CreateItem(ItemType::SPEED, { 700,700 });
 
 	return true;
 }
@@ -63,7 +62,7 @@ bool j1ItemManager::Update(float dt)
 {
 	for (std::list<Item*>::iterator curr_item = items.begin(); curr_item != items.end(); curr_item++)
 	{
-		if ((*curr_item)->spawned == false && (*curr_item)->time_inactive.ReadSec() > 10.0f)
+		if ((*curr_item)->spawned == false && (*curr_item)->time_inactive.ReadSec() >= respawn_time)
 		{
 			ReSpawnItem((*curr_item));
 		}
