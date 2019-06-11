@@ -1317,21 +1317,15 @@ void j1Player::OnCollision(Collider * entitycollider, Collider * to_check)
 		switch (item->type)
 		{
 		case ItemType::LIFE:
-			if (this->Entityinfo.health < MAX_HEALTH)
-			{
 				App->buff->ApplyEffect(&App->buff->effects[HEAL], this->Entityinfo.my_j1Entity);
 				App->audio->PlayFx(App->audio->fxSpecialAvailable);
 				App->item_manager->DeSpawnItem(item);
-			}
 			break;
 
 		case ItemType::SUPER_CD:
-			if (this->superTimer.ReadSec() < SuperCooldown)
-			{
 				App->buff->ApplyEffect(&App->buff->effects[SUPER_CD_REDUCTION], this->Entityinfo.my_j1Entity);
 				App->audio->PlayFx(App->audio->fxSpecialAvailable);
 				App->item_manager->DeSpawnItem(item);
-			}
 			break;
 
 		case ItemType::SPEED:
