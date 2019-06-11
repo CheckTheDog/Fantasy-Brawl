@@ -249,8 +249,5 @@ public:
 	//timer
 	UI_element* timer = nullptr;
 
-	//logo
-	SDL_Texture* logo_texture = nullptr;
-	Animation logo;
 };
 #endif // !__j1UISCENE_H__ 

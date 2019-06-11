@@ -39,17 +39,13 @@ bool j1UIScene::Awake()
 {
 	name.assign("UIScene");
 
-	logo = *App->entities->LoadAnimation("Animations/Intro.tmx", "Intro");
-	logo.loop = false;
-	logo.speed = 6.0f;
+
 
 	return true;
 }
 
 bool j1UIScene::Start()
 {
-
-	 logo_texture = App->tex->Load("gui/AnimationLogo.png");
 	
 	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 50);
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);

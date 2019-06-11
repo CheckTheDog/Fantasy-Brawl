@@ -6,10 +6,11 @@
 #include "j1Viewport.h"
 #include "j1EntityManager.h"
 #include "j1Textures.h"
+#include "p2Log.h"
 
 j1Transition::j1Transition()
 {
-	alpha_value = 0;
+	alpha_value = 0; intro_alpha = 255;
 }
 j1Transition::~j1Transition()
 {
@@ -20,11 +21,18 @@ bool j1Transition::Awake(pugi::xml_node& config)
 	book.loop = false;
 	book.speed = 12.0f;
 
+	intro_anim = *App->entities->LoadAnimation("Animations/Intro.tmx", "Intro");
+	intro_anim.loop = false;
+	intro_anim.speed = 7.5f;
+
 	return true;
 }
 bool j1Transition::Start()
 {
 	book_texture = App->tex->Load("gui/BgSprite.png");
+	intro_tex = App->tex->Load("gui/AnimationLogo.png");
+
+	intro_timer.Start();
 
 	return true;
 }
@@ -120,6 +128,30 @@ bool j1Transition::PostUpdate(float dt)
 {
 	if (doingSceneTransition)
 		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 0, 0, 0, alpha_value, true, false);
+
+	if (intro_timer.ReadSec() > 0.5f && !intro_anim.Finished())
+	{
+		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 3, 3, 3, 255, true, false);
+		App->render->Blit(intro_tex, -100, 65, &intro_anim.GetCurrentFrame(dt));
+	}
+	else if (!intro_anim.Finished())
+	{
+		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 3, 3, 3, 255, true, false);
+		App->render->Blit(intro_tex, -100, 65, &intro_anim.frames[0]);
+	}
+	else if (intro_anim.Finished() && intro_alpha != 0.0f)
+	{
+		intro_alpha--;
+
+		if (intro_alpha < 0.0f)
+			intro_alpha = 0.0f;
+
+		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 3, 3, 3, intro_alpha, true, false);
+
+		SDL_SetTextureAlphaMod(intro_tex, intro_alpha);
+		App->render->Blit(intro_tex, -100, 65, &intro_anim.GetCurrentFrame(dt));
+	}
+
 	return true;
 }
 

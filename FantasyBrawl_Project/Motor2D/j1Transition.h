@@ -27,6 +27,7 @@ public:
 	void sceneTransition(int newLvl, float time = 0.5f);
 
 	bool doingMenuTransition = false;
+
 private:
 
 	transition_state sceneState = UNACTIVE;
@@ -41,5 +42,9 @@ private:
 	//BOOK
 	SDL_Texture* book_texture = nullptr;
 	Animation book;
+	SDL_Texture* intro_tex = nullptr;
+	Animation intro_anim;
+	j1Timer intro_timer;
+	float intro_alpha = 255;
 };
 #endif // !__J1TRANSITION_H__
