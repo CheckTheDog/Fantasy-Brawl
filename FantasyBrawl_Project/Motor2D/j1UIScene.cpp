@@ -141,6 +141,13 @@ bool j1UIScene::Start()
 		UI_element* pol = App->gui->createText("Pol Bosch", 550, 650, credits_font, black_color);
 		pol->setOutlined(false);
 
+		//MARKER
+		Marker_anim_data def = Marker_anim_data();
+		marker_custom_button_rects r;
+		r.custom_unlocked = { 852,814,26,22 };
+		r.custom_locked = { 852,772,26,22 };
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &creditsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
+
 		//STARS
 		UI_element* star1_lead = App->gui->createImageFromAtlas(425, 67, {0,873,54,54}, this);
 
@@ -165,9 +172,12 @@ bool j1UIScene::Start()
 		creditsMenu->elements.push_back(pol);
 		creditsMenu->elements.push_back(logo);
 		creditsMenu->elements.push_back(logo_text);
+		creditsMenu->elements.push_back(feather);
 		/*creditsMenu->elements.push_back(star1_lead);*/
 
 		menus.push_back(creditsMenu);
+
+		App->ui_scene->AddControllerSupport(webpage, PLAYER::P1,CREDITS_MENU);
 		
 	}
 
