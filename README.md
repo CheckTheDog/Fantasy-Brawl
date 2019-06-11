@@ -27,7 +27,7 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 - Use DPADS or LEFT JOYSTICK to move through menus (in champion selection only DPADS)
 - PRESS A to interact with UI elements 
 - PRESS B in champion selection screen if a character has been selected with A to deselect
-- PRESS START to open ingame settings menu
+- PRESS START to open ingame settings menu or go back in certain screens
 
 Note that in most of the UI only PLAYER 1 has influence.
 
@@ -167,6 +167,8 @@ Aitor:
 - Added visual feedback on all supers/specials
 - Added target on nearest player
 - Set App Icon
+- Book animation in code
+- Player appearance && disappearance
 
 Didac:
 
@@ -183,6 +185,7 @@ Didac:
 - Added shield and super fx
 - Key Binding
 - Options Menu (code)
+- Items
 
 Pol:
 
@@ -208,6 +211,7 @@ Pol:
 - Main Menu Design (art)
 - Death skull texture
 - Options Menu Art
+- Book animation (art)
 
 Vladislav: 
 
@@ -225,6 +229,7 @@ Jacobo:
 - Map Preview (code)
 - Final Scoreboard
 - Game Timer
+- Stars shown on screen when obtained
 
 Oscar:
 
@@ -242,6 +247,8 @@ Oscar:
 - Replaced some placeholders for new art
 - New button art
 - Adjustments in Champion Selection Screen
+- Map preview after champion selection screen
+- Credits Screen
 
 Roger:
 - In game UI Art (legacy version)
