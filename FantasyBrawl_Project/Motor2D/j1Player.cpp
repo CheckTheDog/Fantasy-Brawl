@@ -1505,11 +1505,15 @@ void j1Player::CheckParticleCollision(Collider * hitbox, const Collider * to_che
 		{
 			if (App->ui_scene->actual_menu != SELECTION_MENU)
 			{
-				damage_received = true;
+				if (pcollided->particle_effect != &App->buff->effects[Effects::EXHAUST])
+					damage_received = true;
+				else
+					this->Entityinfo.health = this->Entityinfo.health - 0.5f;
+
 				App->buff->ApplyEffect(pcollided->particle_effect, this);
 				last_hitP = pcollided->originplayer;
 			}
-			if(pcollided->particle_effect == &App->buff->effects[Effects::EXHAUST])
+			else if(pcollided->particle_effect == &App->buff->effects[Effects::EXHAUST] && App->ui_scene->actual_menu == SELECTION_MENU)
 				App->buff->ApplyEffect(pcollided->particle_effect, this);
 
 			App->input->ShakeController(ID, 0.5, 100);
