@@ -11,10 +11,10 @@ public:
 	bool pingpong = false;
 	float speed = 3.0f;
 	SDL_Rect frames[MAX_FRAMES];
+	int last_frame = 0;
+	float current_frame = 0.0f;
 
 private:
-	float current_frame = 0.0f;
-	int last_frame = 0;
 	int loops = 0;
 
 	enum pingpong
@@ -47,6 +47,8 @@ public:
 			current_frame = (loop) ? 0.0f : last_frame - 1;
 			loops++;
 		}
+		if (current_frame < 0)
+			current_frame = 0;
 
 		return frames[(int)current_frame];
 	}

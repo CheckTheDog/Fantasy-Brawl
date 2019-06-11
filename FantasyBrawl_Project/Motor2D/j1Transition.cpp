@@ -21,6 +21,10 @@ bool j1Transition::Awake(pugi::xml_node& config)
 	book.loop = false;
 	book.speed = 12.0f;
 
+	bookcover_anim = *App->entities->LoadAnimation("Animations/FullBook.tmx", "coverAnim");
+	bookcover_anim.loop = false;
+	bookcover_anim.speed = 12.0f;
+
 	intro_anim = *App->entities->LoadAnimation("Animations/Intro.tmx", "Intro");
 	intro_anim.loop = false;
 	intro_anim.speed = 7.5f;
@@ -31,6 +35,7 @@ bool j1Transition::Start()
 {
 	book_texture = App->tex->Load("gui/BgSprite.png");
 	intro_tex = App->tex->Load("gui/AnimationLogo.png");
+	bookcover_tex = App->tex->Load("gui/FullBgSprite.png");
 
 	intro_timer.Start();
 
@@ -55,6 +60,11 @@ bool j1Transition::Update(float dt)
 		{
 			App->gui->alpha_value -= Dalpha;
 
+			if (newMenuID == menu_id::SELECTION_MENU)
+			App->view->PushQueue(11, bookcover_tex, 0, 0, bookcover_anim.frames[0]);
+			else if(newMenuID == menu_id::START_MENU && App->ui_scene->previous_menu == menu_id::START_MENU)
+			App->view->PushQueue(11, bookcover_tex, 0, 0, bookcover_anim.frames[bookcover_anim.last_frame]);
+			else
 			App->view->PushQueue(11, book_texture, 0, 0, book.frames[0]);
 
 			if (App->gui->alpha_value <= 0)
@@ -65,6 +75,11 @@ bool j1Transition::Update(float dt)
 				App->win->GetWindowSize(width, height);
 				SDL_Rect screen = { 0,0,width,height };
 
+				if(newMenuID == menu_id::SELECTION_MENU)
+				App->view->PushQueue(12, bookcover_tex, 0, 0, bookcover_anim.GetCurrentFrame(dt));
+				else if(newMenuID == menu_id::START_MENU && App->ui_scene->previous_menu == menu_id::START_MENU)
+				App->view->PushQueue(12, bookcover_tex, 0, 0, bookcover_anim.GetCurrentFrame(dt));
+				else
 				App->view->PushQueue(12, book_texture, 0, 0, book.GetCurrentFrame(dt));
 
 				if (book.Finished() 
@@ -76,13 +91,34 @@ bool j1Transition::Update(float dt)
 					menuState = GOUT;
 					App->ui_scene->loadMenu(newMenuID);
 				}
+				else if (bookcover_anim.Finished() || (bookcover_anim.speed < 0 && bookcover_anim.current_frame == 0))
+				{
+
+					if (newMenuID == menu_id::SELECTION_MENU)
+					{
+						bookcover_anim.Reset();
+						bookcover_anim.current_frame = bookcover_anim.last_frame;
+						bookcover_anim.speed *= -1;
+					}
+					else
+					{
+						bookcover_anim.speed = 12.0f;
+						bookcover_anim.Reset();
+					}
+
+					menuState = GOUT;
+					App->ui_scene->loadMenu(newMenuID);
+				}
 			}
 		}
 		else if (menuState == GOUT)
 		{
 			App->gui->alpha_value += Dalpha;
 
-			App->view->PushQueue(11, book_texture, 0, 0, book.frames[0]);
+			if (newMenuID == menu_id::START_MENU)
+				App->view->PushQueue(11, bookcover_tex, 0, 0, bookcover_anim.frames[0]);
+			else
+				App->view->PushQueue(11, book_texture, 0, 0, book.frames[0]);
 
 			if (App->gui->alpha_value >= 255)
 			{
@@ -139,12 +175,12 @@ bool j1Transition::PostUpdate(float dt)
 		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 3, 3, 3, 255, true, false);
 		App->render->Blit(intro_tex, -100, 65, &intro_anim.frames[0]);
 	}
-	else if (intro_anim.Finished() && intro_alpha != 0.0f)
+	else if (intro_anim.Finished() && intro_alpha != 0)
 	{
-		intro_alpha--;
+		intro_alpha = intro_alpha - 5;
 
-		if (intro_alpha < 0.0f)
-			intro_alpha = 0.0f;
+		if (intro_alpha < 0)
+			intro_alpha = 0;
 
 		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 3, 3, 3, intro_alpha, true, false);
 

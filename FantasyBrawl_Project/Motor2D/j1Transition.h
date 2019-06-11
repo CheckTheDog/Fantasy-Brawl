@@ -42,9 +42,13 @@ private:
 	//BOOK
 	SDL_Texture* book_texture = nullptr;
 	Animation book;
+	SDL_Texture* bookcover_tex = nullptr;
+	Animation bookcover_anim;
+
 	SDL_Texture* intro_tex = nullptr;
 	Animation intro_anim;
 	j1Timer intro_timer;
-	float intro_alpha = 255;
+	int intro_alpha = 255;
+
 };
 #endif // !__J1TRANSITION_H__
