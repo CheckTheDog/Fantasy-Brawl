@@ -1805,6 +1805,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case PREVIEW:
 		{
 			actual_menu = PREVIEW_MENU;
+			App->item_manager->CloseItemManager();
 			App->transition->menuTransition(PREVIEW_MENU, 0.3);
 			break;
 		}
@@ -2351,6 +2352,7 @@ void j1UIScene::playClock()
 
 void j1UIScene::CreateScoreBoard(int num)
 {
+	App->item_manager->CloseItemManager();
 
 	App->scene->player1->startdisplaying = false;
 	App->scene->player2->startdisplaying = false;
@@ -2548,6 +2550,7 @@ void j1UIScene::CreateScoreBoard(int num)
 
 void j1UIScene::CreateFinalScoreBoard(int num)
 {
+	App->item_manager->CloseItemManager();
 
 	App->scene->player1->startdisplaying = false;
 	App->scene->player2->startdisplaying = false;
