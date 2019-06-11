@@ -4,44 +4,78 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Viewport.h"
+#include "j1EntityManager.h"
+#include "j1Textures.h"
 
 j1Transition::j1Transition()
 {
-	
 	alpha_value = 0;
 }
 j1Transition::~j1Transition()
 {
+}
+bool j1Transition::Awake(pugi::xml_node& config)
+{
+	book = *App->entities->LoadAnimation("Animations/Book.tmx", "bookAnim");
+	book.loop = false;
+	book.speed = 12.0f;
+
+	return true;
+}
+bool j1Transition::Start()
+{
+	book_texture = App->tex->Load("gui/BgSprite.png");
+
+	return true;
 }
 bool j1Transition::Update(float dt)
 {
 
 	if (doingMenuTransition)
 	{
-		if (App->ui_scene->actual_menu != menu_id::INGAME_MENU)
-		{
-			uint w, h;
-			App->win->GetWindowSize(w, h);
-			SDL_Rect tmp = { 0,0,w,h };
+		//if (App->ui_scene->actual_menu != menu_id::INGAME_MENU)
+		//{
+		//	uint w, h;
+		//	App->win->GetWindowSize(w, h);
+		//	SDL_Rect tmp = { 0,0,w,h };
 
-			App->render->DrawQuad(tmp, 0, 0, 0, 255);
-		}
+		//	//App->render->DrawQuad(tmp, 0, 0, 0, 255);
+		//}
 
 		float Dalpha = 255 / (total_time / dt);
 		if (menuState == GIN)
 		{
 			App->gui->alpha_value -= Dalpha;
+
+			App->view->PushQueue(11, book_texture, 0, 0, book.frames[0]);
+
 			if (App->gui->alpha_value <= 0)
 			{
 				App->gui->alpha_value = 0;
-				menuState = GOUT;
 
-				App->ui_scene->loadMenu(newMenuID);
+				uint width, height = 0;
+				App->win->GetWindowSize(width, height);
+				SDL_Rect screen = { 0,0,width,height };
+
+				App->view->PushQueue(12, book_texture, 0, 0, book.GetCurrentFrame(dt));
+
+				if (book.Finished() 
+					|| newMenuID == menu_id::INGAME_MENU 
+					|| newMenuID == menu_id::INGAMESETTINGS_MENU
+					|| (newMenuID == menu_id::START_MENU && App->ui_scene->actual_menu == menu_id::INGAMESETTINGS_MENU))
+				{
+					book.Reset();
+					menuState = GOUT;
+					App->ui_scene->loadMenu(newMenuID);
+				}
 			}
 		}
 		else if (menuState == GOUT)
 		{
 			App->gui->alpha_value += Dalpha;
+
+			App->view->PushQueue(11, book_texture, 0, 0, book.frames[0]);
+
 			if (App->gui->alpha_value >= 255)
 			{
 				App->gui->alpha_value = 255;

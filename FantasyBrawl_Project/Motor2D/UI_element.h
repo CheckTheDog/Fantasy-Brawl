@@ -32,6 +32,7 @@ enum element_function
 {
 	NONE,
 	NEW_GAME,
+	PREVIEW,
 	INGAME,
 	INGAME_NEW_GAME,
 	Last_Button_1,
@@ -60,7 +61,8 @@ enum element_function
 	HOME,
 	WEBPAGE,
 	POLLING_CUSTOMIZE,
-	CUSTOMIZE
+	CUSTOMIZE,
+	FIRST_MAP_PREVIEW
 };
 
 enum element_state

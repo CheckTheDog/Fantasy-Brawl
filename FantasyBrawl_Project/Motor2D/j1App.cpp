@@ -23,6 +23,7 @@
 #include "j1BuffManager.h"
 #include "j1App.h"
 #include "j1FadeToBlack.h"
+#include "j1ItemManager.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -50,6 +51,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	transition = new j1Transition();
 	ui_scene = new j1UIScene();
 	fade = new j1FadeToBlack();
+	item_manager = new j1ItemManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -63,6 +65,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(arena_interactions);
+	AddModule(item_manager);
 
 	AddModule(particlesys);
 	

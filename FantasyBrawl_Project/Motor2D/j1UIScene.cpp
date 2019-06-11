@@ -18,10 +18,12 @@
 #include "UI_Clock.h"
 #include "UI_Marker.h"
 #include "j1EntityManager.h"
+#include "j1ItemManager.h"
 #include "j1Player.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "j1Gui.h"
 #include "j1Viewport.h"
+#include "j1Textures.h"
 #include <string>
 
 j1UIScene::j1UIScene()
@@ -36,12 +38,18 @@ j1UIScene::~j1UIScene()
 bool j1UIScene::Awake()
 {
 	name.assign("UIScene");
+
+	logo = *App->entities->LoadAnimation("Animations/Intro.tmx", "Intro");
+	logo.loop = false;
+	logo.speed = 6.0f;
+
 	return true;
 }
 
 bool j1UIScene::Start()
 {
 
+	 logo_texture = App->tex->Load("gui/AnimationLogo.png");
 	
 	 small_texts_font = App->fonts->Load("fonts/BMYEONSUNG.ttf", 50);
 	 big_buttons_font = App->fonts->Load("fonts/finalf.ttf", 70);
@@ -50,6 +58,7 @@ bool j1UIScene::Start()
 	 big_font = App->fonts->Load("fonts/Minecraft.ttf", 70);
 	 mid_font = App->fonts->Load("fonts/Minecraft.ttf", 50);
 	 perfect_font = App->fonts->Load("fonts/Minecraft.ttf", 40);
+	 credits_font = App->fonts->Load("fonts/Minecraft.ttf", 30);
 	_TTF_Font* big_texts_font = App->fonts->Load("fonts/finalf.ttf", 55);
 	_TTF_Font* mid_texts_font = App->fonts->Load("fonts/finalf.ttf", 36);
 	_TTF_Font* huge_texts_font = App->fonts->Load("fonts/finalf.ttf", 80);
@@ -80,7 +89,154 @@ bool j1UIScene::Start()
 
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/Bg.png"), this);
+
+		UI_element* webpage = App->gui->createButton(10 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		webpage->function = WEBPAGE;
+		UI_element* web_text = App->gui->createText("WEB", 100, 635, perfect_font, brown_color);
+		web_text->setOutlined(true);
+
+		UI_element* logo = App->gui->createImageFromAtlas(60, 300, { 25,422,155,100 }, this);
+		UI_element* logo_text = App->gui->createText("CheckTheDog", 10, 420, perfect_font, black_color);
+		web_text->setOutlined(false);
+
+		//CREDITS ROLES 
+		UI_element* lead_text = App->gui->createText("LEAD", 575, 50, perfect_font, brown_color);
+		lead_text->setOutlined(false);
+		UI_element* aitor = App->gui->createText("Aitor Simona", 540, 90, credits_font, black_color);
+		aitor->setOutlined(false);
+
+		UI_element* manager_text = App->gui->createText("MANAGER", 535, 130, perfect_font, brown_color);
+		manager_text->setOutlined(false);
+		UI_element* vladi = App->gui->createText("Vladislav Bulantsev", 500, 170, credits_font, black_color);
+		vladi->setOutlined(false);
+
+		UI_element* art_text = App->gui->createText("ART & AUDIO", 500, 210, perfect_font, brown_color);
+		art_text->setOutlined(false);
+		UI_element* roger = App->gui->createText("Roger Sanchez", 525, 250, credits_font, black_color);
+		roger->setOutlined(false);
+
+		UI_element* design_text = App->gui->createText("DESIGN", 550, 290, perfect_font, brown_color);
+		design_text->setOutlined(false);
+		UI_element* jacobo = App->gui->createText("Jacobo Galofre", 510, 330, credits_font, black_color);
+		jacobo->setOutlined(false);
+
+		UI_element* ui_text = App->gui->createText("USER INTERFACE", 440, 370, perfect_font, brown_color);
+		ui_text->setOutlined(false);
+		UI_element* oscar = App->gui->createText("Oscar Larios", 530, 410, credits_font, black_color);
+		oscar->setOutlined(false);
+
+		UI_element* code_text = App->gui->createText("CODE", 565, 450, perfect_font, brown_color);
+		code_text->setOutlined(false);
+		UI_element* didac = App->gui->createText("Didac Romero", 520, 490, credits_font, black_color);
+		didac->setOutlined(false);
+
+		UI_element* code2_text = App->gui->createText("CODE", 565, 530, perfect_font, brown_color);
+		code2_text->setOutlined(false);
+		UI_element* marc = App->gui->createText("Marc Garcia", 530, 570, credits_font, black_color);
+		marc->setOutlined(false);
+
+		UI_element* qa_text = App->gui->createText("QUALITY ASSURANCE", 410, 610, perfect_font, brown_color);
+		qa_text->setOutlined(false);
+		UI_element* pol = App->gui->createText("Pol Bosch", 550, 650, credits_font, black_color);
+		pol->setOutlined(false);
+
+		//STARS
+		UI_element* star1_lead = App->gui->createImageFromAtlas(425, 67, {0,873,54,54}, this);
+
+		creditsMenu->elements.push_back(background_image);
+		creditsMenu->elements.push_back(webpage);
+		creditsMenu->elements.push_back(web_text);
+		creditsMenu->elements.push_back(lead_text);
+		creditsMenu->elements.push_back(aitor);
+		creditsMenu->elements.push_back(manager_text);
+		creditsMenu->elements.push_back(vladi);
+		creditsMenu->elements.push_back(art_text);
+		creditsMenu->elements.push_back(roger);
+		creditsMenu->elements.push_back(design_text);
+		creditsMenu->elements.push_back(jacobo);
+		creditsMenu->elements.push_back(ui_text);
+		creditsMenu->elements.push_back(oscar);
+		creditsMenu->elements.push_back(code_text);
+		creditsMenu->elements.push_back(didac);
+		creditsMenu->elements.push_back(code2_text);
+		creditsMenu->elements.push_back(marc);
+		creditsMenu->elements.push_back(qa_text);
+		creditsMenu->elements.push_back(pol);
+		creditsMenu->elements.push_back(logo);
+		creditsMenu->elements.push_back(logo_text);
+		/*creditsMenu->elements.push_back(star1_lead);*/
+
+		menus.push_back(creditsMenu);
 		
+	}
+
+	menu* introMenu = new menu(INTRO_MENU);
+	{
+		
+
+		menus.push_back(introMenu);
+	}
+
+	menu* previewMenu = new menu(PREVIEW_MENU);
+	{
+
+		UI_element* title = App->gui->createText("MAP PREVIEW", 5, 70, perfect_font, brown_color);
+		title->setOutlined(true);
+
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MapPrev.png"), this);
+
+		ready2 = App->gui->createButton(500 * App->gui->UI_scale, 2000 * App->gui->UI_scale, NULL, { 0,28,278,105 }, { 0,28,278,105 }, { 0,28,278,105 }, this);//{ 281,148,281,111 }, { 562,148,281,111 }
+		ready2_text = App->gui->createText("READY", 2000, 640, big_buttons_font, black_color);
+		//spawns
+		UI_element* text2 = App->gui->createText("Player Spawns", 482, 610, small_font, { 0, 0, 0, 1 });
+		text2->setOutlined(false);
+
+		//CONFIRM TEXT
+		UI_element* text_confirm = App->gui->createText("TO ADVANCE", 600, 690, small_font, black_color);
+		
+
+		//CONFIRM IMAGES(A&B)
+		UI_element* A = App->gui->createImageFromAtlas(550, 680, { 319, 0, 37, 40 }, this);
+		
+
+		
+
+		//PLAYER TEXTS
+		UI_element* player1_text = App->gui->createImageFromAtlas(120, 196, { 296, 799, 117, 20 }, this);
+		UI_element* player2_text = App->gui->createImageFromAtlas(120, 296, { 413, 799,120, 20 }, this);
+		UI_element* player3_text = App->gui->createImageFromAtlas(120, 396, { 534, 799,120, 20 }, this);
+		UI_element* player4_text = App->gui->createImageFromAtlas(120, 496, { 654, 799,120, 20 }, this);
+
+		
+		//PLAYER ICONS
+		UI_element* player1_icon = App->gui->createImageFromAtlas(40, 176, { 443, 0, 69, 68 }, this);
+		UI_element* player2_icon = App->gui->createImageFromAtlas(40, 276, { 513, 0, 69, 68 }, this);
+		UI_element* player3_icon = App->gui->createImageFromAtlas(40, 376, { 583, 0, 69, 68 }, this);
+		UI_element* player4_icon = App->gui->createImageFromAtlas(40, 476, { 653, 0, 69, 68 }, this);
+
+		
+
+		
+		previewMenu->elements.push_back(background_image);
+		previewMenu->elements.push_back(ready2);
+		previewMenu->elements.push_back(ready2_text);
+		previewMenu->elements.push_back(text_confirm);
+		previewMenu->elements.push_back(A);
+		previewMenu->elements.push_back(text2);
+		
+		previewMenu->elements.push_back(player1_text);
+		previewMenu->elements.push_back(player2_text);
+		previewMenu->elements.push_back(player3_text);
+		previewMenu->elements.push_back(player4_text);
+		previewMenu->elements.push_back(player1_icon);
+		previewMenu->elements.push_back(player2_icon);
+		previewMenu->elements.push_back(player3_icon);
+		previewMenu->elements.push_back(player4_icon);
+		previewMenu->elements.push_back(title);
+		
+		
+		menus.push_back(previewMenu);
 	}
 
 	menu* startMenu = new menu(START_MENU);
@@ -115,7 +271,7 @@ bool j1UIScene::Start()
 
 		//CREDITS
 		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
-		credits->function = WEBPAGE;
+		credits->function = CREDITS;
 
 		//MARKER
 		Marker_anim_data def = Marker_anim_data();
@@ -618,47 +774,52 @@ bool j1UIScene::Start()
 
 	menu* ingamesettingsMenu = new menu(INGAMESETTINGS_MENU);
 	{
-		//WORDS PAUSE
-		UI_element* text1 = App->gui->createText("MOVE", 40, 375, small_font, black_color);
+		//WORDS KEYPAD
+		UI_element* text1 = App->gui->createText("MOVE", 743, 137, small_font, black_color);
 
-		UI_element* text2 = App->gui->createText("AIM", 40, 460, small_font, black_color);
+		UI_element* text2 = App->gui->createText("AIM", 743, 200, small_font, black_color);
 
-		UI_element* text3 = App->gui->createText("ATTACK", 40, 540, small_font, black_color);
+		UI_element* text3 = App->gui->createText("ATTACK", 40, 375, small_font, black_color);
 
-		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 600, small_font, black_color);
+		UI_element* text_special = App->gui->createText("SPECIAL", 40, 450, small_font, black_color);
 
-		UI_element* text5 = App->gui->createText("SHIELD", 40, 670, small_font, black_color);
+		UI_element* text4 = App->gui->createText("ULTIMATE", 40, 522, small_font, black_color);
 
-		UI_element* text6 = App->gui->createText("CONFIRM", 40, 145, small_font, black_color);
+		UI_element* text5 = App->gui->createText("SHIELD", 40, 590, small_font, black_color);
 
-		UI_element* text7 = App->gui->createText("CANCEL", 40, 195, small_font, black_color);
+		UI_element* text_confirm = App->gui->createText("CONFIRM", 313, 137, small_font, black_color);
 
-		UI_element* text8 = App->gui->createText("NAVIGATE", 40, 260, small_font, black_color);
+		UI_element* text_cancel = App->gui->createText("CANCEL", 313, 200, small_font, black_color);
 
-		UI_element* text9 = App->gui->createText("PAUSE", 40, 315, small_font, black_color);
+		UI_element* text_select = App->gui->createText("SELECT", 513, 137, small_font, black_color);
+
+		UI_element* text_pause = App->gui->createText("PAUSE", 513, 200, small_font, black_color);
 
 		//WINDOW
 		/*UI_element* settings_window = App->gui->createWindow(App->gui->UI_scale, App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 246,162,1000,718 }, this);*/
+
 		UI_element* settings_image = App->gui->createImage(0, 0, panel, this);
+		UI_element* settings_fg = App->gui->createImage(0, 0, options_fg, this);
+
 		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("EXIT", 370, 300, mid_font, brown_color);
+		UI_element* back_text = App->gui->createText("EXIT", 710, 680, mid_font, brown_color);
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		music_slider = App->gui->createSlider(400, 255, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_slider = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(500 * App->gui->UI_scale, 150 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 180 * App->gui->UI_scale, music_slider);
 
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 370, 150, small_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 40, 140, small_font, brown_color);
 
 		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
@@ -669,9 +830,9 @@ bool j1UIScene::Start()
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(500 * App->gui->UI_scale, 200 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 260 * App->gui->UI_scale, fx_slider);
 
-		UI_element* fx_text = App->gui->createText("FX", 400, 200, small_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 40, 220, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -682,10 +843,10 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 40 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 200, 400, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 400, 680, mid_font, yellow_color);
 		apply_text->setOutlined(true);
 		apply_button->appendChildAtCenter(apply_text);
 
@@ -697,9 +858,40 @@ bool j1UIScene::Start()
 		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
 
 
+		//Key binding
+		UI_element* basic[MAX_GAMEPADS] = { nullptr };
+		UI_element* special[MAX_GAMEPADS] = { nullptr };
+		UI_element* ultimate[MAX_GAMEPADS] = { nullptr };
+		UI_element* shield[MAX_GAMEPADS] = { nullptr };
+
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			int pos_x = 360 + 164 * i;
+			basic[i] = App->gui->createImage(pos_x, 350, options_button_binding, App->input);
+			basic[i]->element_type = CUSTOMIZING_BUTTON_BASIC;
+			basic[i]->function = POLLING_CUSTOMIZE;
+			basic[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::BASIC_ATTACK));
+
+			special[i] = App->gui->createImage(pos_x, 350 + 72, options_button_binding, App->input);
+			special[i]->element_type = CUSTOMIZING_BUTTON_SPECIAL;
+			special[i]->function = POLLING_CUSTOMIZE;
+			special[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SPECIAL_ATTACK));
+
+			ultimate[i] = App->gui->createImage(pos_x, 350 + 144, options_button_binding, App->input);
+			ultimate[i]->element_type = CUSTOMIZING_BUTTON_SUPER;
+			ultimate[i]->function = POLLING_CUSTOMIZE;
+			ultimate[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SUPER_ATTACK));
+
+			shield[i] = App->gui->createImage(pos_x, 350 + 216, options_button_binding, App->input);
+			shield[i]->element_type = CUSTOMIZING_BUTTON_SHIELD;
+			shield[i]->function = POLLING_CUSTOMIZE;
+			shield[i]->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)i, BUTTON_BIND::SHIELD));
+		}
+
 
 
 		ingamesettingsMenu->elements.push_back(settings_image);
+		ingamesettingsMenu->elements.push_back(settings_fg);
 		ingamesettingsMenu->elements.push_back(settings_text);
 		ingamesettingsMenu->elements.push_back(back_button);
 		ingamesettingsMenu->elements.push_back(back_text);
@@ -715,14 +907,25 @@ bool j1UIScene::Start()
 		ingamesettingsMenu->elements.push_back(text1);
 		ingamesettingsMenu->elements.push_back(text2);
 		ingamesettingsMenu->elements.push_back(text3);
+		ingamesettingsMenu->elements.push_back(text_special);
 		ingamesettingsMenu->elements.push_back(text4);
 		ingamesettingsMenu->elements.push_back(text5);
-		ingamesettingsMenu->elements.push_back(text6);
-		ingamesettingsMenu->elements.push_back(text7);
-		ingamesettingsMenu->elements.push_back(text8);
-		ingamesettingsMenu->elements.push_back(text9);
+		ingamesettingsMenu->elements.push_back(text_confirm);
+		ingamesettingsMenu->elements.push_back(text_cancel);
+		ingamesettingsMenu->elements.push_back(text_select);
+		ingamesettingsMenu->elements.push_back(text_pause);
 		/*settingsMenu->elements.push_back(full_switch);
 		settingsMenu->elements.push_back(fullscreen_text);*/
+
+		//Key Binding PushBacks
+		for (int i = 0; i < MAX_GAMEPADS; ++i)
+		{
+			ingamesettingsMenu->elements.push_back(basic[i]);
+			ingamesettingsMenu->elements.push_back(special[i]);
+			ingamesettingsMenu->elements.push_back(ultimate[i]);
+			ingamesettingsMenu->elements.push_back(shield[i]);
+		}
+
 		menus.push_back(ingamesettingsMenu);
 
 		AddControllerSupport(music_slider_butt, PLAYER::P1, INGAMESETTINGS_MENU);
@@ -775,6 +978,19 @@ bool j1UIScene::Update(float dt)
 {
 	bool ret = true;
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && (current_menu->id == menu_id::PREVIEW_MENU))
+	{
+		ready2->function = INGAME;
+		ready2->callback->OnUIEvent(ready2, MOUSE_LEFT_CLICK);
+		
+	}
+	if (App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && (current_menu->id == menu_id::PREVIEW_MENU))
+	{
+		ready2->function = INGAME;
+		ready2->callback->OnUIEvent(ready2, MOUSE_LEFT_CLICK);
+
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->GetButton(PLAYER::P1, SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
 		
@@ -786,7 +1002,9 @@ bool j1UIScene::Update(float dt)
 			Mix_PauseMusic();
 			App->transition->menuTransition(INGAMESETTINGS_MENU, 0.3f);
 			App->arena_interactions->PauseStorm();
+			App->item_manager->PauseItemManager();
 			App->audio->PlayFx(App->audio->fxPause);
+			SetUiOptionsButtonsBindedImages();
 			ret = true;
 		}
 		else if (actual_menu == INGAMESETTINGS_MENU && previous_menu == INGAME_MENU)
@@ -796,6 +1014,7 @@ bool j1UIScene::Update(float dt)
 
 			Mix_ResumeMusic();
 			App->transition->menuTransition(INGAME_MENU, 0.3f);
+			App->item_manager->ContinueItemManager();
 			App->arena_interactions->ContinueStorm();
 			ret = true;
 
@@ -810,9 +1029,21 @@ bool j1UIScene::Update(float dt)
 				champ_selected[i] = false;
 			}
 
+			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 			ret = true;
 
 		}
+
+		else if (actual_menu == CREDITS_MENU && previous_menu == START_MENU)
+		{
+
+			actual_menu = START_MENU;
+			App->transition->menuTransition(START_MENU, 0.3f);
+			App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
+			ret = true;
+
+		}
+		
 	}
 
 
@@ -826,6 +1057,11 @@ bool j1UIScene::Update(float dt)
 	else if (actual_menu == SETTINGS_MENU)
 	{
 		
+		App->on_GamePause = true;
+	}
+	else if (actual_menu == CREDITS_MENU)
+	{
+
 		App->on_GamePause = true;
 	}
 	else if (actual_menu == SELECTION_MENU)
@@ -1321,8 +1557,9 @@ bool j1UIScene::Update(float dt)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && (current_menu->id == menu_id::SELECTION_MENU || current_menu->id == menu_id::SCOREBOARD_MENU))
 		{
-			ready->function = INGAME;
+			ready->function = PREVIEW;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
+
 			for (int j = 0; j < MAX_GAMEPADS; ++j)
 			{
 				champ_selected[j] = false;
@@ -1334,7 +1571,7 @@ bool j1UIScene::Update(float dt)
 		
 		if (i == MAX_GAMEPADS - 1 && current_menu->id == SELECTION_MENU)
 		{
-			ready->function = INGAME;
+			ready->function = PREVIEW;
 			ready->callback->OnUIEvent(ready, MOUSE_LEFT_CLICK);
 			for (int j = 0; j < MAX_GAMEPADS; ++j)
 			{
@@ -1396,14 +1633,14 @@ bool j1UIScene::Update(float dt)
 
 	}
 
+
 	//GET TO SCOREBOARD SCREEN
 
 	player_winner = App->scene->GetWinner();
 	if (rounds >= 3)
 	{
-		if (player_winner != nullptr && scoreboard == false)
+		if (player_winner != nullptr && scoreboard == false && !player_winner->active)
 		{
-			player_winner->active = false;
 			scoreboard = true;
 			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 			actual_menu = FINAL_MENU;
@@ -1424,9 +1661,9 @@ bool j1UIScene::Update(float dt)
 	}
 	else if (rounds < 3)
 	{
-		if (player_winner != nullptr && scoreboard == false)
+		if (player_winner != nullptr && scoreboard == false && !player_winner->active)
 		{
-			player_winner->active = false;
+
 			scoreboard = true;
 			App->audio->PlayMusic(App->audio->pathLeaderBoard.data(), 0);
 			actual_menu = FINAL_MENU;
@@ -1492,6 +1729,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
+
 			App->audio->PlayFx(App->audio->fxConfirm);
 
 			player1_quad->section = { 288, 518, 170,191 };
@@ -1501,6 +1739,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 
 			App->arena_interactions->DestroyStorm();
 			App->arena_interactions->PauseStorm();
+			App->item_manager->CloseItemManager();
 
 			//RESET SELECTION BOOLS && COUNTER
 			counter1 = 1;
@@ -1553,11 +1792,17 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayMusic(App->audio->pathChampSelect.data(), 0);
 			break;
 		}
+		case PREVIEW:
+		{
+			actual_menu = PREVIEW_MENU;
+			App->transition->menuTransition(PREVIEW_MENU, 0.3);
+			break;
+		}
 		case INGAME:
 		{		
 			
 
-			if (actual_menu == SELECTION_MENU)
+			if (actual_menu == PREVIEW_MENU)
 			{
 				App->view->SetViews(4);
 				App->scene->ChangeMap(0);
@@ -1573,6 +1818,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+			App->item_manager->StartItemManager();
+			App->item_manager->ContinueItemManager();
 
 			int music = rand() % 5 + 1;
 
@@ -1597,6 +1844,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		
 			break;
 		}
+		case FIRST_MAP_PREVIEW:
+		{
+			actual_menu = FINAL_MENU;
+			App->transition->menuTransition(FINAL_MENU , 0.3);
+			break;
+		}
 		case INGAME_NEW_GAME:
 		{
 			actual_menu = INGAME_MENU;
@@ -1606,6 +1859,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->audio->PlayFx(App->audio->fxBrawlStart);
 			App->arena_interactions->StartStorm();
 			App->arena_interactions->ContinueStorm();
+			App->item_manager->CloseItemManager();
+			App->item_manager->StartItemManager();
 			App->scene->ResetAll();
 			scoreboard = false;
 			int music = rand() % 5 + 1;
@@ -1733,6 +1988,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			break;
 		case CREDITS:
 			App->audio->PlayFx(App->audio->fxConfirm);
+			actual_menu = CREDITS_MENU;
+			App->transition->menuTransition(CREDITS_MENU, 0.3);
+			App->audio->PlayMusic(App->audio->pathGallery.data(), 0);
+
 			break;
 		case EXIT:
 			ret = false;
@@ -1753,6 +2012,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(),0);
 				App->audio->PlayFx(App->audio->fxCancel);
+				App->item_manager->PauseItemManager();
 			}
 
 			if (actual_menu == INGAMESETTINGS_MENU && previous_menu == INGAME_MENU)
@@ -1760,7 +2020,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->on_GamePause = false;
 				marks_reset = false;
 				App->arena_interactions->DestroyStorm();
+				App->item_manager->CloseItemManager();
+				App->item_manager->PauseItemManager();
 				App->transition->menuTransition(START_MENU, 0.3);
+				App->view->SetViews(1);
 				actual_menu = START_MENU;
 				App->audio->PlayMusic(App->audio->pathMainMenu1.data(), 0);
 				App->audio->PlayFx(App->audio->fxCancel);
@@ -1954,6 +2217,47 @@ bool j1UIScene::loadMenu(menu_id id)
 
 
 
+void j1UIScene::SetUiOptionsButtonsBindedImages()
+{
+	//This is a bit hardcoded beacuse we know that the elements will be added to the menu in order P1, all four abilities basic, special, ultimate, shield
+	//all of this repeated for the 4 players
+	menu* ingamesettings = nullptr;
+	for (std::list<menu*>::iterator menu = menus.begin(); menu != menus.end(); menu++)
+	{
+		if ((*menu)->id == INGAMESETTINGS_MENU)
+		{
+			ingamesettings = (*menu);
+		}
+	}
+
+	if (ingamesettings != nullptr)
+	{
+		int player = 0;
+		for (std::list<UI_element*>::iterator element = ingamesettings->elements.begin(); element != ingamesettings->elements.end(); element++)
+		{
+			switch ((*element)->element_type)
+			{
+			case CUSTOMIZING_BUTTON_BASIC:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::BASIC_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SPECIAL:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SPECIAL_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SUPER:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SUPER_ATTACK));
+				break;
+
+			case CUSTOMIZING_BUTTON_SHIELD:
+				(*element)->section = App->gui->GetButtonRect(App->input->GetBindRealButton((PLAYER)player, BUTTON_BIND::SHIELD));
+				player++; // We have gone through all the elements basic,special,ultimate and shield for the current player, so we add +1
+				break;
+			}
+		}
+	}
+}
+
 void j1UIScene::applySettings(settings_values values)
 {
 
@@ -2037,6 +2341,19 @@ void j1UIScene::playClock()
 
 void j1UIScene::CreateScoreBoard(int num)
 {
+
+	App->scene->player1->startdisplaying = false;
+	App->scene->player2->startdisplaying = false;
+	App->scene->player3->startdisplaying = false;
+	App->scene->player4->startdisplaying = false;
+	App->scene->player1->killcounter = 0;
+	App->scene->player2->killcounter = 0;
+	App->scene->player3->killcounter = 0;
+	App->scene->player4->killcounter = 0;
+	App->scene->player1->Has_to_blit_kills = false;
+	App->scene->player2->Has_to_blit_kills = false;
+	App->scene->player3->Has_to_blit_kills = false;
+	App->scene->player4->Has_to_blit_kills = false;
 
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
@@ -2222,6 +2539,18 @@ void j1UIScene::CreateScoreBoard(int num)
 void j1UIScene::CreateFinalScoreBoard(int num)
 {
 
+	App->scene->player1->startdisplaying = false;
+	App->scene->player2->startdisplaying = false;
+	App->scene->player3->startdisplaying = false;
+	App->scene->player4->startdisplaying = false;
+	App->scene->player1->killcounter = 0;
+	App->scene->player2->killcounter = 0;
+	App->scene->player3->killcounter = 0;
+	App->scene->player4->killcounter = 0;
+	App->scene->player1->Has_to_blit_kills = false;
+	App->scene->player2->Has_to_blit_kills = false;
+	App->scene->player3->Has_to_blit_kills = false;
+	App->scene->player4->Has_to_blit_kills = false;
 
 	SDL_Color brown_color = { 139,69,19 };
 	SDL_Color black_color = { 0, 0, 0, 255 };
@@ -2281,31 +2610,119 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 
 	UI_element* text2 = nullptr;
 
+	uint winnernumber = 0;
+
 	if (P1stars > P2stars && P1stars > P3stars && P1stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 1", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 1;
 	}
 	else if (P2stars > P1stars && P2stars > P3stars && P2stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 2", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 2;
 	}
 	else if (P3stars > P2stars && P3stars > P1stars && P3stars > P4stars)
 	{
 		text2 = App->gui->createText("Player 3", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 3;
 	}
 	else if (P4stars > P2stars && P4stars > P3stars && P4stars > P1stars)
 	{
 		text2 = App->gui->createText("Player 4", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 4;
 	}
-	else 
+	else
+	{
 		text2 = App->gui->createText("No one", 615, 100, big_font, { 0, 0, 0, 1 });
 		text1->setOutlined(false);
+		winnernumber = 0;
+	}
 	
-	UI_element* text3 = App->gui->createText("Press      to continue to next round", 357, 670, small_font, { 0, 0, 0, 1 });
+	UI_element* winnerchamp = NULL;
+
+	if (winnernumber == 1)
+	{
+		if (App->scene->player1->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player1->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player1->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player1->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
+		}
+	}
+	else if (winnernumber == 2)
+	{
+		if (App->scene->player2->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player2->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player2->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player2->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
+		}
+	}
+	else if (winnernumber == 3)
+	{
+		if (App->scene->player3->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player3->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player3->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player3->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
+		}
+	}
+	if (winnernumber == 4)
+	{
+		if (App->scene->player4->character == CHARACTER::WENDOLIN)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 714, 1050, 192, 350 }, this);
+		}
+		else if (App->scene->player4->character == CHARACTER::MELIADOUL)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(475, 225, { 214, 1043, 222, 357 }, this);
+		}
+		else if (App->scene->player4->character == CHARACTER::SIMON)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(553, 225, { 0, 1049, 195, 351 }, this);
+		}
+		else if (App->scene->player4->character == CHARACTER::TRAKT)
+		{
+			winnerchamp = App->gui->createImageFromAtlas(483, 225, { 456, 1048, 213, 352 }, this);
+		}
+	}
+	
+	UI_element* text3 = App->gui->createText("Press      to continue to main menu", 357, 670, small_font, { 0, 0, 0, 1 });
 	text1->setOutlined(false);
 
 	//PLAYER QUADS No Butt
@@ -2395,6 +2812,7 @@ void j1UIScene::CreateFinalScoreBoard(int num)
 	finalMenu->elements.push_back(player2_stars);
 	finalMenu->elements.push_back(player3_stars);
 	finalMenu->elements.push_back(player4_stars);
+	finalMenu->elements.push_back(winnerchamp);
 
 	if (finalMenu->gamepad_tabs[0].empty() == true)
 		AddControllerSupport(last_button1, PLAYER::P1, FINAL_MENU);

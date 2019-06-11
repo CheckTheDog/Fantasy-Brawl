@@ -65,6 +65,11 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	targetanim.loop = true;
 	targetanim.speed = 10;
 
+	// --- Death anim ---
+	death_anim = *LoadAnimation("Animations/Bubbles.tmx", "Teleport");
+	death_anim.loop = false;
+	death_anim.speed = 20;
+
 	// --- IDCircle ---
 	circle_texturepath = playernode.child("IDCircle").child_value();
 
@@ -321,6 +326,8 @@ bool j1EntityManager::Start()
 	LOG("start j1EntityManager");
 	bool ret = true;
 
+	deathbubbles_tex = App->tex->Load("particles/Bubbles.png");
+
 	// --- Loading Particle Textures ---
 	particle_hittex = App->tex->Load("particles/Weapon hit.png");
 	target_tex = App->tex->Load("textures/Target.png");
@@ -486,7 +493,10 @@ j1Entity* const j1EntityManager::CreateEntity(entity_type entitytype, entity_inf
 	{
 	case entity_type::PLAYER:
 
-		entity = (j1Entity*) new j1Player(entityinfo,player_info);
+		j1Player* ret_player = new j1Player(entityinfo, player_info);
+		entity = (j1Entity*)ret_player;
+		entity->Entityinfo.player = ret_player;
+		
 		break;
 	}
 

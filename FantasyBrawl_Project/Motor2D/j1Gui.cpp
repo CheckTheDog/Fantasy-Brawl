@@ -161,7 +161,7 @@ bool j1Gui::PreUpdate()
 				{
 					is_focused[i] = true;
 
-					if ((*App->ui_scene->current_menu->gamepads_focus[i])->is_locked == false)
+					if ((*App->ui_scene->current_menu->gamepads_focus[i])->is_locked == false && App->input->ControllerIsConnected(PLAYER(i)) == true)
 					{
 						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == BUTTON_DOWN
 							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTY) == GP_AXIS_STATE::AXIS_POSITIVE_DOWN)

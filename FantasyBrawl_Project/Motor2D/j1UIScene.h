@@ -1,6 +1,7 @@
 #ifndef __j1UISCENE_H__
 #define __j1UISCENE_H__
 
+#include "Animation.h"
 #include "j1Module.h"
 #include "SDL\include\SDL.h"
 #include <list>
@@ -20,6 +21,8 @@ class Slider;
 enum menu_id
 {
 	START_MENU,
+	INTRO_MENU,
+	PREVIEW_MENU,
 	SETTINGS_MENU,
 	INGAME_MENU,
 	SELECTION_MENU,
@@ -70,6 +73,8 @@ public:
 
 	bool loadMenu(menu_id id);
 
+	//GetBinds for all buttons on the controls
+	void SetUiOptionsButtonsBindedImages();
 
 	void applySettings(settings_values values);
 
@@ -185,6 +190,9 @@ public:
 	UI_element* ready = nullptr;
 	UI_element* ready_text = nullptr;
 
+	UI_element* ready2 = nullptr;
+	UI_element* ready2_text = nullptr;
+
 	//SELECTION BOOLS
 	int counter1 = 1;
 	int counter2 = 1;
@@ -213,6 +221,7 @@ public:
 	_TTF_Font* big_font = nullptr;
 	_TTF_Font* mid_font = nullptr;
 	_TTF_Font* perfect_font = nullptr;
+	_TTF_Font* credits_font = nullptr;
 
 	float scale = 0.66f;
 	SDL_Texture* A_Butt = nullptr;
@@ -239,5 +248,9 @@ public:
 
 	//timer
 	UI_element* timer = nullptr;
+
+	//logo
+	SDL_Texture* logo_texture = nullptr;
+	Animation logo;
 };
 #endif // !__j1UISCENE_H__ 

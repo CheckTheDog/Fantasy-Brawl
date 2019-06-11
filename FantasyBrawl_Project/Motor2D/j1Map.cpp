@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1UIScene.h"
 #include "j1Gui.h"
+#include "j1ItemManager.h"
 #include "j1Transition.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -108,6 +109,10 @@ void j1Map::Draw()
 					else if (layerr->name == "shadows_1")
 					{
 						App->view->PushQueue(3, tileset->texture, pos.x, pos.y, r);
+					}
+					else if (layerr->name == "Spawners")
+					{
+						App->view->PushQueue(2, tileset->texture, pos.x, pos.y, r);
 					}
 					else if (layerr->name == "frontier")
 					{
@@ -545,6 +550,26 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 			layer->data[i++] = tile.attribute("gid").as_int(0);
 		}
 	}
+
+	//It's ultrahardcode at the last minute time! We get the spawners from the layer and pass tehm to the item_manager
+	if (layer->name == "Spawners")
+	{
+		std::list<iPoint> spawners_pos;
+		for (int i = 0; i < layer->height; ++i)
+		{
+			for (int j = 0; j < layer->width; ++j)
+			{
+				if (layer->Get(i,j) > 0)
+				{
+					spawners_pos.push_back({i,j});
+				}
+			}
+		}
+
+		App->item_manager->ReceiveSpawnersPositions(spawners_pos);
+	}
+
+
 
 	return ret;
 }

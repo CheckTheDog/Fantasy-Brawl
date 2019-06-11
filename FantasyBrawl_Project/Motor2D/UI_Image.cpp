@@ -19,21 +19,21 @@ void Image::BlitElement()
 
 	float scale = 1.0f;
 
-	if (App->transition->doingMenuTransition)
-	{
-		if ((App->ui_scene->actual_menu == menu_id::SETTINGS_MENU 
-			&&  App->ui_scene->previous_menu == menu_id::INGAMESETTINGS_MENU)
-			|| (App->ui_scene->actual_menu == menu_id::START_MENU
-				&&  App->ui_scene->previous_menu == menu_id::SETTINGS_MENU)
-			|| App->ui_scene->actual_menu == menu_id::SETTINGS_MENU)
-		{
-			uint w, h;
-			App->win->GetWindowSize(w, h);
-			SDL_Rect tmp = { 0,0,w,h };
+	//if (App->transition->doingMenuTransition)
+	//{
+	//	if ((App->ui_scene->actual_menu == menu_id::SETTINGS_MENU 
+	//		&&  App->ui_scene->previous_menu == menu_id::INGAMESETTINGS_MENU)
+	//		|| (App->ui_scene->actual_menu == menu_id::START_MENU
+	//			&&  App->ui_scene->previous_menu == menu_id::SETTINGS_MENU)
+	//		|| App->ui_scene->actual_menu == menu_id::SETTINGS_MENU)
+	//	{
+	//		uint w, h;
+	//		App->win->GetWindowSize(w, h);
+	//		SDL_Rect tmp = { 0,0,w,h };
 
-			App->render->DrawQuad(tmp, 0, 0, 0, 255);
-		}
-	}
+	//		//App->render->DrawQuad(tmp, 0, 0, 0, 255);
+	//	}
+	//}
 	
 	if (this == App->ui_scene->hp_bar1)
 	{
