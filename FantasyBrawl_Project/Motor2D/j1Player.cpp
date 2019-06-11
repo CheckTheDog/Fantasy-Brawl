@@ -1747,7 +1747,7 @@ const fPoint j1Player::GetNearestPlayerDirection()
 		{
 			direction = directionP1;
 
-			if (this != App->scene->player1)
+			if (this != App->scene->player1 && !App->scene->player1->ghost)
 			{
 				targetP_pos = { App->scene->player1->Future_position.x, App->scene->player1->Future_position.y };
 			}
@@ -1757,7 +1757,7 @@ const fPoint j1Player::GetNearestPlayerDirection()
 		{
 			direction = directionP2;
 
-			if (this != App->scene->player2)
+			if (this != App->scene->player2 && !App->scene->player2->ghost)
 			{
 				targetP_pos = { App->scene->player2->Future_position.x, App->scene->player2->Future_position.y };
 			}
@@ -1767,7 +1767,7 @@ const fPoint j1Player::GetNearestPlayerDirection()
 		{
 			direction = directionP3;
 
-			if (this != App->scene->player3)
+			if (this != App->scene->player3 && !App->scene->player3->ghost)
 			{
 				targetP_pos = { App->scene->player3->Future_position.x, App->scene->player3->Future_position.y };
 			}
@@ -1777,7 +1777,7 @@ const fPoint j1Player::GetNearestPlayerDirection()
 		{
 			direction = directionP4;
 
-			if (this != App->scene->player4)
+			if (this != App->scene->player4 && !App->scene->player4->ghost)
 			{
 				targetP_pos = { App->scene->player4->Future_position.x, App->scene->player4->Future_position.y };
 			}
