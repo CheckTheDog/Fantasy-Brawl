@@ -813,6 +813,8 @@ void j1Player::Launch1stSP()
 		superTimer.Subtract(SuperCooldown/2);
 		App->audio->PlayFx(App->audio->fxWendolinSpecial);
 
+		playerinfo.basic_attack.particle_effect = &App->buff->effects[wendolin_special];
+
 		SDL_Texture* tmp_tex = playerinfo.basic_attack.tex;
 		SDL_Rect tmp_rect = playerinfo.basic_attack.anim.frames[0];
 
@@ -835,6 +837,8 @@ void j1Player::Launch1stSP()
 
 		playerinfo.basic_attack.tex = tmp_tex;
 		playerinfo.basic_attack.anim.frames[0] = tmp_rect;
+
+		playerinfo.basic_attack.particle_effect = &App->buff->effects[HURT];
 
 	}
 }

@@ -38,7 +38,8 @@ enum Effects  // Enum of all the current existing EFFECTS - SAME ORDER AS IN XML
 	SIMON_SUPER,
 	EXHAUST,
 	SPEED_UP,
-	SUPER_CD_REDUCTION
+	SUPER_CD_REDUCTION,
+	wendolin_special
 };
 
 

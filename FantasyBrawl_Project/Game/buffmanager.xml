@@ -18,5 +18,7 @@
   
   <effect id ="8" name="super_cd_reduction" type="BUFF" duration_type="PERMANENT" method="ADD" att_to_change="COOLDOWN" bonus="10" duration_value="0"></effect>
 
+  <effect id ="9" name="wendolin_special" type="DEBUFF" duration_type="PERMANENT" method="ADD" att_to_change="HEALTH" bonus="10" duration_value="0"></effect>
+
 
 </buff_manager>
