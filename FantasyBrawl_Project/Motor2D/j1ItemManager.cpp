@@ -105,12 +105,12 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 
 	ret->spawned = true;
 
-	ret->animation[0] = LoadAnimation("Animations/crystals.tmx", "BlueCrystals");
-	ret->animation[0]->speed = 6.0f;
-	ret->animation[1] = LoadAnimation("Animations/crystals.tmx", "RedCrystals");
-	ret->animation[1]->speed = 6.0f;
-	ret->animation[2] = LoadAnimation("Animations/crystals.tmx", "YellowCrystals");
+	ret->animation[2] = LoadAnimation("Animations/crystals.tmx", "BlueCrystals");
 	ret->animation[2]->speed = 6.0f;
+	ret->animation[0] = LoadAnimation("Animations/crystals.tmx", "RedCrystals");
+	ret->animation[0]->speed = 6.0f;
+	ret->animation[1] = LoadAnimation("Animations/crystals.tmx", "YellowCrystals");
+	ret->animation[1]->speed = 6.0f;
 
 	items.push_back(ret);
 
