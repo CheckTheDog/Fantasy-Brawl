@@ -120,6 +120,7 @@ Item* j1ItemManager::CreateItem(ItemType type, iPoint position)
 void j1ItemManager::DeSpawnItem(Item * item)
 {
 	item->col->to_delete = true;
+	item->col = nullptr;
 	item->spawned = false;
 	item->time_inactive.Start();
 }
