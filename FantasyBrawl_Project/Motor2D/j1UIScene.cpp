@@ -92,7 +92,7 @@ bool j1UIScene::Start()
 		UI_element* web_text = App->gui->createText("WEB", 100, 635, perfect_font, brown_color);
 		web_text->setOutlined(true);
 
-		UI_element* logo = App->gui->createImageFromAtlas(60, 300, { 25,422,155,100 }, this);
+		UI_element* logo = App->gui->createImageFromAtlas(60, 300, { 63,388,146,92 }, this);
 		UI_element* logo_text = App->gui->createText("CheckTheDog", 10, 420, perfect_font, black_color);
 		web_text->setOutlined(false);
 
@@ -276,7 +276,7 @@ bool j1UIScene::Start()
 		
 
 		//CREDITS
-		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0,425,190,94}, { 0,593,190,94}, { 0,749,190,94}, this);
+		UI_element* credits = App->gui->createButton(300 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 63,388,146,92}, { 228,388,146,92 }, { 395,388,146,92 }, this);
 		credits->function = CREDITS;
 
 		//MARKER
