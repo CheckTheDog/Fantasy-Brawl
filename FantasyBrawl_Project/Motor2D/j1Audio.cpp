@@ -361,6 +361,10 @@ void j1Audio::LoadAudio(pugi::xml_node& config)
 	std::string matchendSound = fxfolder + pathMatchEnd;
 	fxMatchEnd = LoadFx(matchendSound.data());
 
+	pathlogo = sound_node.attribute("logo").as_string();
+	std::string logoSound = fxfolder + pathlogo;
+	fxlogo = LoadFx(logoSound.data());
+
 	//Music Loads
 	musicfolder = config.child("music").child_value("folder");
 
