@@ -210,6 +210,21 @@ bool j1Gui::PreUpdate()
 							}
 						}
 					}
+					if ((*App->ui_scene->current_menu->gamepads_focus[i])->function == CREDITS)
+					{
+						if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == BUTTON_REPEAT
+							|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_POSITIVE_REPEAT)
+						{
+							App->ui_scene->current_menu->gamepads_focus[i]--;
+						}
+					}else if ((*App->ui_scene->current_menu->gamepads_focus[i])->function == EXIT)
+					{
+							if (App->input->GetButton((PLAYER)i, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == BUTTON_REPEAT
+								|| App->input->GetLRAxisState((PLAYER)i, SDL_CONTROLLER_AXIS_LEFTX) == GP_AXIS_STATE::AXIS_NEGATIVE_REPEAT)
+							{
+								App->ui_scene->current_menu->gamepads_focus[i]++;
+							}
+					}
 					if (element[i]->element_type == IMAGE && element[i]->children.size() == 2)
 					{
 						if (App->ui_scene->champ_selected[i] == false)

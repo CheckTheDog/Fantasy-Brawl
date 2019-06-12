@@ -187,6 +187,7 @@ public:
 	bool dragable = false;
 	bool solid = true;
 	bool is_locked = false;
+	float size = 1.0f;
 
 protected:
 	iPoint Click_Pos{ 0,0 };

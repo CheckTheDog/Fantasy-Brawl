@@ -137,6 +137,13 @@ bool j1UIScene::Start()
 		UI_element* pol = App->gui->createText("Pol Bosch", 550, 650, credits_font, black_color);
 		pol->setOutlined(false);
 
+		//MARKER
+		Marker_anim_data def = Marker_anim_data();
+		marker_custom_button_rects r;
+		r.custom_unlocked = { 852,814,26,22 };
+		r.custom_locked = { 852,772,26,22 };
+		UI_element* feather = App->gui->createMarker(0, 0, { 20,0 }, &creditsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
+
 		//STARS
 		UI_element* star1_lead = App->gui->createImageFromAtlas(425, 67, {0,873,54,54}, this);
 
@@ -161,9 +168,12 @@ bool j1UIScene::Start()
 		creditsMenu->elements.push_back(pol);
 		creditsMenu->elements.push_back(logo);
 		creditsMenu->elements.push_back(logo_text);
+		creditsMenu->elements.push_back(feather);
 		/*creditsMenu->elements.push_back(star1_lead);*/
 
 		menus.push_back(creditsMenu);
+
+		App->ui_scene->AddControllerSupport(webpage, PLAYER::P1,CREDITS_MENU);
 		
 	}
 
@@ -600,18 +610,19 @@ bool j1UIScene::Start()
 
 
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(20 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("BACK", 710, 680, mid_font, brown_color);
+		back_button->size = 0.8f;
+		UI_element* back_text = App->gui->createText("BACK", 60, 660, mid_font, brown_color);
 		back_text->setOutlined(true);
 		
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 
-		music_sliderMM = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_sliderMM = App->gui->createSlider(400, 90, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_sliderMM->modify = MUSIC;
-		settings_bg->appendChild(10 * App->gui->UI_scale, 180 * App->gui->UI_scale, music_sliderMM);
+		settings_bg->appendChild(10 * App->gui->UI_scale, 165 * App->gui->UI_scale, music_sliderMM);
 
 		music_sliderMM->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_sliderMM->button->localPosition.x = ((music_sliderMM->section.w * App->gui->UI_scale) - 5 - music_sliderMM->button->section.w / (2 / App->gui->UI_scale)) * music_sliderMM->progress;
@@ -620,18 +631,18 @@ bool j1UIScene::Start()
 		fx_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
 */
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 40, 140, small_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 40, 130, small_font, brown_color);
 		audio_text->setOutlined(true);
 
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
 
-		fx_sliderMM = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_sliderMM = App->gui->createSlider(400, 375, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_sliderMM->modify = FX;
-		settings_bg->appendChild(10 * App->gui->UI_scale, 260 * App->gui->UI_scale, fx_sliderMM);
+		settings_bg->appendChild(10 * App->gui->UI_scale, 235 * App->gui->UI_scale, fx_sliderMM);
 
 
-		UI_element* fx_text = App->gui->createText("FX", 40, 220, small_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 40, 195, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -642,10 +653,11 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(20 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
+		apply_button->size = 0.8f;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 400, 680, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 50, 300, mid_font, yellow_color);
 		apply_text->setOutlined(true);
 
 		//MARKER
@@ -756,6 +768,8 @@ bool j1UIScene::Start()
 		AddControllerSupport(music_slider_butt, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(fx_slider_butt, PLAYER::P1, SETTINGS_MENU);
 
+		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
+
 		for (int i = 0; i < MAX_GAMEPADS; ++i)
 		{
 			AddControllerSupport(basic[i], (PLAYER)i, SETTINGS_MENU);
@@ -764,7 +778,6 @@ bool j1UIScene::Start()
 			AddControllerSupport(shield[i], (PLAYER)i, SETTINGS_MENU);
 		}
 
-		AddControllerSupport(apply_button, PLAYER::P1, SETTINGS_MENU);
 		AddControllerSupport(back_button, PLAYER::P1, SETTINGS_MENU);
 	}
 
@@ -800,22 +813,21 @@ bool j1UIScene::Start()
 		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
-
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(20 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("EXIT", 710, 680, mid_font, brown_color);
+		back_button->size = 0.8f;
+		UI_element* back_text = App->gui->createText("BACK", 60, 660, mid_font, brown_color);
 		back_text->setOutlined(true);
-		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		music_slider = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_slider = App->gui->createSlider(490, 90, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(10 * App->gui->UI_scale, 180 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 40, 140, small_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 40, 130, small_font, brown_color);
 
 		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
@@ -824,11 +836,11 @@ bool j1UIScene::Start()
 
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_slider = App->gui->createSlider(400, 375, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(10 * App->gui->UI_scale, 260 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 235 * App->gui->UI_scale, fx_slider);
 
-		UI_element* fx_text = App->gui->createText("FX", 40, 220, small_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 40, 195, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -839,19 +851,19 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(20 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
+		apply_button->size = 0.8f;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 400, 680, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 50, 300, mid_font, yellow_color);
 		apply_text->setOutlined(true);
-		apply_button->appendChildAtCenter(apply_text);
 
 		//MARKER
 		Marker_anim_data def = Marker_anim_data();
 		marker_custom_button_rects r;
 		r.custom_unlocked = { 852,814,26,22 };
 		r.custom_locked = { 852,772,26,22 };
-		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
+		UI_element* feather = App->gui->createMarker(0, 0, { 15, 17 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
 
 
 		//Key binding
@@ -1797,6 +1809,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case PREVIEW:
 		{
 			actual_menu = PREVIEW_MENU;
+			App->item_manager->CloseItemManager();
 			App->transition->menuTransition(PREVIEW_MENU, 0.3);
 			break;
 		}
@@ -2343,6 +2356,7 @@ void j1UIScene::playClock()
 
 void j1UIScene::CreateScoreBoard(int num)
 {
+	App->item_manager->CloseItemManager();
 
 	App->scene->player1->startdisplaying = false;
 	App->scene->player2->startdisplaying = false;
@@ -2540,6 +2554,7 @@ void j1UIScene::CreateScoreBoard(int num)
 
 void j1UIScene::CreateFinalScoreBoard(int num)
 {
+	App->item_manager->CloseItemManager();
 
 	App->scene->player1->startdisplaying = false;
 	App->scene->player2->startdisplaying = false;
