@@ -289,9 +289,11 @@ bool j1UIScene::Start()
 
 
 		//BACKGROUND
-		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MenuStart.png"), this);
+		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/MenuStart_bg.png"), this);
+		UI_element* background_image2 = App->gui->createImage(0, 0, App->tex->Load("gui/MenuStart_nobg.png"), this);
 
 		startMenu->elements.push_back(background_image);
+		startMenu->elements.push_back(background_image2);
 		startMenu->elements.push_back(new_game);
 		startMenu->elements.push_back(new_text);
 
