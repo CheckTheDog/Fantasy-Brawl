@@ -243,8 +243,8 @@ p
 /* start team */
 #art
     {
-        border-top: 1px solid #AF786B;
-        border-bottom: 1px solid #AF786B;
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #art h2
@@ -253,9 +253,9 @@ p
     }
 #art img
     {
-        border: 1px solid #000000;
+        border: 1px solid #fff;
         display: inline-block;
-        padding: 50px;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #art img:hover
@@ -311,22 +311,24 @@ p
 	
 #team
     {
+        border-top: 1px solid #000000;
+        border-bottom: 1px solid #000000;
         text-align: center;
     }
 #team h2
     {
         padding-bottom: 30px;
-	tex-align: center;
     }
 #team img
     {
+        border: 1px solid #fff;
         display: inline-block;
-	border: 1px solid #fff;
+        padding: 0px;
         transition: all 0.4s ease-in;
     }
 #team img:hover
     {
-        opacity: 0.5;
+        opacity: 0.4;
         cursor: pointer;
     }
 #team h3
@@ -340,7 +342,6 @@ p
         padding-top: 20px;
         line-height: 0px;
     }
-
 #manager
     {
         border-top: 1px solid #000000;
@@ -379,6 +380,7 @@ p
     {
         border-top: 1px solid #000000;
         border-bottom: 1px solid #000000;
+        text-align: center;
     }
 #ui h2
     {
