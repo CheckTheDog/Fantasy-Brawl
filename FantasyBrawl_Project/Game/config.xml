@@ -66,7 +66,7 @@
              powerup3="30_Power_Up_Appearing_3.wav" poweruppick="31_Power_Up_Pick.wav"
              powerupactivation="32_Power_Up_Activation.wav" stormcount="33_Storm_Close_count.wav"
              stormclose="34_Storm_Close.wav" pause="35_Pause.wav" roundend="36_Round_End.wav"
-             matchend="37_Match_End.wav"/>
+             matchend="37_Match_End.wav" logo="38_logo.wav"/>
     </fx>
   </audio>
 

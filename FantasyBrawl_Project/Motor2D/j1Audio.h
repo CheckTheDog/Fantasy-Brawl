@@ -99,6 +99,7 @@ public:
 	std::string		pathPause;
 	std::string		pathRoundEnd;
 	std::string		pathMatchEnd;
+	std::string		pathlogo;
 
 	uint	fxCursor = NULL;
 	uint	fxConfirm = NULL;
@@ -137,6 +138,7 @@ public:
 	uint	fxPause = NULL;
 	uint	fxRoundEnd = NULL;
 	uint	fxMatchEnd = NULL;
+	uint	fxlogo = NULL;
 
 private:
 

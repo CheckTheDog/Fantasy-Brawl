@@ -27,6 +27,7 @@ public:
 	void sceneTransition(int newLvl, float time = 0.5f);
 
 	bool doingMenuTransition = false;
+	bool Dologoaudio = true;
 
 private:
 

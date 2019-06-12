@@ -7,6 +7,7 @@
 #include "j1EntityManager.h"
 #include "j1Textures.h"
 #include "p2Log.h"
+#include "J1Audio.h"
 
 j1Transition::j1Transition()
 {
@@ -36,6 +37,8 @@ bool j1Transition::Start()
 	book_texture = App->tex->Load("gui/BgSprite.png");
 	intro_tex = App->tex->Load("gui/AnimationLogo.png");
 	bookcover_tex = App->tex->Load("gui/FullBgSprite.png");
+
+	Dologoaudio = true;
 
 	intro_timer.Start();
 
@@ -169,6 +172,12 @@ bool j1Transition::PostUpdate(float dt)
 	{
 		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 3, 3, 3, 255, true, false);
 		App->render->Blit(intro_tex, -100, 65, &intro_anim.GetCurrentFrame(dt));
+
+		if (Dologoaudio == true)
+		{
+			App->audio->PlayFx(App->audio->fxlogo);
+			Dologoaudio = false;
+		}
 	}
 	else if (!intro_anim.Finished())
 	{
