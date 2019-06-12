@@ -9,6 +9,7 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 - Fantasy Brawl's Website: [Website](https://checkthedog.github.io/Fantasy-Brawl/)
 
 ### CONTROLS
+
 - Player Movement (Gamepad Exclusive):
 
   - Move around: LEFT JOYSTICK movement in any direction
@@ -16,9 +17,9 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 - Player Abilities(Gamepad Exclusive):
 
   - Aim: Move RIGHT JOYSTICK
-  - Basic Attack: Press / keep pressed RIGHT BUMPER. 
-  - Ultimate Attack: Press LEFT BUMPER, then release it.
-  - Special Ability: Press LEFT TRIGGER, then release it. (at 0.9.1 only Lüar has this enabled)	
+  - Basic Attack: Press / keep pressed RIGHT TRIGGER. 
+  - Ultimate Attack: Press LEFT TRIGGER, then release it.
+  - Special Ability: Press LEFT BUMPER, then release it.	
   - Shield: Press X, deactivate it halfway pressing X again.
 
 - UI Movement (Gamepad exclusive):
@@ -26,26 +27,26 @@ Get ready warrior! A fierce battle against the strongest is about to begin!
 - Use DPADS or LEFT JOYSTICK to move through menus (in champion selection only DPADS)
 - PRESS A to interact with UI elements 
 - PRESS B in champion selection screen if a character has been selected with A to deselect
-- PRESS START to open ingame settings menu
+- PRESS START to open ingame settings menu or go back in certain screens
 
-Note that in most of the UI only PLAYER 1 has influence
+Note that in most of the UI only PLAYER 1 has influence.
 
 - Debug Features
 
 - Mouse to move through UI
-- F5 -> In character selection screen, lock all champion selections, independently of how many gamepads are connected
+- F5 -> In character selection screen/map preview, lock all champion selections, independently of how many gamepads are connected
 - F8 -> Activate UI bounding boxes debug draw
 - F9 -> Activate colliders bounding box debug draw 
 - ESC-> to go back in certain screens
 
+Tip: Auto-aim will be activated when being near enemy players, no need to move the right joystick.
 
-Tips: Auto-aim will be activated when being near enemy players, no need to move the right joystick.
+Note that some visual features are deactivated on Champion Selection screen by default.
 
 ### HOW TO PLAY AND WIN
 
 Every round won gives you 3 stars, and every kill 1 star. Play the 4 rounds and get the highest
 number of stars to win!
-
 
 ### AUTHORS: CheckTheDog
 
@@ -163,6 +164,11 @@ Aitor:
 - Solved bugs in champion selection screen
 - Timer blinking when storm is going to close in
 - Special Abilities
+- Added visual feedback on all supers/specials
+- Added target on nearest player
+- Set App Icon
+- Book animation in code
+- Player appearance && disappearance
 
 Didac:
 
@@ -179,6 +185,7 @@ Didac:
 - Added shield and super fx
 - Key Binding
 - Options Menu (code)
+- Items
 
 Pol:
 
@@ -204,6 +211,7 @@ Pol:
 - Main Menu Design (art)
 - Death skull texture
 - Options Menu Art
+- Book animation (art)
 
 Vladislav: 
 
@@ -221,6 +229,7 @@ Jacobo:
 - Map Preview (code)
 - Final Scoreboard
 - Game Timer
+- Stars shown on screen when obtained
 
 Oscar:
 
@@ -238,6 +247,8 @@ Oscar:
 - Replaced some placeholders for new art
 - New button art
 - Adjustments in Champion Selection Screen
+- Map preview after champion selection screen
+- Credits Screen
 
 Roger:
 - In game UI Art (legacy version)
@@ -248,3 +259,9 @@ Roger:
 - Website coding
 - Wiki update
 - Logos and art design
+
+Marc:
+- Loaded audio to code
+- Buff manager
+- Item system (rough)
+- Update wiki
