@@ -60,7 +60,7 @@ bool j1Transition::Update(float dt)
 		{
 			App->gui->alpha_value -= Dalpha;
 
-			if (newMenuID == menu_id::SELECTION_MENU)
+			if (newMenuID == menu_id::SELECTION_MENU || newMenuID == menu_id::SETTINGS_MENU || newMenuID == menu_id::CREDITS_MENU)
 			App->view->PushQueue(11, bookcover_tex, 0, 0, bookcover_anim.frames[0]);
 			else if(newMenuID == menu_id::START_MENU && App->ui_scene->previous_menu == menu_id::START_MENU)
 			App->view->PushQueue(11, bookcover_tex, 0, 0, bookcover_anim.frames[bookcover_anim.last_frame]);
@@ -75,7 +75,7 @@ bool j1Transition::Update(float dt)
 				App->win->GetWindowSize(width, height);
 				SDL_Rect screen = { 0,0,width,height };
 
-				if(newMenuID == menu_id::SELECTION_MENU)
+				if(newMenuID == menu_id::SELECTION_MENU || newMenuID == menu_id::SETTINGS_MENU || newMenuID == menu_id::CREDITS_MENU)
 				App->view->PushQueue(12, bookcover_tex, 0, 0, bookcover_anim.GetCurrentFrame(dt));
 				else if(newMenuID == menu_id::START_MENU && App->ui_scene->previous_menu == menu_id::START_MENU)
 				App->view->PushQueue(12, bookcover_tex, 0, 0, bookcover_anim.GetCurrentFrame(dt));
@@ -94,7 +94,7 @@ bool j1Transition::Update(float dt)
 				else if (bookcover_anim.Finished() || (bookcover_anim.speed < 0 && bookcover_anim.current_frame == 0))
 				{
 
-					if (newMenuID == menu_id::SELECTION_MENU)
+					if (newMenuID == menu_id::SELECTION_MENU || newMenuID == menu_id::SETTINGS_MENU || newMenuID == menu_id::CREDITS_MENU)
 					{
 						bookcover_anim.Reset();
 						bookcover_anim.current_frame = bookcover_anim.last_frame;
