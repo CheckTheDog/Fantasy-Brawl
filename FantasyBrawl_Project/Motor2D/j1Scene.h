@@ -62,7 +62,6 @@ public:
 	fPoint initialposP3 = { 0.0f,0.0f };
 	fPoint initialposP4 = { 0.0f,0.0f };
 
-	SDL_Texture* champselect_bg;
 private:
 
 	std::vector <std::string*> StageList;
