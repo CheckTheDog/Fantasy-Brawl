@@ -32,13 +32,13 @@ void Marker::BlitElement()
 		if ((*(*target))->parent != nullptr &&  
 			(*(*target))->parent->element_type == SLIDER)
 		{
-			globalPos.x = (*(*target))->parent->localPosition.x + ((*(*target))->parent->section.w + margin.x + distance_moved) ;
-			globalPos.y = (*(*target))->parent->localPosition.y - ((*(*target))->parent->section.h / 6) + margin.y - 20;
+			globalPos.x = (*(*target))->parent->localPosition.x + ((*(*target))->parent->section.w + margin.x + distance_moved) * (*(*target))->parent->size;
+			globalPos.y = (*(*target))->parent->localPosition.y - (((*(*target))->parent->section.h / 6) + margin.y - 20) * (*(*target))->parent->size;
 		}
 		else
 		{
-			globalPos.x = (*(*target))->localPosition.x + (*(*target))->section.w + margin.x + distance_moved;
-			globalPos.y = (*(*target))->localPosition.y + ((*(*target))->section.h / 6) + margin.y;
+			globalPos.x = (*(*target))->localPosition.x + ((*(*target))->section.w + margin.x + distance_moved) * (*(*target))->size;
+			globalPos.y = (*(*target))->localPosition.y + (((*(*target))->section.h / 6) + margin.y)  * (*(*target))->size;
 		}
 		
 		if (IN_RANGE((*(*target))->element_type, element_type::CUSTOMIZING_BUTTON_BASIC, element_type::CUSTOMIZING_BUTTON_SHIELD) && this->callback != nullptr)
