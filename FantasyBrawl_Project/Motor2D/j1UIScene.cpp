@@ -817,22 +817,21 @@ bool j1UIScene::Start()
 		UI_element* settings_text = App->gui->createText("OPTIONS", 20, 60, mid_font, brown_color);
 		settings_text->setOutlined(true);
 
-
 		//BACK BUTTON
-		UI_element* back_button = App->gui->createButton(650 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* back_button = App->gui->createButton(20 * App->gui->UI_scale, 640 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		back_button->function = BACK;
-		UI_element* back_text = App->gui->createText("EXIT", 710, 680, mid_font, brown_color);
+		back_button->size = 0.8f;
+		UI_element* back_text = App->gui->createText("BACK", 60, 660, mid_font, brown_color);
 		back_text->setOutlined(true);
-		back_button->appendChildAtCenter(back_text);
 
 		//AUDIO
 		Button* music_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		music_slider = App->gui->createSlider(400, 100, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
+		music_slider = App->gui->createSlider(490, 90, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, music_slider_butt, mid_texts_font, brown_color, music_progress);
 		music_slider->modify = MUSIC;
-		settings_image->appendChild(10 * App->gui->UI_scale, 180 * App->gui->UI_scale, music_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 160 * App->gui->UI_scale, music_slider);
 
 
-		UI_element* audio_text = App->gui->createText("AUDIO", 40, 140, small_font, brown_color);
+		UI_element* audio_text = App->gui->createText("AUDIO", 40, 130, small_font, brown_color);
 
 		music_slider->setProgress(float(App->audio->getMusicVolume() * 2) / 255.0f);
 		music_slider->button->localPosition.x = ((music_slider->section.w * App->gui->UI_scale) - 5 - music_slider->button->section.w / (2 / App->gui->UI_scale)) * music_slider->progress;
@@ -841,11 +840,11 @@ bool j1UIScene::Start()
 
 		//FX
 		Button* fx_slider_butt = App->gui->createButton(240, 0, NULL, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, { 341, 287, 17, 40 }, this);
-		fx_slider = App->gui->createSlider(400, 400, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
+		fx_slider = App->gui->createSlider(400, 375, NULL, { 0, 291, 274, 21 }, { 0, 318, 274, 21 }, fx_slider_butt, mid_texts_font, brown_color, fx_progress);
 		fx_slider->modify = FX;
-		settings_image->appendChild(10 * App->gui->UI_scale, 260 * App->gui->UI_scale, fx_slider);
+		settings_image->appendChild(10 * App->gui->UI_scale, 235 * App->gui->UI_scale, fx_slider);
 
-		UI_element* fx_text = App->gui->createText("FX", 40, 220, small_font, brown_color);
+		UI_element* fx_text = App->gui->createText("FX", 40, 195, small_font, brown_color);
 		fx_text->setOutlined(true);
 
 		//FULLSCREEN
@@ -856,19 +855,19 @@ bool j1UIScene::Start()
 		fullscreen_text->setOutlined(true);*/
 
 		//APPLY
-		UI_element* apply_button = App->gui->createButton(350 * App->gui->UI_scale, 650 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
+		UI_element* apply_button = App->gui->createButton(20 * App->gui->UI_scale, 280 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		apply_button->function = APPLY;
+		apply_button->size = 0.8f;
 
-		UI_element* apply_text = App->gui->createText("APPLY", 400, 680, mid_font, yellow_color);
+		UI_element* apply_text = App->gui->createText("APPLY", 50, 300, mid_font, yellow_color);
 		apply_text->setOutlined(true);
-		apply_button->appendChildAtCenter(apply_text);
 
 		//MARKER
 		Marker_anim_data def = Marker_anim_data();
 		marker_custom_button_rects r;
 		r.custom_unlocked = { 852,814,26,22 };
 		r.custom_locked = { 852,772,26,22 };
-		UI_element* feather = App->gui->createMarker(0, 0, { 20, 0 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
+		UI_element* feather = App->gui->createMarker(0, 0, { 15, 17 }, &ingamesettingsMenu->gamepads_focus[0], App->gui->atlas, { 875,174,84,47 }, nullptr, r, def);
 
 
 		//Key binding
