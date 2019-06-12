@@ -106,8 +106,6 @@ We do not own most of the sprites, tilesets, music or sfx presented in this game
 - Player sprites, Tilesets & songs, SFX are property of  Square Enix, original from Final Fantasy Tactics for 
 Sony's Playstation
 
-- Shield and IDCircle animations (circle on the bottom of players) sprites by Pol
-
 ### LICENSE
 
 © 2019 CheckTheDog
@@ -133,7 +131,6 @@ Aitor:
 - Particle collisions and damage, player death
 - Cameras inside map bounds and fixed to players
 - Players spawning position and full reset at new game
-- UI transition improvement (black quad at the back of the screen)
 - Scores (kills + winner) in code
 - Music Plays
 - Improved Sprite Ordering
@@ -143,32 +140,26 @@ Aitor:
 - Auto-Aim
 - Added IDCircle code management
 - Aim path on basic & Super attacks
-- In-game UI adjustments
 - Added margin (code)
 - Added Arrows
 - Added random music at game start
-- In-Game UI multiple adjustments and scaling
 - Solve problems with sliders and storm
 - Adapt UI to viewports
 - Champion selection "playground"
-- Modified all aim paths
 - Hitbox for all players
-- Changes in arrows, IDCircle and shield
-- Sprite ordering adjustments
-- Character Super adjustments and balancing
 - Screen blinking when being hit
-- Adjusted UI transitions
 - Implemented skull anim on player death
 - Implemented particle hit marker
 - HP bar blinking when being damaged
-- Solved bugs in champion selection screen
 - Timer blinking when storm is going to close in
 - Special Abilities
 - Added visual feedback on all supers/specials
 - Added target on nearest player
 - Set App Icon
-- Book animation in code
+- UI Transitions
 - Player appearance && disappearance
+- Website Member page
+- Intro video (code)
 
 Didac:
 
@@ -186,6 +177,7 @@ Didac:
 - Key Binding
 - Options Menu (code)
 - Items
+- Website Member page
 
 Pol:
 
@@ -212,11 +204,15 @@ Pol:
 - Death skull texture
 - Options Menu Art
 - Book animation (art)
+- Website Member page
 
 Vladislav: 
 
 - Basic Particle System (rough)
 - Website
+- Website Member page
+- Intro Video (Art)
+- Gameplay and Trailer
 
 Jacobo:
 
@@ -230,6 +226,8 @@ Jacobo:
 - Final Scoreboard
 - Game Timer
 - Stars shown on screen when obtained
+- Website Member page
+- Intro video (sound)
 
 Oscar:
 
@@ -249,6 +247,7 @@ Oscar:
 - Adjustments in Champion Selection Screen
 - Map preview after champion selection screen
 - Credits Screen
+- Website Member page
 
 Roger:
 - In game UI Art (legacy version)
@@ -259,9 +258,11 @@ Roger:
 - Website coding
 - Wiki update
 - Logos and art design
+- Website Member page
 
 Marc:
 - Loaded audio to code
 - Buff manager
-- Item system (rough)
-- Update wiki
+- Item system (discarded)
+- Updated wiki
+- Website Member page
