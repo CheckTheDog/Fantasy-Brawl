@@ -1201,7 +1201,8 @@ bool j1Player::PostUpdate(float dt)
 	GetNearestPlayerDirection();
 
 	// --- Blitting auto_aim target ---
-	if (auto_aimON && targetP_pos.x != 0.0f && App->ui_scene->actual_menu != SELECTION_MENU)
+	if (auto_aimON && targetP_pos.x != 0.0f && App->ui_scene->actual_menu != SELECTION_MENU
+		&& !AreOtherPlayersDead())
 	App->view->PushQueue(10, manager->target_tex, targetP_pos.x - 15, targetP_pos.y - 30, Target_anim.GetCurrentFrame(dt), ((int)ID)+1, 0, 0, 0, 0, 1.0f);
 
 	//blit kill

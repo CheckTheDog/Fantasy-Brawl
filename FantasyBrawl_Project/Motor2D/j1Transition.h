@@ -46,6 +46,7 @@ private:
 	SDL_Texture* bookcover_tex = nullptr;
 	Animation bookcover_anim;
 
+	SDL_Texture* blackscreen_tex = nullptr;
 	SDL_Texture* intro_tex = nullptr;
 	Animation intro_anim;
 	j1Timer intro_timer;

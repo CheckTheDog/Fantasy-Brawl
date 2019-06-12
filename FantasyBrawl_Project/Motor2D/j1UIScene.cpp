@@ -85,7 +85,7 @@ bool j1UIScene::Start()
 
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
-		UI_element* background_image = App->gui->createImage(0, 0, App->tex->Load("gui/Bg.png"), this);
+		UI_element* background_image = App->gui->createImage(0, 0, panel, this);
 
 		UI_element* webpage = App->gui->createButton(10 * App->gui->UI_scale, 600 * App->gui->UI_scale, NULL, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, { 0, 74, 267, 101 }, this);
 		webpage->function = WEBPAGE;
@@ -1020,6 +1020,11 @@ bool j1UIScene::Update(float dt)
 			
 			actual_menu = START_MENU;
 			App->transition->menuTransition(START_MENU, 0.3f);
+			App->scene->player1->active = false;
+			App->scene->player2->active = false;
+			App->scene->player3->active = false;
+			App->scene->player4->active = false;
+
 			for (int i = 0; i < MAX_GAMEPADS; ++i)
 			{
 				champ_selected[i] = false;
@@ -1688,6 +1693,7 @@ bool j1UIScene::Update(float dt)
 
 bool j1UIScene::PostUpdate(float dt)
 {
+	SDL_SetTextureAlphaMod(A_Butt, App->gui->alpha_value);
 
 	return true;
 }
