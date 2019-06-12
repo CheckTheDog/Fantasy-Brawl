@@ -1,0 +1,1547 @@
+﻿  j1ArenaInteractions.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+j1ArenaInteractions.cpp(246): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1ArenaInteractions.cpp(320): warning C4244: 'return': conversión de 'int' a 'float'; posible pérdida de datos
+  j1BuffManager.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+j1BuffManager.cpp(71): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(72): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(76): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(77): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(86): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(87): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(92): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(107): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(120): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(136): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(146): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+j1BuffManager.cpp(202): warning C4244: 'argumento': conversión de 'float' a 'uint32'; posible pérdida de datos
+  j1Collision.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  j1EntityManager.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+  j1FadeToBlack.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1FadeToBlack.cpp(119): warning C4244: 'argumento': conversión de 'float' a 'uint'; posible pérdida de datos
+  j1Fonts.cpp
+  j1Gui.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1Gui.cpp(73): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+j1Gui.cpp(537): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+j1Gui.cpp(610): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Gui.cpp(615): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Gui.cpp(618): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Gui.cpp(619): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Gui.cpp(686): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  j1ItemManager.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  j1Main.cpp
+  j1App.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1App.cpp(265): warning C4477: 'sprintf_s' : la cadena de formato '%lu' requiere un argumento de tipo 'unsigned long', pero el argumento variádico 6 tiene el tipo 'uint64'
+  j1App.cpp(265): note: considere el uso de ' %llu' en la cadena de formato
+  j1App.cpp(265): note: considere el uso de ' %I64u' en la cadena de formato
+j1App.cpp(269): warning C4018: '<': no coinciden signed/unsigned
+  j1Audio.cpp
+j1Audio.cpp(194): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Audio.cpp(195): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Audio.cpp(204): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Audio.cpp(206): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  j1Input.cpp
+j1Input.cpp(168): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Input.cpp(169): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Input.cpp(170): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Input.cpp(171): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  j1Map.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+j1Map.cpp(230): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1Map.cpp(231): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+  j1ParticleSystem.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1ParticleSystem.cpp(82): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(91): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(108): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
+j1ParticleSystem.cpp(108): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(133): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(134): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(170): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1ParticleSystem.cpp(171): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1ParticleSystem.cpp(176): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(177): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(304): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1ParticleSystem.cpp(384): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+  j1PerfTimer.cpp
+  j1Scene.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1Scene.cpp(65): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(66): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(72): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(73): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(79): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(80): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(86): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(87): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Scene.cpp(172): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Scene.cpp(173): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Scene.cpp(174): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Scene.cpp(175): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Scene.cpp(184): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(185): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(186): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(187): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(189): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(190): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(191): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Scene.cpp(192): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+  j1Timer.cpp
+j1Timer.cpp(40): warning C4244: '=': conversión de 'Uint32' a 'float'; posible pérdida de datos
+j1Timer.cpp(48): warning C4244: '=': conversión de 'float' a 'uint32'; posible pérdida de datos
+j1Timer.cpp(59): warning C4244: '+=': conversión de 'float' a 'uint32'; posible pérdida de datos
+j1Timer.cpp(67): warning C4244: '+=': conversión de 'float' a 'uint32'; posible pérdida de datos
+  j1Viewport.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+j1Viewport.cpp(173): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(174): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(177): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(178): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(181): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(182): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(185): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(186): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(199): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(200): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(208): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(209): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(212): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(213): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(216): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(217): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(220): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(221): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(497): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+j1Viewport.cpp(513): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Viewport.cpp(542): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+j1Viewport.cpp(575): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+j1Viewport.cpp(608): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+j1Viewport.cpp(641): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+  j1Transition.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1Transition.cpp(58): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Transition.cpp(94): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Transition.cpp(116): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Transition.cpp(166): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+  j1UIScene.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1UIScene.cpp(90): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(195): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(254): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(261): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(270): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(279): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(324): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(327): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(333): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(336): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(339): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(346): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(349): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(355): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(358): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(361): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(368): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(371): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(377): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(380): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(383): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(390): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(393): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(399): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(402): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(405): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1UIScene.cpp(473): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(476): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(479): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(482): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(485): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(488): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(491): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(494): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(513): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(615): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(627): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(630): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(644): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(658): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(819): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(829): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(835): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(843): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(856): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1UIScene.cpp(1118): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1119): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1120): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1121): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1122): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1123): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1124): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1125): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1128): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1129): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1130): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1131): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1132): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1133): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1134): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1135): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1148): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1149): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1150): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1151): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1152): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1153): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1154): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1155): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1158): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1159): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1160): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1161): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1162): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1163): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1164): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1165): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1168): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1169): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1170): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1171): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1172): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1173): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1174): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1175): warning C4244: '=': conversión de 'TYPE' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+          and
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(1791): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(1815): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(1867): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(1873): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(1990): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(2002): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(2009): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(2028): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(2042): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+j1UIScene.cpp(2094): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2099): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2102): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2110): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2115): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2118): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2299): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2304): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2307): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2316): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2322): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1UIScene.cpp(2326): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+  Compilando...
+  p2Log.cpp
+  j1Render.cpp
+j1Render.cpp(132): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1Render.cpp(133): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+j1Render.cpp(151): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(152): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(164): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(165): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(199): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(200): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(225): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Render.cpp(227): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  j1Textures.cpp
+  j1Window.cpp
+  j1Player.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1EntityManager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+j1Player.cpp(76): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(78): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(79): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(82): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(149): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(312): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Player.cpp(313): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Player.cpp(320): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Player.cpp(321): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+j1Player.cpp(351): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(382): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(385): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(386): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(389): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(524): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(526): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(531): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(533): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(556): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(556): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(556): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(558): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(558): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(558): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(572): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(572): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(574): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(574): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(581): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(586): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(586): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
+j1Player.cpp(586): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(588): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(588): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
+j1Player.cpp(588): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(595): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(601): warning C4244: '=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(603): warning C4244: '=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(606): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(608): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(767): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(775): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(776): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(787): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(788): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(798): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(799): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(800): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(801): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(827): warning C4018: '<': no coinciden signed/unsigned
+j1Player.cpp(829): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+j1Player.cpp(830): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(852): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(878): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(912): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(913): warning C4244: '=': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(914): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(915): warning C4244: '*=': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(969): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1045): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1045): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1047): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1047): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1053): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1053): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1055): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1055): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1060): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1060): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1062): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1062): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1069): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1069): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1071): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1071): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1078): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1078): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1079): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1079): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1080): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1080): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1083): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1083): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1084): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1084): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1085): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1085): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1088): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1088): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1089): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1089): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1090): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1090): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1093): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1093): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1094): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1094): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1095): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1095): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1103): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1103): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1121): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1121): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
+j1Player.cpp(1121): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1123): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1123): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
+j1Player.cpp(1123): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1192): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1205): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1209): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1217): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1221): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1348): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1349): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1353): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1354): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1362): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1367): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1368): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1386): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1387): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1391): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1392): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1400): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1405): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1406): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1423): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1424): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1428): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1429): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1437): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1442): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1443): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1460): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1461): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1465): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1466): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1474): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1479): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1480): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1663): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1663): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1663): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1666): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1666): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1666): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1669): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1669): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1669): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1674): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1674): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1674): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1677): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1677): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1677): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1680): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1680): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1680): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1685): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1685): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1685): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1688): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1688): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1688): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1691): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1691): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1691): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1696): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1696): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1696): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1699): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1699): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1699): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1702): warning C4244: 'argumento': conversión de 'uint' a 'float'; posible pérdida de datos
+j1Player.cpp(1702): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+j1Player.cpp(1702): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+j1Player.cpp(1892): warning C4018: '>': no coinciden signed/unsigned
+  pugixml.cpp
+  UI_Button.cpp
+UI_Button.cpp(22): warning C4244: 'argumento': conversión de 'float' a 'const TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Button.cpp(23): warning C4244: '-=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Button.cpp(24): warning C4244: '-=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+  UI_Clock.cpp
+UI_Clock.cpp(35): warning C4244: '=': conversión de 'float' a 'uint'; posible pérdida de datos
+UI_Clock.cpp(46): warning C4018: '<': no coinciden signed/unsigned
+  UI_Image.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+UI_Image.cpp(41): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(52): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(63): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(74): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(93): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(109): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(125): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+UI_Image.cpp(141): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  UI_Marker.cpp
+UI_Marker.cpp(35): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Marker.cpp(36): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Marker.cpp(40): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Marker.cpp(41): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+  UI_Slider.cpp
+UI_Slider.cpp(40): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Slider.cpp(41): warning C4244: '=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Slider.cpp(47): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  UI_Text.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1ParticleSystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+UI_Text.cpp(48): warning C4244: '/=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+  UI_Window.cpp
+UI_Window.cpp(21): warning C4244: 'argumento': conversión de 'float' a 'const TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Window.cpp(22): warning C4244: '-=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+UI_Window.cpp(23): warning C4244: '-=': conversión de 'float' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=int
+          ]
+  Generando código
+  113 of 2256 functions ( 5.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    68 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  Motor2D.vcxproj -> C:\Users\Jacobo_G\Documents\GitHub\Fantasy-Brawl\FantasyBrawl_Project\Release\FantasyBrawl.exe

@@ -1,0 +1,9 @@
+﻿  j1Transition.cpp
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1particlesystem.h(63): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1entitymanager.h(169): warning C4244: 'inicializando': conversión de 'float' a 'uint'; posible pérdida de datos
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1transition.cpp(64): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1transition.cpp(79): warning C4838: la conversión de 'uint' en 'int' requiere una conversión de restricción
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1transition.cpp(103): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1transition.cpp(119): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\jacobo_g\documents\github\fantasy-brawl\fantasybrawl_project\motor2d\j1transition.cpp(169): warning C4244: 'argumento': conversión de 'float' a 'Uint8'; posible pérdida de datos
+  Motor2D.vcxproj -> C:\Users\Jacobo_G\Documents\GitHub\Fantasy-Brawl\FantasyBrawl_Project\Debug\FantasyBrawl.exe
