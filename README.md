@@ -266,3 +266,8 @@ Marc:
 - Item system (discarded)
 - Updated wiki
 - Website Member page
+
+### Special thanks
+
+
+* Github account: [ch0m5](https://github.com/ch0m5)
