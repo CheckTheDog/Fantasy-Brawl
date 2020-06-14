@@ -79,6 +79,10 @@ and effectively towards our goal, making this game a reality! Know the team!
 **QA:** _Pol Bosch_
 * Github account: [OhCaXulu](https://github.com/OhCaXulu)
 
+### Special thanks
+
+* Github account: [ch0m5](https://github.com/ch0m5)
+
 ### SOCIAL
 
 Caught your interest? Follow us on twitter! Updates on the game's development are on their way!
@@ -267,7 +271,3 @@ Marc:
 - Updated wiki
 - Website Member page
 
-### Special thanks
-
-
-* Github account: [ch0m5](https://github.com/ch0m5)
